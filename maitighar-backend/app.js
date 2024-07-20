@@ -4,7 +4,9 @@ const config = require("./utils/config");
 const app = express();
 const mongoose = require("mongoose");
 const issueRouter = require("./controllers/issues")
+const suggestionRouter = require("./controllers/suggestions")
 const userRouter = require("./controllers/users");
+const upvoteRouter = require("./controllers/upvotes");
 const loginRouter = require("./controllers/login");
 
 mongoose.set("strictQuery", false);
@@ -25,5 +27,7 @@ app.get("/", (request, response) => {
 	response.send("<h1>Hello World!</h1>");
 });
 app.use("/api/issues",  issueRouter);
+app.use("/api/suggestions", suggestionRouter);
+app.use("/api/upvotes",  upvoteRouter);
 
 module.exports = app;

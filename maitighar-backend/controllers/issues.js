@@ -16,6 +16,25 @@ issueRouter.post('/', async (req, res) => {
   }
 });
 
+// issueRouter.post('/:id/upvote', async (req, res) => {
+//   try {
+//     const userId = req.user.id; 
+//     const issue = await Issue.findById(req.params.id);
+//     if (!issue) {
+//       return res.status(404).json({ error: 'Issue not found' });
+//     }
+//     if (issue.upvotedBy.includes(userId)) {
+//       return res.status(400).json({ error: 'User has already upvoted' });
+//     }
+//     issue.upvotes += 1;
+//     issue.upvotedBy.push(userId);
+//     await issue.save();
+//     res.json(issue);
+//   } catch (error) {
+//     res.status(500).json({ error: error.message });
+//   }
+// });
+
 // Get all issues
 issueRouter.get('/', async (req, res) => {
   try {
