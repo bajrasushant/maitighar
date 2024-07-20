@@ -26,6 +26,10 @@ const issueSchema = new Schema({
     type: Number,
     default: 0,
   },
+  upvotedBy: [{
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  }],
   status: {
     type: String,
     enum: ['open', 'received', 'resolved'],
