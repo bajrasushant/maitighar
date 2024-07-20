@@ -37,7 +37,10 @@ issueRouter.post("/", async (req, res) => {
 // Get all issues
 issueRouter.get("/", async (req, res) => {
   try {
-    const issues = await Issue.find();
+		const count = await Issue.countDocuments({});
+    const issues = await Issue.find({});
+    console.log(issues);
+		console.log(count);
     res.json(issues);
   } catch (error) {
     res.status(500).json({ error: error.message });

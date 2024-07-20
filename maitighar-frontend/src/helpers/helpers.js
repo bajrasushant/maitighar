@@ -8,4 +8,6 @@ const setToken = (newToken) => {
 	};
 };
 
-export default { setToken };
+const getConfig = () => config;
+
+export default { setToken, getConfig };
