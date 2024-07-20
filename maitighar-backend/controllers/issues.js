@@ -49,15 +49,16 @@ issueRouter.get("/", async (req, res) => {
 
 // Get a issue by ID
 issueRouter.get("/:id", async (req, res) => {
-  try {
-    const issue = await Issue.findById(req.params.id);
-    if (!issue) {
-      return res.status(404).json({ error: "issue not found" });
-    }
-    res.json(issue);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
+	try {
+		const issue = await Issue.findById(req.params.id);
+		if (!issue) {
+			return res.status(404).json({ error: "issue not found" });
+		}
+		// const upvoteCount = await Upvote.countDocuments({ issue: issue.id });
+		res.json(issue);
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
 });
 
 // Update a issue

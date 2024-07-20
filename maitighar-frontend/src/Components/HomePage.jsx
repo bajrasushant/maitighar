@@ -155,6 +155,10 @@ const HomePage = () => {
 		handleCloseCreateMenu();
 	};
 
+  const handleCardClick = (id) => {
+    navigate(`/details/${id}`);
+  };
+
 	const addIssue = async (issueObject) => {
 		try {
 			await issueService.createIssue(issueObject);
@@ -243,24 +247,34 @@ const HomePage = () => {
           </Card>
         ))}
 				*/}
+
 				{loading ? (
 					<Typography>Loading...</Typography>
 				) : error ? (
 					<Typography color="error">{error}</Typography>
 				) : (
 					issues.map((issue) => (
-						<Card key={issue.id} style={{ marginBottom: "20px" }}>
+						<Card 
+              key={issue.id} 
+              style={{ marginBottom: "20px" }}
+            >
 							<CardContent>
 								<Grid container alignItems="center">
 									<Grid item>
 										<IconButton onClick={() => handleUpvote(issue.id)}>
-											<ArrowUpward />
-										</IconButton>
+                      {issue.upvotedBy.includes(currentUser?.id) ? (
+                        <ArrowUpward color="primary" />
+                      ) : (
+                        <ArrowUpwardOutlined />
+                      )}
+                    </IconButton>
 										<Typography>{issue.upvotes}</Typography>
 									</Grid>
 									<Grid item xs>
-										<Typography variant="h6">{issue.title}</Typography>
+                    <Grid onClick={() => handleCardClick(issue.id)}>
+                    <Typography variant="h6">{issue.title}</Typography>
 										<Typography variant="body2">{issue.description}</Typography>
+                    </Grid>
 										<Button
 											startIcon={<Comment />}
 											onClick={() => toggleComments(issue.id)}
