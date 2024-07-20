@@ -15,4 +15,10 @@ const createIssue = async (newObject) => {
   return response.data;
 };
 
-export default { getAll, createIssue };
+const getIssueId = async (id) => {
+  const config = helpers.getConfig();
+  const request = await axios.get(`${baseUrl}/${id}`, config);
+  return request.data;
+};
+
+export default { getAll, createIssue, getIssueId };
