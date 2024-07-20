@@ -21,4 +21,10 @@ const getIssueId = async (id) => {
   return request.data;
 };
 
-export default { getAll, createIssue, getIssueId };
+const upvoteIssue = async (id) => {
+	const config = helpers.getConfig();
+  const response = await axios.put(`${baseUrl}/${id}/upvote`,{}, config);
+  return response.data;
+};
+
+export default { getAll, createIssue, upvoteIssue, getIssueId };
