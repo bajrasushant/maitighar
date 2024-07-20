@@ -51,7 +51,7 @@ issueRouter.get("/", async (req, res) => {
 // Get a issue by ID
 issueRouter.get("/:id", async (req, res) => {
 	try {
-		const issue = await Issue.findById(req.params.id);
+		const issue = await Issue.findById(req.params.id).populate("createdBy", "username");
 		if (!issue) {
 			return res.status(404).json({ error: "issue not found" });
 		}
