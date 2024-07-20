@@ -5,19 +5,21 @@ import {
   Grid,
   Typography,
   Container,
-  // FormControl,
-  // InputLabel,
-  // Select,
-  // MenuItem,
+  FormControl,
+  InputLabel,
+  Select,
+ MenuItem,
   Box,
 } from "@mui/material";
 import LocationPicker from "./LocationPicker";
+
+const departments = ["roads", "water", "education", "garbage", "health"];
 
 const ReportForm = ({ createIssue }) => {
   const defaultReportState = {
     title: "",
     description: "",
-    department: "others",
+    department: "",
     position: {
       latitude: 27.7172,
       longitude: 85.324,
@@ -27,16 +29,6 @@ const ReportForm = ({ createIssue }) => {
   };
   const [report, setReport] = useState(defaultReportState);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const finalReport = {
-      ...report,
-      latitude: position[0],
-      longitude: position[1],
-    };
-    console.log(finalReport);
-    // Here you would typically send the report data to your backend
-  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
