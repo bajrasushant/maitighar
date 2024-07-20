@@ -9,6 +9,7 @@ const userRouter = require("./controllers/users");
 const upvoteRouter = require("./controllers/upvotes");
 const loginRouter = require("./controllers/login");
 const adminRouter = require("./controllers/admins");
+const commentRouter = require("./controllers/comments");
 const middleware = require("./utils/middleware");
 
 mongoose.set("strictQuery", false);
@@ -35,6 +36,7 @@ app.get("/", (request, response) => {
 app.use("/api/issues", middleware.userExtractor,  issueRouter);
 app.use("/api/suggestions", suggestionRouter);
 app.use("/api/upvotes",  upvoteRouter);
+app.use("/api/comments", middleware.userExtractor, commentRouter);
 
 app.use(middleware.errorHandler);
 app.use(middleware.unknownEndpoint);
