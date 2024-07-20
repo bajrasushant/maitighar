@@ -11,16 +11,16 @@ import {
   // MenuItem,
   Box
 } from '@mui/material';
+import LocationPicker from './LocationPicker';
 
 const SuggestionForm = () => {
   const [report, setReport] = useState({
     title: '',
     description: '',
-    latitude: '',
-    longitude: '',
     images: [],
     status: 'open',
   });
+  const [position, setPosition] = useState([27.7172, 85.3240]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -74,27 +74,14 @@ const SuggestionForm = () => {
               required
             />
           </Grid>
-          <Grid item xs={6}>
-            <TextField
-              fullWidth
-              label="Latitude"
-              name="latitude"
-              type="number"
-              value={report.latitude}
-              onChange={handleChange}
-              required
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              fullWidth
-              label="Longitude"
-              name="longitude"
-              type="number"
-              value={report.longitude}
-              onChange={handleChange}
-              required
-            />
+          <Grid item xs={12}>
+            <Typography variant="subtitle1" gutterBottom>
+              Select Location on Map
+            </Typography>
+            <LocationPicker position={position} setPosition={setPosition} />
+            {/* <Typography variant="body2" gutterBottom>
+              Latitude: {position[0]}, Longitude: {position[1]}
+            </Typography> */}
           </Grid>
           {/* <Grid item xs={12}>
             <input
