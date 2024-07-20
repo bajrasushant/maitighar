@@ -36,6 +36,7 @@ import issueService from "../services/issues";
 
 const HomePage = () => {
   const currentUser = useUserValue();
+  console.log(currentUser);
   const [reports, setReports] = useState([
     {
       id: 1,
