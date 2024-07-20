@@ -280,9 +280,9 @@ const HomePage = () => {
                     </Grid>
 										<Button
 											startIcon={<Comment />}
-											onClick={() => toggleComments(issue.id)}
+											disabled
 										>
-											Comments ({issue.comments ? issue.comments.length : 0})
+											Comments ({issue.commentCount})
 										</Button>
 									</Grid>
 								</Grid>

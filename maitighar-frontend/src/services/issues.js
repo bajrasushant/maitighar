@@ -27,4 +27,4 @@ const upvoteIssue = async (id) => {
   return response.data;
 };
 
-export default { getAll, createIssue, upvoteIssue, getIssueId };
+export default { getAll, createIssue, upvoteIssue, getIssueId};

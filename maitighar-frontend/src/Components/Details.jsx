@@ -132,8 +132,8 @@
 
 // export default Details;
 
-import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import {
   Container,
   Typography,
@@ -146,14 +146,10 @@ import {
   TextField,
   Divider,
   Avatar,
-} from '@mui/material';
-import {
-  ArrowUpward,
-  Comment,
-  Share,
-  ArrowBack,
-} from '@mui/icons-material';
+} from "@mui/material";
+import { ArrowUpward, Comment, Share, ArrowBack } from "@mui/icons-material";
 import issueService from "../services/issues";
+import commentService from "../services/comment";
 
 const Details = () => {
   const { id } = useParams();
@@ -162,41 +158,71 @@ const Details = () => {
   const [issues, setIssues] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [locationName, setLocationName] = useState('');
+  const [locationName, setLocationName] = useState("");
+  const [comments, setComments] = useState([]);
+  const [newComment, setNewComment] = useState("");
 
   useEffect(() => {
-		const fetchIssueId = async () => {
-			try {
-				const fetchedIssues = await issueService.getIssueId(id);
-				console.log(fetchedIssues);
-				setIssues(fetchedIssues);
+    const fetchIssueId = async () => {
+      try {
+        const fetchedIssues = await issueService.getIssueId(id);
+        console.log(fetchedIssues);
+        setIssues(fetchedIssues);
         fetchLocationName(fetchedIssues.latitude, fetchedIssues.longitude);
-				setLoading(false);
-			} catch (err) {
-				setError("Failed to fetch issues");
-				setLoading(false);
-			}
-		};
+        const fetchedComments = await commentService.getCommentByIssue(id);
+        setComments(fetchedComments);
+        setLoading(false);
+      } catch (err) {
+        setError("Failed to fetch issues");
+        setLoading(false);
+      }
+    };
 
-		fetchIssueId();
-	}, [id]);
+    fetchIssueId();
+  }, [id]);
 
   const fetchLocationName = async (lat, lon) => {
     try {
-      const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`);
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`,
+      );
       const data = await response.json();
-      setLocationName(data.display_name || 'Location name not available');
+      setLocationName(data.display_name || "Location name not available");
       setLoading(false);
     } catch (err) {
-      console.error('Error fetching location name:', err);
-      setLocationName('Unable to fetch location name');
+      console.error("Error fetching location name:", err);
+      setLocationName("Unable to fetch location name");
       setLoading(false);
+    }
+  };
+
+  const handleCommentSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const newCommentData = {
+        description: newComment,
+        issue: id,
+      };
+
+      const savedComment = await commentService.createComment(newCommentData);
+      setComments([...comments, savedComment]);
+      setNewComment("");
+    } catch (err) {
+      console.error("Error creating comment:", err);
     }
   };
 
   if (loading) {
     return (
-      <Container maxWidth="md" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+      <Container
+        maxWidth="md"
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
         <CircularProgress />
       </Container>
     );
@@ -206,7 +232,7 @@ const Details = () => {
     return (
       <Container maxWidth="md">
         <Typography color="error">{error}</Typography>
-        <Button onClick={() => navigate('/')}>Go back to Home</Button>
+        <Button onClick={() => navigate("/")}>Go back to Home</Button>
       </Container>
     );
   }
@@ -215,7 +241,7 @@ const Details = () => {
     return (
       <Container maxWidth="md">
         <Typography>No report found with this ID.</Typography>
-        <Button onClick={() => navigate('/')}>Go back to Home</Button>
+        <Button onClick={() => navigate("/")}>Go back to Home</Button>
       </Container>
     );
   }
@@ -224,8 +250,8 @@ const Details = () => {
     <Container maxWidth="md">
       <Button
         startIcon={<ArrowBack />}
-        onClick={() => navigate('/')}
-        style={{ marginTop: '20px', marginBottom: '20px' }}
+        onClick={() => navigate("/")}
+        style={{ marginTop: "20px", marginBottom: "20px" }}
       >
         Back to Home
       </Button>
@@ -241,52 +267,81 @@ const Details = () => {
             <Grid item xs={11}>
               <Typography variant="h5">{issues.title}</Typography>
               <Typography variant="body2" color="textSecondary">
-                Posted by {issues.createdBy} on {new Date(issues.createdAt).toLocaleDateString()}
+                Posted by {issues.createdBy} on{" "}
+                {new Date(issues.createdAt).toLocaleDateString()}
               </Typography>
-              <Typography variant="body1" paragraph style={{ marginTop: '16px' }}>
+              <Typography
+                variant="body1"
+                paragraph
+                style={{ marginTop: "16px" }}
+              >
                 {issues.description}
               </Typography>
               <Typography variant="body2" color="textSecondary">
-                Department: {issues.department} | Status: {issues.status} | Location: {locationName}
+                Department: {issues.department} | Status: {issues.status} |
+                Location: {locationName}
               </Typography>
               {issues.images && issues.images.length > 0 && (
-                <div style={{ marginTop: '20px' }}>
+                <div style={{ marginTop: "20px" }}>
                   {issues.images.map((img, index) => (
-                    <img key={index} src={img} alt={`issues image ${index + 1}`} style={{ maxWidth: '100%', marginBottom: '10px' }} />
+                    <img
+                      key={index}
+                      src={img}
+                      alt={`issues image ${index + 1}`}
+                      style={{ maxWidth: "100%", marginBottom: "10px" }}
+                    />
                   ))}
                 </div>
               )}
-              <Grid container spacing={2} style={{ marginTop: '16px' }}>
+              <Grid container spacing={2} style={{ marginTop: "16px" }}>
                 <Grid item>
                   <Button startIcon={<Comment />}>
-                    {issues.comments ? issues.comments.length : 0} Comments
+                    {comments.length} Comments
                   </Button>
                 </Grid>
                 <Grid item>
-                  <Button startIcon={<Share />}>
-                    Share
-                  </Button>
+                  <Button startIcon={<Share />}>Share</Button>
                 </Grid>
               </Grid>
             </Grid>
           </Grid>
-          <Divider style={{ margin: '20px 0' }} />
+          <Divider style={{ margin: "20px 0" }} />
           <TextField
             fullWidth
             variant="outlined"
             placeholder="Add a comment"
-            style={{ marginBottom: '20px' }}
+            value={newComment}
+            onChange={(e) => setNewComment(e.target.value)}
+            style={{ marginBottom: "20px" }}
           />
-          {issues.comments && issues.comments.length > 0 && (
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleCommentSubmit}
+          >
+            Submit
+          </Button>
+          {comments.length > 0 && (
             <div>
-              {issues.comments.map((comment, index) => (
-                <Grid container spacing={2} key={index} style={{ marginBottom: '16px' }}>
-                  <Grid item>
-                    <Avatar>{comment.author[0]}</Avatar>
-                  </Grid>
+              {comments.map((comment, index) => (
+                <Grid
+                  container
+                  spacing={2}
+                  key={index}
+                  style={{ marginBottom: "16px" }}
+                >
+                  {/*
+									<Grid item>
+										<Avatar>{comment.createdBy}</Avatar>
+									</Grid>
+											*/}
                   <Grid item xs>
-                    <Typography variant="subtitle2">{comment.author}</Typography>
-                    <Typography variant="body2">{comment.text}</Typography>
+                    <Typography variant="subtitle2">
+                      {comment.createdBy}
+                    </Typography>
+                    <Typography variant="body2">
+                      {comment.description}
+                    </Typography>
                   </Grid>
                 </Grid>
               ))}
