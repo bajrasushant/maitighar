@@ -12,15 +12,16 @@ const issueSchema = new Schema({
   },
   department: {
     type: String,
-    required: true,
+    enum: ['Local Government', 'Central Government'],
+    default: 'Local Government',
   },
   latitude: {
-  type: Number,
-  required: true,
+    type: Number,
+    required: true,
   },
   longitude: {
-  type: Number,
-  required: true,
+    type: Number,
+    required: true,
   },
   upvotes: {
     type: Number,
@@ -46,12 +47,18 @@ const issueSchema = new Schema({
   }
 });
 
-issueSchema.set("toJSON", {
- transform: (document, returnedObject) => {
-  returnedObject.id = returnedObject._id;
-  delete returnedObject._id;
-  delete returnedObject.__v;
- }
-})
+// Pre-save hook to update the `upvotes` field
+issueSchema.pre('save', function (next) {
+  this.upvotes = this.upvotedBy.length;
+  next();
+});
 
-module.exports = mongoose.model('issue', issueSchema);
+issueSchema.set("toJSON", {
+  transform: (document, returnedObject) => {
+    returnedObject.id = returnedObject._id;
+    delete returnedObject._id;
+    delete returnedObject.__v;
+  }
+});
+
+module.exports = mongoose.model('Issue', issueSchema);
