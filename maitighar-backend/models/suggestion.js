@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const departments = ['roads', 'water', 'education', 'garbage', 'health'];
+
 const suggestionSchema = new Schema({
   title: {
     type: String,
@@ -26,6 +28,11 @@ const suggestionSchema = new Schema({
     type: String,
     enum: ['open', 'received', 'resolved'],
     default: 'open',
+  },
+  department: {
+    type: String,
+    enum: departments,
+    required: true,
   },
   createdBy: {
     type: Schema.Types.ObjectId,

@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const departments = ['roads', 'water', 'education', 'garbage', 'health'];
+
 const issueSchema = new Schema({
   title: {
     type: String,
@@ -12,8 +14,8 @@ const issueSchema = new Schema({
   },
   department: {
     type: String,
-    enum: ['Local Government', 'Central Government'],
-    default: 'Local Government',
+    enum: departments,
+    required: true,
   },
   latitude: {
     type: Number,
