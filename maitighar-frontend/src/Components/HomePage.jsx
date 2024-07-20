@@ -87,7 +87,7 @@ const HomePage = () => {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Community Reports
+            Maitighar
           </Typography>
           <Button 
             color="inherit" 
