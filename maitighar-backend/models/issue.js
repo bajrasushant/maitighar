@@ -40,6 +40,11 @@ const issueSchema = new Schema({
 		enum: ["open", "received", "resolved"],
 		default: "open",
 	},
+  type: {
+    type: String,
+    enum: ['issue', 'suggestion'],
+    required: true,
+  },
 	createdBy: {
 		type: Schema.Types.ObjectId,
 		ref: "User",
