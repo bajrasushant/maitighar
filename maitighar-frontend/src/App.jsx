@@ -4,7 +4,8 @@ import {
 } from 'react-router-dom'
 import SignIn from "./Components/Login"
 import SignUp from "./Components/Register"
-import IssueForm from "./Components/IssueForm"
+import ReportForm from "./Components/IssueForm"
+import HomePage from './Components/HomePage'
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
       {/* <SignIn /> */}
       <Router>
         <Routes>
-          <Route path="/" element={<IssueForm />} />
+          <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<SignIn />} />
           <Route path="/register" element={<SignUp />} />
         </Routes>
