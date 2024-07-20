@@ -25,6 +25,7 @@ const ReportForm = ({ createIssue }) => {
       longitude: 85.324,
     },
     status: "open",
+		upvotes: 0,
   };
   const [report, setReport] = useState(defaultReportState);
 
@@ -56,6 +57,7 @@ const ReportForm = ({ createIssue }) => {
       latitude: report.position.latitude,
       longitude: report.position.longitude,
       status: report.status,
+			upvotes: report.upvotes
     };
 
     try {
