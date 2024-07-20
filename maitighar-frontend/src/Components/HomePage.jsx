@@ -26,14 +26,17 @@ import {
 	Add,
 	Notifications,
 	AccountCircle,
+	ArrowUpwardOutlined,
 } from "@mui/icons-material";
 import ReportForm from "./IssueForm";
 import SuggestionForm from "./SuggestionForm";
 import { useUserDispatch } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import issueService from "../services/issues";
+import {useUserValue} from "../context/UserContext";
 
 const HomePage = () => {
+	const currentUser = useUserValue();
 	const [reports, setReports] = useState([
 		{
 			id: 1,
@@ -155,9 +158,9 @@ const HomePage = () => {
 		handleCloseCreateMenu();
 	};
 
-  const handleCardClick = (id) => {
-    navigate(`/details/${id}`);
-  };
+	const handleCardClick = (id) => {
+		navigate(`/details/${id}`);
+	  };
 
 	const addIssue = async (issueObject) => {
 		try {
@@ -265,7 +268,7 @@ const HomePage = () => {
                       {issue.upvotedBy.includes(currentUser?.id) ? (
                         <ArrowUpward color="primary" />
                       ) : (
-                        <ArrowUpwardOutlined />
+                        <ArrowUpwardOutlined/>
                       )}
                     </IconButton>
 										<Typography>{issue.upvotes}</Typography>
