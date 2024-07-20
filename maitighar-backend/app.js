@@ -8,6 +8,7 @@ const suggestionRouter = require("./controllers/suggestions")
 const userRouter = require("./controllers/users");
 const upvoteRouter = require("./controllers/upvotes");
 const loginRouter = require("./controllers/login");
+const adminRouter = require("./controllers/admins");
 
 mongoose.set("strictQuery", false);
 mongoose
@@ -21,7 +22,7 @@ app.use(express.json());
 
 app.use("/api/users", userRouter);
 app.use("/api/login", loginRouter);
-
+app.use("/api/admins", adminRouter);
 
 app.get("/", (request, response) => {
 	response.send("<h1>Hello World!</h1>");
