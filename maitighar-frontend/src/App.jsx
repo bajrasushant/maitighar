@@ -5,6 +5,7 @@ import HomePage from "./Components/HomePage";
 import { useUserDispatch, useUserValue } from "./context/UserContext";
 import { useEffect } from "react";
 import AdminLogin from "./Components/AdminLogin";
+import Details from "./Components/Details";
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
 					<Route path="/login" element={user ? <HomePage /> : <SignIn />} />
 					<Route path="/register" element={<SignUp />} />
 					<Route path="/" element={user ? <HomePage /> : <SignIn />} />{" "}
+          <Route path="/details/:id" element={<Details />} />
 					<Route path= "/adminLogin" element = {<AdminLogin/>} />
 				</Routes>
 			</Router>
