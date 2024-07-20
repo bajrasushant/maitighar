@@ -5,13 +5,15 @@ import {
   Grid, 
   Typography, 
   Container,
-  // FormControl,
-  // InputLabel,
-  // Select,
-  // MenuItem,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
   Box
 } from '@mui/material';
 import LocationPicker from './LocationPicker';
+
+const departments = ['roads', 'water', 'education', 'garbage', 'health'];
 
 const ReportForm = () => {
   const [report, setReport] = useState({
@@ -19,8 +21,20 @@ const ReportForm = () => {
     description: '',
     images: [],
     status: 'open',
+    department: '',
   });
   const [position, setPosition] = useState([27.7172, 85.3240]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const finalReport = {
+      ...report,
+      latitude: position[0],
+      longitude: position[1],
+    };
+    console.log(finalReport);
+    // Here you would typically send the report data to your backend
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -39,11 +53,11 @@ const ReportForm = () => {
   //   }));
   // };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Here you would typically send the report data to your backend
-    console.log(report);
-  };
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   // Here you would typically send the report data to your backend
+  //   console.log(report);
+  // };
 
   return (
     <Container maxWidth="sm">
@@ -73,6 +87,23 @@ const ReportForm = () => {
               rows={4}
               required
             />
+          </Grid>
+          <Grid item xs={12}>
+            <FormControl fullWidth required>
+              <InputLabel>Department</InputLabel>
+              <Select
+                name="department"
+                value={report.department}
+                onChange={handleChange}
+                label="Department"
+              >
+                {departments.map((dept) => (
+                  <MenuItem key={dept} value={dept}>
+                    {dept.charAt(0).toUpperCase() + dept.slice(1)}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           </Grid>
           <Grid item xs={12}>
             <Typography variant="subtitle1" gutterBottom>
