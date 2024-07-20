@@ -155,6 +155,15 @@ const HomePage = () => {
 		handleCloseCreateMenu();
 	};
 
+	const addIssue = async (issueObject) => {
+		try {
+			await issueService.createIssue(issueObject);
+			issueService.getAll().then((issues) => setIssues(issues));
+		} catch (err) {
+			console.error("Err:", err.message);
+		}
+	};
+
 	return (
 		<>
 			<AppBar position="static">
@@ -304,7 +313,7 @@ const HomePage = () => {
 			<Dialog open={openReportForm} onClose={() => setOpenReportForm(false)}>
 				{/* <DialogTitle>Create New Report</DialogTitle> */}
 				<DialogContent>
-					<ReportForm />
+					<ReportForm createIssue={addIssue} />
 				</DialogContent>
 			</Dialog>
 

@@ -1,32 +1,40 @@
-import { useState } from 'react';
-import { 
-  TextField, 
-  Button, 
-  Grid, 
-  Typography, 
+import { useState } from "react";
+import {
+  TextField,
+  Button,
+  Grid,
+  Typography,
   Container,
-  // FormControl,
-  // InputLabel,
-  // Select,
-  // MenuItem,
-  Box
-} from '@mui/material';
-import LocationPicker from './LocationPicker';
+  FormControl,
+  InputLabel,
+  Select,
+ MenuItem,
+  Box,
+} from "@mui/material";
+import LocationPicker from "./LocationPicker";
 
-const ReportForm = () => {
-  const [report, setReport] = useState({
-    title: '',
-    description: '',
-    images: [],
-    status: 'open',
-  });
-  const [position, setPosition] = useState([27.7172, 85.3240]);
+const departments = ["roads", "water", "education", "garbage", "health"];
+
+const ReportForm = ({ createIssue }) => {
+  const defaultReportState = {
+    title: "",
+    description: "",
+    department: "",
+    position: {
+      latitude: 27.7172,
+      longitude: 85.324,
+    },
+    status: "open",
+		upvotes: 0,
+  };
+  const [report, setReport] = useState(defaultReportState);
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setReport(prevState => ({
+    setReport((prevState) => ({
       ...prevState,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -39,10 +47,26 @@ const ReportForm = () => {
   //   }));
   // };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Here you would typically send the report data to your backend
-    console.log(report);
+    const issueData = {
+      title: report.title,
+      description: report.description,
+      department: report.department,
+      latitude: report.position.latitude,
+      longitude: report.position.longitude,
+      status: report.status,
+			upvotes: report.upvotes
+    };
+
+    try {
+      await createIssue(issueData);
+      setReport(defaultReportState);
+    } catch (err) {
+      console.error("Err: ", err.message);
+    }
+    // console.log(report);
   };
 
   return (
@@ -75,10 +99,38 @@ const ReportForm = () => {
             />
           </Grid>
           <Grid item xs={12}>
+            <FormControl fullWidth required>
+              <InputLabel>Department</InputLabel>
+              <Select
+                name="department"
+                value={report.department}
+                onChange={handleChange}
+                label="Department"
+              >
+                {departments.map((dept) => (
+                  <MenuItem key={dept} value={dept}>
+                    {dept.charAt(0).toUpperCase() + dept.slice(1)}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={12}>
             <Typography variant="subtitle1" gutterBottom>
               Select Location on Map
             </Typography>
-            <LocationPicker position={position} setPosition={setPosition} />
+            <LocationPicker
+              position={[report.position.latitude, report.position.longitude]}
+              setPosition={(newPosition) =>
+                setReport((prevReport) => ({
+                  ...prevReport,
+                  position: {
+                    latitude: newPosition[0],
+                    longitude: newPosition[1],
+                  },
+                }))
+              }
+            />
             {/* <Typography variant="body2" gutterBottom>
               Latitude: {position[0]}, Longitude: {position[1]}
             </Typography> */}
@@ -120,7 +172,12 @@ const ReportForm = () => {
           </Grid> */}
           <Grid item xs={12}>
             <Box mt={2}>
-              <Button type="submit" variant="contained" color="primary" fullWidth>
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                fullWidth
+              >
                 Submit Report
               </Button>
             </Box>
