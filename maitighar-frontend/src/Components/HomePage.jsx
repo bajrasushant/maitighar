@@ -1,12 +1,12 @@
-import { useState } from 'react';
-import { 
-  Container, 
-  Card, 
-  CardContent, 
-  Typography, 
-  Button, 
-  IconButton, 
-  TextField, 
+import { useState } from "react";
+import {
+  Container,
+  Card,
+  CardContent,
+  Typography,
+  Button,
+  IconButton,
+  TextField,
   Grid,
   List,
   ListItem,
@@ -29,12 +29,28 @@ import {
 } from '@mui/icons-material';
 import ReportForm from './IssueForm';
 import SuggestionForm from './SuggestionForm';
+import { useUserDispatch } from "../context/UserContext";
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
   const [reports, setReports] = useState([
-    { id: 1, title: 'Pothole on Main Street', description: 'Large pothole causing traffic issues', upvotes: 5, comments: [] },
-    { id: 2, title: 'Broken Streetlight', description: 'Streetlight out at corner of Elm and Oak', upvotes: 3, comments: [] },
+    {
+      id: 1,
+      title: "Pothole on Main Street",
+      description: "Large pothole causing traffic issues",
+      upvotes: 5,
+      comments: [],
+    },
+    {
+      id: 2,
+      title: "Broken Streetlight",
+      description: "Streetlight out at corner of Elm and Oak",
+      upvotes: 3,
+      comments: [],
+    },
   ]);
+
+  const userDispatch = useUserDispatch();
 
   const [openComments, setOpenComments] = useState({});
   const [newComments, setNewComments] = useState({});
@@ -45,27 +61,31 @@ const HomePage = () => {
   const [anchorElNotifications, setAnchorElNotifications] = useState(null);
 
   const handleUpvote = (id) => {
-    setReports(reports.map(report => 
-      report.id === id ? { ...report, upvotes: report.upvotes + 1 } : report
-    ));
+    setReports(
+      reports.map((report) =>
+        report.id === id ? { ...report, upvotes: report.upvotes + 1 } : report,
+      ),
+    );
   };
 
   const toggleComments = (id) => {
-    setOpenComments(prev => ({ ...prev, [id]: !prev[id] }));
+    setOpenComments((prev) => ({ ...prev, [id]: !prev[id] }));
   };
 
   const handleCommentChange = (id, value) => {
-    setNewComments(prev => ({ ...prev, [id]: value }));
+    setNewComments((prev) => ({ ...prev, [id]: value }));
   };
 
   const submitComment = (id) => {
     if (newComments[id]) {
-      setReports(reports.map(report => 
-        report.id === id 
-          ? { ...report, comments: [...report.comments, newComments[id]] } 
-          : report
-      ));
-      setNewComments(prev => ({ ...prev, [id]: '' }));
+      setReports(
+        reports.map((report) =>
+          report.id === id
+            ? { ...report, comments: [...report.comments, newComments[id]] }
+            : report,
+        ),
+      );
+      setNewComments((prev) => ({ ...prev, [id]: "" }));
     }
   };
 
@@ -75,6 +95,17 @@ const HomePage = () => {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    try {
+      userDispatch({ type: "LOGOUT" });
+      navigate("/login");
+    } catch (err) {
+      console.error("Error", err.message);
+    }
   };
 
   const handleOpenNotifications = (event) => {
@@ -117,28 +148,24 @@ const HomePage = () => {
           >
             Create
           </Button>
-          <IconButton 
-            size="large" 
-            color="inherit" 
+          <IconButton
+            size="large"
+            color="inherit"
             onClick={handleOpenNotifications}
           >
             <Badge badgeContent={4} color="error">
               <Notifications />
             </Badge>
           </IconButton>
-          <IconButton
-            size="large"
-            color="inherit"
-            onClick={handleOpenUserMenu}
-          >
+          <IconButton size="large" color="inherit" onClick={handleOpenUserMenu}>
             <AccountCircle />
           </IconButton>
         </Toolbar>
       </AppBar>
 
       <Container sx={{ mt: 4 }}>
-        {reports.map(report => (
-          <Card key={report.id} style={{ marginBottom: '20px' }}>
+        {reports.map((report) => (
+          <Card key={report.id} style={{ marginBottom: "20px" }}>
             <CardContent>
               <Grid container alignItems="center">
                 <Grid item>
@@ -150,8 +177,8 @@ const HomePage = () => {
                 <Grid item xs>
                   <Typography variant="h6">{report.title}</Typography>
                   <Typography variant="body2">{report.description}</Typography>
-                  <Button 
-                    startIcon={<Comment />} 
+                  <Button
+                    startIcon={<Comment />}
                     onClick={() => toggleComments(report.id)}
                   >
                     Comments ({report.comments.length})
@@ -171,8 +198,10 @@ const HomePage = () => {
                     fullWidth
                     variant="outlined"
                     placeholder="Add a comment"
-                    value={newComments[report.id] || ''}
-                    onChange={(e) => handleCommentChange(report.id, e.target.value)}
+                    value={newComments[report.id] || ""}
+                    onChange={(e) =>
+                      handleCommentChange(report.id, e.target.value)
+                    }
                   />
                   <Button onClick={() => submitComment(report.id)}>
                     Submit Comment
@@ -192,7 +221,7 @@ const HomePage = () => {
       >
         <MenuItem onClick={handleCloseUserMenu}>Profile</MenuItem>
         <MenuItem onClick={handleCloseUserMenu}>My Reports</MenuItem>
-        <MenuItem onClick={handleCloseUserMenu}>Logout</MenuItem>
+        <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
 
       {/* Notifications Menu */}
