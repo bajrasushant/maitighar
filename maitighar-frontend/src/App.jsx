@@ -5,6 +5,8 @@ import HomePage from "./Components/HomePage";
 import { useUserDispatch, useUserValue } from "./context/UserContext";
 import { useEffect } from "react";
 import AdminLogin from "./Components/AdminLogin";
+import AdminDashboard from "./Components/AdminDashboard";
+import AdminRegister from "./Components/AdminRegister";
 import Details from "./Components/Details";
 
 function App() {
@@ -29,8 +31,10 @@ function App() {
 					<Route path="/register" element={<SignUp />} />
 					<Route path="/" element={user ? <HomePage /> : <SignIn />} />{" "}
           <Route path="/details/:id" element={<Details />} />
-					<Route path= "/adminLogin" element = {<AdminLogin/>} />
-				</Routes>
+          <Route path="/admin-login" element={<AdminLogin />} />	
+          {/* <Route path="/admin-dashboard" element={<AdminDashboard />} /> */}
+          <Route path="/admin-register" element={<AdminRegister />} />			
+        </Routes>
 			</Router>
 		</>
 	);
