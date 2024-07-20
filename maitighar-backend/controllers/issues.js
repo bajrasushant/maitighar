@@ -90,6 +90,7 @@ issueRouter.delete("/:id", async (req, res) => {
     if (!issue) {
       return res.status(404).json({ error: "issue not found" });
     }
+   
     if (issue.createdBy.toString() !== req.user.id.toString()) {
       return res
         .status(403)
