@@ -34,10 +34,15 @@ upvoteRouter.post('/', async (req, res) => {
 // Get all upvotes
 upvoteRouter.get('/', async (req, res) => {
   try {
-    const upvotes = await Upvote.find().populate('user').populate('issue').populate('suggestion');
+    const upvotes = await Upvote.find()
+      .populate('user', 'name') // Populate user reference, only get the name field
+      .populate('issue', 'title') // Populate issue reference, only get the title field
+      .populate('suggestion', 'description'); // Populate suggestion reference, only get the description field
+
     res.json(upvotes);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 });
 

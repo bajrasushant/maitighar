@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const upvoteSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
-    ref: 'user',
+    ref: 'user', 
     required: true,
   },
   issue: {
@@ -22,11 +22,11 @@ const upvoteSchema = new Schema({
 });
 
 upvoteSchema.set("toJSON", {
-    transform: (document, returnedObject) => {
-     returnedObject.id = returnedObject._id;
-     delete returnedObject._id;
-     delete returnedObject.__v;
-    }
-   })
-  
+  transform: (document, returnedObject) => {
+    returnedObject.id = returnedObject._id;
+    delete returnedObject._id;
+    delete returnedObject.__v;
+  }
+});
+
 module.exports = mongoose.model('Upvote', upvoteSchema);
