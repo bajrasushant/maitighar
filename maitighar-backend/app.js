@@ -23,7 +23,6 @@ app.use(cors());
 app.use(express.json());
 app.use(middleware.requestLogger);
 
-app.use(middleware.tokenExtractor);
 
 app.use("/api/users", userRouter);
 app.use("/api/login", loginRouter);
@@ -33,10 +32,11 @@ app.get("/", (request, response) => {
 	response.send("<h1>Hello World!</h1>");
 });
 
-app.use("/api/issues", middleware.userExtractor,  issueRouter);
-app.use("/api/suggestions", suggestionRouter);
-app.use("/api/upvotes",  upvoteRouter);
-app.use("/api/comments", middleware.userExtractor, commentRouter);
+app.use(middleware.tokenExtractor);
+
+app.use("/api/issues", middleware.userExtractor, issueRouter);
+// app.use("/api/suggestions", suggestionRouter);
+// app.use("/api/upvotes",  upvoteRouter);
 
 app.use(middleware.errorHandler);
 app.use(middleware.unknownEndpoint);

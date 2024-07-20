@@ -15,4 +15,10 @@ const createIssue = async (newObject) => {
   return response.data;
 };
 
-export default { getAll, createIssue };
+const upvoteIssue = async (id) => {
+	const config = helpers.getConfig();
+  const response = await axios.put(`${baseUrl}/${id}/upvote`,{}, config);
+  return response.data;
+};
+
+export default { getAll, createIssue, upvoteIssue };
