@@ -13,7 +13,7 @@ import {
 } from '@mui/material';
 import LocationPicker from './LocationPicker';
 
-const ReportForm = () => {
+const SuggestionForm = () => {
   const [report, setReport] = useState({
     title: '',
     description: '',
@@ -48,7 +48,7 @@ const ReportForm = () => {
   return (
     <Container maxWidth="sm">
       <Typography variant="h4" align="center" gutterBottom>
-        Report an Issue
+        Make a Suggestion
       </Typography>
       <form onSubmit={handleSubmit}>
         <Grid container spacing={2}>
@@ -121,7 +121,7 @@ const ReportForm = () => {
           <Grid item xs={12}>
             <Box mt={2}>
               <Button type="submit" variant="contained" color="primary" fullWidth>
-                Submit Report
+                Submit Suggestion
               </Button>
             </Box>
           </Grid>
@@ -131,4 +131,4 @@ const ReportForm = () => {
   );
 };
 
-export default ReportForm;
+export default SuggestionForm;

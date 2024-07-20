@@ -39,7 +39,7 @@ function Copyright(props) {
 
 const defaultTheme = createTheme();
 
-export default function SignIn() {
+export default function AdminLogin() {
   // const navigate = useNavigate();
   // const { isAuthenticated, login } = useAuthStatus();
   // const loginMutation = useMutation({
@@ -99,7 +99,7 @@ export default function SignIn() {
             {/* <LockOutlinedIcon /> */}
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Admin Login
           </Typography>
           <Box component="form" onSubmit={handleLogin} sx={{ mt: 1 }}>
             <TextField
