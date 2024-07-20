@@ -14,6 +14,8 @@ issueRouter.post("/", async (req, res) => {
     const user = await User.findById(req.user.id);
     console.log(user);
     const issue = new Issue({ ...req.body, createdBy: user.id, comments: [] });
+		await issue.save();
+		// console.log("bakend",issue);
     res.status(201).json(issue);
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -121,6 +123,7 @@ issueRouter.delete("/:id", async (req, res) => {
 issueRouter.put("/:id/upvote", async (req, res) => {
   try {
     const issue = await Issue.findById(req.params.id);
+		console.log(issue);
     if (!issue) {
       return res.status(404).json({ error: "Issue not found" });
     }
@@ -132,9 +135,10 @@ issueRouter.put("/:id/upvote", async (req, res) => {
       );
     } else {
       issue.upvotes += 1;
-      issue.upvotedBy.push(req.user.id);
+			const user = await User.findById(req.user.id);
+      issue.upvotedBy.push(user.id);
     }
-
+		console.log(issue);
     await issue.save();
     res.json(issue);
   } catch (error) {

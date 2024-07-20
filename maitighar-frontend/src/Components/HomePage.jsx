@@ -33,7 +33,7 @@ import SuggestionForm from "./SuggestionForm";
 import { useUserDispatch } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import issueService from "../services/issues";
-import {useUserValue} from "../context/UserContext";
+import { useUserValue } from "../context/UserContext";
 
 const HomePage = () => {
 	const currentUser = useUserValue();
@@ -58,7 +58,7 @@ const HomePage = () => {
 
 	const [openComments, setOpenComments] = useState({});
 	const [newComments, setNewComments] = useState({});
-  const [openForm, setOpenForm] = useState(false);
+	const [openForm, setOpenForm] = useState(false);
 	// const [openReportForm, setOpenReportForm] = useState(false);
 	// const [openSuggestionForm, setOpenSuggestionForm] = useState(false);
 	const [anchorElUser, setAnchorElUser] = useState(null);
@@ -85,12 +85,15 @@ const HomePage = () => {
 		fetchIssues();
 	}, []);
 
-	const handleUpvote = (id) => {
-		setReports(
-			reports.map((report) =>
-				report.id === id ? { ...report, upvotes: report.upvotes + 1 } : report,
-			),
-		);
+	const handleUpvote = async (id) => {
+		try {
+			const updatedIssue = await issueService.upvoteIssue(id);
+			setIssues(
+				issues.map((issue) => (issue.id === id ? updatedIssue : issue)),
+			);
+		} catch (err) {
+			console.error("Failed to update upvote", err);
+		}
 	};
 
 	const toggleComments = (id) => {
@@ -149,9 +152,9 @@ const HomePage = () => {
 	// 	setAnchorElCreate(null);
 	// };
 
-  const handleOpenForm = () => {
-    setOpenForm(true);
-  };
+	const handleOpenForm = () => {
+		setOpenForm(true);
+	};
 
 	// const handleCreateIssue = () => {
 	// 	setOpenReportForm(true);
@@ -168,16 +171,16 @@ const HomePage = () => {
 	};
 
 	const addIssue = async (issueObject) => {
-    try {
-      await issueService.createIssue(issueObject);
-      const updatedIssues = await issueService.getAll();
-      console.log("updatedIssues:", updatedIssues);
-      setIssues(updatedIssues);
-      setOpenForm(false);
-    } catch (err) {
-      console.error("Err:", err.message);
-    }
-  };
+		try {
+			await issueService.createIssue(issueObject);
+			const updatedIssues = await issueService.getAll();
+			console.log("updatedIssues:", updatedIssues);
+			setIssues(updatedIssues);
+			setOpenForm(false);
+		} catch (err) {
+			console.error("Err:", err.message);
+		}
+	};
 
 	return (
 		<>
@@ -186,11 +189,7 @@ const HomePage = () => {
 					<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
 						Maitighar
 					</Typography>
-					<Button
-						color="inherit"
-						startIcon={<Add />}
-						onClick={handleOpenForm}
-					>
+					<Button color="inherit" startIcon={<Add />} onClick={handleOpenForm}>
 						Create
 					</Button>
 					<IconButton
@@ -265,31 +264,27 @@ const HomePage = () => {
 					<Typography color="error">{error}</Typography>
 				) : (
 					issues.map((issue) => (
-						<Card 
-              key={issue.id} 
-              style={{ marginBottom: "20px" }}
-            >
+						<Card key={issue.id} style={{ marginBottom: "20px" }}>
 							<CardContent>
 								<Grid container alignItems="center">
 									<Grid item>
 										<IconButton onClick={() => handleUpvote(issue.id)}>
-                      {issue.upvotedBy.includes(currentUser?.id) ? (
-                        <ArrowUpward color="primary" />
-                      ) : (
-                        <ArrowUpwardOutlined/>
-                      )}
-                    </IconButton>
+											{issue.upvotedBy.includes(currentUser?.id) ? (
+												<ArrowUpward color="primary" />
+											) : (
+												<ArrowUpwardOutlined />
+											)}
+										</IconButton>
 										<Typography>{issue.upvotes}</Typography>
 									</Grid>
 									<Grid item xs>
-                    <Grid onClick={() => handleCardClick(issue.id)}>
-                    <Typography variant="h6">{issue.title}</Typography>
-										<Typography variant="body2">{issue.description}</Typography>
-                    </Grid>
-										<Button
-											startIcon={<Comment />}
-											disabled
-										>
+										<Grid onClick={() => handleCardClick(issue.id)}>
+											<Typography variant="h6">{issue.title}</Typography>
+											<Typography variant="body2">
+												{issue.description}
+											</Typography>
+										</Grid>
+										<Button startIcon={<Comment />} disabled>
 											Comments ({issue.commentCount})
 										</Button>
 									</Grid>
@@ -333,12 +328,12 @@ const HomePage = () => {
         <MenuItem onClick={handleOpenForm}>Report Issue or Make Suggestion</MenuItem>
       </Menu> */}
 
-      {/* Form Dialog */}
-      <Dialog open={openForm} onClose={() => setOpenForm(false)}>
-        <DialogContent>
-          <ReportForm createIssue={addIssue} />
-        </DialogContent>
-      </Dialog>
+			{/* Form Dialog */}
+			<Dialog open={openForm} onClose={() => setOpenForm(false)}>
+				<DialogContent>
+					<ReportForm createIssue={addIssue} />
+				</DialogContent>
+			</Dialog>
 
 			{/* Report Form Dialog
 			<Dialog open={openReportForm} onClose={() => setOpenReportForm(false)}>

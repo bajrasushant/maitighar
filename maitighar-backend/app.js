@@ -36,11 +36,11 @@ app.get("/", (request, response) => {
 });
 
 app.use("/api/issues", middleware.userExtractor,  issueRouter);
-app.use("/api/suggestions", suggestionRouter);
-app.use("/api/upvotes",  upvoteRouter);
+// app.use("/api/suggestions", suggestionRouter);
+// app.use("/api/upvotes",  upvoteRouter);
 app.use("/api/comments", middleware.userExtractor, commentRouter);
 
-app.use("/api/comments", middleware.userExtractor, commentRouter);
+// app.use("/api/comments", middleware.userExtractor, commentRouter);
 
 app.use(middleware.errorHandler);
 app.use(middleware.unknownEndpoint);
