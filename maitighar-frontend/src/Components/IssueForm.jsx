@@ -8,8 +8,11 @@ import {
   FormControl,
   InputLabel,
   Select,
- MenuItem,
+  MenuItem,
   Box,
+  RadioGroup,
+  FormControlLabel,
+  Radio,
 } from "@mui/material";
 import LocationPicker from "./LocationPicker";
 
@@ -25,6 +28,7 @@ const ReportForm = ({ createIssue }) => {
       longitude: 85.324,
     },
     status: "open",
+    type: "issue",
 		upvotes: 0,
   };
   const [report, setReport] = useState(defaultReportState);
@@ -57,6 +61,7 @@ const ReportForm = ({ createIssue }) => {
       latitude: report.position.latitude,
       longitude: report.position.longitude,
       status: report.status,
+      type: report.type,
 			upvotes: report.upvotes
     };
 
@@ -72,7 +77,7 @@ const ReportForm = ({ createIssue }) => {
   return (
     <Container maxWidth="sm">
       <Typography variant="h4" align="center" gutterBottom>
-        Report an Issue
+        Report an Issue or Make a Suggestion
       </Typography>
       <form onSubmit={handleSubmit}>
         <Grid container spacing={2}>
@@ -97,6 +102,17 @@ const ReportForm = ({ createIssue }) => {
               rows={4}
               required
             />
+          </Grid>
+          <Grid item xs={12}>
+            <RadioGroup
+              row
+              name="type"
+              value={report.type}
+              onChange={handleChange}
+            >
+              <FormControlLabel value="issue" control={<Radio />} label="Issue" />
+              <FormControlLabel value="suggestion" control={<Radio />} label="Suggestion" />
+            </RadioGroup>
           </Grid>
           <Grid item xs={12}>
             <FormControl fullWidth required>

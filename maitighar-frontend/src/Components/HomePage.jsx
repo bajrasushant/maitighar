@@ -58,10 +58,11 @@ const HomePage = () => {
 
 	const [openComments, setOpenComments] = useState({});
 	const [newComments, setNewComments] = useState({});
-	const [openReportForm, setOpenReportForm] = useState(false);
-	const [openSuggestionForm, setOpenSuggestionForm] = useState(false);
+  const [openForm, setOpenForm] = useState(false);
+	// const [openReportForm, setOpenReportForm] = useState(false);
+	// const [openSuggestionForm, setOpenSuggestionForm] = useState(false);
 	const [anchorElUser, setAnchorElUser] = useState(null);
-	const [anchorElCreate, setAnchorElCreate] = useState(null);
+	// const [anchorElCreate, setAnchorElCreate] = useState(null);
 	const [anchorElNotifications, setAnchorElNotifications] = useState(null);
 
 	const [issues, setIssues] = useState([]);
@@ -140,36 +141,43 @@ const HomePage = () => {
 		setAnchorElNotifications(null);
 	};
 
-	const handleOpenCreateMenu = (event) => {
-		setAnchorElCreate(event.currentTarget);
-	};
+	// const handleOpenCreateMenu = (event) => {
+	// 	setAnchorElCreate(event.currentTarget);
+	// };
 
-	const handleCloseCreateMenu = () => {
-		setAnchorElCreate(null);
-	};
+	// const handleCloseCreateMenu = () => {
+	// 	setAnchorElCreate(null);
+	// };
 
-	const handleCreateIssue = () => {
-		setOpenReportForm(true);
-		handleCloseCreateMenu();
-	};
+  const handleOpenForm = () => {
+    setOpenForm(true);
+  };
 
-	const handleCreateSuggestion = () => {
-		setOpenSuggestionForm(true);
-		handleCloseCreateMenu();
-	};
+	// const handleCreateIssue = () => {
+	// 	setOpenReportForm(true);
+	// 	handleCloseCreateMenu();
+	// };
+
+	// const handleCreateSuggestion = () => {
+	// 	setOpenSuggestionForm(true);
+	// 	handleCloseCreateMenu();
+	// };
 
 	const handleCardClick = (id) => {
 		navigate(`/details/${id}`);
 	};
 
 	const addIssue = async (issueObject) => {
-		try {
-			await issueService.createIssue(issueObject);
-			issueService.getAll().then((issues) => setIssues(issues));
-		} catch (err) {
-			console.error("Err:", err.message);
-		}
-	};
+    try {
+      await issueService.createIssue(issueObject);
+      const updatedIssues = await issueService.getAll();
+      console.log("updatedIssues:", updatedIssues);
+      setIssues(updatedIssues);
+      setOpenForm(false);
+    } catch (err) {
+      console.error("Err:", err.message);
+    }
+  };
 
 	return (
 		<>
@@ -181,7 +189,7 @@ const HomePage = () => {
 					<Button
 						color="inherit"
 						startIcon={<Add />}
-						onClick={handleOpenCreateMenu}
+						onClick={handleOpenForm}
 					>
 						Create
 					</Button>
@@ -316,34 +324,38 @@ const HomePage = () => {
 				<MenuItem onClick={handleCloseNotifications}>Notification 4</MenuItem>
 			</Menu>
 
-			{/* Create Menu */}
-			<Menu
-				anchorEl={anchorElCreate}
-				open={Boolean(anchorElCreate)}
-				onClose={handleCloseCreateMenu}
-			>
-				<MenuItem onClick={handleCreateIssue}>Report an Issue</MenuItem>
-				<MenuItem onClick={handleCreateSuggestion}>Make a Suggestion</MenuItem>
-			</Menu>
+			{/* Create Menu
+      <Menu
+        anchorEl={anchorElCreate}
+        open={Boolean(anchorElCreate)}
+        onClose={handleCloseCreateMenu}
+      >
+        <MenuItem onClick={handleOpenForm}>Report Issue or Make Suggestion</MenuItem>
+      </Menu> */}
 
-			{/* Report Form Dialog */}
+      {/* Form Dialog */}
+      <Dialog open={openForm} onClose={() => setOpenForm(false)}>
+        <DialogContent>
+          <ReportForm createIssue={addIssue} />
+        </DialogContent>
+      </Dialog>
+
+			{/* Report Form Dialog
 			<Dialog open={openReportForm} onClose={() => setOpenReportForm(false)}>
-				{/* <DialogTitle>Create New Report</DialogTitle> */}
 				<DialogContent>
 					<ReportForm createIssue={addIssue} />
 				</DialogContent>
 			</Dialog>
 
-			{/* Suggestion Form Dialog */}
+			Suggestion Form Dialog
 			<Dialog
 				open={openSuggestionForm}
 				onClose={() => setOpenSuggestionForm(false)}
 			>
-				{/* <DialogTitle>Make a Suggestion</DialogTitle> */}
 				<DialogContent>
 					<SuggestionForm />
 				</DialogContent>
-			</Dialog>
+			</Dialog> */}
 		</>
 	);
 };
