@@ -12,22 +12,23 @@ import {
   ListItem,
   ListItemText,
   Dialog,
-  DialogTitle,
+  // DialogTitle,
   DialogContent,
   AppBar,
   Toolbar,
   Menu,
   MenuItem,
   Badge,
-} from "@mui/material";
-import {
-  ArrowUpward,
-  Comment,
-  Add,
-  Notifications,
-  AccountCircle,
-} from "@mui/icons-material";
-import ReportForm from "./IssueForm";
+} from '@mui/material';
+import { 
+  ArrowUpward, 
+  Comment, 
+  Add, 
+  Notifications, 
+  AccountCircle 
+} from '@mui/icons-material';
+import ReportForm from './IssueForm';
+import SuggestionForm from './SuggestionForm';
 import { useUserDispatch } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 
@@ -54,7 +55,9 @@ const HomePage = () => {
   const [openComments, setOpenComments] = useState({});
   const [newComments, setNewComments] = useState({});
   const [openReportForm, setOpenReportForm] = useState(false);
+  const [openSuggestionForm, setOpenSuggestionForm] = useState(false);
   const [anchorElUser, setAnchorElUser] = useState(null);
+  const [anchorElCreate, setAnchorElCreate] = useState(null);
   const [anchorElNotifications, setAnchorElNotifications] = useState(null);
 
   const handleUpvote = (id) => {
@@ -113,6 +116,24 @@ const HomePage = () => {
     setAnchorElNotifications(null);
   };
 
+  const handleOpenCreateMenu = (event) => {
+    setAnchorElCreate(event.currentTarget);
+  };
+
+  const handleCloseCreateMenu = () => {
+    setAnchorElCreate(null);
+  };
+
+  const handleCreateIssue = () => {
+    setOpenReportForm(true);
+    handleCloseCreateMenu();
+  };
+
+  const handleCreateSuggestion = () => {
+    setOpenSuggestionForm(true);
+    handleCloseCreateMenu();
+  };
+
   return (
     <>
       <AppBar position="static">
@@ -120,10 +141,10 @@ const HomePage = () => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Maitighar
           </Typography>
-          <Button
-            color="inherit"
-            startIcon={<Add />}
-            onClick={() => setOpenReportForm(true)}
+          <Button 
+            color="inherit" 
+            startIcon={<Add />} 
+            onClick={handleOpenCreateMenu}
           >
             Create
           </Button>
@@ -215,11 +236,29 @@ const HomePage = () => {
         <MenuItem onClick={handleCloseNotifications}>Notification 4</MenuItem>
       </Menu>
 
+      {/* Create Menu */}
+      <Menu
+        anchorEl={anchorElCreate}
+        open={Boolean(anchorElCreate)}
+        onClose={handleCloseCreateMenu}
+      >
+        <MenuItem onClick={handleCreateIssue}>Report an Issue</MenuItem>
+        <MenuItem onClick={handleCreateSuggestion}>Make a Suggestion</MenuItem>
+      </Menu>
+
       {/* Report Form Dialog */}
       <Dialog open={openReportForm} onClose={() => setOpenReportForm(false)}>
-        <DialogTitle>Create New Report</DialogTitle>
+        {/* <DialogTitle>Create New Report</DialogTitle> */}
         <DialogContent>
           <ReportForm />
+        </DialogContent>
+      </Dialog>
+
+      {/* Suggestion Form Dialog */}
+      <Dialog open={openSuggestionForm} onClose={() => setOpenSuggestionForm(false)}>
+        {/* <DialogTitle>Make a Suggestion</DialogTitle> */}
+        <DialogContent>
+          <SuggestionForm />
         </DialogContent>
       </Dialog>
     </>
