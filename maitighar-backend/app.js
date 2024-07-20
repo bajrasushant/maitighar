@@ -4,6 +4,8 @@ const config = require("./utils/config");
 const app = express();
 const mongoose = require("mongoose");
 const issueRouter = require("./controllers/issues")
+const userRouter = require("./controllers/users");
+const loginRouter = require("./controllers/login");
 
 mongoose.set("strictQuery", false);
 mongoose
@@ -14,6 +16,10 @@ mongoose
 app.use(cors());
 
 app.use(express.json());
+
+app.use("/api/users", userRouter);
+app.use("/api/login", loginRouter);
+
 
 app.get("/", (request, response) => {
 	response.send("<h1>Hello World!</h1>");
