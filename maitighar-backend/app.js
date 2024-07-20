@@ -3,6 +3,7 @@ const cors = require("cors");
 const config = require("./utils/config");
 const app = express();
 const mongoose = require("mongoose");
+const issueRouter = require("./controllers/issues")
 
 mongoose.set("strictQuery", false);
 mongoose
@@ -17,5 +18,6 @@ app.use(express.json());
 app.get("/", (request, response) => {
 	response.send("<h1>Hello World!</h1>");
 });
+app.use("/api/issues",  issueRouter);
 
 module.exports = app;
