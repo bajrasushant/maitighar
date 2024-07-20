@@ -38,6 +38,8 @@ app.use("/api/suggestions", suggestionRouter);
 app.use("/api/upvotes",  upvoteRouter);
 app.use("/api/comments", middleware.userExtractor, commentRouter);
 
+app.use("/api/comments", middleware.userExtractor, commentRouter);
+
 app.use(middleware.errorHandler);
 app.use(middleware.unknownEndpoint);
 
