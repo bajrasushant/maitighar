@@ -146,10 +146,14 @@ import {
 	TextField,
 	Divider,
 	Avatar,
+  Box, 
+  Chip,
+  Paper
 } from "@mui/material";
 import { ArrowUpward, Comment, Share, ArrowBack } from "@mui/icons-material";
 import issueService from "../services/issues";
 import commentService from "../services/comment";
+import { formatDistanceToNow } from "date-fns";
 
 const Details = () => {
 	const { id } = useParams();
@@ -272,6 +276,19 @@ const Details = () => {
 								Posted by {issues.createdBy.username} on{" "}
 								{new Date(issues.createdAt).toLocaleDateString()}
 							</Typography>
+              <Box sx={{ mt: 1, display: 'flex', alignItems: 'center', gap: 1 }}>
+                <Chip 
+                  label={issues.type} 
+                  color={issues.type === "issue" ? "error" : "success"}
+                  size="small"
+                />
+                <Chip 
+                  label={issues.department} 
+                  color="primary" 
+                  variant="outlined"
+                  size="small"
+                />
+              </Box>
 							<Typography
 								variant="body1"
 								paragraph
@@ -301,9 +318,9 @@ const Details = () => {
 										{comments.length} Comments
 									</Button>
 								</Grid>
-								<Grid item>
+								{/* <Grid item>
 									<Button startIcon={<Share />}>Share</Button>
-								</Grid>
+								</Grid> */}
 							</Grid>
 						</Grid>
 					</Grid>
@@ -324,32 +341,42 @@ const Details = () => {
 						Submit
 					</Button>
 					{comments.length > 0 && (
-						<div>
-							{comments.map((comment, index) => (
-								<Grid
-									container
-									spacing={2}
-									key={index}
-									style={{ marginBottom: "16px" }}
-								>
-									{/*
-									<Grid item>
-										<Avatar>{comment.createdBy}</Avatar>
-									</Grid>
-											*/}
-									<Grid item xs>
-										<Typography variant="subtitle2">
-											{console.log(comment)}
-											{comment.createdBy.username}
-										</Typography>
-										<Typography variant="body2">
-											{comment.description}
-										</Typography>
-									</Grid>
-								</Grid>
-							))}
-						</div>
-					)}
+            <Box sx={{ mt: 2 }}>
+              <Typography variant="h6" gutterBottom>
+                Comments ({comments.length})
+              </Typography>
+              {comments.map((comment, index) => (
+                <Paper
+                  key={index}
+                  elevation={1}
+                  sx={{
+                    p: 2,
+                    mb: 2,
+                    bgcolor: "background.default",
+                  }}
+                >
+                  <Grid container spacing={2} alignItems="flex-start">
+                    <Grid item>
+                      <Avatar sx={{ bgcolor: "primary.main" }}>
+                        {comment.createdBy.username.charAt(0).toUpperCase()}
+                      </Avatar>
+                    </Grid>
+                    <Grid item xs>
+                      <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
+                        {comment.createdBy.username}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary" gutterBottom>
+                        {formatDistanceToNow(new Date(comment.createdAt), { addSuffix: true })}
+                      </Typography>
+                      <Typography variant="body1">
+                        {comment.description}
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                </Paper>
+              ))}
+            </Box>
+          )}
 				</CardContent>
 			</Card>
 		</Container>

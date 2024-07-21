@@ -19,6 +19,8 @@ import {
 	Menu,
 	MenuItem,
 	Badge,
+  Chip,
+  Box,
 } from "@mui/material";
 import {
 	ArrowUpward,
@@ -258,38 +260,56 @@ const HomePage = () => {
         ))}
 				*/}
 
-				{loading ? (
-					<Typography>Loading...</Typography>
-				) : error ? (
-					<Typography color="error">{error}</Typography>
-				) : (
-					issues.map((issue) => (
-						<Card key={issue.id} style={{ marginBottom: "20px" }}>
-							<CardContent>
-								<Grid container alignItems="center">
-									<Grid item>
-										<IconButton onClick={() => handleUpvote(issue.id)}>
-											{issue.upvotedBy.includes(currentUser?.id) ? (
-												<ArrowUpward color="primary" />
-											) : (
-												<ArrowUpwardOutlined />
-											)}
-										</IconButton>
-										<Typography>{issue.upvotes}</Typography>
-									</Grid>
-									<Grid item xs>
-										<Grid onClick={() => handleCardClick(issue.id)}>
-											<Typography variant="h6">{issue.title}</Typography>
-											<Typography variant="body2">
-												{issue.description}
-											</Typography>
-										</Grid>
-										<Button startIcon={<Comment />} disabled>
-											Comments ({issue.commentCount})
-										</Button>
-									</Grid>
-								</Grid>
-								{/* ... comments section */}
+      {loading ? (
+          <Typography>Loading...</Typography>
+        ) : error ? (
+          <Typography color="error">{error}</Typography>
+        ) : (
+          issues.map((issue) => (
+            <Card 
+              key={issue.id} 
+              style={{ marginBottom: "20px" }}
+            >
+              <CardContent>
+                <Grid container alignItems="center" spacing={2}>
+                  <Grid item>
+                    <IconButton onClick={() => handleUpvote(issue.id)}>
+                      {issue.upvotedBy.includes(currentUser?.id) ? (
+                        <ArrowUpward color="primary" />
+                      ) : (
+                        <ArrowUpwardOutlined />
+                      )}
+                    </IconButton>
+                    <Typography>{issue.upvotes}</Typography>
+                  </Grid>
+                  <Grid item xs>
+                    <Box onClick={() => handleCardClick(issue.id)}>
+                      <Typography variant="h6">{issue.title}</Typography>
+                      <Box sx={{ mt: 1, display: 'flex', alignItems: 'center', gap: 1 }}>
+                        <Chip 
+                          label={issue.type} 
+                          color={issue.type === "issue" ? "error" : "success"}
+                          size="small"
+                        />
+                        <Chip 
+                          label={issue.department} 
+                          color="primary" 
+                          variant="outlined"
+                          size="small"
+                        />
+                      </Box>
+                      <Typography variant="body1" sx={{mt:1}}>{issue.description}</Typography>
+                    </Box>
+                    
+                    <Button
+                      startIcon={<Comment />}
+                      onClick={() => toggleComments(issue.id)}
+                    >
+                      Comments ({issue.comments ? issue.comments.length : 0})
+                    </Button>
+                  </Grid>
+                </Grid>
+                {/* Comments section */}
 							</CardContent>
 						</Card>
 					))
