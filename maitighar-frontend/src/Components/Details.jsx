@@ -16,10 +16,11 @@ import {
 	Chip,
 	Paper,
 } from "@mui/material";
-import { ArrowUpward, Comment,ArrowBack } from "@mui/icons-material";
+import { ArrowUpward, ArrowUpwardOutlined, Comment, ArrowBack } from "@mui/icons-material";
 import issueService from "../services/issues";
 import commentService from "../services/comment";
 import { formatDistanceToNow } from "date-fns";
+import { useUserValue } from "../context/UserContext";
 
 const Details = () => {
 	const { id } = useParams();
@@ -30,6 +31,7 @@ const Details = () => {
 	const [locationName, setLocationName] = useState("");
 	const [comments, setComments] = useState([]);
 	const [newComment, setNewComment] = useState("");
+	const currentUser = useUserValue();
 
 	useEffect(() => {
 		const fetchIssueId = async () => {
@@ -59,6 +61,15 @@ const Details = () => {
 		} catch (err) {
 			console.error("Error fetching location name:", err);
 			setLocationName("Unable to fetch location name");
+		}
+	};
+
+	const handleUpvote = async () => {
+		try {
+			const updatedIssue = await issueService.upvoteIssue(id);
+			setIssue(updatedIssue);
+		} catch (err) {
+			console.error("Failed to update upvote", err);
 		}
 	};
 
@@ -127,8 +138,12 @@ const Details = () => {
 				<CardContent>
 					<Grid container spacing={2}>
 						<Grid item xs={1}>
-							<IconButton>
-								<ArrowUpward />
+							<IconButton onClick={handleUpvote}>
+								{issue.upvotedBy.includes(currentUser?.id) ? (
+									<ArrowUpward color="primary" />
+								) : (
+									<ArrowUpwardOutlined />
+								)}
 							</IconButton>
 							<Typography align="center">{issue.upvotes}</Typography>
 						</Grid>

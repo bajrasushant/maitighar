@@ -41,20 +41,20 @@ import { useUserValue } from "../context/UserContext";
 const HomePage = () => {
 	const currentUser = useUserValue();
 	const [reports, setReports] = useState([
-		{
-			id: 1,
-			title: "Pothole on Main Street",
-			description: "Large pothole causing traffic issues",
-			upvotes: 5,
-			comments: [],
-		},
-		{
-			id: 2,
-			title: "Broken Streetlight",
-			description: "Streetlight out at corner of Elm and Oak",
-			upvotes: 3,
-			comments: [],
-		},
+		// {
+		// 	id: 1,
+		// 	title: "Pothole on Main Street",
+		// 	description: "Large pothole causing traffic issues",
+		// 	upvotes: 5,
+		// 	comments: [],
+		// },
+		// {
+		// 	id: 2,
+		// 	title: "Broken Streetlight",
+		// 	description: "Streetlight out at corner of Elm and Oak",
+		// 	upvotes: 3,
+		// 	comments: [],
+		// },
 	]);
 
 	const userDispatch = useUserDispatch();
@@ -301,7 +301,7 @@ const HomePage = () => {
                           variant="outlined"
                           size="small"
                         />
-                      </Box>
+                      
                       <Typography variant="body1" sx={{mt:1}}>{issue.description}</Typography>
                     </Box>
                     
@@ -311,6 +311,7 @@ const HomePage = () => {
                     >
                       Comments ({issue.comments ? issue.comments.length : 0})
                     </Button>
+					</Box>
                   </Grid>
                 </Grid>
                 {/* Comments section */}
