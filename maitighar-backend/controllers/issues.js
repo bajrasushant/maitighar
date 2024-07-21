@@ -14,8 +14,8 @@ issueRouter.post("/", async (req, res) => {
     const user = await User.findById(req.user.id);
     console.log(user);
     const issue = new Issue({ ...req.body, createdBy: user.id, comments: [] });
-		await issue.save();
-		// console.log("bakend",issue);
+    await issue.save();
+    // console.log("bakend",issue);
     res.status(201).json(issue);
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -64,15 +64,23 @@ issueRouter.get("/", async (req, res) => {
 // Get a issue by ID
 issueRouter.get("/:id", async (req, res) => {
   try {
-    const issue = await Issue.findById(req.params.id);
-			// .populate("createdBy", {
-   //    username: 1,
-   //  });
+    const issue = await Issue.findById(req.params.id)
+      .populate("createdBy", {
+        username: 1,
+      })
+      .populate({
+        path: "comments",
+        populate: {
+          path: "createdBy",
+          select: "username",
+        },
+      });
+    console.log(issue);
     if (!issue) {
       return res.status(404).json({ error: "issue not found" });
     }
     // const upvoteCount = await Upvote.countDocuments({ issue: issue.id });
-    res.json(issue);
+    res.status(201).json(issue);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -123,7 +131,7 @@ issueRouter.delete("/:id", async (req, res) => {
 issueRouter.put("/:id/upvote", async (req, res) => {
   try {
     const issue = await Issue.findById(req.params.id);
-		console.log(issue);
+    console.log(issue);
     if (!issue) {
       return res.status(404).json({ error: "Issue not found" });
     }
@@ -135,13 +143,37 @@ issueRouter.put("/:id/upvote", async (req, res) => {
       );
     } else {
       issue.upvotes += 1;
-			const user = await User.findById(req.user.id);
+      const user = await User.findById(req.user.id);
       issue.upvotedBy.push(user.id);
     }
-		console.log(issue);
+    console.log(issue);
     await issue.save();
     res.json(issue);
   } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Get issue by department for admin
+issueRouter.get("/admin/:department", async (req, res) => {
+  try {
+    // Find issues by department
+    console.log(req.params.department);
+    const issues = await Issue.find({ department: req.params.department })
+      .populate("createdBy", { username: 1 })
+      .populate("comments"); // Populating comments if needed
+
+    // If no issues are found, return 404
+    if (issues.length === 0) {
+      return res
+        .status(404)
+        .json({ error: "No issues found for this department" });
+    }
+
+    // Return the found issues
+    res.json(issues);
+  } catch (error) {
+    // Handle errors and return 500
     res.status(500).json({ error: error.message });
   }
 });
