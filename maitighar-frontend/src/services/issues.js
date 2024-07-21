@@ -16,7 +16,16 @@ const createIssue = async (newObject) => {
 };
 
 const getIssueId = async (id) => {
-  const config = helpers.getConfig();
+  // const config = helpers.getConfig();
+	const userInfo = JSON.parse(localStorage.getItem("loggedUser"));
+	console.log((userInfo.token));
+	const config = {
+		headers:{
+			Authorization: `Bearer ${userInfo.token}`
+		}
+	}
+	console.log("config", config);
+
   const request = await axios.get(`${baseUrl}/${id}`, config);
   return request.data;
 };
@@ -27,4 +36,4 @@ const upvoteIssue = async (id) => {
   return response.data;
 };
 
-export default { getAll, createIssue, upvoteIssue, getIssueId };
+export default { getAll, createIssue, upvoteIssue, getIssueId};

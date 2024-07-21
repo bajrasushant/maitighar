@@ -132,45 +132,50 @@
 
 // export default Details;
 
-import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import {
-  Container,
-  Typography,
-  Card,
-  CardContent,
-  Grid,
-  IconButton,
-  Button,
-  CircularProgress,
-  TextField,
-  Divider,
-  Avatar,
-} from '@mui/material';
-import {
-  ArrowUpward,
-  Comment,
-  Share,
-  ArrowBack,
-} from '@mui/icons-material';
+	Container,
+	Typography,
+	Card,
+	CardContent,
+	Grid,
+	IconButton,
+	Button,
+	CircularProgress,
+	TextField,
+	Divider,
+	Avatar,
+  Box, 
+  Chip,
+  Paper
+} from "@mui/material";
+import { ArrowUpward, Comment, Share, ArrowBack } from "@mui/icons-material";
 import issueService from "../services/issues";
+import commentService from "../services/comment";
+import { formatDistanceToNow } from "date-fns";
 
 const Details = () => {
-  const { id } = useParams();
-  console.log(id);
-  const navigate = useNavigate();
-  const [issues, setIssues] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [locationName, setLocationName] = useState('');
+	const { id } = useParams();
+	console.log(id);
+	const navigate = useNavigate();
+	const [issues, setIssues] = useState([]);
+	const [loading, setLoading] = useState(true);
+	const [error, setError] = useState(null);
+	const [locationName, setLocationName] = useState("");
+	const [comments, setComments] = useState([]);
+	const [newComment, setNewComment] = useState("");
 
-  useEffect(() => {
+	useEffect(() => {
 		const fetchIssueId = async () => {
 			try {
 				const fetchedIssues = await issueService.getIssueId(id);
 				console.log(fetchedIssues);
 				setIssues(fetchedIssues);
-        fetchLocationName(fetchedIssues.latitude, fetchedIssues.longitude);
+				fetchLocationName(fetchedIssues.latitude, fetchedIssues.longitude);
+				const fetchedComments = await commentService.getCommentByIssue(id);
+				console.log(fetchedComments);
+				setComments(fetchedComments);
 				setLoading(false);
 			} catch (err) {
 				setError("Failed to fetch issues");
@@ -181,121 +186,201 @@ const Details = () => {
 		fetchIssueId();
 	}, [id]);
 
-  const fetchLocationName = async (lat, lon) => {
-    try {
-      const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`);
-      const data = await response.json();
-      setLocationName(data.display_name || 'Location name not available');
-      setLoading(false);
-    } catch (err) {
-      console.error('Error fetching location name:', err);
-      setLocationName('Unable to fetch location name');
-      setLoading(false);
-    }
-  };
+	const fetchLocationName = async (lat, lon) => {
+		try {
+			const response = await fetch(
+				`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`,
+			);
+			const data = await response.json();
+			setLocationName(data.display_name || "Location name not available");
+			setLoading(false);
+		} catch (err) {
+			console.error("Error fetching location name:", err);
+			setLocationName("Unable to fetch location name");
+			setLoading(false);
+		}
+	};
 
-  if (loading) {
-    return (
-      <Container maxWidth="md" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-        <CircularProgress />
-      </Container>
-    );
-  }
+	const handleCommentSubmit = async (e) => {
+		e.preventDefault();
+		try {
+			const newCommentData = {
+				description: newComment,
+				issue: id,
+			};
 
-  if (error) {
-    return (
-      <Container maxWidth="md">
-        <Typography color="error">{error}</Typography>
-        <Button onClick={() => navigate('/')}>Go back to Home</Button>
-      </Container>
-    );
-  }
+			const savedComment = await commentService.createComment(newCommentData);
+			setComments([...comments, savedComment]);
+			setNewComment("");
+		} catch (err) {
+			console.error("Error creating comment:", err);
+		}
+	};
 
-  if (!issues) {
-    return (
-      <Container maxWidth="md">
-        <Typography>No report found with this ID.</Typography>
-        <Button onClick={() => navigate('/')}>Go back to Home</Button>
-      </Container>
-    );
-  }
 
-  return (
-    <Container maxWidth="md">
-      <Button
-        startIcon={<ArrowBack />}
-        onClick={() => navigate('/')}
-        style={{ marginTop: '20px', marginBottom: '20px' }}
-      >
-        Back to Home
-      </Button>
-      <Card>
-        <CardContent>
-          <Grid container spacing={2}>
-            <Grid item xs={1}>
-              <IconButton>
-                <ArrowUpward />
-              </IconButton>
-              <Typography align="center">{issues.upvotes}</Typography>
-            </Grid>
-            <Grid item xs={11}>
-              <Typography variant="h5">{issues.title}</Typography>
-              <Typography variant="body2" color="textSecondary">
-                Posted by {issues.createdBy} on {new Date(issues.createdAt).toLocaleDateString()}
+	if (loading) {
+		return (
+			<Container
+				maxWidth="md"
+				style={{
+					display: "flex",
+					justifyContent: "center",
+					alignItems: "center",
+					height: "100vh",
+				}}
+			>
+				<CircularProgress />
+			</Container>
+		);
+	}
+
+	if (error) {
+		return (
+			<Container maxWidth="md">
+				<Typography color="error">{error}</Typography>
+				<Button onClick={() => navigate("/")}>Go back to Home</Button>
+			</Container>
+		);
+	}
+
+	if (!issues) {
+		return (
+			<Container maxWidth="md">
+				<Typography>No report found with this ID.</Typography>
+				<Button onClick={() => navigate("/")}>Go back to Home</Button>
+			</Container>
+		);
+	}
+
+	return (
+		<Container maxWidth="md">
+			<Button
+				startIcon={<ArrowBack />}
+				onClick={() => navigate("/")}
+				style={{ marginTop: "20px", marginBottom: "20px" }}
+			>
+				Back to Home
+			</Button>
+			<Card>
+				<CardContent>
+					<Grid container spacing={2}>
+						<Grid item xs={1}>
+							<IconButton>
+								<ArrowUpward />
+							</IconButton>
+							<Typography align="center">{issues.upvotes}</Typography>
+						</Grid>
+						<Grid item xs={11}>
+							<Typography variant="h5">{issues.title}</Typography>
+							<Typography variant="body2" color="textSecondary">
+								Posted by {issues.createdBy.username} on{" "}
+								{new Date(issues.createdAt).toLocaleDateString()}
+							</Typography>
+              <Box sx={{ mt: 1, display: 'flex', alignItems: 'center', gap: 1 }}>
+                <Chip 
+                  label={issues.type} 
+                  color={issues.type === "issue" ? "error" : "success"}
+                  size="small"
+                />
+                <Chip 
+                  label={issues.department} 
+                  color="primary" 
+                  variant="outlined"
+                  size="small"
+                />
+              </Box>
+							<Typography
+								variant="body1"
+								paragraph
+								style={{ marginTop: "16px" }}
+							>
+								{issues.description}
+							</Typography>
+							<Typography variant="body2" color="textSecondary">
+								Department: {issues.department} | Status: {issues.status} |
+								Location: {locationName}
+							</Typography>
+							{issues.images && issues.images.length > 0 && (
+								<div style={{ marginTop: "20px" }}>
+									{issues.images.map((img, index) => (
+										<img
+											key={index}
+											src={img}
+											alt={`issues image ${index + 1}`}
+											style={{ maxWidth: "100%", marginBottom: "10px" }}
+										/>
+									))}
+								</div>
+							)}
+							<Grid container spacing={2} style={{ marginTop: "16px" }}>
+								<Grid item>
+									<Button startIcon={<Comment />}>
+										{comments.length} Comments
+									</Button>
+								</Grid>
+								{/* <Grid item>
+									<Button startIcon={<Share />}>Share</Button>
+								</Grid> */}
+							</Grid>
+						</Grid>
+					</Grid>
+					<Divider style={{ margin: "20px 0" }} />
+					<TextField
+						fullWidth
+						variant="outlined"
+						placeholder="Add a comment"
+						value={newComment}
+						onChange={(e) => setNewComment(e.target.value)}
+						style={{ marginBottom: "20px" }}
+					/>
+					<Button
+						variant="contained"
+						color="primary"
+						onClick={handleCommentSubmit}
+					>
+						Submit
+					</Button>
+					{comments.length > 0 && (
+            <Box sx={{ mt: 2 }}>
+              <Typography variant="h6" gutterBottom>
+                Comments ({comments.length})
               </Typography>
-              <Typography variant="body1" paragraph style={{ marginTop: '16px' }}>
-                {issues.description}
-              </Typography>
-              <Typography variant="body2" color="textSecondary">
-                Department: {issues.department} | Status: {issues.status} | Location: {locationName}
-              </Typography>
-              {issues.images && issues.images.length > 0 && (
-                <div style={{ marginTop: '20px' }}>
-                  {issues.images.map((img, index) => (
-                    <img key={index} src={img} alt={`issues image ${index + 1}`} style={{ maxWidth: '100%', marginBottom: '10px' }} />
-                  ))}
-                </div>
-              )}
-              <Grid container spacing={2} style={{ marginTop: '16px' }}>
-                <Grid item>
-                  <Button startIcon={<Comment />}>
-                    {issues.comments ? issues.comments.length : 0} Comments
-                  </Button>
-                </Grid>
-                <Grid item>
-                  <Button startIcon={<Share />}>
-                    Share
-                  </Button>
-                </Grid>
-              </Grid>
-            </Grid>
-          </Grid>
-          <Divider style={{ margin: '20px 0' }} />
-          <TextField
-            fullWidth
-            variant="outlined"
-            placeholder="Add a comment"
-            style={{ marginBottom: '20px' }}
-          />
-          {issues.comments && issues.comments.length > 0 && (
-            <div>
-              {issues.comments.map((comment, index) => (
-                <Grid container spacing={2} key={index} style={{ marginBottom: '16px' }}>
-                  <Grid item>
-                    <Avatar>{comment.author[0]}</Avatar>
+              {comments.map((comment, index) => (
+                <Paper
+                  key={index}
+                  elevation={1}
+                  sx={{
+                    p: 2,
+                    mb: 2,
+                    bgcolor: "background.default",
+                  }}
+                >
+                  <Grid container spacing={2} alignItems="flex-start">
+                    <Grid item>
+                      <Avatar sx={{ bgcolor: "primary.main" }}>
+                        {comment.createdBy.username.charAt(0).toUpperCase()}
+                      </Avatar>
+                    </Grid>
+                    <Grid item xs>
+                      <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
+												{comment.createdBy.username ?? JSON.parse(localStorage.getItem("loggedUser")).username}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary" gutterBottom>
+                        {formatDistanceToNow(new Date(comment.createdAt), { addSuffix: true })}
+                      </Typography>
+                      <Typography variant="body1">
+                        {comment.description}
+                      </Typography>
+                    </Grid>
                   </Grid>
-                  <Grid item xs>
-                    <Typography variant="subtitle2">{comment.author}</Typography>
-                    <Typography variant="body2">{comment.text}</Typography>
-                  </Grid>
-                </Grid>
+                </Paper>
               ))}
-            </div>
+            </Box>
           )}
-        </CardContent>
-      </Card>
-    </Container>
-  );
+				</CardContent>
+			</Card>
+		</Container>
+	);
 };
 
 export default Details;

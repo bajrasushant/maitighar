@@ -1,32 +1,25 @@
-import { Link } from "react-router-dom";
-
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-// import Link from '@mui/material/Link';
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-// import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { login } from "../services/login";
-import { useState } from "react";
 import { useUserDispatch } from "../context/UserContext";
+import { adminlogin } from "../services/adminLogin";
 
 function Copyright(props) {
   return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
+    <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
+      <Link color="inherit" to="/">
         Maitighar
       </Link>{" "}
       {new Date().getFullYear()}
@@ -35,51 +28,25 @@ function Copyright(props) {
   );
 }
 
-// TODO remove, this demo shouldn't need to reset the theme.
-
 const defaultTheme = createTheme();
 
 export default function AdminLogin() {
-  // const navigate = useNavigate();
-  // const { isAuthenticated, login } = useAuthStatus();
-  // const loginMutation = useMutation({
-  //   mutationFn: loginService,
-  //   onSuccess: (data) => {
-  //     login(data);
-  //     navigate("/");
-  //   },
-  //   onError: (error) => {
-  //     console.error("Login failed:", error);
-  //   },
-  // });
-  // useEffect(() => {
-  //   if (isAuthenticated) {
-  //     navigate("/"); // Redirect to the homepage or any other page if already authenticated
-  //   }
-  // }, [isAuthenticated, navigate]);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const userDispatch = useUserDispatch();
+  const navigate = useNavigate();
 
   const handleLogin = async (event) => {
     event.preventDefault();
-    // const data = new FormData(event.currentTarget);
-    // console.log({
-    //   email: data.get("email"),
-    //   password: data.get("password"),
-    // });
-    // const credentials = {
-    //   username: data.get("username"),
-    //   password: data.get("password"),
-    // };
-    // loginMutation.mutate(credentials);
-    event.preventDefault();
+    setError("");
     try {
-			console.log(username, password);
-      const user = await login({ username, password });
+      const user = await adminlogin({ username, password });
       userDispatch({ type: "LOGIN", payload: user });
-    } catch(err) {
-      console.log("Error", err.message);
+      navigate("/admin-dashboard"); // Redirect to admin dashboard after successful login
+    } catch (err) {
+      setError("Invalid username or password");
+      console.error("Login Error:", err.message);
     }
   };
 
@@ -96,7 +63,7 @@ export default function AdminLogin() {
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            {/* <LockOutlinedIcon /> */}
+            <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
             Admin Login
@@ -130,6 +97,11 @@ export default function AdminLogin() {
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
+            {error && (
+              <Typography color="error" align="center">
+                {error}
+              </Typography>
+            )}
             <Button
               type="submit"
               fullWidth
@@ -140,12 +112,14 @@ export default function AdminLogin() {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
+                <Link to="/forgot-password" variant="body2">
                   Forgot password?
                 </Link>
               </Grid>
               <Grid item>
-                <Link to="/register">{"Don't have an account? Sign Up"}</Link>
+                <Link to="/admin-register" variant="body2">
+                  {"Don't have an account? Sign Up"}
+                </Link>
               </Grid>
             </Grid>
           </Box>

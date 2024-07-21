@@ -19,6 +19,8 @@ import {
 	Menu,
 	MenuItem,
 	Badge,
+  Chip,
+  Box,
 } from "@mui/material";
 import {
 	ArrowUpward,
@@ -33,7 +35,7 @@ import SuggestionForm from "./SuggestionForm";
 import { useUserDispatch } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import issueService from "../services/issues";
-import {useUserValue} from "../context/UserContext";
+import { useUserValue } from "../context/UserContext";
 
 const HomePage = () => {
 	const currentUser = useUserValue();
@@ -58,10 +60,11 @@ const HomePage = () => {
 
 	const [openComments, setOpenComments] = useState({});
 	const [newComments, setNewComments] = useState({});
-	const [openReportForm, setOpenReportForm] = useState(false);
-	const [openSuggestionForm, setOpenSuggestionForm] = useState(false);
+	const [openForm, setOpenForm] = useState(false);
+	// const [openReportForm, setOpenReportForm] = useState(false);
+	// const [openSuggestionForm, setOpenSuggestionForm] = useState(false);
 	const [anchorElUser, setAnchorElUser] = useState(null);
-	const [anchorElCreate, setAnchorElCreate] = useState(null);
+	// const [anchorElCreate, setAnchorElCreate] = useState(null);
 	const [anchorElNotifications, setAnchorElNotifications] = useState(null);
 
 	const [issues, setIssues] = useState([]);
@@ -84,12 +87,15 @@ const HomePage = () => {
 		fetchIssues();
 	}, []);
 
-	const handleUpvote = (id) => {
-		setReports(
-			reports.map((report) =>
-				report.id === id ? { ...report, upvotes: report.upvotes + 1 } : report,
-			),
-		);
+	const handleUpvote = async (id) => {
+		try {
+			const updatedIssue = await issueService.upvoteIssue(id);
+			setIssues(
+				issues.map((issue) => (issue.id === id ? updatedIssue : issue)),
+			);
+		} catch (err) {
+			console.error("Failed to update upvote", err);
+		}
 	};
 
 	const toggleComments = (id) => {
@@ -140,32 +146,39 @@ const HomePage = () => {
 		setAnchorElNotifications(null);
 	};
 
-	const handleOpenCreateMenu = (event) => {
-		setAnchorElCreate(event.currentTarget);
+	// const handleOpenCreateMenu = (event) => {
+	// 	setAnchorElCreate(event.currentTarget);
+	// };
+
+	// const handleCloseCreateMenu = () => {
+	// 	setAnchorElCreate(null);
+	// };
+
+	const handleOpenForm = () => {
+		setOpenForm(true);
 	};
 
-	const handleCloseCreateMenu = () => {
-		setAnchorElCreate(null);
-	};
+	// const handleCreateIssue = () => {
+	// 	setOpenReportForm(true);
+	// 	handleCloseCreateMenu();
+	// };
 
-	const handleCreateIssue = () => {
-		setOpenReportForm(true);
-		handleCloseCreateMenu();
-	};
-
-	const handleCreateSuggestion = () => {
-		setOpenSuggestionForm(true);
-		handleCloseCreateMenu();
-	};
+	// const handleCreateSuggestion = () => {
+	// 	setOpenSuggestionForm(true);
+	// 	handleCloseCreateMenu();
+	// };
 
 	const handleCardClick = (id) => {
 		navigate(`/details/${id}`);
-	  };
+	};
 
 	const addIssue = async (issueObject) => {
 		try {
 			await issueService.createIssue(issueObject);
-			issueService.getAll().then((issues) => setIssues(issues));
+			const updatedIssues = await issueService.getAll();
+			console.log("updatedIssues:", updatedIssues);
+			setIssues(updatedIssues);
+			setOpenForm(false);
 		} catch (err) {
 			console.error("Err:", err.message);
 		}
@@ -178,11 +191,7 @@ const HomePage = () => {
 					<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
 						Maitighar
 					</Typography>
-					<Button
-						color="inherit"
-						startIcon={<Add />}
-						onClick={handleOpenCreateMenu}
-					>
+					<Button color="inherit" startIcon={<Add />} onClick={handleOpenForm}>
 						Create
 					</Button>
 					<IconButton
@@ -251,42 +260,56 @@ const HomePage = () => {
         ))}
 				*/}
 
-				{loading ? (
-					<Typography>Loading...</Typography>
-				) : error ? (
-					<Typography color="error">{error}</Typography>
-				) : (
-					issues.map((issue) => (
-						<Card 
+      {loading ? (
+          <Typography>Loading...</Typography>
+        ) : error ? (
+          <Typography color="error">{error}</Typography>
+        ) : (
+          issues.map((issue) => (
+            <Card 
               key={issue.id} 
               style={{ marginBottom: "20px" }}
             >
-							<CardContent>
-								<Grid container alignItems="center">
-									<Grid item>
-										<IconButton onClick={() => handleUpvote(issue.id)}>
+              <CardContent>
+                <Grid container alignItems="center" spacing={2}>
+                  <Grid item>
+                    <IconButton onClick={() => handleUpvote(issue.id)}>
                       {issue.upvotedBy.includes(currentUser?.id) ? (
                         <ArrowUpward color="primary" />
                       ) : (
-                        <ArrowUpwardOutlined/>
+                        <ArrowUpwardOutlined />
                       )}
                     </IconButton>
-										<Typography>{issue.upvotes}</Typography>
-									</Grid>
-									<Grid item xs>
-                    <Grid onClick={() => handleCardClick(issue.id)}>
-                    <Typography variant="h6">{issue.title}</Typography>
-										<Typography variant="body2">{issue.description}</Typography>
-                    </Grid>
-										<Button
-											startIcon={<Comment />}
-											onClick={() => toggleComments(issue.id)}
-										>
-											Comments ({issue.comments ? issue.comments.length : 0})
-										</Button>
-									</Grid>
-								</Grid>
-								{/* ... comments section */}
+                    <Typography>{issue.upvotes}</Typography>
+                  </Grid>
+                  <Grid item xs>
+                    <Box onClick={() => handleCardClick(issue.id)}>
+                      <Typography variant="h6">{issue.title}</Typography>
+                      <Box sx={{ mt: 1, display: 'flex', alignItems: 'center', gap: 1 }}>
+                        <Chip 
+                          label={issue.type} 
+                          color={issue.type === "issue" ? "error" : "success"}
+                          size="small"
+                        />
+                        <Chip 
+                          label={issue.department} 
+                          color="primary" 
+                          variant="outlined"
+                          size="small"
+                        />
+                      </Box>
+                      <Typography variant="body1" sx={{mt:1}}>{issue.description}</Typography>
+                    </Box>
+                    
+                    <Button
+                      startIcon={<Comment />}
+                      onClick={() => toggleComments(issue.id)}
+                    >
+                      Comments ({issue.comments ? issue.comments.length : 0})
+                    </Button>
+                  </Grid>
+                </Grid>
+                {/* Comments section */}
 							</CardContent>
 						</Card>
 					))
@@ -316,34 +339,38 @@ const HomePage = () => {
 				<MenuItem onClick={handleCloseNotifications}>Notification 4</MenuItem>
 			</Menu>
 
-			{/* Create Menu */}
-			<Menu
-				anchorEl={anchorElCreate}
-				open={Boolean(anchorElCreate)}
-				onClose={handleCloseCreateMenu}
-			>
-				<MenuItem onClick={handleCreateIssue}>Report an Issue</MenuItem>
-				<MenuItem onClick={handleCreateSuggestion}>Make a Suggestion</MenuItem>
-			</Menu>
+			{/* Create Menu
+      <Menu
+        anchorEl={anchorElCreate}
+        open={Boolean(anchorElCreate)}
+        onClose={handleCloseCreateMenu}
+      >
+        <MenuItem onClick={handleOpenForm}>Report Issue or Make Suggestion</MenuItem>
+      </Menu> */}
 
-			{/* Report Form Dialog */}
-			<Dialog open={openReportForm} onClose={() => setOpenReportForm(false)}>
-				{/* <DialogTitle>Create New Report</DialogTitle> */}
+			{/* Form Dialog */}
+			<Dialog open={openForm} onClose={() => setOpenForm(false)}>
 				<DialogContent>
 					<ReportForm createIssue={addIssue} />
 				</DialogContent>
 			</Dialog>
 
-			{/* Suggestion Form Dialog */}
+			{/* Report Form Dialog
+			<Dialog open={openReportForm} onClose={() => setOpenReportForm(false)}>
+				<DialogContent>
+					<ReportForm createIssue={addIssue} />
+				</DialogContent>
+			</Dialog>
+
+			Suggestion Form Dialog
 			<Dialog
 				open={openSuggestionForm}
 				onClose={() => setOpenSuggestionForm(false)}
 			>
-				{/* <DialogTitle>Make a Suggestion</DialogTitle> */}
 				<DialogContent>
 					<SuggestionForm />
 				</DialogContent>
-			</Dialog>
+			</Dialog> */}
 		</>
 	);
 };

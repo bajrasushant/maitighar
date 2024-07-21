@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const uniqueValidator = require("mongoose-unique-validator");
 
+const departments = ["roads", "water", "education", "garbage", "health"];
+
 const adminSchema = new mongoose.Schema({
 	username: {
 		type: String,
@@ -17,12 +19,17 @@ const adminSchema = new mongoose.Schema({
 		unique: true,
         required: true,
 	},
-	role: String,
-    department: {
-        type: String,
-        enum: ['Local Government', 'Central Government'],
-        default: 'Local Government',
-      },
+	// role: String,
+  //   department: {
+  //       type: String,
+  //       enum: ['Local Government', 'Central Government'],
+  //       default: 'Local Government',
+  //     },
+  department: {
+		type: String,
+		enum: departments,
+		required: true,
+	},
 });
 
 adminSchema.plugin(uniqueValidator);
