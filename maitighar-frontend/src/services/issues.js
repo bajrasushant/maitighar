@@ -33,4 +33,9 @@ const getIssuesByDepartment = async (department) => {
   return request.data;
 };
 
-export default { getAll, createIssue, upvoteIssue, getIssueId, getIssuesByDepartment};
+const updateStatus = (id, newStatus) => {
+  return axios.put(`/api/issues/${id}/status`, { status: newStatus })
+    .then(response => response.data);
+};
+
+export default { getAll, createIssue, upvoteIssue, getIssueId, getIssuesByDepartment, updateStatus };
