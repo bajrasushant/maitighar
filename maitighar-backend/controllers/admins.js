@@ -64,6 +64,7 @@ adminRouter.get("/:id", async (request, response) => {
 });
 
 adminRouter.post("/", async (request, response) => {
+	console.log(request.body);
     const { username, password, repassword, email, department } = request.body;
     
     if (!username || !password || !repassword || !email || !department ||
@@ -72,31 +73,32 @@ adminRouter.post("/", async (request, response) => {
             .status(400)
             .json({ error: "username, password, repassword, email, and department are required" });
     }
-
     if (username.length < 3 || password.length < 3) {
         return response.status(400).json({
             error: "username and password should contain at least 3 characters",
         });
     }
-
     if (password !== repassword) {
         return response.status(400).json({ error: "passwords do not match" });
     }
-
     if (!departments.includes(department)) {
         return response.status(400).json({ error: "Invalid department" });
     }
 
+    // Check if department already exists
+    const existingAdmin = await Admin.findOne({ department });
+    if (existingAdmin) {
+        return response.status(400).json({ error: "An admin for this department already exists" });
+    }
+
     const saltRounds = 10;
     const passwordHash = await bcrypt.hash(password, saltRounds);
-
     const admin = new Admin({
         username,
         passwordHash,
         email,
         department,
     });
-
     try {
         const savedAdmin = await admin.save();
         return response.status(201).json(savedAdmin);
@@ -113,5 +115,4 @@ adminRouter.post("/", async (request, response) => {
         return response.status(500).json({ error: "Something went wrong" });
     }
 });
-
 module.exports = adminRouter;

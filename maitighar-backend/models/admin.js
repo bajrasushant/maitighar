@@ -62,6 +62,7 @@ const adminSchema = new mongoose.Schema({
 		type: String,
 		enum: departments,
 		required: true,
+		unique: true,
 	},
 });
 
