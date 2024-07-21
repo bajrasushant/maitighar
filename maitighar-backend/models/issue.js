@@ -47,9 +47,8 @@ const issueSchema = new Schema({
   }, 
   imagePaths: [{
     type: String,
-    default: null
+    default:[] 
   }],
-
 	createdBy: {
 		type: Schema.Types.ObjectId,
 		ref: "User",

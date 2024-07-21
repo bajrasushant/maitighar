@@ -29,10 +29,11 @@ const ReportForm = ({ createIssue }) => {
     },
     status: "open",
     type: "issue",
-		upvotes: 0,
+    upvotes: 0,
+    images: [],
   };
-  const [report, setReport] = useState(defaultReportState);
 
+  const [report, setReport] = useState(defaultReportState);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -42,36 +43,35 @@ const ReportForm = ({ createIssue }) => {
     }));
   };
 
-  // const handleImageUpload = (e) => {
-  //   // This is a placeholder. You'll need to implement actual image upload logic
-  //   const files = Array.from(e.target.files);
-  //   setReport(prevState => ({
-  //     ...prevState,
-  //     images: files.map(file => URL.createObjectURL(file))
-  //   }));
-  // };
+  const handleImageUpload = (e) => {
+    const files = Array.from(e.target.files);
+    setReport((prevState) => ({
+      ...prevState,
+      images: files,
+    }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Here you would typically send the report data to your backend
-    const issueData = {
-      title: report.title,
-      description: report.description,
-      department: report.department,
-      latitude: report.position.latitude,
-      longitude: report.position.longitude,
-      status: report.status,
-      type: report.type,
-			upvotes: report.upvotes
-    };
-
+    const formData = new FormData();
+    formData.append("title", report.title);
+    formData.append("description", report.description);
+    formData.append("department", report.department);
+    formData.append("latitude", report.position.latitude);
+    formData.append("longitude", report.position.longitude);
+    formData.append("status", report.status);
+    formData.append("upvotes", report.upvotes);
+    if (report.images) {
+      report.images.forEach((image) => {
+        formData.append("images", image);
+      });
+    }
     try {
-      await createIssue(issueData);
+      await createIssue(formData);
       setReport(defaultReportState);
     } catch (err) {
       console.error("Err: ", err.message);
     }
-    // console.log(report);
   };
 
   return (
@@ -147,45 +147,28 @@ const ReportForm = ({ createIssue }) => {
                 }))
               }
             />
-            {/* <Typography variant="body2" gutterBottom>
-              Latitude: {position[0]}, Longitude: {position[1]}
-            </Typography> */}
           </Grid>
-          {/* <Grid item xs={12}>
+          <Grid item xs={12}>
             <input
               accept="image/*"
               id="image-upload"
               type="file"
               multiple
+              name="images"
               onChange={handleImageUpload}
-              style={{ display: 'none' }}
+              style={{ display: "none" }}
             />
             <label htmlFor="image-upload">
               <Button variant="contained" component="span">
-                Upload Images
+                Upload Image
               </Button>
             </label>
-          </Grid>
-          {report.images.length > 0 && (
-            <Grid item xs={12}>
-              <Typography variant="subtitle1">
-                {report.images.length} image(s) selected
+            {report.images.length > 0 && (
+              <Typography variant="body2">
+                {report.images.length} selected
               </Typography>
-            </Grid>
-          )} */}
-          {/* <Grid item xs={12}>
-            <FormControl fullWidth>
-              <InputLabel>Status</InputLabel>
-              <Select
-                name="status"
-                value={report.status}
-                onChange={handleChange}
-              >
-                <MenuItem value="open">Open</MenuItem>
-                <MenuItem value="resolved">Resolved</MenuItem>
-              </Select>
-            </FormControl>
-          </Grid> */}
+            )}
+          </Grid>
           <Grid item xs={12}>
             <Box mt={2}>
               <Button
@@ -205,3 +188,4 @@ const ReportForm = ({ createIssue }) => {
 };
 
 export default ReportForm;
+

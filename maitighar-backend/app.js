@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 const config = require("./utils/config");
 const app = express();
 const mongoose = require("mongoose");
@@ -19,6 +20,8 @@ mongoose
   .connect(config.MONGO_URI)
   .then(() => console.log("connected to Mongo"))
   .catch((err) => console.log("error connecting", err.message));
+
+app.use('/uploads/issues', express.static(path.join(__dirname, 'uploads/issues')));
 
 app.use(cors());
 app.use(express.json());
