@@ -115,10 +115,13 @@ issueRouter.get("/:id", async (req, res) => {
 // Update a issue
 issueRouter.put("/:id", async (req, res) => {
   try {
+		const { status } = req.body;
     const issue = await Issue.findById(req.params.id);
     if (!issue) {
       return res.status(404).json({ error: 'Issue not found' });
     }
+		issue.status = status;
+		await issue.save();
     res.json(issue);
   } catch (error) {
     res.status(500).json({ error: error.message });

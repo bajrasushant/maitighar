@@ -1,28 +1,59 @@
-import { useState, useEffect } from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography, FormControl, FormControlLabel, Radio, RadioGroup } from '@mui/material';
+import { useState, useEffect } from "react";
+import axios from "axios";
 import issueService from "../services/issues";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Typography,
+  FormControl,
+  RadioGroup,
+  FormControlLabel,
+  Radio,
+} from "@mui/material";
 
 const IssuesList = () => {
   const [issues, setIssues] = useState([]);
 
-  useEffect(() => {
-    issueService.getAll()
-      .then(data => setIssues(data))
-      .catch(error => console.error(error));
-  }, []);
-
-  const handleStatusChange = (id, newStatus) => {
-    console.log("Updating status for issue ID:", id, "to:", newStatus); // Add this line for debugging
-
-    issueService.updateStatus(id, newStatus)
-      .then(updatedIssue => {
-        setIssues(prevIssues => prevIssues.map(issue => 
-          issue._id === id ? { ...issue, status: newStatus } : issue
-        ));
-        console.log("Updated issue status:", updatedIssue); // Add this line for debugging
-      })
-      .catch(error => console.error(error));
+  const handleStatusChange = async (id, newStatus) => {
+    console.log("Updating status for issue ID:", id, "to:", newStatus);
+    try {
+      const updatedIssue = await issueService.updateStatus(id, newStatus);
+      setIssues((prevIssues) =>
+        prevIssues.map((issue) =>
+          issue.id === id ? { ...issue, status: newStatus } : issue
+        )
+      );
+      console.log("Updated issue status:", updatedIssue);
+    } catch (error) {
+      console.error("Error updating status:", error);
+    }
   };
+
+  useEffect(() => {
+    const fetchIssues = async () => {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      console.log("config", config);
+      try {
+        const response = await axios.get(`/api/issues/admin/${department}`, config);
+        setIssues(response.data);
+      } catch (error) {
+        console.error("Error fetching issues:", error);
+      }
+    };
+
+    fetchIssues();
+  }, [department, token]);
+
+  const issuesList = issues.filter((issue) => issue.type === "issue");
 
   return (
     <div>
@@ -38,8 +69,8 @@ const IssuesList = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {issues.map(issue => (
-              <TableRow key={issue._id}>
+            {issuesList.map((issue) => (
+              <TableRow key={issue.id}>
                 <TableCell>{issue.upvotes}</TableCell>
                 <TableCell>{issue.title}</TableCell>
                 <TableCell>{issue.description}</TableCell>
@@ -48,7 +79,7 @@ const IssuesList = () => {
                     <RadioGroup
                       row
                       value={issue.status}
-                      onChange={(e) => handleStatusChange(issue._id, e.target.value)}
+                      onChange={(e) => handleStatusChange(issue.id, e.target.value)}
                     >
                       <FormControlLabel value="open" control={<Radio />} label="Open" />
                       <FormControlLabel value="received" control={<Radio />} label="Received" />
