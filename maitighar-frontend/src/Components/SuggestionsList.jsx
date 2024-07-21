@@ -77,7 +77,7 @@ const SuggestionsList = () => {
                 <TableCell>
                   <FormControl component="fieldset">
                     <RadioGroup
-                      row
+                      // row
                       value={issue.status}
                       onChange={(e) =>
                         handleStatusChange(issue.id, e.target.value)
