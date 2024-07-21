@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography } from '@mui/material';
+import issueService from "../services/issues";
 
 const IssuesList = () => {
   const [issues, setIssues] = useState([]);
 
   useEffect(() => {
-    axios.get('/api/admin/issues')
-      .then(response => setIssues(response.data))
+    issueService.getAll()
+      .then(data => setIssues(data))
       .catch(error => console.error(error));
   }, []);
 

@@ -42,7 +42,7 @@ export default function AdminLogin() {
     setError("");
     try {
       const user = await adminlogin({ username, password });
-      userDispatch({ type: "LOGIN", payload: user });
+      userDispatch({ type: "ADMIN_LOGIN", payload: user });
       navigate("/admin-dashboard"); // Redirect to admin dashboard after successful login
     } catch (err) {
       setError("Invalid username or password");
