@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-// import UpdateStatusForm from './UpdateStatusForm';
-// import ForwardForm from './ForwardForm';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography } from '@mui/material';
 
 const IssuesList = () => {
   const [issues, setIssues] = useState([]);
@@ -14,30 +13,29 @@ const IssuesList = () => {
 
   return (
     <div>
-      <h2>Issues</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {issues.map(issue => (
-            <tr key={issue._id}>
-              <td>{issue.title}</td>
-              <td>{issue.description}</td>
-              <td>{issue.status}</td>
-              <td>
-                {/* <UpdateStatusForm issue={issue} />
-                <ForwardForm issue={issue} /> */}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <Typography variant="h4" gutterBottom>Issues</Typography>
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Upvotes</TableCell>
+              <TableCell>Title</TableCell>
+              <TableCell>Description</TableCell>
+              <TableCell>Status</TableCell>  
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {issues.map(issue => (
+              <TableRow key={issue._id}>
+                <TableCell>{issue.upvotes}</TableCell>
+                <TableCell>{issue.title}</TableCell>
+                <TableCell>{issue.description}</TableCell>
+                <TableCell>{issue.status}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </div>
   );
 };
