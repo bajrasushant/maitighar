@@ -1,15 +1,28 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography, FormControl, FormControlLabel, Radio, RadioGroup } from '@mui/material';
+import issueService from "../services/issues";
 
 const IssuesList = () => {
   const [issues, setIssues] = useState([]);
 
   useEffect(() => {
-    axios.get('/api/admin/issues')
-      .then(response => setIssues(response.data))
+    issueService.getAll()
+      .then(data => setIssues(data))
       .catch(error => console.error(error));
   }, []);
+
+  const handleStatusChange = (id, newStatus) => {
+    console.log("Updating status for issue ID:", id, "to:", newStatus); // Add this line for debugging
+
+    issueService.updateStatus(id, newStatus)
+      .then(updatedIssue => {
+        setIssues(prevIssues => prevIssues.map(issue => 
+          issue._id === id ? { ...issue, status: newStatus } : issue
+        ));
+        console.log("Updated issue status:", updatedIssue); // Add this line for debugging
+      })
+      .catch(error => console.error(error));
+  };
 
   return (
     <div>
@@ -21,7 +34,7 @@ const IssuesList = () => {
               <TableCell>Upvotes</TableCell>
               <TableCell>Title</TableCell>
               <TableCell>Description</TableCell>
-              <TableCell>Status</TableCell>  
+              <TableCell>Status</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -30,7 +43,19 @@ const IssuesList = () => {
                 <TableCell>{issue.upvotes}</TableCell>
                 <TableCell>{issue.title}</TableCell>
                 <TableCell>{issue.description}</TableCell>
-                <TableCell>{issue.status}</TableCell>
+                <TableCell>
+                  <FormControl component="fieldset">
+                    <RadioGroup
+                      row
+                      value={issue.status}
+                      onChange={(e) => handleStatusChange(issue._id, e.target.value)}
+                    >
+                      <FormControlLabel value="open" control={<Radio />} label="Open" />
+                      <FormControlLabel value="received" control={<Radio />} label="Received" />
+                      <FormControlLabel value="resolved" control={<Radio />} label="Resolved" />
+                    </RadioGroup>
+                  </FormControl>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

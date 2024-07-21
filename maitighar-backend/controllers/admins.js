@@ -9,6 +9,27 @@ adminRouter.get("/", async (request, response) => {
     response.json(users);
 });
 
+adminRouter.get("/:id", async (request, response) => {
+  try {
+    const { id } = request.params;
+    const admin = await Admin.findById(id).select('username email department');
+    
+    if (admin) {
+      return response.json({
+        username: admin.username,
+        email: admin.email,
+        department: admin.department,
+        id: admin._id
+      });
+    } else {
+      return response.status(404).json({ error: "Admin not found" });
+    }
+  } catch (error) {
+    console.error('Error fetching admin info:', error);
+    return response.status(500).json({ error: "Internal server error" });
+  }
+});
+
 adminRouter.post("/", async (request, response) => {
     const { username, password, repassword, email, department } = request.body;
     

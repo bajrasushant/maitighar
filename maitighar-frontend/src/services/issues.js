@@ -46,4 +46,15 @@ const upvoteIssue = async (id) => {
 	return response.data;
 };
 
-export default { getAll, createIssue, upvoteIssue, getIssueId};
+const getIssuesByDepartment = async (department) => {
+  const config = helpers.getConfig();
+  const request = await axios.get(`${baseUrl}/admin/${department}`, config);
+  return request.data;
+};
+
+const updateStatus = (id, newStatus) => {
+  return axios.put(`/api/issues/${id}/status`, { status: newStatus })
+    .then(response => response.data);
+};
+
+export default { getAll, createIssue, upvoteIssue, getIssueId, getIssuesByDepartment, updateStatus };
