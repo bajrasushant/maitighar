@@ -35,7 +35,7 @@ const upload = multer({
 });
 
 // Create a new issue with image upload
-issueRouter.post('/', upload.single('image'), async (req, res) => {
+issueRouter.post('/', upload.array('images', 5), async (req, res) => {
   try {
   if (!req.user || !req.user.id) {
       return res.status(401).json({ error: "User not authenticated" });
@@ -46,6 +46,9 @@ issueRouter.post('/', upload.single('image'), async (req, res) => {
     console.log(req.user.id);
     const user = await User.findById(req.user.id);
     console.log(user);
+		console.log(req.files);
+    const imagePaths = req.files ? req.files.map(file => file.path) : [];
+
     const issue = new Issue({
       title,
       description,
@@ -54,8 +57,8 @@ issueRouter.post('/', upload.single('image'), async (req, res) => {
       longitude,
       status,
       createdBy: user.id,
-      imagePath, // Store the path of the uploaded image
-      comments: []
+      comments: [],
+			imagePaths
     });
     await issue.save();
     // console.log("bakend",issue);
