@@ -363,7 +363,7 @@ const Details = () => {
                     </Grid>
                     <Grid item xs>
                       <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
-                        {comment.createdBy.username}
+												{comment.createdBy.username ?? JSON.parse(localStorage.getItem("loggedUser")).username}
                       </Typography>
                       <Typography variant="body2" color="text.secondary" gutterBottom>
                         {formatDistanceToNow(new Date(comment.createdAt), { addSuffix: true })}

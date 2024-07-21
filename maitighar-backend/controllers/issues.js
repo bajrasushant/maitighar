@@ -67,14 +67,14 @@ issueRouter.get("/:id", async (req, res) => {
     const issue = await Issue.findById(req.params.id)
       .populate("createdBy", {
         username: 1,
-      })
-      .populate({
-        path: "comments",
-        populate: {
-          path: "createdBy",
-          select: "username",
-        },
       });
+      // .populate({
+      //   path: "comments",
+      //   populate: {
+      //     path: "createdBy",
+      //     select: "username",
+      //   },
+      // });
     console.log(issue);
     if (!issue) {
       return res.status(404).json({ error: "issue not found" });
