@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import AdminLogin from "./Components/AdminLogin";
 import AdminDashboard from "./Components/AdminDashboard";
 import AdminRegister from "./Components/AdminRegister";
+import GlobalIssueMap from "./Components/GlobalIssueMap";
 import Details from "./Components/Details";
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
           <Route path="/admin-login" element={<AdminLogin />} />	
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
           <Route path="/admin-register" element={<AdminRegister />} />			
+          <Route path="/admin-map" element={<GlobalIssueMap />} />			
         </Routes>
 			</Router>
 		</>
