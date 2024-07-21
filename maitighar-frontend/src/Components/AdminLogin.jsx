@@ -112,9 +112,9 @@ export default function AdminLogin() {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link to="/forgot-password" variant="body2">
+                {/* <Link to="/forgot-password" variant="body2">
                   Forgot password?
-                </Link>
+                </Link> */}
               </Grid>
               <Grid item>
                 <Link to="/admin-register" variant="body2">
