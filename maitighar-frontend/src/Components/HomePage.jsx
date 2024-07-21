@@ -30,6 +30,7 @@ import {
 	AccountCircle,
 	ArrowUpwardOutlined,
 } from "@mui/icons-material";
+import FoundationIcon from '@mui/icons-material/Foundation';
 import ReportForm from "./IssueForm";
 import SuggestionForm from "./SuggestionForm";
 import { useUserDispatch } from "../context/UserContext";
@@ -188,13 +189,16 @@ const HomePage = () => {
 		<>
 			<AppBar position="static">
 				<Toolbar>
-					<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-						Maitighar
-					</Typography>
+        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Box display="flex" alignItems="center" >
+            <FoundationIcon />
+            Maitighar
+          </Box>
+        </Typography>
 					<Button color="inherit" startIcon={<Add />} onClick={handleOpenForm}>
 						Create
 					</Button>
-					<IconButton
+					{/* <IconButton
 						size="large"
 						color="inherit"
 						onClick={handleOpenNotifications}
@@ -202,7 +206,7 @@ const HomePage = () => {
 						<Badge badgeContent={4} color="error">
 							<Notifications />
 						</Badge>
-					</IconButton>
+					</IconButton> */}
 					<IconButton size="large" color="inherit" onClick={handleOpenUserMenu}>
 						<AccountCircle />
 					</IconButton>
@@ -323,12 +327,12 @@ const HomePage = () => {
 				onClose={handleCloseUserMenu}
 			>
 				<MenuItem onClick={handleCloseUserMenu}>Profile</MenuItem>
-				<MenuItem onClick={handleCloseUserMenu}>My Reports</MenuItem>
+				{/* <MenuItem onClick={handleCloseUserMenu}>My Reports</MenuItem> */}
 				<MenuItem onClick={handleLogout}>Logout</MenuItem>
 			</Menu>
 
 			{/* Notifications Menu */}
-			<Menu
+			{/* <Menu
 				anchorEl={anchorElNotifications}
 				open={Boolean(anchorElNotifications)}
 				onClose={handleCloseNotifications}
@@ -337,7 +341,7 @@ const HomePage = () => {
 				<MenuItem onClick={handleCloseNotifications}>Notification 2</MenuItem>
 				<MenuItem onClick={handleCloseNotifications}>Notification 3</MenuItem>
 				<MenuItem onClick={handleCloseNotifications}>Notification 4</MenuItem>
-			</Menu>
+			</Menu> */}
 
 			{/* Create Menu
       <Menu
