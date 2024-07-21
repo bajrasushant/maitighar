@@ -22,19 +22,19 @@ const SuggestionsList = () => {
   const department = adminData.department;
   const token = adminData.token;
 
-  const handleStatusChange = (id, newStatus) => {
+  const handleStatusChange = async (id, newStatus) => {
     console.log("Updating status for issue ID:", id, "to:", newStatus);
-    issueService
-      .updateStatus(id, newStatus)
-      .then((updatedSuggestions) => {
-        setSuggestions((prevSuggestions) =>
-          prevSuggestions.map((issue) =>
-            issue._id === id ? { ...issue, status: newStatus } : issue
-          )
-        );
-        console.log("Updated issue status:", updatedSuggestions);
-      })
-      .catch((error) => console.error(error));
+    try {
+      const updatedIssue = await issueService.updateStatus(id, newStatus);
+      setSuggestions((prevIssues) =>
+        prevIssues.map((issue) =>
+          issue.id === id ? { ...issue, status: newStatus } : issue
+        )
+      );
+      console.log("Updated issue status:", updatedIssue);
+    } catch (error) {
+      console.error("Error updating status:", error);
+    }
   };
 
   useEffect(() => {
@@ -55,7 +55,7 @@ const SuggestionsList = () => {
 
   return (
     <div>
-      <Typography variant="h5" gutterBottom>
+      <Typography variant="h4" gutterBottom>
         Suggestions
       </Typography>
       <TableContainer component={Paper}>
@@ -70,7 +70,7 @@ const SuggestionsList = () => {
           </TableHead>
           <TableBody>
             {suggestionsList.map((issue) => (
-              <TableRow key={issue._id}>
+              <TableRow key={issue.id}>
                 <TableCell>{issue.upvotes}</TableCell>
                 <TableCell>{issue.title}</TableCell>
                 <TableCell>{issue.description}</TableCell>
@@ -80,7 +80,7 @@ const SuggestionsList = () => {
                       row
                       value={issue.status}
                       onChange={(e) =>
-                        handleStatusChange(issue._id, e.target.value)
+                        handleStatusChange(issue.id, e.target.value)
                       }
                     >
                       <FormControlLabel

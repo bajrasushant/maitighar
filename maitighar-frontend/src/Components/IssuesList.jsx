@@ -18,6 +18,9 @@ import {
 
 const IssuesList = () => {
   const [issues, setIssues] = useState([]);
+  const adminData = JSON.parse(localStorage.getItem("loggedAdmin"));
+  const department = adminData.department;
+  const token = adminData.token;
 
   const handleStatusChange = async (id, newStatus) => {
     console.log("Updating status for issue ID:", id, "to:", newStatus);

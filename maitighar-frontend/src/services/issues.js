@@ -53,7 +53,12 @@ const getIssuesByDepartment = async (department) => {
 };
 
 const updateStatus = async (id, newStatus) => {
-  const config = helpers.getConfig();
+  const adminInfo = JSON.parse(localStorage.getItem("loggedAdmin"));
+  const config = {
+    headers: {
+      Authorization: `Bearer ${adminInfo.token}`,
+    },
+  };
   const response = await axios.put(
     `/api/issues/${id}`,
     { status: newStatus },
