@@ -302,12 +302,13 @@ const HomePage = () => {
                           size="small"
                         />
                       </Box>
-                      <Typography variant="body1" sx={{mt:1}}>{issue.description}</Typography>
+                      <Typography variant="body1" sx={{mt:2}}>{issue.description}</Typography>
                     
                     
                     <Button
                       startIcon={<Comment />}
                       onClick={() => toggleComments(issue.id)}
+                      sx={{ mt: 1 }}
                     >
                       Comments ({issue.comments ? issue.comments.length : 0})
                     </Button>
