@@ -1,49 +1,75 @@
-const issueRouter = require("express").Router();
 const express = require("express");
-const Issue = require("../models/issue"); // Adjust the path as needed
+
+const multer = require("multer");
+const path = require("path");
+const Issue = require("../models/issue");
 // const Upvote = require("../models/upvote");
 const User = require("../models/user");
 
-// Create a new issue
-issueRouter.post("/", async (req, res) => {
+const issueRouter = express.Router();
+
+// Multer configuration for image upload
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/issues/');
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${Date.now()}-${file.originalname}`);
+  }
+});
+
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: 1024 * 1024 * 5 }, // Limit file size to 5MB
+  fileFilter: (req, file, cb) => {
+    const fileTypes = /jpeg|jpg|png/;
+    const extname = fileTypes.test(path.extname(file.originalname).toLowerCase());
+    const mimetype = fileTypes.test(file.mimetype);
+
+    if (mimetype && extname) {
+      return cb(null, true);
+    } else {
+      cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
+    }
+  }
+});
+
+// Create a new issue with image upload
+issueRouter.post('/', upload.single('image'), async (req, res) => {
   try {
-    if (!req.user || !req.user.id) {
+  if (!req.user || !req.user.id) {
       return res.status(401).json({ error: "User not authenticated" });
     }
+    const { title, description, department, latitude, longitude, status } = req.body;
+    const imagePath = req.file ? req.file.path : null;
+  
     console.log(req.user.id);
     const user = await User.findById(req.user.id);
     console.log(user);
-    const issue = new Issue({ ...req.body, createdBy: user.id, comments: [] });
+    const issue = new Issue({
+      title,
+      description,
+      department,
+      latitude,
+      longitude,
+      status,
+      createdBy: user.id,
+      imagePath, // Store the path of the uploaded image
+      comments: []
+    });
     await issue.save();
     // console.log("bakend",issue);
     res.status(201).json(issue);
+
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 });
 
-// issueRouter.post('/:id/upvote', async (req, res) => {
-//   try {
-//     const userId = req.user.id;
-//     const issue = await Issue.findById(req.params.id);
-//     if (!issue) {
-//       return res.status(404).json({ error: 'Issue not found' });
-//     }
-//     if (issue.upvotedBy.includes(userId)) {
-//       return res.status(400).json({ error: 'User has already upvoted' });
-//     }
-//     issue.upvotes += 1;
-//     issue.upvotedBy.push(userId);
-//     await issue.save();
-//     res.json(issue);
-//   } catch (error) {
-//     res.status(500).json({ error: error.message });
-//   }
-// });
-
 // Get all issues
-issueRouter.get("/", async (req, res) => {
+issueRouter.get('/', async (req, res) => {
   try {
+
     const issues = await Issue.find({}).populate("comments");
     // const issuesWithUpvotes = await Promise.all(
     // 	issues.map(async (issue) => {
@@ -56,6 +82,7 @@ issueRouter.get("/", async (req, res) => {
       commentCount: issue.comments.length,
     }));
     res.json(issuesWithCommentLength);
+
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -91,28 +118,36 @@ issueRouter.put("/:id", async (req, res) => {
   try {
     const issue = await Issue.findById(req.params.id);
     if (!issue) {
-      return res.status(404).json({ error: "issue not found" });
+      return res.status(404).json({ error: 'Issue not found' });
     }
-    if (issue.createdBy.toString() !== req.user.id.toString()) {
-      return res
-        .status(403)
-        .json({ error: "You do not have permission to update this issue" });
+    res.json(issue);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Update an issue
+issueRouter.put('/:id', upload.single('image'), async (req, res) => {
+  try {
+    const updates = req.body;
+    if (req.file) {
+      updates.imagePath = req.file.path;
     }
-    const updatedIssue = await Issue.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true, runValidators: true },
-    );
-    res.json(updatedIssue);
+    
+    const issue = await Issue.findByIdAndUpdate(req.params.id, updates, { new: true, runValidators: true });
+    if (!issue) {
+      return res.status(404).json({ error: 'Issue not found' });
+    }
+    res.json(issue);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 });
 
-// Delete a issue
-issueRouter.delete("/:id", async (req, res) => {
+// Delete an issue
+issueRouter.delete('/:id', async (req, res) => {
   try {
-    const issue = await Issue.findById(req.params.id);
+    const issue = await Issue.findByIdAndDelete(req.params.id);
     if (!issue) {
       return res.status(404).json({ error: "issue not found" });
     }
@@ -121,8 +156,7 @@ issueRouter.delete("/:id", async (req, res) => {
         .status(403)
         .json({ error: "You do not have permission to delete this issue" });
     }
-    await Issue.findByIdAndDelete(req.params.id);
-    res.json({ message: "Issue deleted" });
+    res.json({ message: 'Issue deleted' });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

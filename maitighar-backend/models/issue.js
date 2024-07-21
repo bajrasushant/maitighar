@@ -44,7 +44,12 @@ const issueSchema = new Schema({
     type: String,
     enum: ['issue', 'suggestion'],
     required: true,
-  },
+  }, 
+  imagePaths: [{
+    type: String,
+    default: null
+  }],
+
 	createdBy: {
 		type: Schema.Types.ObjectId,
 		ref: "User",
