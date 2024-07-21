@@ -301,7 +301,7 @@ const HomePage = () => {
                           variant="outlined"
                           size="small"
                         />
-                      
+                      </Box>
                       <Typography variant="body1" sx={{mt:1}}>{issue.description}</Typography>
                     </Box>
                     
@@ -311,7 +311,6 @@ const HomePage = () => {
                     >
                       Comments ({issue.comments ? issue.comments.length : 0})
                     </Button>
-					</Box>
                   </Grid>
                 </Grid>
                 {/* Comments section */}
