@@ -220,11 +220,11 @@ const Details = () => {
 									}}
 								>
 									<Grid container spacing={2} alignItems="flex-start">
-										<Grid item>
+										{/*<Grid item>
 											<Avatar sx={{ bgcolor: "primary.main" }}>
-												{comment.createdBy.username.charAt(0).toUpperCase()}
+												{comment.createdBy.username ?? JSON.parse(localStorage.getItem("loggedUser")).username}
 											</Avatar>
-										</Grid>
+										</Grid>*/}
 										<Grid item xs>
 											<Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
 												{comment.createdBy.username ?? JSON.parse(localStorage.getItem("loggedUser")).username}

@@ -40,17 +40,13 @@ issueRouter.post('/', upload.array('images', 5), async (req, res) => {
   if (!req.user || !req.user.id) {
       return res.status(401).json({ error: "User not authenticated" });
     }
-    const { title, description, department, latitude, longitude, status } = req.body;
-    const imagePath = req.file ? req.file.path : null;
-  
-    console.log(req.user.id);
+    const { title, description, department, latitude, longitude, status, type } = req.body;
     const user = await User.findById(req.user.id);
-    console.log(user);
-		console.log(req.files);
     const imagePaths = req.files ? req.files.map(file => file.path) : [];
 
     const issue = new Issue({
       title,
+			type,
       description,
       department,
       latitude,
@@ -60,8 +56,8 @@ issueRouter.post('/', upload.array('images', 5), async (req, res) => {
       comments: [],
 			imagePaths
     });
-    await issue.save();
-    // console.log("bakend",issue);
+		console.log(issue);
+    await issue.save(); // console.log("bakend",issue);
     res.status(201).json(issue);
 
   } catch (error) {

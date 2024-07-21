@@ -45,6 +45,7 @@ const ReportForm = ({ createIssue }) => {
 
   const handleImageUpload = (e) => {
     const files = Array.from(e.target.files);
+    console.log(files);  // Add this line to check the files being read
     setReport((prevState) => ({
       ...prevState,
       images: files,
@@ -59,13 +60,21 @@ const ReportForm = ({ createIssue }) => {
     formData.append("department", report.department);
     formData.append("latitude", report.position.latitude);
     formData.append("longitude", report.position.longitude);
+    formData.append("type", report.type);
     formData.append("status", report.status);
     formData.append("upvotes", report.upvotes);
+
     if (report.images) {
       report.images.forEach((image) => {
         formData.append("images", image);
       });
     }
+
+    // Log FormData entries
+    for (let pair of formData.entries()) {
+      console.log(pair[0] + ': ' + pair[1]);
+    }
+
     try {
       await createIssue(formData);
       setReport(defaultReportState);
