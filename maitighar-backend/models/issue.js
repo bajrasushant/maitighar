@@ -24,6 +24,10 @@ const issueSchema = new Schema({
   longitude: {
     type: Number,
     required: true,
+  }, 
+  imagePath: {
+    type: String,
+    default: null
   },
   upvotes: {
     type: Number,
