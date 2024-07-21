@@ -8,13 +8,17 @@ import {
   Container,
   Box,
   Grid,
+  IconButton,
 } from "@mui/material";
+import AccountCircle from "@mui/icons-material/AccountCircle";
 import IssuesList from "./IssuesList";
 import SuggestionsList from "./SuggestionsList";
 import GlobalIssueMap from "./GlobalIssueMap";
+import { useUserDispatch } from "../context/UserContext";
 
 const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState("dashboard");
+  const userDispatch = useUserDispatch();
 
   const renderContent = () => {
     switch (activeTab) {
@@ -27,6 +31,12 @@ const AdminDashboard = () => {
       default:
         return <GlobalIssueMap />;
     }
+  };
+
+  const handleLogout = () => {
+    userDispatch({ type: 'ADMIN_LOGOUT' });
+    // Redirect to login page or home page
+    window.location.href = '/login';  // Adjust the URL as necessary
   };
 
   return (
@@ -72,6 +82,10 @@ const AdminDashboard = () => {
           >
             Suggestions
           </Button>
+          {/* <IconButton size="large" color="inherit" onClick={handleLogout}>
+						<AccountCircle />
+					</IconButton> */}
+          <Button color="inherit" onClick={handleLogout}>Logout</Button>
         </Toolbar>
       </AppBar>
       <Container sx={{ mt: 4, height: 'calc(100vh - 64px)' }}>
