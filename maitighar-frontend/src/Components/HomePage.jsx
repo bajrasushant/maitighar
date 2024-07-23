@@ -6,11 +6,11 @@ import {
 	Typography,
 	Button,
 	IconButton,
-	TextField,
+	// TextField,
 	Grid,
-	List,
-	ListItem,
-	ListItemText,
+	// List,
+	// ListItem,
+	// ListItemText,
 	Dialog,
 	// DialogTitle,
 	DialogContent,
@@ -18,7 +18,7 @@ import {
 	Toolbar,
 	Menu,
 	MenuItem,
-	Badge,
+	// Badge,
   Chip,
   Box,
 } from "@mui/material";
@@ -26,13 +26,13 @@ import {
 	ArrowUpward,
 	Comment,
 	Add,
-	Notifications,
+	// Notifications,
 	AccountCircle,
 	ArrowUpwardOutlined,
 } from "@mui/icons-material";
 import FoundationIcon from '@mui/icons-material/Foundation';
 import ReportForm from "./IssueForm";
-import SuggestionForm from "./SuggestionForm";
+// import SuggestionForm from "./SuggestionForm";
 import { useUserDispatch } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import issueService from "../services/issues";
@@ -40,33 +40,31 @@ import { useUserValue } from "../context/UserContext";
 
 const HomePage = () => {
 	const currentUser = useUserValue();
-	const [reports, setReports] = useState([
-		// {
-		// 	id: 1,
-		// 	title: "Pothole on Main Street",
-		// 	description: "Large pothole causing traffic issues",
-		// 	upvotes: 5,
-		// 	comments: [],
-		// },
-		// {
-		// 	id: 2,
-		// 	title: "Broken Streetlight",
-		// 	description: "Streetlight out at corner of Elm and Oak",
-		// 	upvotes: 3,
-		// 	comments: [],
-		// },
-	]);
+	// const [reports, setReports] = useState([
+	// 	{
+	// 		id: 1,
+	// 		title: "Pothole on Main Street",
+	// 		description: "Large pothole causing traffic issues",
+	// 		upvotes: 5,
+	// 		comments: [],
+	// 	},
+	// 	{
+	// 		id: 2,
+	// 		title: "Broken Streetlight",
+	// 		description: "Streetlight out at corner of Elm and Oak",
+	// 		upvotes: 3,
+	// 		comments: [],
+	// 	},
+	// ]);
 
 	const userDispatch = useUserDispatch();
 
-	const [openComments, setOpenComments] = useState({});
-	const [newComments, setNewComments] = useState({});
 	const [openForm, setOpenForm] = useState(false);
 	// const [openReportForm, setOpenReportForm] = useState(false);
 	// const [openSuggestionForm, setOpenSuggestionForm] = useState(false);
 	const [anchorElUser, setAnchorElUser] = useState(null);
 	// const [anchorElCreate, setAnchorElCreate] = useState(null);
-	const [anchorElNotifications, setAnchorElNotifications] = useState(null);
+	// const [anchorElNotifications, setAnchorElNotifications] = useState(null);
 
 	const [issues, setIssues] = useState([]);
 	const [loading, setLoading] = useState(true);
@@ -99,27 +97,6 @@ const HomePage = () => {
 		}
 	};
 
-	const toggleComments = (id) => {
-		setOpenComments((prev) => ({ ...prev, [id]: !prev[id] }));
-	};
-
-	const handleCommentChange = (id, value) => {
-		setNewComments((prev) => ({ ...prev, [id]: value }));
-	};
-
-	const submitComment = (id) => {
-		if (newComments[id]) {
-			setReports(
-				reports.map((report) =>
-					report.id === id
-						? { ...report, comments: [...report.comments, newComments[id]] }
-						: report,
-				),
-			);
-			setNewComments((prev) => ({ ...prev, [id]: "" }));
-		}
-	};
-
 	const handleOpenUserMenu = (event) => {
 		setAnchorElUser(event.currentTarget);
 	};
@@ -139,20 +116,12 @@ const HomePage = () => {
 		}
 	};
 
-	const handleOpenNotifications = (event) => {
-		setAnchorElNotifications(event.currentTarget);
-	};
-
-	const handleCloseNotifications = () => {
-		setAnchorElNotifications(null);
-	};
-
-	// const handleOpenCreateMenu = (event) => {
-	// 	setAnchorElCreate(event.currentTarget);
+	// const handleOpenNotifications = (event) => {
+	// 	setAnchorElNotifications(event.currentTarget);
 	// };
 
-	// const handleCloseCreateMenu = () => {
-	// 	setAnchorElCreate(null);
+	// const handleCloseNotifications = () => {
+	// 	setAnchorElNotifications(null);
 	// };
 
 	const handleOpenForm = () => {
@@ -214,56 +183,6 @@ const HomePage = () => {
 			</AppBar>
 
 			<Container sx={{ mt: 4 }}>
-				{/*
-        {reports.map((report) => (
-          <Card key={report.id} style={{ marginBottom: "20px" }}>
-            <CardContent>
-              <Grid container alignItems="center">
-                <Grid item>
-                  <IconButton onClick={() => handleUpvote(report.id)}>
-                    <ArrowUpward />
-                  </IconButton>
-                  <Typography>{report.upvotes}</Typography>
-                </Grid>
-                <Grid item xs>
-                  <Typography variant="h6">{report.title}</Typography>
-                  <Typography variant="body2">{report.description}</Typography>
-                  <Button
-                    startIcon={<Comment />}
-                    onClick={() => toggleComments(report.id)}
-                  >
-                    Comments ({report.comments.length})
-                  </Button>
-                </Grid>
-              </Grid>
-              {openComments[report.id] && (
-                <div>
-                  <List>
-                    {report.comments.map((comment, index) => (
-                      <ListItem key={index}>
-                        <ListItemText primary={comment} />
-                      </ListItem>
-                    ))}
-                  </List>
-                  <TextField
-                    fullWidth
-                    variant="outlined"
-                    placeholder="Add a comment"
-                    value={newComments[report.id] || ""}
-                    onChange={(e) =>
-                      handleCommentChange(report.id, e.target.value)
-                    }
-                  />
-                  <Button onClick={() => submitComment(report.id)}>
-                    Submit Comment
-                  </Button>
-                </div>
-              )}
-            </CardContent>
-          </Card>
-        ))}
-				*/}
-
       {loading ? (
           <Typography>Loading...</Typography>
         ) : error ? (
@@ -274,18 +193,9 @@ const HomePage = () => {
               key={issue.id} 
               style={{ marginBottom: "20px" }}
             >
-              <CardContent>
+              <CardContent style={{ padding: "16px"}}>
                 <Grid container alignItems="center" spacing={2}>
-                  <Grid item>
-                    <IconButton onClick={() => handleUpvote(issue.id)}>
-                      {issue.upvotedBy.includes(currentUser?.id) ? (
-                        <ArrowUpward color="primary" />
-                      ) : (
-                        <ArrowUpwardOutlined />
-                      )}
-                    </IconButton>
-                    <Typography>{issue.upvotes}</Typography>
-                  </Grid>
+                  
                   <Grid item xs>
                     <Box onClick={() => handleCardClick(issue.id)}>
                       <Typography variant="h6">{issue.title}</Typography>
@@ -302,20 +212,55 @@ const HomePage = () => {
                           size="small"
                         />
                       </Box>
-                      <Typography variant="body1" sx={{mt:2}}>{issue.description}</Typography>
+                      <Typography
+                        variant="body1"
+                        sx={{
+                          mt: 2,
+                          display: '-webkit-box',
+                          overflow: 'hidden',
+                          WebkitBoxOrient: 'vertical',
+                          WebkitLineClamp: 3,
+                          textOverflow: 'ellipsis'
+                        }}
+                      >
+                        {issue.description}
+                      </Typography>
+                
+                    </Box>
+                    {issue.imagePaths && issue.imagePaths.length > 0 && (
+                      <div style={{ marginTop: "20px" }}>
+                        {issue.imagePaths.map((imagePath, index) => (
+                          <img
+                            key={index}
+                            src={`http://localhost:3003/${imagePath}`}
+                            alt={`issue image ${index + 1}`}
+                            style={{ maxWidth: "100%", marginBottom: "10px" }}
+                          />
+                        ))}
+                      </div>
+                    )}
+                    <Grid item sx={{ mt: 1, display: 'flex', alignItems: 'center', gap: 2 }}>
+                      <Box display="flex" alignItems="center">
+                        <IconButton onClick={() => handleUpvote(issue.id)}>
+                          {issue.upvotedBy.includes(currentUser?.id) ? (
+                            <ArrowUpward color="primary" />
+                          ) : (
+                            <ArrowUpwardOutlined />
+                          )}
+                        </IconButton>
+                        <Typography>{issue.upvotes}</Typography>
+                      </Box>
+                      <Button
+                        startIcon={<Comment />}
+                        onClick={() => handleCardClick(issue.id)}
+                        // sx={{ mt: 1 }}
+                      >
+                        Comments ({issue.comments ? issue.comments.length : 0})
+                      </Button>
+                    </Grid>                      
                     
-                    
-                    <Button
-                      startIcon={<Comment />}
-                      onClick={() => toggleComments(issue.id)}
-                      sx={{ mt: 1 }}
-                    >
-                      Comments ({issue.comments ? issue.comments.length : 0})
-                    </Button>
-                  </Box>
                   </Grid>
                 </Grid>
-                {/* Comments section */}
 							</CardContent>
 						</Card>
 					))
@@ -344,15 +289,6 @@ const HomePage = () => {
 				<MenuItem onClick={handleCloseNotifications}>Notification 3</MenuItem>
 				<MenuItem onClick={handleCloseNotifications}>Notification 4</MenuItem>
 			</Menu> */}
-
-			{/* Create Menu
-      <Menu
-        anchorEl={anchorElCreate}
-        open={Boolean(anchorElCreate)}
-        onClose={handleCloseCreateMenu}
-      >
-        <MenuItem onClick={handleOpenForm}>Report Issue or Make Suggestion</MenuItem>
-      </Menu> */}
 
 			{/* Form Dialog */}
 			<Dialog open={openForm} onClose={() => setOpenForm(false)}>
