@@ -22,7 +22,16 @@ const commentSchema = new Schema({
   createdAt: {
     type: Date,
     default: Date.now,
-  }
+  },
+  parentComment: {
+    type: Schema.Types.ObjectId,
+    ref: 'Comment',
+    default: null,
+  },
+  replies: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Comment',
+  }]
 });
 
 commentSchema.set("toJSON", {
