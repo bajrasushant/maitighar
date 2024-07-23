@@ -11,7 +11,7 @@ import {
 	CircularProgress,
 	TextField,
 	Divider,
-	Avatar,
+	// Avatar,
 	Box,
 	Chip,
 	Paper,
@@ -135,18 +135,8 @@ const Details = () => {
 				Back to Home
 			</Button>
 			<Card>
-				<CardContent>
-					<Grid container spacing={2}>
-						<Grid item xs={1}>
-							<IconButton onClick={handleUpvote}>
-								{issue.upvotedBy.includes(currentUser?.id) ? (
-									<ArrowUpward color="primary" />
-								) : (
-									<ArrowUpwardOutlined />
-								)}
-							</IconButton>
-							<Typography align="center">{issue.upvotes}</Typography>
-						</Grid>
+				<CardContent style={{ padding: "30px"}}>
+					<Grid>						
 						<Grid item xs={11}>
 							<Typography variant="h5">{issue.title}</Typography>
 							<Typography variant="body2" color="textSecondary">
@@ -174,8 +164,9 @@ const Details = () => {
 								{issue.description}
 							</Typography>
 							<Typography variant="body2" color="textSecondary">
-								Department: {issue.department} | Status: {issue.status} |
-								Location: {locationName}
+								{/* Department: {issue.department} <br/>    */}
+                Status: {issue.status} <br/>
+								Location: {locationName.split(",").slice(0, 5).join(", ")}
 							</Typography>
 							{issue.imagePaths && issue.imagePaths.length > 0 && (
 								<div style={{ marginTop: "20px" }}>
@@ -189,12 +180,22 @@ const Details = () => {
 									))}
 								</div>
 							)}
-							<Grid container spacing={2} style={{ marginTop: "16px" }}>
-								<Grid item>
-									<Button startIcon={<Comment />}>
-										{comments.length} Comments
-									</Button>
-								</Grid>
+							<Grid item sx={{ mt: 1, display: 'flex', alignItems: 'center', gap: 2 }}>
+                <Box display="flex" alignItems="center">
+                  <IconButton onClick={() => handleUpvote(issue.id)}>
+                    {issue.upvotedBy.includes(currentUser?.id) ? (
+                      <ArrowUpward color="primary" />
+                    ) : (
+                      <ArrowUpwardOutlined />
+                    )}
+                  </IconButton>
+                  <Typography>{issue.upvotes}</Typography>
+                </Box>
+                
+                <Button startIcon={<Comment />}>
+                  {comments.length} Comments
+                </Button>
+								{/* </Grid> */}
 								{/* <Grid item>
 									<Button startIcon={<Share />}>Share</Button>
 								</Grid> */}
