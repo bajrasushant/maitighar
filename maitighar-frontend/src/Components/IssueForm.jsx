@@ -51,11 +51,19 @@ const departments = [
   "Ward No.32",
 ];
 
+const categories = [
+  "Water",
+  "Road",
+  "Education",
+  "Others",
+]
+
 const ReportForm = ({ createIssue }) => {
   const defaultReportState = {
     title: "",
     description: "",
     department: "",
+    category: "",
     position: {
       latitude: 27.7172,
       longitude: 85.324,
@@ -90,6 +98,7 @@ const ReportForm = ({ createIssue }) => {
     const formData = new FormData();
     formData.append("title", report.title);
     formData.append("description", report.description);
+    formData.append("category",report.category);
     formData.append("department", report.department);
     formData.append("latitude", report.position.latitude);
     formData.append("longitude", report.position.longitude);
@@ -156,6 +165,7 @@ const ReportForm = ({ createIssue }) => {
               <FormControlLabel value="suggestion" control={<Radio />} label="Suggestion" />
             </RadioGroup>
           </Grid>
+          
           <Grid item xs={12}>
             <FormControl fullWidth required>
               <InputLabel>Department</InputLabel>
@@ -173,6 +183,25 @@ const ReportForm = ({ createIssue }) => {
               </Select>
             </FormControl>
           </Grid>
+
+          <Grid item xs={12}>
+            <FormControl fullWidth required>
+              <InputLabel>Category</InputLabel>
+              <Select
+              name="category"
+              value={report.category}
+              onChange={handleChange}
+              label="Department"
+              >
+                {categories.map((catg) => (
+                  <MenuItem key={catg} value={catg}>
+                    {catg.charAt(0).toUpperCase()+catg.slice(1)}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+
           <Grid item xs={12}>
             <Typography variant="subtitle1" gutterBottom>
               Select Location on Map
