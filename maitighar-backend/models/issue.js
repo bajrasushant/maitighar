@@ -36,6 +36,15 @@ const departments = [
   "Ward No.32",
 ];
 
+const categories = [
+	"Water",
+	"Road",
+	"Education",
+	"Others",
+	
+]; 
+
+
 const issueSchema = new Schema({
 	title: {
 		type: String,
@@ -48,6 +57,11 @@ const issueSchema = new Schema({
 	department: {
 		type: String,
 		enum: departments,
+		required: true,
+	},
+	category: {
+		type: String,
+		enum: categories,
 		required: true,
 	},
 	latitude: {
