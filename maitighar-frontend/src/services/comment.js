@@ -14,5 +14,16 @@ const createComment = async (commentData) => {
 	return response.data;
 };
 
+const createReply = async (commentId, replyData) => {
+	const config = helpers.getConfig();
+	const response = await axios.post(baseUrl, replyData, config);
+	return response.data;
+};
 
-export default { getCommentByIssue , createComment};
+const getReplyByComment = async (commentId) => {
+	const config = helpers.getConfig();
+	const response = await axios.get(`${baseUrl}/replies/${commentId}`, config);
+	return response.data;
+}
+
+export default { getCommentByIssue , createComment, createReply, getReplyByComment};

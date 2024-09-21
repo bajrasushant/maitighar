@@ -32,6 +32,10 @@ const Details = () => {
 	const [comments, setComments] = useState([]);
 	const [newComment, setNewComment] = useState("");
 	const currentUser = useUserValue();
+	const [replyContent, setReplyContent] = useState({});
+	const [showReplyForm, setShowReplyForm] = useState({});
+	const [replies, setReplies] = useState({});
+
 
 	useEffect(() => {
 		const fetchIssueId = async () => {
@@ -91,6 +95,45 @@ const Details = () => {
 		}
 	};
 
+
+	const toggleReplyForm = (commentId) => {
+		setShowReplyForm((prev) => ({ ...prev, [commentId]: !prev[commentId] }));
+	  };
+
+	  const handleReplySubmit = async (commentId) => {
+		if (!replyContent[commentId]?.trim()) return; // Prevent empty replies
+	  
+		try {
+		  const replyData = {
+			description: replyContent[commentId],
+			parentComment: commentId,
+			issue: id, // Optional, if needed for context
+		  };
+		  
+		  const savedReply = await commentService.createReply(commentId, replyData);
+	  
+		  // Update the replies state
+		  setReplies((prev) => ({
+			...prev,
+			[commentId]: [...(prev[commentId] || []), savedReply],
+		  }));
+	  
+		  setReplyContent((prev) => ({ ...prev, [commentId]: "" })); // Reset the reply input
+		  setShowReplyForm((prev) => ({ ...prev, [commentId]: false })); // Hide reply form
+		} catch (err) {
+		  console.error("Error submitting reply:", err);
+		}
+	  };
+
+	  const fetchReplies = async (commentId) => {
+		try {
+		  const fetchedReplies = await commentService.getReplyByComment(commentId);
+		  setReplies((prev) => ({ ...prev, [commentId]: fetchedReplies }));
+		} catch (err) {
+		  console.error("Error fetching replies:", err);
+		}
+	  };
+	  
 	if (loading) {
 		return (
 			<Container
@@ -251,6 +294,62 @@ const Details = () => {
 											<Typography variant="body1">
 												{comment.description}
 											</Typography>
+
+											{/*Reply Button */}
+											<Button onClick={()=> toggleReplyForm(comment.id)}>
+												{showReplyForm[comment.id]?"Cancel" : "Reply"}
+											</Button>
+
+											{/*Reply Form*/}
+											{showReplyForm[comment.id] && (
+												<Box component="form" sx={{ mt: 2}}>
+													<TextField
+													fullWidth
+													variant="outlined"
+													placeholder="Write a reply..."
+													value={replyContent[comment.id] || ""}
+													onChange={(e) =>
+														setReplyContent((prev) => ({
+															...prev,
+															[comment.id]: e.target.value,
+														}))
+													}
+													/>
+													<Button
+													variant="contained"
+													color="primary"
+													sx={{ mt: 1 }}
+													onClick={() =>handleReplySubmit(comment.id)}
+													>Submit Reply
+													</Button>
+												</Box>
+											)}
+
+										{/* View Replies Button */}
+										{replies[comment.id] && replies[comment.id].length > 0 && (
+											<Button
+											sx={{ mt: 2 }}
+											onClick={() => fetchReplies(comment.id)}
+											>
+												{replies[comment.id] ? "Hide Replies" : "View Replies"} (
+													{replies[comment.id]?.length || 0}
+												)
+											</Button>
+										)}
+
+										{/*Display Replies*/}
+										{replies[comment.id] && (
+											<Box sx={{mt: 2, pl: 3 }}>
+												{replies[comment.id].map((reply, replyIndex) => (
+													<Paper key={replyIndex} sx={{ p: 2, mb: 1 }}>
+														<Typography variant="subtitle2">
+															{reply.description}
+														</Typography>
+													</Paper>
+												))}
+											</Box>
+										)}
+
 										</Grid>
 									</Grid>
 								</Paper>
