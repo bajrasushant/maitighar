@@ -35,10 +35,12 @@ const Details = () => {
 	const [replyContent, setReplyContent] = useState({});
 	const [showReplyForm, setShowReplyForm] = useState({});
 	const [replies, setReplies] = useState({});
+	const [showReplies, setShowReplies] = useState({});
 
 
 	useEffect(() => {
 		const fetchIssueId = async () => {
+			setError(null); //Clear any previous errors before trying
 			try {
 				const fetchedIssue = await issueService.getIssueId(id);
 				setIssue(fetchedIssue);
@@ -48,6 +50,7 @@ const Details = () => {
 				setLoading(false);
 			} catch (err) {
 				setError("Failed to fetch issue details");
+			}finally{
 				setLoading(false);
 			}
 		};
@@ -95,6 +98,10 @@ const Details = () => {
 		}
 	};
 
+	const toggleReplies  = (commentId) => {
+		setShowReplies((prev) => ({ ...prev, [commentId]: !prev[commentId]}));
+		fetchReplies(commentId);
+	};
 
 	const toggleReplyForm = (commentId) => {
 		setShowReplyForm((prev) => ({ ...prev, [commentId]: !prev[commentId] }));
@@ -126,6 +133,8 @@ const Details = () => {
 	  };
 
 	  const fetchReplies = async (commentId) => {
+		if (replies[commentId]) return;
+
 		try {
 		  const fetchedReplies = await commentService.getReplyByComment(commentId);
 		  setReplies((prev) => ({ ...prev, [commentId]: fetchedReplies }));
@@ -294,6 +303,7 @@ const Details = () => {
 											<Typography variant="body1">
 												{comment.description}
 											</Typography>
+											
 
 											{/*Reply Button */}
 											<Button onClick={()=> toggleReplyForm(comment.id)}>
@@ -326,22 +336,29 @@ const Details = () => {
 											)}
 
 										{/* View Replies Button */}
-										{replies[comment.id] && replies[comment.id].length > 0 && (
+											{(replies[comment.id] && replies[comment.id].length > 0) || !replies[comment.id] ? (
 											<Button
-											sx={{ mt: 2 }}
-											onClick={() => fetchReplies(comment.id)}
+												sx={{ mt: 2 }}
+												onClick={() => toggleReplies(comment.id)}
 											>
-												{replies[comment.id] ? "Hide Replies" : "View Replies"} (
-													{replies[comment.id]?.length || 0}
+												{showReplies[comment.id] ? "Hide Replies" : "View Replies"} (
+												{replies[comment.id]?.length || "Show Replies"}
 												)
 											</Button>
-										)}
+											) : null}
+
 
 										{/*Display Replies*/}
-										{replies[comment.id] && (
+										{replies[comment.id] && showReplies[comment.id] && (
 											<Box sx={{mt: 2, pl: 3 }}>
 												{replies[comment.id].map((reply, replyIndex) => (
 													<Paper key={replyIndex} sx={{ p: 2, mb: 1 }}>
+														<Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
+												{reply.createdBy.username ?? JSON.parse(localStorage.getItem("loggedUser")).username}
+											</Typography>
+											<Typography variant="body2" color="text.secondary" gutterBottom>
+												{formatDistanceToNow(new Date(reply.createdAt), { addSuffix: true })}
+											</Typography>
 														<Typography variant="subtitle2">
 															{reply.description}
 														</Typography>
