@@ -167,29 +167,33 @@ issueRouter.delete('/:id', async (req, res) => {
 
 issueRouter.put("/:id/upvote", async (req, res) => {
   try {
+    if (!req.user || !req.user.id) {
+      return res.status(401).json({ error: "User not authenticated" });
+    }
+    
     const issue = await Issue.findById(req.params.id);
-    console.log(issue);
     if (!issue) {
       return res.status(404).json({ error: "Issue not found" });
     }
-
-    if (issue.upvotedBy.includes(req.user.id)) {
+    
+    const hasUpvoted = issue.upvotedBy.some(userId => userId.toString() === req.user.id.toString());
+    
+    if (hasUpvoted) {
       issue.upvotes -= 1;
-      issue.upvotedBy = issue.upvotedBy.filter(
-        (userId) => userId.toString() !== req.user.id.toString(),
-      );
+      issue.upvotedBy = issue.upvotedBy.filter(userId => userId.toString() !== req.user.id.toString());
     } else {
       issue.upvotes += 1;
-      const user = await User.findById(req.user.id);
-      issue.upvotedBy.push(user.id);
+      issue.upvotedBy.push(req.user.id);
     }
-    console.log(issue);
+
     await issue.save();
     res.json(issue);
   } catch (error) {
+    console.error("Upvote error:", error);  // Log the error for more insight
     res.status(500).json({ error: error.message });
   }
 });
+
 
 // Get issue by department for admin
 issueRouter.get("/admin/:department", async (req, res) => {
