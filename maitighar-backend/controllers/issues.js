@@ -3,7 +3,6 @@ const express = require("express");
 const multer = require("multer");
 const path = require("path");
 const Issue = require("../models/issue");
-// const Upvote = require("../models/upvote");
 const User = require("../models/user");
 
 const issueRouter = express.Router();
@@ -20,7 +19,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({
   storage: storage,
-  limits: { fileSize: 1024 * 1024 * 5 }, // Limit file size to 5MB
+  limits: { fileSize: 1024 * 1024 * 50 }, // Limit file size to 50MB
   fileFilter: (req, file, cb) => {
     const fileTypes = /jpeg|jpg|png/;
     const extname = fileTypes.test(path.extname(file.originalname).toLowerCase());
@@ -42,6 +41,11 @@ issueRouter.post('/', upload.array('images', 5), async (req, res) => {
     }
     const { title, description, department, latitude, longitude, status, type, category } = req.body;
     const user = await User.findById(req.user.id);
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
     const imagePaths = req.files ? req.files.map(file => file.path) : [];
 
     const issue = new Issue({
@@ -57,34 +61,28 @@ issueRouter.post('/', upload.array('images', 5), async (req, res) => {
 			imagePaths,
       category
     });
-		console.log(issue);
-    await issue.save(); // console.log("bakend",issue);
+		
+    await issue.save(); 
     res.status(201).json(issue);
 
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    console.error("Error creating issue:",error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
 // Get all issues
 issueRouter.get('/', async (req, res) => {
   try {
-
     const issues = await Issue.find({}).populate("comments");
-    // const issuesWithUpvotes = await Promise.all(
-    // 	issues.map(async (issue) => {
-    // 		const upvoteCount = await Upvote.countDocuments({ issue: issue._id });
-    // 		return { ...issue.toObject(), upvotes: upvoteCount };
-    // 	}),
-    // );
     const issuesWithCommentLength = issues.map((issue) => ({
       ...issue.toJSON(),
       commentCount: issue.comments.length,
     }));
     res.json(issuesWithCommentLength);
-
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Error fetchin issues:",error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -95,21 +93,15 @@ issueRouter.get("/:id", async (req, res) => {
       .populate("createdBy", {
         username: 1,
       });
-      // .populate({
-      //   path: "comments",
-      //   populate: {
-      //     path: "createdBy",
-      //     select: "username",
-      //   },
-      // });
-    console.log(issue);
+ 
     if (!issue) {
       return res.status(404).json({ error: "issue not found" });
     }
-    // const upvoteCount = await Upvote.countDocuments({ issue: issue.id });
+    
     res.status(201).json(issue);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Error fetching issue:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -118,32 +110,39 @@ issueRouter.put("/:id", async (req, res) => {
   try {
 		const { status } = req.body;
     const issue = await Issue.findById(req.params.id);
+
     if (!issue) {
       return res.status(404).json({ error: 'Issue not found' });
     }
+
 		issue.status = status;
 		await issue.save();
     res.json(issue);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Error updating issue status:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
-// Update an issue
+// Update an issue with image upload
 issueRouter.put('/:id', upload.single('image'), async (req, res) => {
   try {
     const updates = req.body;
+
     if (req.file) {
       updates.imagePath = req.file.path;
     }
     
     const issue = await Issue.findByIdAndUpdate(req.params.id, updates, { new: true, runValidators: true });
+    
     if (!issue) {
       return res.status(404).json({ error: 'Issue not found' });
     }
+
     res.json(issue);
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    console.error("Error updating issue", error);
+    res.status(400).json({ error: "Bad request" });
   }
 });
 
@@ -151,9 +150,12 @@ issueRouter.put('/:id', upload.single('image'), async (req, res) => {
 issueRouter.delete('/:id', async (req, res) => {
   try {
     const issue = await Issue.findByIdAndDelete(req.params.id);
+
     if (!issue) {
       return res.status(404).json({ error: "issue not found" });
     }
+
+  //Check if user can delete the issue
     if (issue.createdBy.toString() !== req.user.id.toString()) {
       return res
         .status(403)
@@ -161,35 +163,42 @@ issueRouter.delete('/:id', async (req, res) => {
     }
     res.json({ message: 'Issue deleted' });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Error deleting issue:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
+//Upvote an issue
 issueRouter.put("/:id/upvote", async (req, res) => {
   try {
+    if (!req.user || !req.user.id) {
+      return res.status(401).json({ error: "User not authenticated" });
+    }
+    
     const issue = await Issue.findById(req.params.id);
-    console.log(issue);
+
     if (!issue) {
       return res.status(404).json({ error: "Issue not found" });
     }
-
-    if (issue.upvotedBy.includes(req.user.id)) {
+    
+    const hasUpvoted = issue.upvotedBy.some(userId => userId.toString() === req.user.id.toString());
+    
+    if (hasUpvoted) {
       issue.upvotes -= 1;
-      issue.upvotedBy = issue.upvotedBy.filter(
-        (userId) => userId.toString() !== req.user.id.toString(),
-      );
+      issue.upvotedBy = issue.upvotedBy.filter(userId => userId.toString() !== req.user.id.toString());
     } else {
       issue.upvotes += 1;
-      const user = await User.findById(req.user.id);
-      issue.upvotedBy.push(user.id);
+      issue.upvotedBy.push(req.user.id);
     }
-    console.log(issue);
+
     await issue.save();
     res.json(issue);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Upvote error:", error);  // Log the error for more insight
+    res.status(500).json({ error: "Internal server error" });
   }
 });
+
 
 // Get issue by department for admin
 issueRouter.get("/admin/:department", async (req, res) => {
@@ -210,8 +219,9 @@ issueRouter.get("/admin/:department", async (req, res) => {
     // Return the found issues
     res.json(issues);
   } catch (error) {
+    console.error("Error fetching issues by department:", error);
     // Handle errors and return 500
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error:  "Internal server error"});
   }
 });
 

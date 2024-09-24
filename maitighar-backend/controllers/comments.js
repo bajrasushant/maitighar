@@ -8,14 +8,16 @@ commentRouter.post("/", async (req, res) => {
   try {
     const { user, issue, parentComment } = req.body;
 
-    // Ensure either issue or suggestion is present
-    // if (!issue && !suggestion) {
-    //     return res.status(400).json({ error: 'Either issue or suggestion must be provided.' });
-    // }
+    if (!user || (!issue && !parentComment)) {
+      return res.status(400).json({ error: "User, and either issue or parentComment must be provided." });
+    }
 
+
+    //Create new comment
     const comment = new Comment({ ...req.body, createdBy: req.user.id });
     await comment.save();
 
+    //If the comment is related to an issue, push the comment to the issue
     if (issue) {
       await Issue.findByIdAndUpdate(
         issue,
@@ -24,6 +26,7 @@ commentRouter.post("/", async (req, res) => {
       );
     }
 
+    //If the comment is a reply, push it to the parent comment's replies
     if (parentComment) {
       await Comment.findByIdAndUpdate(
         parentComment,
@@ -34,7 +37,8 @@ commentRouter.post("/", async (req, res) => {
 
     res.status(201).json(comment);
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    console.error("Error creating comment:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -42,13 +46,14 @@ commentRouter.post("/", async (req, res) => {
 commentRouter.get("/issue/:id", async (req, res) => {
   try {
     const comments = await Comment.find({ issue: req.params.id, parentComment: null }).populate("createdBy", { username: 1 });    //
-    //     if (comments.length === 0) {
-    //       return res.status(404).json({ error: 'No comments found for this issue' });
-    //     }
+        if (comments.length === 0) {
+          return res.status(404).json({ error: 'No comments found for this issue' });
+        }
 
     res.json(comments);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Error fetching comments by issue:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -56,9 +61,15 @@ commentRouter.get("/issue/:id", async (req, res) => {
 commentRouter.get("/replies/:id", async (req, res) => {
   try {
     const replies = await Comment.find({ parentComment: req.params.id }).populate("createdBy", { username: 1 });
+    
+    if(replies.length === 0) {
+      return res.status(404).json({ error: "No replies found for this comment"});
+    }
+
     res.json(replies);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Error fetching replies:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -66,18 +77,21 @@ commentRouter.get("/replies/:id", async (req, res) => {
 commentRouter.delete("/:id", async (req, res) => {
   try {
     const comment = await Comment.findById(req.params.id);
+
     if (!comment) {
       return res.status(404).json({ error: "Comment not found" });
     }
+    
+    //Check if the user has permission to delete the comment
     if (comment.createdBy.toString() !== req.user.id.toString()) {
-      return res
-        .status(403)
-        .json({ error: "You do not have permission to delete this comment" });
+      return res.status(403).json({ error: "You do not have permission to delete this comment" });
     }
+
     await Comment.findByIdAndDelete(req.params.id);
     res.json({ message: "Comment deleted" });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Error deleting comment:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
