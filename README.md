@@ -84,7 +84,7 @@ Before you begin, ensure you have the following installed:
 
 ## Acknowledgments
 
-- This project was developed as part of the 7th semester project for BSc. CSIT at Tribhuvan University, Institute of Science and Technology, by us the students studying in Prime College.
+- This project was developed as part of the 7th semester project for BSc. CSIT at Tribhuvan University, Institute of Science and Technology, Prime College.
 - Special thanks to our project supervisors and the open-source community for their invaluable resources and support.
 
 ## Todos
