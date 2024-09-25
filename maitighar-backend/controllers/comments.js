@@ -46,9 +46,7 @@ commentRouter.post("/", async (req, res) => {
 commentRouter.get("/issue/:id", async (req, res) => {
   try {
     const comments = await Comment.find({ issue: req.params.id, parentComment: null }).populate("createdBy", { username: 1 });    //
-    if (comments.length === 0) {
-      return res.status(404).json({ error: "No comments found for this issue" });
-    }
+  
 
     res.json(comments);
   } catch (error) {
