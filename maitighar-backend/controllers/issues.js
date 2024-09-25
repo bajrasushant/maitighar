@@ -10,7 +10,7 @@ const issueRouter = express.Router();
 // Multer configuration for image upload
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'uploads/issues/');
+    cb(null, "uploads/issues/");
   },
   filename: (req, file, cb) => {
     cb(null, `${Date.now()}-${file.originalname}`);
@@ -28,15 +28,15 @@ const upload = multer({
     if (mimetype && extname) {
       return cb(null, true);
     } else {
-      cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
+      cb(new Error("Only .png, .jpg and .jpeg format allowed!"));
     }
   }
 });
 
 // Create a new issue with image upload
-issueRouter.post('/', upload.array('images', 5), async (req, res) => {
+issueRouter.post("/", upload.array("images", 5), async (req, res) => {
   try {
-  if (!req.user || !req.user.id) {
+    if (!req.user || !req.user.id) {
       return res.status(401).json({ error: "User not authenticated" });
     }
     const { title, description, department, latitude, longitude, status, type, category } = req.body;
@@ -50,7 +50,7 @@ issueRouter.post('/', upload.array('images', 5), async (req, res) => {
 
     const issue = new Issue({
       title,
-			type,
+      type,
       description,
       department,
       latitude,
@@ -58,11 +58,11 @@ issueRouter.post('/', upload.array('images', 5), async (req, res) => {
       status,
       createdBy: user.id,
       comments: [],
-			imagePaths,
+      imagePaths,
       category
     });
-		
-    await issue.save(); 
+
+    await issue.save();
     res.status(201).json(issue);
 
   } catch (error) {
@@ -72,7 +72,7 @@ issueRouter.post('/', upload.array('images', 5), async (req, res) => {
 });
 
 // Get all issues
-issueRouter.get('/', async (req, res) => {
+issueRouter.get("/", async (req, res) => {
   try {
     const issues = await Issue.find({}).populate("comments");
     const issuesWithCommentLength = issues.map((issue) => ({
@@ -93,11 +93,11 @@ issueRouter.get("/:id", async (req, res) => {
       .populate("createdBy", {
         username: 1,
       });
- 
+
     if (!issue) {
       return res.status(404).json({ error: "issue not found" });
     }
-    
+
     res.status(201).json(issue);
   } catch (error) {
     console.error("Error fetching issue:", error);
@@ -108,15 +108,15 @@ issueRouter.get("/:id", async (req, res) => {
 // Update a issue
 issueRouter.put("/:id", async (req, res) => {
   try {
-		const { status } = req.body;
+    const { status } = req.body;
     const issue = await Issue.findById(req.params.id);
 
     if (!issue) {
-      return res.status(404).json({ error: 'Issue not found' });
+      return res.status(404).json({ error: "Issue not found" });
     }
 
-		issue.status = status;
-		await issue.save();
+    issue.status = status;
+    await issue.save();
     res.json(issue);
   } catch (error) {
     console.error("Error updating issue status:", error);
@@ -125,18 +125,18 @@ issueRouter.put("/:id", async (req, res) => {
 });
 
 // Update an issue with image upload
-issueRouter.put('/:id', upload.single('image'), async (req, res) => {
+issueRouter.put("/:id", upload.single("image"), async (req, res) => {
   try {
     const updates = req.body;
 
     if (req.file) {
       updates.imagePath = req.file.path;
     }
-    
+
     const issue = await Issue.findByIdAndUpdate(req.params.id, updates, { new: true, runValidators: true });
-    
+
     if (!issue) {
-      return res.status(404).json({ error: 'Issue not found' });
+      return res.status(404).json({ error: "Issue not found" });
     }
 
     res.json(issue);
@@ -147,7 +147,7 @@ issueRouter.put('/:id', upload.single('image'), async (req, res) => {
 });
 
 // Delete an issue
-issueRouter.delete('/:id', async (req, res) => {
+issueRouter.delete("/:id", async (req, res) => {
   try {
     const issue = await Issue.findByIdAndDelete(req.params.id);
 
@@ -155,13 +155,13 @@ issueRouter.delete('/:id', async (req, res) => {
       return res.status(404).json({ error: "issue not found" });
     }
 
-  //Check if user can delete the issue
+    //Check if user can delete the issue
     if (issue.createdBy.toString() !== req.user.id.toString()) {
       return res
         .status(403)
         .json({ error: "You do not have permission to delete this issue" });
     }
-    res.json({ message: 'Issue deleted' });
+    res.json({ message: "Issue deleted" });
   } catch (error) {
     console.error("Error deleting issue:", error);
     res.status(500).json({ error: "Internal server error" });
@@ -174,15 +174,15 @@ issueRouter.put("/:id/upvote", async (req, res) => {
     if (!req.user || !req.user.id) {
       return res.status(401).json({ error: "User not authenticated" });
     }
-    
+
     const issue = await Issue.findById(req.params.id);
 
     if (!issue) {
       return res.status(404).json({ error: "Issue not found" });
     }
-    
+
     const hasUpvoted = issue.upvotedBy.some(userId => userId.toString() === req.user.id.toString());
-    
+
     if (hasUpvoted) {
       issue.upvotes -= 1;
       issue.upvotedBy = issue.upvotedBy.filter(userId => userId.toString() !== req.user.id.toString());
@@ -221,7 +221,7 @@ issueRouter.get("/admin/:department", async (req, res) => {
   } catch (error) {
     console.error("Error fetching issues by department:", error);
     // Handle errors and return 500
-    res.status(500).json({ error:  "Internal server error"});
+    res.status(500).json({ error:  "Internal server error" });
   }
 });
 

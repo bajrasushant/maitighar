@@ -5,7 +5,7 @@ const config = require("./utils/config");
 const app = express();
 const mongoose = require("mongoose");
 
-const issueRouter = require("./controllers/issues")
+const issueRouter = require("./controllers/issues");
 // const suggestionRouter = require("./controllers/suggestions")
 const userRouter = require("./controllers/users");
 const upvoteRouter = require("./controllers/upvotes");
@@ -21,7 +21,7 @@ mongoose
   .then(() => console.log("connected to Mongo"))
   .catch((err) => console.log("error connecting", err.message));
 
-app.use('/uploads/issues', express.static(path.join(__dirname, 'uploads/issues')));
+app.use("/uploads/issues", express.static(path.join(__dirname, "uploads/issues")));
 
 app.use(cors());
 app.use(express.json());
@@ -36,7 +36,7 @@ app.use("/api/admins", adminRouter);
 
 
 app.get("/", (request, response) => {
-	response.send("<h1>Hello World!</h1>");
+  response.send("<h1>Hello World!</h1>");
 });
 
 app.use("/api/issues", middleware.userExtractor,  issueRouter);

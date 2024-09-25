@@ -46,9 +46,9 @@ commentRouter.post("/", async (req, res) => {
 commentRouter.get("/issue/:id", async (req, res) => {
   try {
     const comments = await Comment.find({ issue: req.params.id, parentComment: null }).populate("createdBy", { username: 1 });    //
-        if (comments.length === 0) {
-          return res.status(404).json({ error: 'No comments found for this issue' });
-        }
+    if (comments.length === 0) {
+      return res.status(404).json({ error: "No comments found for this issue" });
+    }
 
     res.json(comments);
   } catch (error) {
@@ -61,9 +61,9 @@ commentRouter.get("/issue/:id", async (req, res) => {
 commentRouter.get("/replies/:id", async (req, res) => {
   try {
     const replies = await Comment.find({ parentComment: req.params.id }).populate("createdBy", { username: 1 });
-    
+
     if(replies.length === 0) {
-      return res.status(404).json({ error: "No replies found for this comment"});
+      return res.status(404).json({ error: "No replies found for this comment" });
     }
 
     res.json(replies);
@@ -81,7 +81,7 @@ commentRouter.delete("/:id", async (req, res) => {
     if (!comment) {
       return res.status(404).json({ error: "Comment not found" });
     }
-    
+
     //Check if the user has permission to delete the comment
     if (comment.createdBy.toString() !== req.user.id.toString()) {
       return res.status(403).json({ error: "You do not have permission to delete this comment" });

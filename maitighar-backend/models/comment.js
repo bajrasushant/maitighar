@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const commentSchema = new Schema({
@@ -6,17 +6,17 @@ const commentSchema = new Schema({
     type: String,
     required: true,
   },
-  issue: { 
+  issue: {
     type: Schema.Types.ObjectId,
-    ref: 'Issue',
+    ref: "Issue",
   },
-  suggestion: { 
+  suggestion: {
     type: Schema.Types.ObjectId,
-    ref: 'Suggestion',
+    ref: "Suggestion",
   },
   createdBy: {
     type: Schema.Types.ObjectId,
-    ref: 'User',
+    ref: "User",
     required: true,
   },
   createdAt: {
@@ -25,12 +25,12 @@ const commentSchema = new Schema({
   },
   parentComment: {
     type: Schema.Types.ObjectId,
-    ref: 'Comment',
+    ref: "Comment",
     default: null,
   },
   replies: [{
     type: Schema.Types.ObjectId,
-    ref: 'Comment',
+    ref: "Comment",
   }]
 });
 
@@ -42,4 +42,4 @@ commentSchema.set("toJSON", {
   }
 });
 
-module.exports = mongoose.model('Comment', commentSchema);
+module.exports = mongoose.model("Comment", commentSchema);

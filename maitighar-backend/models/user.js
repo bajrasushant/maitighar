@@ -8,7 +8,7 @@ const userSchema = new Schema({
     required: true,
     unique: true,
     minlength: 3,
-		trim: true,
+    trim: true,
   },
   passwordHash: {
     type: String,
@@ -17,15 +17,15 @@ const userSchema = new Schema({
   email: {
     type: String,
     unique: true,
-	required: true,
-  }, 
+    required: true,
+  },
   upvotedIssues: [{
     type: Schema.Types.ObjectId,
-    ref: 'Issue', 
-  }], 
+    ref: "Issue",
+  }],
   upvotedSuggestions: [{
     type: Schema.Types.ObjectId,
-    ref: 'suggestion', 
+    ref: "suggestion",
   }],
   role: String,
 });

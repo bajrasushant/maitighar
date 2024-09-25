@@ -1,19 +1,19 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const upvoteSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
-    ref: 'user', 
+    ref: "user",
     required: true,
   },
   issue: {
     type: Schema.Types.ObjectId,
-    ref: 'issue',
+    ref: "issue",
   },
   suggestion: {
     type: Schema.Types.ObjectId,
-    ref: 'suggestion',
+    ref: "suggestion",
   },
   createdAt: {
     type: Date,
@@ -29,4 +29,4 @@ upvoteSchema.set("toJSON", {
   }
 });
 
-module.exports = mongoose.model('Upvote', upvoteSchema);
+module.exports = mongoose.model("Upvote", upvoteSchema);

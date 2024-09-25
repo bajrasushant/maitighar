@@ -37,89 +37,89 @@ const departments = [
 ];
 
 const categories = [
-	"Water",
-	"Road",
-	"Education",
-	"Others",
-	
-]; 
+  "Water",
+  "Road",
+  "Education",
+  "Others",
+
+];
 
 
 const issueSchema = new Schema({
-	title: {
-		type: String,
-		required: true,
-	},
-	description: {
-		type: String,
-		required: true,
-	},
-	department: {
-		type: String,
-		enum: departments,
-		required: true,
-	},
-	category: {
-		type: String,
-		enum: categories,
-		required: true,
-	},
-	latitude: {
-		type: Number,
-		required: true,
-	},
-	longitude: {
-		type: Number,
-		required: true,
-	},
-	upvotes: {
-		type: Number,
-		default: 0,
-	},
-	upvotedBy: [
-		{
-			type: Schema.Types.ObjectId,
-			ref: "User",
-		},
-	],
-	status: {
-		type: String,
-		enum: ["open", "received", "resolved"],
-		default: "open",
-	},
+  title: {
+    type: String,
+    required: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
+  department: {
+    type: String,
+    enum: departments,
+    required: true,
+  },
+  category: {
+    type: String,
+    enum: categories,
+    required: true,
+  },
+  latitude: {
+    type: Number,
+    required: true,
+  },
+  longitude: {
+    type: Number,
+    required: true,
+  },
+  upvotes: {
+    type: Number,
+    default: 0,
+  },
+  upvotedBy: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
+  status: {
+    type: String,
+    enum: ["open", "received", "resolved"],
+    default: "open",
+  },
   type: {
     type: String,
-    enum: ['issue', 'suggestion'],
+    enum: ["issue", "suggestion"],
     required: true,
-  }, 
+  },
   imagePaths: [{
     type: String,
-    default:[] 
+    default:[]
   }],
-	createdBy: {
-		type: Schema.Types.ObjectId,
-		ref: "User",
-		required: true,
-	},
-	createdAt: {
-		type: Date,
-		default: Date.now,
-	},
-	comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
+  createdBy: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+  comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
 });
 
 // Pre-save hook to update the `upvotes` field
 issueSchema.pre("save", function(next) {
-	this.upvotes = this.upvotedBy.length;
-	next();
+  this.upvotes = this.upvotedBy.length;
+  next();
 });
 
 issueSchema.set("toJSON", {
-	transform: (document, returnedObject) => {
-		returnedObject.id = returnedObject._id;
-		delete returnedObject._id;
-		delete returnedObject.__v;
-	},
+  transform: (document, returnedObject) => {
+    returnedObject.id = returnedObject._id;
+    delete returnedObject._id;
+    delete returnedObject.__v;
+  },
 });
 
 module.exports = mongoose.model("Issue", issueSchema);

@@ -19,7 +19,7 @@ adminRouter.get("/", async (request, response) => {
     response.json(users);
   }catch(error){
     console.error("Error fetching admins:", error);
-    response.status(500).json({error: "Internal server error"});
+    response.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -27,8 +27,8 @@ adminRouter.get("/", async (request, response) => {
 adminRouter.get("/:id", async (request, response) => {
   try {
     const { id } = request.params;
-    const admin = await Admin.findById(id).select('username email department');
-    
+    const admin = await Admin.findById(id).select("username email department");
+
     if (admin) {
       return response.json({
         username: admin.username,
@@ -40,67 +40,67 @@ adminRouter.get("/:id", async (request, response) => {
       return response.status(404).json({ error: "Admin not found" });
     }
   } catch (error) {
-    console.error('Error fetching admin info:', error);
+    console.error("Error fetching admin info:", error);
     return response.status(500).json({ error: "Internal server error" });
   }
 });
 
 //Create new admin
 adminRouter.post("/", async (request, response) => {
-	try{
+  try{
     console.log(request.body);
     const { username, password, repassword, email, department } = request.body;
-    
+
     //Input validation
     if (!username || !password || !repassword || !email || !department ||
         username.trim() === "" || password.trim() === "" || repassword.trim() === "" || email.trim() === "") {
-        return response
-            .status(400)
-            .json({ error: "username, password, repassword, email, and department are required" });
+      return response
+        .status(400)
+        .json({ error: "username, password, repassword, email, and department are required" });
     }
     if (username.length < 3 || password.length < 3) {
-        return response.status(400).json({
-            error: "username and password should contain at least 3 characters",
-        });
+      return response.status(400).json({
+        error: "username and password should contain at least 3 characters",
+      });
     }
     if (password !== repassword) {
-        return response.status(400).json({ error: "passwords do not match" });
+      return response.status(400).json({ error: "passwords do not match" });
     }
     if (!departments.includes(department)) {
-        return response.status(400).json({ error: "Invalid department" });
+      return response.status(400).json({ error: "Invalid department" });
     }
 
-    // Check if admin already exists for the department 
+    // Check if admin already exists for the department
     const existingAdmin = await Admin.findOne({ department });
     if (existingAdmin) {
-        return response.status(400).json({ error: "An admin for this department already exists" });
+      return response.status(400).json({ error: "An admin for this department already exists" });
     }
 
     //Hash password and save the admin in database
     const saltRounds = 10;
     const passwordHash = await bcrypt.hash(password, saltRounds);
     const admin = new Admin({
-        username,
-        passwordHash,
-        email,
-        department,
+      username,
+      passwordHash,
+      email,
+      department,
     });
-        const savedAdmin = await admin.save();
-        return response.status(201).json(savedAdmin);
-    } catch (error) {
-      console.error("Error during admin creation:", error);
+    const savedAdmin = await admin.save();
+    return response.status(201).json(savedAdmin);
+  } catch (error) {
+    console.error("Error during admin creation:", error);
 
-        if (error.name === "ValidationError") {
-            return response.status(400).json({ error: error.message });
-        }
-        
-        if (error.code === 11000) {
-            // Duplicate key error
-            return response.status(400).json({
-                error: "Username or email already exists",
-            });
-        }
-        return response.status(500).json({ error: "Something went wrong" });
+    if (error.name === "ValidationError") {
+      return response.status(400).json({ error: error.message });
     }
+
+    if (error.code === 11000) {
+      // Duplicate key error
+      return response.status(400).json({
+        error: "Username or email already exists",
+      });
+    }
+    return response.status(500).json({ error: "Something went wrong" });
+  }
 });
 module.exports = adminRouter;
