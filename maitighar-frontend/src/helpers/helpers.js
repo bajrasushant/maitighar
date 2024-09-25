@@ -2,10 +2,10 @@ let token = null;
 let config;
 
 const setToken = (newToken) => {
-	token = `Bearer ${newToken}`;
-	config = {
-		headers: { Authorization: token },
-	};
+  token = `Bearer ${newToken}`;
+  config = {
+    headers: { Authorization: token },
+  };
 };
 
 const getConfig = () => config;

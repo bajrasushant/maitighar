@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 import {
   TextField,
   Button,
@@ -13,63 +13,63 @@ import {
   RadioGroup,
   FormControlLabel,
   Radio,
-} from "@mui/material";
-import LocationPicker from "./LocationPicker";
+} from '@mui/material';
+import LocationPicker from './LocationPicker';
 
 const departments = [
-  "Ward No.1",
-  "Ward No.2",
-  "Ward No.3",
-  "Ward No.4",
-  "Ward No.5",
-  "Ward No.6",
-  "Ward No.7",
-  "Ward No.8",
-  "Ward No.9",
-  "Ward No.10",
-  "Ward No.11",
-  "Ward No.12",
-  "Ward No.13",
-  "Ward No.14",
-  "Ward No.15",
-  "Ward No.16",
-  "Ward No.17",
-  "Ward No.18",
-  "Ward No.19",
-  "Ward No.20",
-  "Ward No.21",
-  "Ward No.22",
-  "Ward No.23",
-  "Ward No.24",
-  "Ward No.25",
-  "Ward No.26",
-  "Ward No.27",
-  "Ward No.28",
-  "Ward No.29",
-  "Ward No.30",
-  "Ward No.31",
-  "Ward No.32",
+  'Ward No.1',
+  'Ward No.2',
+  'Ward No.3',
+  'Ward No.4',
+  'Ward No.5',
+  'Ward No.6',
+  'Ward No.7',
+  'Ward No.8',
+  'Ward No.9',
+  'Ward No.10',
+  'Ward No.11',
+  'Ward No.12',
+  'Ward No.13',
+  'Ward No.14',
+  'Ward No.15',
+  'Ward No.16',
+  'Ward No.17',
+  'Ward No.18',
+  'Ward No.19',
+  'Ward No.20',
+  'Ward No.21',
+  'Ward No.22',
+  'Ward No.23',
+  'Ward No.24',
+  'Ward No.25',
+  'Ward No.26',
+  'Ward No.27',
+  'Ward No.28',
+  'Ward No.29',
+  'Ward No.30',
+  'Ward No.31',
+  'Ward No.32',
 ];
 
 const categories = [
-  "Water",
-  "Road",
-  "Education",
-  "Others",
-]
+  'Water',
+  'Road',
+  'Education',
+  'Others',
+];
 
-const ReportForm = ({ createIssue }) => {
+function ReportForm({ createIssue }) {
   const defaultReportState = {
-    title: "",
-    description: "",
-    department: "",
-    category: "",
+    title: '',
+    description: '',
+    department: '',
+    category: '',
     position: {
       latitude: 27.7172,
       longitude: 85.324,
     },
-    status: "open",
-    type: "issue",
+    status: 'open',
+    type: 'issue',
     upvotes: 0,
     images: [],
   };
@@ -86,7 +86,7 @@ const ReportForm = ({ createIssue }) => {
 
   const handleImageUpload = (e) => {
     const files = Array.from(e.target.files);
-    console.log(files);  // Add this line to check the files being read
+    console.log(files); // Add this line to check the files being read
     setReport((prevState) => ({
       ...prevState,
       images: files,
@@ -96,32 +96,32 @@ const ReportForm = ({ createIssue }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("title", report.title);
-    formData.append("description", report.description);
-    formData.append("category",report.category);
-    formData.append("department", report.department);
-    formData.append("latitude", report.position.latitude);
-    formData.append("longitude", report.position.longitude);
-    formData.append("type", report.type);
-    formData.append("status", report.status);
-    formData.append("upvotes", report.upvotes);
+    formData.append('title', report.title);
+    formData.append('description', report.description);
+    formData.append('category', report.category);
+    formData.append('department', report.department);
+    formData.append('latitude', report.position.latitude);
+    formData.append('longitude', report.position.longitude);
+    formData.append('type', report.type);
+    formData.append('status', report.status);
+    formData.append('upvotes', report.upvotes);
 
     if (report.images) {
       report.images.forEach((image) => {
-        formData.append("images", image);
+        formData.append('images', image);
       });
     }
 
     // Log FormData entries
-    for (let pair of formData.entries()) {
-      console.log(pair[0] + ': ' + pair[1]);
+    for (const pair of formData.entries()) {
+      console.log(`${pair[0]}: ${pair[1]}`);
     }
 
     try {
       await createIssue(formData);
       setReport(defaultReportState);
     } catch (err) {
-      console.error("Err: ", err.message);
+      console.error('Err: ', err.message);
     }
   };
 
@@ -165,7 +165,7 @@ const ReportForm = ({ createIssue }) => {
               <FormControlLabel value="suggestion" control={<Radio />} label="Suggestion" />
             </RadioGroup>
           </Grid>
-          
+
           <Grid item xs={12}>
             <FormControl fullWidth required>
               <InputLabel>Department</InputLabel>
@@ -188,14 +188,14 @@ const ReportForm = ({ createIssue }) => {
             <FormControl fullWidth required>
               <InputLabel>Category</InputLabel>
               <Select
-              name="category"
-              value={report.category}
-              onChange={handleChange}
-              label="Department"
+                name="category"
+                value={report.category}
+                onChange={handleChange}
+                label="Department"
               >
                 {categories.map((catg) => (
                   <MenuItem key={catg} value={catg}>
-                    {catg.charAt(0).toUpperCase()+catg.slice(1)}
+                    {catg.charAt(0).toUpperCase() + catg.slice(1)}
                   </MenuItem>
                 ))}
               </Select>
@@ -208,15 +208,13 @@ const ReportForm = ({ createIssue }) => {
             </Typography>
             <LocationPicker
               position={[report.position.latitude, report.position.longitude]}
-              setPosition={(newPosition) =>
-                setReport((prevReport) => ({
-                  ...prevReport,
-                  position: {
-                    latitude: newPosition[0],
-                    longitude: newPosition[1],
-                  },
-                }))
-              }
+              setPosition={(newPosition) => setReport((prevReport) => ({
+                ...prevReport,
+                position: {
+                  latitude: newPosition[0],
+                  longitude: newPosition[1],
+                },
+              }))}
             />
           </Grid>
           <Grid item xs={12}>
@@ -227,7 +225,7 @@ const ReportForm = ({ createIssue }) => {
               multiple
               name="images"
               onChange={handleImageUpload}
-              style={{ display: "none" }}
+              style={{ display: 'none' }}
             />
             <label htmlFor="image-upload">
               <Button variant="contained" component="span">
@@ -236,7 +234,9 @@ const ReportForm = ({ createIssue }) => {
             </label>
             {report.images.length > 0 && (
               <Typography variant="body2">
-                {report.images.length} selected
+                {report.images.length}
+                {' '}
+                selected
               </Typography>
             )}
           </Grid>
@@ -256,7 +256,6 @@ const ReportForm = ({ createIssue }) => {
       </form>
     </Container>
   );
-};
+}
 
 export default ReportForm;
-

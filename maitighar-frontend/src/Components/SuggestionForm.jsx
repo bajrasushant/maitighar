@@ -1,19 +1,19 @@
 import { useState } from 'react';
-import { 
-  TextField, 
-  Button, 
-  Grid, 
-  Typography, 
+import {
+  TextField,
+  Button,
+  Grid,
+  Typography,
   Container,
   // FormControl,
   // InputLabel,
   // Select,
   // MenuItem,
-  Box
+  Box,
 } from '@mui/material';
 import LocationPicker from './LocationPicker';
 
-const SuggestionForm = () => {
+function SuggestionForm() {
   const [report, setReport] = useState({
     title: '',
     description: '',
@@ -24,9 +24,9 @@ const SuggestionForm = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setReport(prevState => ({
+    setReport((prevState) => ({
       ...prevState,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -129,6 +129,6 @@ const SuggestionForm = () => {
       </form>
     </Container>
   );
-};
+}
 
 export default SuggestionForm;

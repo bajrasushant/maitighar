@@ -1,6 +1,5 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
-import issueService from "../services/issues";
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 import {
   Table,
   TableBody,
@@ -14,26 +13,23 @@ import {
   RadioGroup,
   FormControlLabel,
   Radio,
-} from "@mui/material";
+} from '@mui/material';
+import issueService from '../services/issues';
 
-const SuggestionsList = () => {
+function SuggestionsList() {
   const [suggestions, setSuggestions] = useState([]);
-  const adminData = JSON.parse(localStorage.getItem("loggedAdmin"));
-  const department = adminData.department;
-  const token = adminData.token;
+  const adminData = JSON.parse(localStorage.getItem('loggedAdmin'));
+  const { department } = adminData;
+  const { token } = adminData;
 
   const handleStatusChange = async (id, newStatus) => {
-    console.log("Updating status for issue ID:", id, "to:", newStatus);
+    console.log('Updating status for issue ID:', id, 'to:', newStatus);
     try {
       const updatedIssue = await issueService.updateStatus(id, newStatus);
-      setSuggestions((prevIssues) =>
-        prevIssues.map((issue) =>
-          issue.id === id ? { ...issue, status: newStatus } : issue
-        )
-      );
-      console.log("Updated issue status:", updatedIssue);
+      setSuggestions((prevIssues) => prevIssues.map((issue) => (issue.id === id ? { ...issue, status: newStatus } : issue)));
+      console.log('Updated issue status:', updatedIssue);
     } catch (error) {
-      console.error("Error updating status:", error);
+      console.error('Error updating status:', error);
     }
   };
 
@@ -43,7 +39,7 @@ const SuggestionsList = () => {
         Authorization: `Bearer ${token}`,
       },
     };
-    console.log("config", config);
+    console.log('config', config);
 
     axios
       .get(`/api/issues/admin/${department}`, config)
@@ -51,7 +47,7 @@ const SuggestionsList = () => {
       .catch((error) => console.error(error));
   }, [department, token]);
 
-  const suggestionsList = suggestions.filter(issue => issue.type === "suggestion");
+  const suggestionsList = suggestions.filter((issue) => issue.type === 'suggestion');
 
   return (
     <div>
@@ -79,9 +75,7 @@ const SuggestionsList = () => {
                     <RadioGroup
                       // row
                       value={issue.status}
-                      onChange={(e) =>
-                        handleStatusChange(issue.id, e.target.value)
-                      }
+                      onChange={(e) => handleStatusChange(issue.id, e.target.value)}
                     >
                       <FormControlLabel
                         value="open"
@@ -108,7 +102,6 @@ const SuggestionsList = () => {
       </TableContainer>
     </div>
   );
-};
+}
 
 export default SuggestionsList;
-

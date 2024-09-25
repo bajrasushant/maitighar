@@ -1,5 +1,6 @@
-import axios from "axios";
-const baseUrl = "/api/users";
+import axios from 'axios';
+
+const baseUrl = '/api/users';
 
 export const signUp = async (newUserDetail) => {
   try {

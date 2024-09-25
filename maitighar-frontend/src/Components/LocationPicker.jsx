@@ -1,5 +1,7 @@
-import { MapContainer, TileLayer, Marker, useMapEvents } from "react-leaflet";
-import "leaflet/dist/leaflet.css";
+import {
+  MapContainer, TileLayer, Marker, useMapEvents,
+} from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
 // import L from 'leaflet';
 
 // // Fix for default marker icon
@@ -10,27 +12,27 @@ import "leaflet/dist/leaflet.css";
 //   shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
 // });
 
-const MapPicker = ({ setPosition }) => {
+function MapPicker({ setPosition }) {
   useMapEvents({
     click(e) {
       setPosition([e.latlng.lat, e.latlng.lng]);
     },
   });
   return null;
-};
+}
 
-const LocationPicker = ({ position, setPosition }) => {
+function LocationPicker({ position, setPosition }) {
   return (
     <MapContainer
       center={position}
       zoom={13}
-      style={{ height: "300px", width: "100%" }}
+      style={{ height: '300px', width: '100%' }}
     >
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
       <Marker position={position} />
       <MapPicker setPosition={setPosition} />
     </MapContainer>
   );
-};
+}
 
 export default LocationPicker;
