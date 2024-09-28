@@ -234,7 +234,7 @@ function HomePage() {
                       <div style={{ marginTop: '20px' }}>
                       {issue.imagePaths.map((mediaPath, index) => {
                         // Check if the mediaPath is an mp4 video
-                        if (mediaPath.endsWith('.mp4'|'.mkv'|'.avi'|'.mov')) {
+                        if (mediaPath.endsWith('.mp4')) {
                           return (
                             <video
                               key={index}
@@ -248,7 +248,38 @@ function HomePage() {
                               Your browser does not support the video tag.
                             </video>
                           );
-                        } else {
+                        } 
+                        else if(mediaPath.endsWith('.mkv')){
+                          return(
+                          <video
+                          key={index}
+                          controls
+                          style={{ maxWidth: '845px', marginBottom: '10px', height: '480px' }}
+                        >
+                          <source
+                            src={`http://localhost:3003/${mediaPath}`}
+                            type="video/x-matroska"
+                          />
+                          Your browser does not support the video tag.
+                        </video>
+                      );
+                        }
+                        else if(mediaPath.endsWith('.avi')){
+                          return(
+                          <video
+                          key={index}
+                          controls
+                          style={{ maxWidth: '845px', marginBottom: '10px', height: '480px' }}
+                        >
+                          <source
+                            src={`http://localhost:3003/${mediaPath}`}
+                            type="video/x-msvideo"
+                          />
+                          Your browser does not support the video tag.
+                        </video>
+                      );
+                        }
+                        else {
                           // Else, treat it as an image
                           return (
                             <img
