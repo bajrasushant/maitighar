@@ -231,15 +231,35 @@ function HomePage() {
 
                     </Box>
                     {issue.imagePaths && issue.imagePaths.length > 0 && (
-                    <div style={{ marginTop: '20px' }}>
-                      {issue.imagePaths.map((imagePath, index) => (
-                        <img
-                          key={index}
-                          src={`http://localhost:3003/${imagePath}`}
-                          alt={`issue image ${index + 1}`}
-                          style={{ maxWidth: '100%', marginBottom: '10px' }}
-                        />
-                      ))}
+                      <div style={{ marginTop: '20px' }}>
+                      {issue.imagePaths.map((mediaPath, index) => {
+                        // Check if the mediaPath is an mp4 video
+                        if (mediaPath.endsWith('.mp4'|'.mkv'|'.avi'|'.mov')) {
+                          return (
+                            <video
+                              key={index}
+                              controls
+                              style={{ maxWidth: '845px', marginBottom: '10px', height: '480px' }}
+                            >
+                              <source
+                                src={`http://localhost:3003/${mediaPath}`}
+                                type="video/mp4"
+                              />
+                              Your browser does not support the video tag.
+                            </video>
+                          );
+                        } else {
+                          // Else, treat it as an image
+                          return (
+                            <img
+                              key={index}
+                              src={`http://localhost:3003/${mediaPath}`}
+                              alt={`media ${index + 1}`}
+                              style={{ maxWidth: 'auto', marginBottom: '10px', height: '480px' }}
+                            />
+                          );
+                        }
+                      })}
                     </div>
                     )}
                     <Grid

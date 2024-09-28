@@ -19,16 +19,16 @@ const storage = multer.diskStorage({
 
 const upload = multer({
   storage: storage,
-  limits: { fileSize: 1024 * 1024 * 50 }, // Limit file size to 50MB
+  limits: { fileSize: 1024 * 1024 * 200 }, // Limit file size to 200MB
   fileFilter: (req, file, cb) => {
-    const fileTypes = /jpeg|jpg|png/;
+    const fileTypes = /jpeg|jpg|png|gif|mp4/;
     const extname = fileTypes.test(path.extname(file.originalname).toLowerCase());
     const mimetype = fileTypes.test(file.mimetype);
 
     if (mimetype && extname) {
       return cb(null, true);
     } else {
-      cb(new Error("Only .png, .jpg and .jpeg format allowed!"));
+      cb(new Error("Only .png, .jpg .gif .jpeg and .mp4 format allowed!"));
     }
   }
 });

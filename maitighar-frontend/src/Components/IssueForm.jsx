@@ -219,7 +219,7 @@ function ReportForm({ createIssue }) {
           </Grid>
           <Grid item xs={12}>
             <input
-              accept="image/*"
+              accept="image/*,video/*"
               id="image-upload"
               type="file"
               multiple
