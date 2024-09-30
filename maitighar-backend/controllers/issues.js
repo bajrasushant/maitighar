@@ -19,19 +19,22 @@ const storage = multer.diskStorage({
 
 const upload = multer({
   storage: storage,
-  limits: { fileSize: 1024 * 1024 * 50 }, // Limit file size to 50MB
+  limits: { fileSize: 1024 * 1024 * 200 }, // Limit file size to 200MB
   fileFilter: (req, file, cb) => {
-    const fileTypes = /jpeg|jpg|png/;
+    // Regular expression to match allowed file extensions
+    const fileTypes = /jpeg|jpg|png|gif|mp4|mov|avi|mkv/;
     const extname = fileTypes.test(path.extname(file.originalname).toLowerCase());
     const mimetype = fileTypes.test(file.mimetype);
 
+    // Allow files with correct MIME type and extension
     if (mimetype && extname) {
       return cb(null, true);
     } else {
-      cb(new Error("Only .png, .jpg and .jpeg format allowed!"));
+      cb(new Error("Only .png, .jpg, .gif, .jpeg, .mp4, .avi, .mkv formats are allowed!"));
     }
   }
 });
+
 
 // Create a new issue with image upload
 issueRouter.post("/", upload.array("images", 5), async (req, res) => {
