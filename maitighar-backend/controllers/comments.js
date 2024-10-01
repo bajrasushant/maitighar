@@ -8,11 +8,7 @@ commentRouter.post("/", async (req, res) => {
   try {
     const { user, issue, parentComment } = req.body;
 
-    if (!user || (!issue && !parentComment)) {
-      return res.status(400).json({ error: "User, and either issue or parentComment must be provided." });
-    }
-
-
+console.log(req.body);
     //Create new comment
     const comment = new Comment({ ...req.body, createdBy: req.user.id });
     await comment.save();

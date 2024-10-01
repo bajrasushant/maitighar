@@ -231,7 +231,9 @@ function HomePage() {
 
                     </Box>
                     {issue.imagePaths && issue.imagePaths.length > 0 && (
-                      <div style={{ marginTop: '20px' }}>
+                      <div style={{ marginTop: '20px', display: 'flex'
+                        //, alignItem: 'center', justifyContent: 'center' 
+                        }}>
                       {issue.imagePaths.map((mediaPath, index) => {
                         // Check if the mediaPath is an mp4 video
                         if (mediaPath.endsWith('.mp4')) {
