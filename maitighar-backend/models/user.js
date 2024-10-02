@@ -19,14 +19,18 @@ const userSchema = new Schema({
     unique: true,
     required: true,
   },
-  upvotedIssues: [{
-    type: Schema.Types.ObjectId,
-    ref: "Issue",
-  }],
-  upvotedSuggestions: [{
-    type: Schema.Types.ObjectId,
-    ref: "suggestion",
-  }],
+  upvotedIssues: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Issue",
+    },
+  ],
+  upvotedSuggestions: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "suggestion",
+    },
+  ],
   role: String,
 });
 

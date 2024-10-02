@@ -26,7 +26,7 @@ upvoteSchema.set("toJSON", {
     returnedObject.id = returnedObject._id;
     delete returnedObject._id;
     delete returnedObject.__v;
-  }
+  },
 });
 
 module.exports = mongoose.model("Upvote", upvoteSchema);

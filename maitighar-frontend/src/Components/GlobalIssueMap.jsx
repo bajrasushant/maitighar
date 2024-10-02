@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import {
-  MapContainer, TileLayer, Marker, Popup, useMap,
-} from 'react-leaflet';
-import L from 'leaflet';
-import 'leaflet/dist/leaflet.css';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
+import axios from "axios";
 
 // This component will handle changing the map view
 function ChangeView({ center, zoom }) {
@@ -16,7 +14,7 @@ function ChangeView({ center, zoom }) {
 function GlobalIssueMap() {
   const [issues, setIssues] = useState([]);
   const [userLocation, setUserLocation] = useState(null);
-  const adminData = JSON.parse(localStorage.getItem('loggedAdmin'));
+  const adminData = JSON.parse(localStorage.getItem("loggedAdmin"));
   const { token } = adminData;
   const { department } = adminData;
 
@@ -24,22 +22,19 @@ function GlobalIssueMap() {
 
   useEffect(() => {
     // Fetch user's location
-    if ('geolocation' in navigator) {
+    if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          setUserLocation([
-            position.coords.latitude,
-            position.coords.longitude,
-          ]);
+          setUserLocation([position.coords.latitude, position.coords.longitude]);
         },
         (error) => {
-          console.error('Error getting user location:', error);
+          console.error("Error getting user location:", error);
           // Fallback to a default location (e.g., Kathmandu) if geolocation fails
           setUserLocation([27.7172, 85.324]);
         },
       );
     } else {
-      console.log('Geolocation is not available in this browser.');
+      console.log("Geolocation is not available in this browser.");
       // Fallback to a default location
       setUserLocation([27.7172, 85.324]);
     }
@@ -55,22 +50,23 @@ function GlobalIssueMap() {
         const response = await axios.get(`/api/issues/admin/${department}`, config);
         setIssues(response.data);
       } catch (error) {
-        console.error('Error fetching issues:', error);
+        console.error("Error fetching issues:", error);
       }
     };
     fetchIssues();
   }, [token]);
 
   const getMarkerColor = (upvotes) => {
-    if (upvotes >= 10) return 'red';
-    if (upvotes >= 5) return 'orange';
-    return 'blue';
+    if (upvotes >= 10) return "red";
+    if (upvotes >= 5) return "orange";
+    return "blue";
   };
 
-  const createCustomIcon = (upvotes) => L.divIcon({
-    className: 'custom-icon',
-    html: `<div style="background-color: ${getMarkerColor(upvotes)}; width: 25px; height: 25px; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: white; font-weight: bold;">${upvotes}</div>`,
-  });
+  const createCustomIcon = (upvotes) =>
+    L.divIcon({
+      className: "custom-icon",
+      html: `<div style="background-color: ${getMarkerColor(upvotes)}; width: 25px; height: 25px; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: white; font-weight: bold;">${upvotes}</div>`,
+    });
 
   if (!userLocation) {
     return <div>Loading map...</div>;
@@ -80,9 +76,12 @@ function GlobalIssueMap() {
     <MapContainer
       center={userLocation}
       zoom={initialZoom}
-      style={{ height: '100vh', width: '100%' }}
+      style={{ height: "100vh", width: "100%" }}
     >
-      <ChangeView center={userLocation} zoom={initialZoom} />
+      <ChangeView
+        center={userLocation}
+        zoom={initialZoom}
+      />
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

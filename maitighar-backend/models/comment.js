@@ -28,10 +28,12 @@ const commentSchema = new Schema({
     ref: "Comment",
     default: null,
   },
-  replies: [{
-    type: Schema.Types.ObjectId,
-    ref: "Comment",
-  }]
+  replies: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Comment",
+    },
+  ],
 });
 
 commentSchema.set("toJSON", {
@@ -39,7 +41,7 @@ commentSchema.set("toJSON", {
     returnedObject.id = returnedObject._id;
     delete returnedObject._id;
     delete returnedObject.__v;
-  }
+  },
 });
 
 module.exports = mongoose.model("Comment", commentSchema);

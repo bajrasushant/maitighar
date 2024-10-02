@@ -36,14 +36,7 @@ const departments = [
   "Ward No.32",
 ];
 
-const categories = [
-  "Water",
-  "Road",
-  "Education",
-  "Others",
-
-];
-
+const categories = ["Water", "Road", "Education", "Others"];
 
 const issueSchema = new Schema({
   title: {
@@ -92,10 +85,12 @@ const issueSchema = new Schema({
     enum: ["issue", "suggestion"],
     required: true,
   },
-  imagePaths: [{
-    type: String,
-    default:[]
-  }],
+  imagePaths: [
+    {
+      type: String,
+      default: [],
+    },
+  ],
   createdBy: {
     type: Schema.Types.ObjectId,
     ref: "User",
@@ -109,7 +104,7 @@ const issueSchema = new Schema({
 });
 
 // Pre-save hook to update the `upvotes` field
-issueSchema.pre("save", function(next) {
+issueSchema.pre("save", function (next) {
   this.upvotes = this.upvotedBy.length;
   next();
 });

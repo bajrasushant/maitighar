@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import {
   Container,
   Card,
@@ -21,7 +21,7 @@ import {
   // Badge,
   Chip,
   Box,
-} from '@mui/material';
+} from "@mui/material";
 import {
   ArrowUpward,
   Comment,
@@ -29,14 +29,14 @@ import {
   // Notifications,
   AccountCircle,
   ArrowUpwardOutlined,
-} from '@mui/icons-material';
-import FoundationIcon from '@mui/icons-material/Foundation';
-import { useNavigate } from 'react-router-dom';
-import ReportForm from './IssueForm';
+} from "@mui/icons-material";
+import FoundationIcon from "@mui/icons-material/Foundation";
+import { useNavigate } from "react-router-dom";
+import ReportForm from "./IssueForm";
 // import SuggestionForm from "./SuggestionForm";
-import { useUserDispatch } from '../context/UserContext';
-import issueService from '../services/issues';
-import { useUserValue } from '../context/UserContext';
+import { useUserDispatch } from "../context/UserContext";
+import issueService from "../services/issues";
+import { useUserValue } from "../context/UserContext";
 
 function HomePage() {
   const currentUser = useUserValue();
@@ -78,7 +78,7 @@ function HomePage() {
         setIssues(fetchedIssues);
         setLoading(false);
       } catch (err) {
-        setError('Failed to fetch issues');
+        setError("Failed to fetch issues");
         setLoading(false);
       }
     };
@@ -89,11 +89,9 @@ function HomePage() {
   const handleUpvote = async (id) => {
     try {
       const updatedIssue = await issueService.upvoteIssue(id);
-      setIssues(
-        issues.map((issue) => (issue.id === id ? updatedIssue : issue)),
-      );
+      setIssues(issues.map((issue) => (issue.id === id ? updatedIssue : issue)));
     } catch (err) {
-      console.error('Failed to update upvote', err);
+      console.error("Failed to update upvote", err);
     }
   };
 
@@ -109,10 +107,10 @@ function HomePage() {
 
   const handleLogout = () => {
     try {
-      userDispatch({ type: 'LOGOUT' });
-      navigate('/login');
+      userDispatch({ type: "LOGOUT" });
+      navigate("/login");
     } catch (err) {
-      console.error('Error', err.message);
+      console.error("Error", err.message);
     }
   };
 
@@ -146,11 +144,11 @@ function HomePage() {
     try {
       await issueService.createIssue(issueObject);
       const updatedIssues = await issueService.getAll();
-      console.log('updatedIssues:', updatedIssues);
+      console.log("updatedIssues:", updatedIssues);
       setIssues(updatedIssues);
       setOpenForm(false);
     } catch (err) {
-      console.error('Err:', err.message);
+      console.error("Err:", err.message);
     }
   };
 
@@ -158,13 +156,24 @@ function HomePage() {
     <>
       <AppBar position="static">
         <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            <Box display="flex" alignItems="center">
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{ flexGrow: 1 }}
+          >
+            <Box
+              display="flex"
+              alignItems="center"
+            >
               <FoundationIcon />
               Maitighar
             </Box>
           </Typography>
-          <Button color="inherit" startIcon={<Add />} onClick={handleOpenForm}>
+          <Button
+            color="inherit"
+            startIcon={<Add />}
+            onClick={handleOpenForm}
+          >
             Create
           </Button>
           {/* <IconButton
@@ -176,7 +185,11 @@ function HomePage() {
 							<Notifications />
 						</Badge>
 					</IconButton> */}
-          <IconButton size="large" color="inherit" onClick={handleOpenUserMenu}>
+          <IconButton
+            size="large"
+            color="inherit"
+            onClick={handleOpenUserMenu}
+          >
             <AccountCircle />
           </IconButton>
         </Toolbar>
@@ -191,21 +204,31 @@ function HomePage() {
           issues.map((issue) => (
             <Card
               key={issue.id}
-              style={{ marginBottom: '20px' }}
+              style={{ marginBottom: "20px" }}
             >
-              <CardContent style={{ padding: '16px' }}>
-                <Grid container alignItems="center" spacing={2}>
-
-                  <Grid item xs>
+              <CardContent style={{ padding: "16px" }}>
+                <Grid
+                  container
+                  alignItems="center"
+                  spacing={2}
+                >
+                  <Grid
+                    item
+                    xs
+                  >
                     <Box onClick={() => handleCardClick(issue.id)}>
                       <Typography variant="h6">{issue.title}</Typography>
-                      <Box sx={{
-                        mt: 1, display: 'flex', alignItems: 'center', gap: 1,
-                      }}
+                      <Box
+                        sx={{
+                          mt: 1,
+                          display: "flex",
+                          alignItems: "center",
+                          gap: 1,
+                        }}
                       >
                         <Chip
                           label={issue.type}
-                          color={issue.type === 'issue' ? 'error' : 'success'}
+                          color={issue.type === "issue" ? "error" : "success"}
                           size="small"
                         />
                         <Chip
@@ -219,89 +242,97 @@ function HomePage() {
                         variant="body1"
                         sx={{
                           mt: 2,
-                          display: '-webkit-box',
-                          overflow: 'hidden',
-                          WebkitBoxOrient: 'vertical',
+                          display: "-webkit-box",
+                          overflow: "hidden",
+                          WebkitBoxOrient: "vertical",
                           WebkitLineClamp: 3,
-                          textOverflow: 'ellipsis',
+                          textOverflow: "ellipsis",
                         }}
                       >
                         {issue.description}
                       </Typography>
-
                     </Box>
                     {issue.imagePaths && issue.imagePaths.length > 0 && (
-                      <div style={{ marginTop: '20px', display: 'flex'
-                        //, alignItem: 'center', justifyContent: 'center' 
-                        }}>
-                      {issue.imagePaths.map((mediaPath, index) => {
-                        // Check if the mediaPath is an mp4 video
-                        if (mediaPath.endsWith('.mp4')) {
-                          return (
-                            <video
-                              key={index}
-                              controls
-                              style={{ maxWidth: '845px', marginBottom: '10px', height: '480px' }}
-                            >
-                              <source
-                                src={`http://localhost:3003/${mediaPath}`}
-                                type="video/mp4"
-                              />
-                              Your browser does not support the video tag.
-                            </video>
-                          );
-                        } 
-                        else if(mediaPath.endsWith('.mkv')){
-                          return(
-                          <video
-                          key={index}
-                          controls
-                          style={{ maxWidth: '845px', marginBottom: '10px', height: '480px' }}
-                        >
-                          <source
-                            src={`http://localhost:3003/${mediaPath}`}
-                            type="video/x-matroska"
-                          />
-                          Your browser does not support the video tag.
-                        </video>
-                      );
-                        }
-                        else if(mediaPath.endsWith('.avi')){
-                          return(
-                          <video
-                          key={index}
-                          controls
-                          style={{ maxWidth: '845px', marginBottom: '10px', height: '480px' }}
-                        >
-                          <source
-                            src={`http://localhost:3003/${mediaPath}`}
-                            type="video/x-msvideo"
-                          />
-                          Your browser does not support the video tag.
-                        </video>
-                      );
-                        }
-                        else {
+                      <div
+                        style={{
+                          marginTop: "20px",
+                          display: "flex",
+                          // , alignItem: 'center', justifyContent: 'center'
+                        }}
+                      >
+                        {issue.imagePaths.map((mediaPath, index) => {
+                          // Check if the mediaPath is an mp4 video
+                          if (mediaPath.endsWith(".mp4")) {
+                            return (
+                              <video
+                                key={index}
+                                controls
+                                style={{ maxWidth: "845px", marginBottom: "10px", height: "480px" }}
+                              >
+                                <source
+                                  src={`http://localhost:3003/${mediaPath}`}
+                                  type="video/mp4"
+                                />
+                                Your browser does not support the video tag.
+                              </video>
+                            );
+                          }
+                          if (mediaPath.endsWith(".mkv")) {
+                            return (
+                              <video
+                                key={index}
+                                controls
+                                style={{ maxWidth: "845px", marginBottom: "10px", height: "480px" }}
+                              >
+                                <source
+                                  src={`http://localhost:3003/${mediaPath}`}
+                                  type="video/x-matroska"
+                                />
+                                Your browser does not support the video tag.
+                              </video>
+                            );
+                          }
+                          if (mediaPath.endsWith(".avi")) {
+                            return (
+                              <video
+                                key={index}
+                                controls
+                                style={{ maxWidth: "845px", marginBottom: "10px", height: "480px" }}
+                              >
+                                <source
+                                  src={`http://localhost:3003/${mediaPath}`}
+                                  type="video/x-msvideo"
+                                />
+                                Your browser does not support the video tag.
+                              </video>
+                            );
+                          }
+
                           // Else, treat it as an image
                           return (
                             <img
                               key={index}
                               src={`http://localhost:3003/${mediaPath}`}
                               alt={`media ${index + 1}`}
-                              style={{ maxWidth: 'auto', marginBottom: '10px', height: '480px' }}
+                              style={{ maxWidth: "auto", marginBottom: "10px", height: "480px" }}
                             />
                           );
-                        }
-                      })}
-                    </div>
+                        })}
+                      </div>
                     )}
                     <Grid
                       item
                       sx={{
-                        mt: 1, display: 'flex', alignItems: 'center', gap: 2,
+                        mt: 1,
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 2,
                       }}
                     >
-                      <Box display="flex" alignItems="center">
+                      <Box
+                        display="flex"
+                        alignItems="center"
+                      >
                         <IconButton onClick={() => handleUpvote(issue.id)}>
                           {issue.upvotedBy.includes(currentUser?.id) ? (
                             <ArrowUpward color="primary" />
@@ -315,12 +346,9 @@ function HomePage() {
                         startIcon={<Comment />}
                         onClick={() => handleCardClick(issue.id)}
                       >
-                        Comments (
-                        {issue.comments ? issue.comments.length : 0}
-                        )
+                        Comments ({issue.comments ? issue.comments.length : 0})
                       </Button>
                     </Grid>
-
                   </Grid>
                 </Grid>
               </CardContent>
@@ -353,7 +381,10 @@ function HomePage() {
 			</Menu> */}
 
       {/* Form Dialog */}
-      <Dialog open={openForm} onClose={() => setOpenForm(false)}>
+      <Dialog
+        open={openForm}
+        onClose={() => setOpenForm(false)}
+      >
         <DialogContent>
           <ReportForm createIssue={addIssue} />
         </DialogContent>
