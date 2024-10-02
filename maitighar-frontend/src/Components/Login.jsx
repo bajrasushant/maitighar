@@ -26,12 +26,13 @@ function Copyright(props) {
       {...props}
     >
       {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
+      <Link
+        color="inherit"
+        href="https://mui.com/"
+      >
         Maitighar
-      </Link>
-      {' '}
-      {new Date().getFullYear()}
-      .
+      </Link>{' '}
+      {new Date().getFullYear()}.
     </Typography>
   );
 }
@@ -60,10 +61,11 @@ export default function SignIn() {
   // }, [isAuthenticated, navigate]);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const userDispatch = useUserDispatch();
 
   const handleLogin = async (event) => {
-    event.preventDefault();
+    // event.preventDefault();
     // const data = new FormData(event.currentTarget);
     // console.log({
     //   email: data.get("email"),
@@ -75,18 +77,23 @@ export default function SignIn() {
     // };
     // loginMutation.mutate(credentials);
     event.preventDefault();
+    setError('');
     try {
       console.log(username, password);
       const user = await login({ username, password });
       userDispatch({ type: 'LOGIN', payload: user });
     } catch (err) {
+      setError('Invalid username or password');
       console.log('Error', err.message);
     }
   };
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs">
+      <Container
+        component="main"
+        maxWidth="xs"
+      >
         <CssBaseline />
         <Box
           sx={{
@@ -96,13 +103,18 @@ export default function SignIn() {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            {/* <LockOutlinedIcon /> */}
-          </Avatar>
-          <Typography component="h1" variant="h5">
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>{/* <LockOutlinedIcon /> */}</Avatar>
+          <Typography
+            component="h1"
+            variant="h5"
+          >
             Sign in
           </Typography>
-          <Box component="form" onSubmit={handleLogin} sx={{ mt: 1 }}>
+          <Box
+            component="form"
+            onSubmit={handleLogin}
+            sx={{ mt: 1 }}
+          >
             <TextField
               margin="normal"
               required
@@ -128,9 +140,22 @@ export default function SignIn() {
               onChange={({ target }) => setPassword(target.value)}
             />
             <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
+              control={
+                <Checkbox
+                  value="remember"
+                  color="primary"
+                />
+              }
               label="Remember me"
             />
+            {error && (
+              <Typography
+                color="error"
+                align="center"
+              >
+                {error}
+              </Typography>
+            )}
             <Button
               type="submit"
               fullWidth
@@ -140,7 +165,10 @@ export default function SignIn() {
               Sign In
             </Button>
             <Grid container>
-              <Grid item xs>
+              <Grid
+                item
+                xs
+              >
                 {/* <Link href="#" variant="body2">
                   Forgot password?
                 </Link> */}

@@ -43,7 +43,11 @@ function AdminDashboard() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{ flexGrow: 1 }}
+          >
             Admin Dashboard
           </Typography>
           <Button
@@ -51,9 +55,7 @@ function AdminDashboard() {
             onClick={() => setActiveTab('dashboard')}
             sx={{
               backgroundColor:
-                activeTab === 'dashboard'
-                  ? 'rgba(255, 255, 255, 0.1)'
-                  : 'transparent',
+                activeTab === 'dashboard' ? 'rgba(255, 255, 255, 0.1)' : 'transparent',
             }}
           >
             Dashboard
@@ -62,10 +64,7 @@ function AdminDashboard() {
             color="inherit"
             onClick={() => setActiveTab('issues')}
             sx={{
-              backgroundColor:
-                activeTab === 'issues'
-                  ? 'rgba(255, 255, 255, 0.1)'
-                  : 'transparent',
+              backgroundColor: activeTab === 'issues' ? 'rgba(255, 255, 255, 0.1)' : 'transparent',
             }}
           >
             Issues
@@ -75,9 +74,7 @@ function AdminDashboard() {
             onClick={() => setActiveTab('suggestions')}
             sx={{
               backgroundColor:
-                activeTab === 'suggestions'
-                  ? 'rgba(255, 255, 255, 0.1)'
-                  : 'transparent',
+                activeTab === 'suggestions' ? 'rgba(255, 255, 255, 0.1)' : 'transparent',
             }}
           >
             Suggestions
@@ -85,12 +82,25 @@ function AdminDashboard() {
           {/* <IconButton size="large" color="inherit" onClick={handleLogout}>
 						<AccountCircle />
 					</IconButton> */}
-          <Button color="inherit" onClick={handleLogout}>Logout</Button>
+          <Button
+            color="inherit"
+            onClick={handleLogout}
+          >
+            Logout
+          </Button>
         </Toolbar>
       </AppBar>
       <Container sx={{ mt: 4, height: 'calc(100vh - 64px)' }}>
-        <Grid container spacing={2} style={{ height: '100%' }}>
-          <Grid item xs={12} style={{ height: '100%' }}>
+        <Grid
+          container
+          spacing={2}
+          style={{ height: '100%' }}
+        >
+          <Grid
+            item
+            xs={12}
+            style={{ height: '100%' }}
+          >
             {renderContent()}
           </Grid>
         </Grid>
