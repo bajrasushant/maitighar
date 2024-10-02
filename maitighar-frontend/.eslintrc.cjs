@@ -20,5 +20,6 @@ module.exports = {
     ],
     "react/prop-types": "off",
     "no-console": "warn",
+    "linebreak-style": "off",
   },
 };
