@@ -1,6 +1,6 @@
-import axios from 'axios';
+import axios from "axios";
 
-const baseUrl = '/api/admin';
+const baseUrl = "/api/admin";
 
 export const adminSignUp = async (newUserDetail) => {
   try {

@@ -34,18 +34,16 @@ app.use("/api/login", loginRouter);
 app.use("/api/adminlogin", adminloginRouter);
 app.use("/api/admins", adminRouter);
 
-
 app.get("/", (request, response) => {
   response.send("<h1>Hello World!</h1>");
 });
 
-app.use("/api/issues", middleware.userExtractor,  issueRouter);
+app.use("/api/issues", middleware.userExtractor, issueRouter);
 // app.use("/api/suggestions", suggestionRouter);
 // app.use("/api/upvotes",  upvoteRouter);
 app.use("/api/comments", middleware.userExtractor, commentRouter);
 
 // app.use("/api/comments", middleware.userExtractor, commentRouter);
-
 
 app.use(middleware.errorHandler);
 app.use(middleware.unknownEndpoint);

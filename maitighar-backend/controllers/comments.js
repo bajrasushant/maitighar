@@ -8,7 +8,7 @@ commentRouter.post("/", async (req, res) => {
   try {
     const { user, issue, parentComment } = req.body;
 
-console.log(req.body);
+    console.log(req.body);
     //Create new comment
     const comment = new Comment({ ...req.body, createdBy: req.user.id });
     await comment.save();
@@ -18,7 +18,7 @@ console.log(req.body);
       await Issue.findByIdAndUpdate(
         issue,
         { $push: { comments: comment.id } },
-        { new: true, useFindAndModify: false }
+        { new: true, useFindAndModify: false },
       );
     }
 
@@ -27,7 +27,7 @@ console.log(req.body);
       await Comment.findByIdAndUpdate(
         parentComment,
         { $push: { replies: comment.id } },
-        { new: true, useFindAndModify: false }
+        { new: true, useFindAndModify: false },
       );
     }
 
@@ -41,8 +41,10 @@ console.log(req.body);
 // Get comments by issue ID
 commentRouter.get("/issue/:id", async (req, res) => {
   try {
-    const comments = await Comment.find({ issue: req.params.id, parentComment: null }).populate("createdBy", { username: 1 });    //
-  
+    const comments = await Comment.find({ issue: req.params.id, parentComment: null }).populate(
+      "createdBy",
+      { username: 1 },
+    ); //
 
     res.json(comments);
   } catch (error) {
@@ -54,9 +56,11 @@ commentRouter.get("/issue/:id", async (req, res) => {
 // Get replies by parent comment ID
 commentRouter.get("/replies/:id", async (req, res) => {
   try {
-    const replies = await Comment.find({ parentComment: req.params.id }).populate("createdBy", { username: 1 });
+    const replies = await Comment.find({ parentComment: req.params.id }).populate("createdBy", {
+      username: 1,
+    });
 
-    if(replies.length === 0) {
+    if (replies.length === 0) {
       return res.status(404).json({ error: "No replies found for this comment" });
     }
 

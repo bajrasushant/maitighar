@@ -1,6 +1,6 @@
-import { useMutation } from '@tanstack/react-query';
-import { useNavigate } from 'react-router-dom';
-import { adminSignUp } from '../services/admin'; // Ensure this service is correctly implemented
+import { useMutation } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
+import { adminSignUp } from "../services/admin"; // Ensure this service is correctly implemented
 
 export const useAdminSignup = () => {
   const navigate = useNavigate();
@@ -8,10 +8,10 @@ export const useAdminSignup = () => {
   const signupMutation = useMutation({
     mutationFn: adminSignUp,
     onSuccess: () => {
-      navigate('/admin-login');
+      navigate("/admin-login");
     },
     onError: (error) => {
-      console.error('Admin SignUp failed', error);
+      console.error("Admin SignUp failed", error);
     },
   });
   return signupMutation;

@@ -30,7 +30,6 @@ upvoteRouter.post("/", async (req, res) => {
   }
 });
 
-
 // Get all upvotes
 upvoteRouter.get("/", async (req, res) => {
   try {
@@ -49,7 +48,10 @@ upvoteRouter.get("/", async (req, res) => {
 // Get an upvote by ID
 upvoteRouter.get("/:id", async (req, res) => {
   try {
-    const upvote = await Upvote.findById(req.params.id).populate("user").populate("issue").populate("suggestion");
+    const upvote = await Upvote.findById(req.params.id)
+      .populate("user")
+      .populate("issue")
+      .populate("suggestion");
     if (!upvote) {
       return res.status(404).json({ error: "Upvote not found" });
     }
@@ -62,7 +64,10 @@ upvoteRouter.get("/:id", async (req, res) => {
 // Update an upvote
 upvoteRouter.put("/:id", async (req, res) => {
   try {
-    const upvote = await Upvote.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
+    const upvote = await Upvote.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
+    });
     if (!upvote) {
       return res.status(404).json({ error: "Upvote not found" });
     }

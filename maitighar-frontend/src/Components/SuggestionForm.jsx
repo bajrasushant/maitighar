@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 import {
   TextField,
   Button,
@@ -10,17 +10,17 @@ import {
   // Select,
   // MenuItem,
   Box,
-} from '@mui/material';
-import LocationPicker from './LocationPicker';
+} from "@mui/material";
+import LocationPicker from "./LocationPicker";
 
 function SuggestionForm() {
   const [report, setReport] = useState({
-    title: '',
-    description: '',
+    title: "",
+    description: "",
     images: [],
-    status: 'open',
+    status: "open",
   });
-  const [position, setPosition] = useState([27.7172, 85.3240]);
+  const [position, setPosition] = useState([27.7172, 85.324]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -47,12 +47,22 @@ function SuggestionForm() {
 
   return (
     <Container maxWidth="sm">
-      <Typography variant="h4" align="center" gutterBottom>
+      <Typography
+        variant="h4"
+        align="center"
+        gutterBottom
+      >
         Make a Suggestion
       </Typography>
       <form onSubmit={handleSubmit}>
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
+        <Grid
+          container
+          spacing={2}
+        >
+          <Grid
+            item
+            xs={12}
+          >
             <TextField
               fullWidth
               label="Title"
@@ -62,7 +72,10 @@ function SuggestionForm() {
               required
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid
+            item
+            xs={12}
+          >
             <TextField
               fullWidth
               label="Description"
@@ -74,11 +87,20 @@ function SuggestionForm() {
               required
             />
           </Grid>
-          <Grid item xs={12}>
-            <Typography variant="subtitle1" gutterBottom>
+          <Grid
+            item
+            xs={12}
+          >
+            <Typography
+              variant="subtitle1"
+              gutterBottom
+            >
               Select Location on Map
             </Typography>
-            <LocationPicker position={position} setPosition={setPosition} />
+            <LocationPicker
+              position={position}
+              setPosition={setPosition}
+            />
             {/* <Typography variant="body2" gutterBottom>
               Latitude: {position[0]}, Longitude: {position[1]}
             </Typography> */}
@@ -118,9 +140,17 @@ function SuggestionForm() {
               </Select>
             </FormControl>
           </Grid> */}
-          <Grid item xs={12}>
+          <Grid
+            item
+            xs={12}
+          >
             <Box mt={2}>
-              <Button type="submit" variant="contained" color="primary" fullWidth>
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                fullWidth
+              >
                 Submit Suggestion
               </Button>
             </Box>

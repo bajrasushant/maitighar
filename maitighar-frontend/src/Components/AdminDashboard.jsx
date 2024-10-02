@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import 'leaflet/dist/leaflet.css';
+import { useState } from "react";
+import "leaflet/dist/leaflet.css";
 import {
   AppBar,
   Toolbar,
@@ -9,24 +9,24 @@ import {
   Box,
   Grid,
   IconButton,
-} from '@mui/material';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import IssuesList from './IssuesList';
-import SuggestionsList from './SuggestionsList';
-import GlobalIssueMap from './GlobalIssueMap';
-import { useUserDispatch } from '../context/UserContext';
+} from "@mui/material";
+import AccountCircle from "@mui/icons-material/AccountCircle";
+import IssuesList from "./IssuesList";
+import SuggestionsList from "./SuggestionsList";
+import GlobalIssueMap from "./GlobalIssueMap";
+import { useUserDispatch } from "../context/UserContext";
 
 function AdminDashboard() {
-  const [activeTab, setActiveTab] = useState('dashboard');
+  const [activeTab, setActiveTab] = useState("dashboard");
   const userDispatch = useUserDispatch();
 
   const renderContent = () => {
     switch (activeTab) {
-      case 'dashboard':
+      case "dashboard":
         return <GlobalIssueMap />;
-      case 'issues':
+      case "issues":
         return <IssuesList />;
-      case 'suggestions':
+      case "suggestions":
         return <SuggestionsList />;
       default:
         return <GlobalIssueMap />;
@@ -34,9 +34,9 @@ function AdminDashboard() {
   };
 
   const handleLogout = () => {
-    userDispatch({ type: 'ADMIN_LOGOUT' });
+    userDispatch({ type: "ADMIN_LOGOUT" });
     // Redirect to login page or home page
-    window.location.href = '/login'; // Adjust the URL as necessary
+    window.location.href = "/login"; // Adjust the URL as necessary
   };
 
   return (
@@ -52,29 +52,29 @@ function AdminDashboard() {
           </Typography>
           <Button
             color="inherit"
-            onClick={() => setActiveTab('dashboard')}
+            onClick={() => setActiveTab("dashboard")}
             sx={{
               backgroundColor:
-                activeTab === 'dashboard' ? 'rgba(255, 255, 255, 0.1)' : 'transparent',
+                activeTab === "dashboard" ? "rgba(255, 255, 255, 0.1)" : "transparent",
             }}
           >
             Dashboard
           </Button>
           <Button
             color="inherit"
-            onClick={() => setActiveTab('issues')}
+            onClick={() => setActiveTab("issues")}
             sx={{
-              backgroundColor: activeTab === 'issues' ? 'rgba(255, 255, 255, 0.1)' : 'transparent',
+              backgroundColor: activeTab === "issues" ? "rgba(255, 255, 255, 0.1)" : "transparent",
             }}
           >
             Issues
           </Button>
           <Button
             color="inherit"
-            onClick={() => setActiveTab('suggestions')}
+            onClick={() => setActiveTab("suggestions")}
             sx={{
               backgroundColor:
-                activeTab === 'suggestions' ? 'rgba(255, 255, 255, 0.1)' : 'transparent',
+                activeTab === "suggestions" ? "rgba(255, 255, 255, 0.1)" : "transparent",
             }}
           >
             Suggestions
@@ -90,16 +90,16 @@ function AdminDashboard() {
           </Button>
         </Toolbar>
       </AppBar>
-      <Container sx={{ mt: 4, height: 'calc(100vh - 64px)' }}>
+      <Container sx={{ mt: 4, height: "calc(100vh - 64px)" }}>
         <Grid
           container
           spacing={2}
-          style={{ height: '100%' }}
+          style={{ height: "100%" }}
         >
           <Grid
             item
             xs={12}
-            style={{ height: '100%' }}
+            style={{ height: "100%" }}
           >
             {renderContent()}
           </Grid>

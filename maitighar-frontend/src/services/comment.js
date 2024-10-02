@@ -1,7 +1,7 @@
-import axios from 'axios';
-import helpers from '../helpers/helpers';
+import axios from "axios";
+import helpers from "../helpers/helpers";
 
-const baseUrl = '/api/comments';
+const baseUrl = "/api/comments";
 
 const getCommentByIssue = async (issueId) => {
   const config = helpers.getConfig();
@@ -28,5 +28,8 @@ const getReplyByComment = async (commentId) => {
 };
 
 export default {
-  getCommentByIssue, createComment, createReply, getReplyByComment,
+  getCommentByIssue,
+  createComment,
+  createReply,
+  getReplyByComment,
 };

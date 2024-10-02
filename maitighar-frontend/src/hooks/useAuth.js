@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
-import { useAuth } from '../context/AuthContext';
+import { useEffect, useState } from "react";
+import { useAuth } from "../context/AuthContext";
 
 export const useAuthStatus = () => {
   const { user, login, logout } = useAuth();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   useEffect(() => {
-    const storedUser = localStorage.getItem('user');
+    const storedUser = localStorage.getItem("user");
     if (storedUser) {
       login(JSON.parse(storedUser));
     } else {
@@ -18,6 +18,9 @@ export const useAuthStatus = () => {
   }, [user]);
 
   return {
-    isAuthenticated, user, login, logout,
+    isAuthenticated,
+    user,
+    login,
+    logout,
   };
 };

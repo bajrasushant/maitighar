@@ -11,15 +11,13 @@ userRouter.post("/", async (request, response) => {
   const { username, password, repassword, email } = request.body;
   if (
     !username ||
-		!password ||
-		!repassword ||
-		username.trim() === "" ||
-		password.trim() === "" ||
-		repassword.trim() === ""
+    !password ||
+    !repassword ||
+    username.trim() === "" ||
+    password.trim() === "" ||
+    repassword.trim() === ""
   ) {
-    return response
-      .status(400)
-      .json({ error: "username, password, and repassword are required" });
+    return response.status(400).json({ error: "username, password, and repassword are required" });
   }
 
   if (!(username.length >= 3 && password.length >= 3)) {

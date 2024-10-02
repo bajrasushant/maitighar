@@ -14,12 +14,12 @@ module.exports = {
   plugins: ["react-refresh"],
   rules: {
     "react/jsx-no-target-blank": "off",
-    "react-refresh/only-export-components": [
-      "warn",
-      { allowConstantExport: true },
-    ],
+    "react/jsx-props-no-spreading": "off",
+    "react/jsx-one-expression-per-line": "off",
+    "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
     "react/prop-types": "off",
     "no-console": "warn",
     "linebreak-style": "off",
+    quotes: ["error", "double"],
   },
 };

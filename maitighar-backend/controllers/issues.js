@@ -14,7 +14,7 @@ const storage = multer.diskStorage({
   },
   filename: (req, file, cb) => {
     cb(null, `${Date.now()}-${file.originalname}`);
-  }
+  },
 });
 
 const upload = multer({
@@ -32,9 +32,8 @@ const upload = multer({
     } else {
       cb(new Error("Only .png, .jpg, .gif, .jpeg, .mp4, .avi, .mkv formats are allowed!"));
     }
-  }
+  },
 });
-
 
 // Create a new issue with image upload
 issueRouter.post("/", upload.array("images", 5), async (req, res) => {
@@ -42,14 +41,15 @@ issueRouter.post("/", upload.array("images", 5), async (req, res) => {
     if (!req.user || !req.user.id) {
       return res.status(401).json({ error: "User not authenticated" });
     }
-    const { title, description, department, latitude, longitude, status, type, category } = req.body;
+    const { title, description, department, latitude, longitude, status, type, category } =
+      req.body;
     const user = await User.findById(req.user.id);
 
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
 
-    const imagePaths = req.files ? req.files.map(file => file.path) : [];
+    const imagePaths = req.files ? req.files.map((file) => file.path) : [];
 
     const issue = new Issue({
       title,
@@ -62,14 +62,13 @@ issueRouter.post("/", upload.array("images", 5), async (req, res) => {
       createdBy: user.id,
       comments: [],
       imagePaths,
-      category
+      category,
     });
 
     await issue.save();
     res.status(201).json(issue);
-
   } catch (error) {
-    console.error("Error creating issue:",error);
+    console.error("Error creating issue:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 });
@@ -84,7 +83,7 @@ issueRouter.get("/", async (req, res) => {
     }));
     res.json(issuesWithCommentLength);
   } catch (error) {
-    console.error("Error fetchin issues:",error);
+    console.error("Error fetchin issues:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 });
@@ -92,10 +91,9 @@ issueRouter.get("/", async (req, res) => {
 // Get a issue by ID
 issueRouter.get("/:id", async (req, res) => {
   try {
-    const issue = await Issue.findById(req.params.id)
-      .populate("createdBy", {
-        username: 1,
-      });
+    const issue = await Issue.findById(req.params.id).populate("createdBy", {
+      username: 1,
+    });
 
     if (!issue) {
       return res.status(404).json({ error: "issue not found" });
@@ -136,7 +134,10 @@ issueRouter.put("/:id", upload.single("image"), async (req, res) => {
       updates.imagePath = req.file.path;
     }
 
-    const issue = await Issue.findByIdAndUpdate(req.params.id, updates, { new: true, runValidators: true });
+    const issue = await Issue.findByIdAndUpdate(req.params.id, updates, {
+      new: true,
+      runValidators: true,
+    });
 
     if (!issue) {
       return res.status(404).json({ error: "Issue not found" });
@@ -160,9 +161,7 @@ issueRouter.delete("/:id", async (req, res) => {
 
     //Check if user can delete the issue
     if (issue.createdBy.toString() !== req.user.id.toString()) {
-      return res
-        .status(403)
-        .json({ error: "You do not have permission to delete this issue" });
+      return res.status(403).json({ error: "You do not have permission to delete this issue" });
     }
     res.json({ message: "Issue deleted" });
   } catch (error) {
@@ -184,11 +183,15 @@ issueRouter.put("/:id/upvote", async (req, res) => {
       return res.status(404).json({ error: "Issue not found" });
     }
 
-    const hasUpvoted = issue.upvotedBy.some(userId => userId.toString() === req.user.id.toString());
+    const hasUpvoted = issue.upvotedBy.some(
+      (userId) => userId.toString() === req.user.id.toString(),
+    );
 
     if (hasUpvoted) {
       issue.upvotes -= 1;
-      issue.upvotedBy = issue.upvotedBy.filter(userId => userId.toString() !== req.user.id.toString());
+      issue.upvotedBy = issue.upvotedBy.filter(
+        (userId) => userId.toString() !== req.user.id.toString(),
+      );
     } else {
       issue.upvotes += 1;
       issue.upvotedBy.push(req.user.id);
@@ -197,11 +200,10 @@ issueRouter.put("/:id/upvote", async (req, res) => {
     await issue.save();
     res.json(issue);
   } catch (error) {
-    console.error("Upvote error:", error);  // Log the error for more insight
+    console.error("Upvote error:", error); // Log the error for more insight
     res.status(500).json({ error: "Internal server error" });
   }
 });
-
 
 // Get issue by department for admin
 issueRouter.get("/admin/:department", async (req, res) => {
@@ -214,9 +216,7 @@ issueRouter.get("/admin/:department", async (req, res) => {
 
     // If no issues are found, return 404
     if (issues.length === 0) {
-      return res
-        .status(404)
-        .json({ error: "No issues found for this department" });
+      return res.status(404).json({ error: "No issues found for this department" });
     }
 
     // Return the found issues
@@ -224,7 +224,7 @@ issueRouter.get("/admin/:department", async (req, res) => {
   } catch (error) {
     console.error("Error fetching issues by department:", error);
     // Handle errors and return 500
-    res.status(500).json({ error:  "Internal server error" });
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 

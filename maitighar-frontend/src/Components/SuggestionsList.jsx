@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useState, useEffect } from "react";
+import axios from "axios";
 import {
   Table,
   TableBody,
@@ -13,23 +13,25 @@ import {
   RadioGroup,
   FormControlLabel,
   Radio,
-} from '@mui/material';
-import issueService from '../services/issues';
+} from "@mui/material";
+import issueService from "../services/issues";
 
 function SuggestionsList() {
   const [suggestions, setSuggestions] = useState([]);
-  const adminData = JSON.parse(localStorage.getItem('loggedAdmin'));
+  const adminData = JSON.parse(localStorage.getItem("loggedAdmin"));
   const { department } = adminData;
   const { token } = adminData;
 
   const handleStatusChange = async (id, newStatus) => {
-    console.log('Updating status for issue ID:', id, 'to:', newStatus);
+    console.log("Updating status for issue ID:", id, "to:", newStatus);
     try {
       const updatedIssue = await issueService.updateStatus(id, newStatus);
-      setSuggestions((prevIssues) => prevIssues.map((issue) => (issue.id === id ? { ...issue, status: newStatus } : issue)));
-      console.log('Updated issue status:', updatedIssue);
+      setSuggestions((prevIssues) =>
+        prevIssues.map((issue) => (issue.id === id ? { ...issue, status: newStatus } : issue)),
+      );
+      console.log("Updated issue status:", updatedIssue);
     } catch (error) {
-      console.error('Error updating status:', error);
+      console.error("Error updating status:", error);
     }
   };
 
@@ -39,7 +41,7 @@ function SuggestionsList() {
         Authorization: `Bearer ${token}`,
       },
     };
-    console.log('config', config);
+    console.log("config", config);
 
     axios
       .get(`/api/issues/admin/${department}`, config)
@@ -47,11 +49,14 @@ function SuggestionsList() {
       .catch((error) => console.error(error));
   }, [department, token]);
 
-  const suggestionsList = suggestions.filter((issue) => issue.type === 'suggestion');
+  const suggestionsList = suggestions.filter((issue) => issue.type === "suggestion");
 
   return (
     <div>
-      <Typography variant="h4" gutterBottom>
+      <Typography
+        variant="h4"
+        gutterBottom
+      >
         Suggestions
       </Typography>
       <TableContainer component={Paper}>

@@ -5,7 +5,7 @@ const adminloginRouter = require("express").Router();
 const Admin = require("../models/admin");
 
 adminloginRouter.post("/", async (request, response) => {
-  try{
+  try {
     const { username, password } = request.body;
 
     const admin = await Admin.findOne({ username });
@@ -30,11 +30,11 @@ adminloginRouter.post("/", async (request, response) => {
       username: admin.username,
       email: admin.email,
       id: admin._id,
-      department: admin.department
+      department: admin.department,
     });
-  }catch (error){
+  } catch (error) {
     console.error("Error during login:", error);
-    return response.status(500).json({ error:"Internal sever error" });
+    return response.status(500).json({ error: "Internal sever error" });
   }
 });
 module.exports = adminloginRouter;
