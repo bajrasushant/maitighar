@@ -7,11 +7,12 @@ const Admin = require("../models/admin");
 adminloginRouter.post("/", async (request, response) => {
   try {
     const { username, password } = request.body;
-
-    const admin = await Admin.findOne({ username });
+    const trimmedUsername = username.trim();
+    const trimmedPassword = password.trim();
+    const admin = await Admin.findOne({ username: trimmedUsername });
 
     const passwordCorrect =
-      admin === null ? false : await bcrypt.compare(password, admin.passwordHash);
+      admin === null ? false : await bcrypt.compare(trimmedPassword, admin.passwordHash);
     console.log(admin);
     if (!(admin && passwordCorrect)) {
       return response.status(401).json({

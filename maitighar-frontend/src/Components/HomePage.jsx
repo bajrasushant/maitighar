@@ -267,7 +267,7 @@ function HomePage() {
                               <video
                                 key={index}
                                 controls
-                                style={{ maxWidth: "845px", marginBottom: "10px", height: "480px" }}
+                                style={{ maxWidth: "845px", marginBottom: "10px", height: "720px" }}
                               >
                                 <source
                                   src={`http://localhost:3003/${mediaPath}`}
