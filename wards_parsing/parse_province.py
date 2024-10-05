@@ -48,14 +48,16 @@ try:
                     None,
                 )
                 if not district_data:
-                    district_data = {"name": district_english, "local_govs": {}}
+                    district_data = {"name": district_english, "local_govs": []}
                     final_data[province]["districts"].append(district_data)
 
-                if local_gov not in district_data["local_govs"]:
-                    district_data["local_govs"][local_gov] = {
+                district_data["local_govs"].append(
+                    {
+                        "name": local_gov,
                         "number_of_wards": num_wards,
                         "type": local_gov_type,
                     }
+                )
             else:
                 continue
 
