@@ -5,6 +5,10 @@ const path = require("path");
 const Issue = require("../models/issue");
 const User = require("../models/user");
 
+const Province = require("../models/province");
+const District = require("../models/district");
+const LocalGov = require("../models/localgov");
+
 const issueRouter = express.Router();
 
 // Multer configuration for image upload
@@ -41,8 +45,20 @@ issueRouter.post("/", upload.array("images", 5), async (req, res) => {
     if (!req.user || !req.user.id) {
       return res.status(401).json({ error: "User not authenticated" });
     }
-    const { title, description, department, latitude, longitude, status, type, category } =
-      req.body;
+    const {
+      title,
+      description,
+      department,
+      assigned_province,
+      assigned_district,
+      assigned_local_gov,
+      assigned_ward,
+      latitude,
+      longitude,
+      status,
+      type,
+      category,
+    } = req.body;
     const user = await User.findById(req.user.id);
 
     if (!user) {
@@ -56,6 +72,10 @@ issueRouter.post("/", upload.array("images", 5), async (req, res) => {
       type,
       description,
       department,
+      assigned_province,
+      assigned_district,
+      assigned_local_gov: localGov ? localGov.id : null,
+      assigned_ward: localGov ? assigned_ward : null,
       latitude,
       longitude,
       status,
@@ -64,6 +84,36 @@ issueRouter.post("/", upload.array("images", 5), async (req, res) => {
       imagePaths,
       category,
     });
+
+    // Validate the province
+    const province = await Province.findById(assigned_province);
+    if (!province) {
+      return res.status(400).json({ error: "Invalid province selected" });
+    }
+
+    // Validate the district
+    const district = await District.findOne({ _id: assigned_district, province: province._id });
+    if (!district) {
+      return res.status(400).json({ error: "Invalid district selected for the given province" });
+    }
+
+    // Validate the local government (if provided)
+    let localGov = null;
+    if (assigned_local_gov) {
+      localGov = await LocalGov.findOne({ _id: assigned_local_gov, district: district._id });
+      if (!localGov) {
+        return res
+          .status(400)
+          .json({ error: "Invalid local government selected for the district" });
+      }
+
+      // Validate the ward number (if local government is provided)
+      if (!assigned_ward || assigned_ward <= 0 || assigned_ward > localGov.number_of_wards) {
+        return res
+          .status(400)
+          .json({ error: "Assigned ward must be within the local government's range" });
+      }
+    }
 
     await issue.save();
     res.status(201).json(issue);
