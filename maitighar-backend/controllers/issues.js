@@ -67,24 +67,6 @@ issueRouter.post("/", upload.array("images", 5), async (req, res) => {
 
     const imagePaths = req.files ? req.files.map((file) => file.path) : [];
 
-    const issue = new Issue({
-      title,
-      type,
-      description,
-      department,
-      assigned_province,
-      assigned_district,
-      assigned_local_gov: localGov ? localGov.id : null,
-      assigned_ward: localGov ? assigned_ward : null,
-      latitude,
-      longitude,
-      status,
-      createdBy: user.id,
-      comments: [],
-      imagePaths,
-      category,
-    });
-
     // Validate the province
     const province = await Province.findById(assigned_province);
     if (!province) {
@@ -114,6 +96,24 @@ issueRouter.post("/", upload.array("images", 5), async (req, res) => {
           .json({ error: "Assigned ward must be within the local government's range" });
       }
     }
+
+    const issue = new Issue({
+      title,
+      type,
+      description,
+      department,
+      assigned_province,
+      assigned_district,
+      assigned_local_gov: localGov ? localGov.id : null,
+      assigned_ward: localGov ? assigned_ward : null,
+      latitude,
+      longitude,
+      status,
+      createdBy: user.id,
+      comments: [],
+      imagePaths,
+      category,
+    });
 
     await issue.save();
     res.status(201).json(issue);

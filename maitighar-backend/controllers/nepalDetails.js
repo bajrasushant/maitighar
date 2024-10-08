@@ -21,7 +21,6 @@ nepalDetailsRouter.get("/districts", async (req, res) => {
     const districts = await District.find({ province: provinceId });
     res.status(200).json(districts);
   } catch (error) {
-    console.error("Error fetching districts: ", error);
     res.status(500).json({ error: "Oops, something went wrong." });
   }
 });
@@ -37,7 +36,6 @@ nepalDetailsRouter.get("/localgovs", async (req, res) => {
     const localGovs = await LocalGov.find({ district: districtId });
     res.status(200).json(localGovs);
   } catch (error) {
-    console.error("Error fetching local governments:", error);
     res.status(500).json({ error: "Oops, something went wrong." });
   }
 });

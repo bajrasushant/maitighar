@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 import {
   TextField,
   Button,
@@ -58,6 +59,10 @@ function ReportForm({ createIssue }) {
     title: "",
     description: "",
     department: "",
+    province: "",
+    district: "",
+    localGov: "",
+    ward: "",
     category: "",
     position: {
       latitude: 27.7172,
@@ -71,12 +76,63 @@ function ReportForm({ createIssue }) {
 
   const [report, setReport] = useState(defaultReportState);
 
+  const [provincesDd, setProvincesDd] = useState([]);
+  const [districtsDd, setDistrictsDd] = useState([]);
+  const [localGovsDd, setLocalGovsDd] = useState([]);
+
+  useEffect(() => {
+    const fetchProvinces = async () => {
+      try {
+        const response = await axios.get("/api/nepal/provinces");
+        setProvincesDd(response.data);
+      } catch (error) {
+        console.error("Error fetching issues:", error);
+      }
+    };
+    fetchProvinces();
+  }, []);
+
+  useEffect(() => {
+    const fetchDistricts = async () => {
+      if (report.province) {
+        try {
+          const response = await axios.get(`/api/nepal/districts?provinceId=${report.province}`);
+          setDistrictsDd(response.data);
+        } catch (error) {
+          console.error("Error fetching issues:", error);
+        }
+      } else {
+        setDistrictsDd([]);
+      }
+    };
+    fetchDistricts();
+  }, [report.province]);
+
+  useEffect(() => {
+    const fetchLocalGovs = async () => {
+      if (report.district) {
+        try {
+          console.log("Fetcching localgovs");
+          const response = await axios.get(`/api/nepal/localgovs?districtId=${report.district}`);
+          setLocalGovsDd(response.data);
+        } catch (error) {
+          console.error("Error fetching issues:", error);
+        }
+      } else {
+        setLocalGovsDd([]);
+      }
+    };
+    fetchLocalGovs();
+  }, [report.district]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
+    console.log(name, value);
     setReport((prevState) => ({
       ...prevState,
       [name]: value,
     }));
+    console.log(report);
   };
 
   const handleImageUpload = (e) => {
@@ -94,6 +150,10 @@ function ReportForm({ createIssue }) {
     formData.append("title", report.title);
     formData.append("description", report.description);
     formData.append("category", report.category);
+    formData.append("assigned_province", report.province);
+    formData.append("assigned_district", report.district);
+    formData.append("assigned_localGov", report.localGov);
+    formData.append("assigned_ward", report.ward);
     formData.append("department", report.department);
     formData.append("latitude", report.position.latitude);
     formData.append("longitude", report.position.longitude);
@@ -108,9 +168,9 @@ function ReportForm({ createIssue }) {
     }
 
     // Log FormData entries
-    for (const pair of formData.entries()) {
-      console.log(`${pair[0]}: ${pair[1]}`);
-    }
+    formData.forEach((value, key) => {
+      console.log(`${key}: ${value}`);
+    });
 
     try {
       await createIssue(formData);
@@ -183,6 +243,114 @@ function ReportForm({ createIssue }) {
                 label="Suggestion"
               />
             </RadioGroup>
+          </Grid>
+          <Grid
+            item
+            xs={12}
+          >
+            <FormControl
+              fullWidth
+              required
+            >
+              <InputLabel>Province</InputLabel>
+              <Select
+                name="province"
+                value={report.province}
+                onChange={handleChange}
+                label="Province"
+              >
+                {provincesDd.map((prov) => (
+                  <MenuItem
+                    key={prov.id}
+                    value={prov.id}
+                  >
+                    {prov.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid
+            item
+            xs={12}
+          >
+            <FormControl
+              fullWidth
+              required
+            >
+              <InputLabel>District</InputLabel>
+              <Select
+                name="district"
+                value={report.district}
+                onChange={handleChange}
+                label="District"
+              >
+                {districtsDd.map((district) => (
+                  <MenuItem
+                    key={district.id}
+                    value={district.id}
+                  >
+                    {district.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid
+            item
+            xs={12}
+          >
+            <FormControl
+              fullWidth
+              required
+            >
+              <InputLabel>Local Government</InputLabel>
+              <Select
+                name="localGov"
+                value={report.localGov}
+                onChange={handleChange}
+                label="LocalGovernment"
+              >
+                {localGovsDd.map((localGov) => (
+                  <MenuItem
+                    key={localGov.id}
+                    value={localGov.id}
+                  >
+                    {localGov.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid
+            item
+            xs={12}
+          >
+            <FormControl
+              fullWidth
+              required
+            >
+              <InputLabel>Ward</InputLabel>
+              <Select
+                name="ward"
+                value={report.ward}
+                onChange={handleChange}
+                label="Ward"
+              >
+                {localGovsDd
+                  .filter((localGov) => localGov.id === report.localGov)
+                  .map((localGov) =>
+                    [...Array(localGov.number_of_wards).keys()].map((ward) => (
+                      <MenuItem
+                        key={ward + 1}
+                        value={ward + 1}
+                      >
+                        Ward No. {ward + 1}
+                      </MenuItem>
+                    )),
+                  )}
+              </Select>
+            </FormControl>
           </Grid>
 
           <Grid
