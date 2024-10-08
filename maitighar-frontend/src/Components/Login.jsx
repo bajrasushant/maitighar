@@ -140,12 +140,12 @@ export default function SignIn() {
               onChange={({ target }) => setPassword(target.value)}
             />
             <FormControlLabel
-              control={
+              control={(
                 <Checkbox
                   value="remember"
                   color="primary"
                 />
-              }
+              )}
               label="Remember me"
             />
             {error && (

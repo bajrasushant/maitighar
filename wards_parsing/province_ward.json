@@ -1,0 +1,4342 @@
+[
+  {
+    "province": "KOSHI",
+    "districts": [
+      {
+        "name": "Bhojpur",
+        "ddc_contact_email": "info@ddcbhojpur.gov.np",
+        "ddc_contact_number": "029-420142",
+        "local_govs": [
+          {
+            "name": "Shadananda Municipality",
+            "number_of_wards": "14",
+            "type": "Municipality"
+          },
+          {
+            "name": "Bhojpur Municipality",
+            "number_of_wards": "12",
+            "type": "Municipality"
+          },
+          {
+            "name": "Aamchowk Gaunpalika",
+            "number_of_wards": "10",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Hatuwagadhi Gaunpalika",
+            "number_of_wards": "9",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Temkemaiyum Gaunpalika",
+            "number_of_wards": "9",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Ramprasad Rai Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Arun Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Pauwa Dunma Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Salpa Silichho Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Dhankuta",
+        "ddc_contact_email": "ddc.dhankuta.mofald@gmail.com",
+        "ddc_contact_number": "026-520053",
+        "local_govs": [
+          {
+            "name": "Dhankuta Municipality",
+            "number_of_wards": "10",
+            "type": "Municipality"
+          },
+          {
+            "name": "Pakhribas Municipality",
+            "number_of_wards": "10",
+            "type": "Municipality"
+          },
+          {
+            "name": "Sangurigadhi Gaunpalika",
+            "number_of_wards": "10",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Mahalaxmi Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Chaubise Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Shahidbhumi Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Chhathar Jorpati Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Ilam",
+        "ddc_contact_email": "info@ddcilam.gov.np",
+        "ddc_contact_number": "027-521776",
+        "local_govs": [
+          {
+            "name": "Suryodaya Municipality",
+            "number_of_wards": "14",
+            "type": "Municipality"
+          },
+          {
+            "name": "Illam Municipality",
+            "number_of_wards": "12",
+            "type": "Municipality"
+          },
+          {
+            "name": "Mai Municipality",
+            "number_of_wards": "10",
+            "type": "Municipality"
+          },
+          {
+            "name": "Deumai Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Fakfokathum Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Chulachuli Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Mai Jogmai Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Mangsebung Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Rong Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Sandakpur Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Jhapa",
+        "ddc_contact_email": "info@ddcjhapa.gov.np",
+        "ddc_contact_number": "023-455034",
+        "local_govs": [
+          {
+            "name": "Mechinagar Municipality",
+            "number_of_wards": "15",
+            "type": "Municipality"
+          },
+          {
+            "name": "Arjundhara Municipality",
+            "number_of_wards": "11",
+            "type": "Municipality"
+          },
+          {
+            "name": "Shivasatakshi Municipality",
+            "number_of_wards": "11",
+            "type": "Municipality"
+          },
+          {
+            "name": "Bhadrapur Municipality",
+            "number_of_wards": "10",
+            "type": "Municipality"
+          },
+          {
+            "name": "Birtamod Municipality",
+            "number_of_wards": "10",
+            "type": "Municipality"
+          },
+          {
+            "name": "Damak Municipality",
+            "number_of_wards": "10",
+            "type": "Municipality"
+          },
+          {
+            "name": "Gauradaha Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Kankai Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Barhadashi Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Buddhashanti Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Jhapa Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Kachanakawal Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Kamal Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Gauriganj Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Haldibari Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Khotang",
+        "ddc_contact_email": "mail.ddckhotang@gmail.com",
+        "ddc_contact_number": "036-420120",
+        "local_govs": [
+          {
+            "name": "Diktel Rupakot Majhuwagadhi Municipality",
+            "number_of_wards": "15",
+            "type": "Municipality"
+          },
+          {
+            "name": "Halesi Tuwachung Municipality",
+            "number_of_wards": "11",
+            "type": "Municipality"
+          },
+          {
+            "name": "Khotehang Gaunpalika",
+            "number_of_wards": "9",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Aiselukharka Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Diprung Chuichumma Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Kepilasgadhi Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Baraha Pokhari Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Jante Dhunga Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Rawa Besi Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Sakela Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Morang",
+        "ddc_contact_email": "info@ddcmorang.gov.np",
+        "ddc_contact_number": "021-524267",
+        "local_govs": [
+          {
+            "name": "Biratnagar Metropolitan City",
+            "number_of_wards": "19",
+            "type": "Metropolitan City"
+          },
+          {
+            "name": "Sundarharaicha Municipality",
+            "number_of_wards": "12",
+            "type": "Municipality"
+          },
+          {
+            "name": "Belbari Municipality",
+            "number_of_wards": "11",
+            "type": "Municipality"
+          },
+          {
+            "name": "Kerabari Gaunpalika",
+            "number_of_wards": "10",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Pathari Shanishchare Municipality",
+            "number_of_wards": "10",
+            "type": "Municipality"
+          },
+          {
+            "name": "Ratuwamai Municipality",
+            "number_of_wards": "10",
+            "type": "Municipality"
+          },
+          {
+            "name": "Letang Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Miklajung Gaunpalika",
+            "number_of_wards": "9",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Rangeli Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Sunwarshi Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Urlabari Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Budhiganga Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Dhanapalthan Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Gramthan Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Jahada Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Kanepokhari Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Katahari Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Okhaldhunga",
+        "ddc_contact_email": "shresthajaya2002@gmail.com",
+        "ddc_contact_number": "037-520318",
+        "local_govs": [
+          {
+            "name": "Siddhicharan Municipality",
+            "number_of_wards": "12",
+            "type": "Municipality"
+          },
+          {
+            "name": "Champadevi Gaunpalika",
+            "number_of_wards": "10",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Sunkoshi Gaunpalika",
+            "number_of_wards": "10",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Khiji Demba Gaunpalika",
+            "number_of_wards": "9",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Likhu Gaunpalika",
+            "number_of_wards": "9",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Manebhanjyang Gaunpalika",
+            "number_of_wards": "9",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Chishankhu Gadhi Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Molung Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Panchthar",
+        "ddc_contact_email": "info@ddcpanchthar.gov.np",
+        "ddc_contact_number": "024-520120",
+        "local_govs": [
+          {
+            "name": "Phidim Municipality",
+            "number_of_wards": "14",
+            "type": "Municipality"
+          },
+          {
+            "name": "Falelung Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Miklajung Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Falgunanda Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Hilihan Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Yangbarak Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Kummayak Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Tumbewa Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Sankhuwasabha",
+        "ddc_contact_email": "info@dccsankhuwasabha.gov.np",
+        "ddc_contact_number": "029-560044",
+        "local_govs": [
+          {
+            "name": "Chainapur Municipality",
+            "number_of_wards": "11",
+            "type": "Municipality"
+          },
+          {
+            "name": "Khandabari Municipality",
+            "number_of_wards": "11",
+            "type": "Municipality"
+          },
+          {
+            "name": "Dharmadevi Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Madi Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Panchakhapan Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Makalu Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Sabhapokhari Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Bhotkhola Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Chichila Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Silichong Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Solukhumbu",
+        "ddc_contact_email": "ddcsolu@gmail.com",
+        "ddc_contact_number": "038-520144",
+        "local_govs": [
+          {
+            "name": "Solu Dhudhakunda Municipality",
+            "number_of_wards": "11",
+            "type": "Municipality"
+          },
+          {
+            "name": "Thulung Dudhkoshi Gaunpalika",
+            "number_of_wards": "9",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Mapya Dudhkoshi Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Khumbu Pasanglhamu Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Likhu Pike Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Mahakulung Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Necha Salyan Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Sotang Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Sunsari",
+        "ddc_contact_email": "info@ddcsunsari.gov.np",
+        "ddc_contact_number": "025-560105",
+        "local_govs": [
+          {
+            "name": "Dharan Sub-Metropolitan City",
+            "number_of_wards": "20",
+            "type": "Sub-Metropolitan City"
+          },
+          {
+            "name": "Itahari Sub-Metropolitan City",
+            "number_of_wards": "20",
+            "type": "Sub-Metropolitan City"
+          },
+          {
+            "name": "Duhabi Municipality",
+            "number_of_wards": "12",
+            "type": "Municipality"
+          },
+          {
+            "name": "Barahachhetra Municipality",
+            "number_of_wards": "11",
+            "type": "Municipality"
+          },
+          {
+            "name": "Inaruwa Municipality",
+            "number_of_wards": "10",
+            "type": "Municipality"
+          },
+          {
+            "name": "Ramdhuni Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Bhokraha Narsingh Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Koshi Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Dewangunj Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Harinagar Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Barju Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Gadhi Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Taplejung",
+        "ddc_contact_email": "info@dcctaplejung.gov.np",
+        "ddc_contact_number": "024-460143",
+        "local_govs": [
+          {
+            "name": "Phungling Municipality",
+            "number_of_wards": "11",
+            "type": "Municipality"
+          },
+          {
+            "name": "Sirijanga Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Phaktanlung Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Sidingba Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Maiwakhola Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Meringden Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Pathivara Yangwarak Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Aatharai Tribeni Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Mikwakhola Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Terhathum",
+        "ddc_contact_email": "ddcttm@gmail.com",
+        "ddc_contact_number": "026-460143",
+        "local_govs": [
+          {
+            "name": "Myanglung Municipality",
+            "number_of_wards": "10",
+            "type": "Municipality"
+          },
+          {
+            "name": "Laligurans Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Aatharai Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Chhathar Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Menchhayayem Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Phedap Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Udayapur",
+        "ddc_contact_email": "ddcudayapur@gmail.com",
+        "ddc_contact_number": "035-420144",
+        "local_govs": [
+          {
+            "name": "Triyuga Municipality",
+            "number_of_wards": "16",
+            "type": "Municipality"
+          },
+          {
+            "name": "Katari Municipality",
+            "number_of_wards": "14",
+            "type": "Municipality"
+          },
+          {
+            "name": "Chaudandigadhi Municipality",
+            "number_of_wards": "10",
+            "type": "Municipality"
+          },
+          {
+            "name": "Belaka Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Rautamai Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Udayapurgadhi Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Limchunbung Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Tapli Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "province": "Madhesh",
+    "districts": [
+      {
+        "name": "Bara",
+        "ddc_contact_email": "ddcbara.jk2012@gmail.com",
+        "ddc_contact_number": "053-551042",
+        "local_govs": [
+          {
+            "name": "Kalaiya Sub-Metropolitan City",
+            "number_of_wards": "27",
+            "type": "Sub-Metropolitan City"
+          },
+          {
+            "name": "Jitpur Simara Sub-Metropolitan City",
+            "number_of_wards": "24",
+            "type": "Sub-Metropolitan City"
+          },
+          {
+            "name": "Nijagadh Municipality",
+            "number_of_wards": "13",
+            "type": "Municipality"
+          },
+          {
+            "name": "Kolhabi Municipality",
+            "number_of_wards": "11",
+            "type": "Municipality"
+          },
+          {
+            "name": "Mahagadhimai Municipality",
+            "number_of_wards": "11",
+            "type": "Municipality"
+          },
+          {
+            "name": "Simroungadh Municipality",
+            "number_of_wards": "11",
+            "type": "Municipality"
+          },
+          {
+            "name": "Pacharauta Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Aadarsha Kotwal Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Karaiyamai Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Subarna Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Devtal Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Pheta Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Prasauni Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Baragadhi Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Bishrampur Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Parawanipur Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Dhanusa",
+        "ddc_contact_email": "ddcdhanusha@gmail.com",
+        "ddc_contact_number": "041-520142",
+        "local_govs": [
+          {
+            "name": "Janakpurdham Sub-Metropolitan City",
+            "number_of_wards": "25",
+            "type": "Sub-Metropolitan City"
+          },
+          {
+            "name": "Sabaila Municipality",
+            "number_of_wards": "13",
+            "type": "Municipality"
+          },
+          {
+            "name": "Ganeshman Charnath Municipality",
+            "number_of_wards": "11",
+            "type": "Municipality"
+          },
+          {
+            "name": "Mithila Municipality",
+            "number_of_wards": "11",
+            "type": "Municipality"
+          },
+          {
+            "name": "Chhireshwornath Municipality",
+            "number_of_wards": "10",
+            "type": "Municipality"
+          },
+          {
+            "name": "Mithila Bihari Municipality",
+            "number_of_wards": "10",
+            "type": "Municipality"
+          },
+          {
+            "name": "Bideha Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Dhanushadham Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Hansapur Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Kamala Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Nagarain Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Shahidnagar Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Laxminiya Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Aurahi Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Janak Nandini Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Mukhiyapatti Musaharmiya Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Bateshwor Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Dhanauji Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Mahottari",
+        "ddc_contact_email": "ddcmahottari@gmail.com",
+        "ddc_contact_number": "044-520042",
+        "local_govs": [
+          {
+            "name": "Bardibas Municipality",
+            "number_of_wards": "14",
+            "type": "Municipality"
+          },
+          {
+            "name": "Gaushala Municipality",
+            "number_of_wards": "12",
+            "type": "Municipality"
+          },
+          {
+            "name": "Jaleshwor Municipality",
+            "number_of_wards": "12",
+            "type": "Municipality"
+          },
+          {
+            "name": "Balawa Municipality",
+            "number_of_wards": "11",
+            "type": "Municipality"
+          },
+          {
+            "name": "Manara Shisawa Municipality",
+            "number_of_wards": "10",
+            "type": "Municipality"
+          },
+          {
+            "name": "Aurahi Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Bhangaha Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Loharpatti Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Matihani Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Ram Gopalpur Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Sonama Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Pipara Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Samsi Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Ekadara Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Mahottari Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Parsa",
+        "ddc_contact_email": "-",
+        "ddc_contact_number": "051-523218",
+        "local_govs": [
+          {
+            "name": "Birgunj Metropolitan City",
+            "number_of_wards": "32",
+            "type": "Metropolitan City"
+          },
+          {
+            "name": "Pokhariya Municipality",
+            "number_of_wards": "10",
+            "type": "Municipality"
+          },
+          {
+            "name": "Bahudarmai Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Parsagadhi Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Jagarnathpur Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Sakhuwa Prasauni Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Bindabasini Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Chhipaharmai Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Dhobini Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Jirabhawani Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Kalikamai Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Pakaha Mainpur Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Paterwa Sugauli Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Thori Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Rautahat",
+        "ddc_contact_email": "dccorautahat@gmail.com",
+        "ddc_contact_number": "055-520144",
+        "local_govs": [
+          {
+            "name": "Phatuwa Bijayapur Municipality",
+            "number_of_wards": "11",
+            "type": "Municipality"
+          },
+          {
+            "name": "Chandrapur Municipality",
+            "number_of_wards": "10",
+            "type": "Municipality"
+          },
+          {
+            "name": "Boudhimai Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Brindaban Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Dewahi Gonahi Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Gadhimai Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Garuda Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Gaur Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Gujara Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Ishanath Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Katahariya Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Madhav Narayan Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Maulapur Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Paroha Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Rajdevi Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Rajpur Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Durga Bhagawati Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Yamunamai Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Saptari",
+        "ddc_contact_email": "info@ddcsaptari.gov.np",
+        "ddc_contact_number": "031-520210",
+        "local_govs": [
+          {
+            "name": "Rajbiraj Municipality",
+            "number_of_wards": "16",
+            "type": "Municipality"
+          },
+          {
+            "name": "Hanumannagar Kankalini Municipality",
+            "number_of_wards": "14",
+            "type": "Municipality"
+          },
+          {
+            "name": "Kanchanrup Municipality",
+            "number_of_wards": "12",
+            "type": "Municipality"
+          },
+          {
+            "name": "Shambhunath Municipality",
+            "number_of_wards": "12",
+            "type": "Municipality"
+          },
+          {
+            "name": "Khadak Municipality",
+            "number_of_wards": "11",
+            "type": "Municipality"
+          },
+          {
+            "name": "Saptakoshi Municipality",
+            "number_of_wards": "11",
+            "type": "Municipality"
+          },
+          {
+            "name": "Surunga Municipality",
+            "number_of_wards": "11",
+            "type": "Municipality"
+          },
+          {
+            "name": "Bode Barsain Municipality",
+            "number_of_wards": "10",
+            "type": "Municipality"
+          },
+          {
+            "name": "Dakneshwori Municipality",
+            "number_of_wards": "10",
+            "type": "Municipality"
+          },
+          {
+            "name": "Tilathi Koiladi Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Bishnupur Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Chhinnamasta Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Agnisair Krishna Sabaran Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Balan-Bihul Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Mahadewa Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Rajgadh Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Rupani Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Tirahut Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Sarlahi",
+        "ddc_contact_email": "info@ddcsarlahi.gov.np",
+        "ddc_contact_number": "046-520132",
+        "local_govs": [
+          {
+            "name": "Barahathawa Municipality",
+            "number_of_wards": "18",
+            "type": "Municipality"
+          },
+          {
+            "name": "Lalbandi Municipality",
+            "number_of_wards": "17",
+            "type": "Municipality"
+          },
+          {
+            "name": "Ishworpur Municipality",
+            "number_of_wards": "15",
+            "type": "Municipality"
+          },
+          {
+            "name": "Bagmati Municipality",
+            "number_of_wards": "12",
+            "type": "Municipality"
+          },
+          {
+            "name": "Godaita Municipality",
+            "number_of_wards": "12",
+            "type": "Municipality"
+          },
+          {
+            "name": "Malangawa Municipality",
+            "number_of_wards": "12",
+            "type": "Municipality"
+          },
+          {
+            "name": "Balara Municipality",
+            "number_of_wards": "11",
+            "type": "Municipality"
+          },
+          {
+            "name": "Hariwan Municipality",
+            "number_of_wards": "11",
+            "type": "Municipality"
+          },
+          {
+            "name": "Kabilashi Municipality",
+            "number_of_wards": "10",
+            "type": "Municipality"
+          },
+          {
+            "name": "Chakraghatta Gaunpalika",
+            "number_of_wards": "9",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Haripur Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Haripurwa Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Bishnu Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Brahmapuri Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Chandranagar Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Dhanakaul Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Kaudena Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Ramnagar Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Basbariya Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Parsa Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Siraha",
+        "ddc_contact_email": "info@ddcsiraha.gov.np",
+        "ddc_contact_number": "33520014",
+        "local_govs": [
+          {
+            "name": "Lahan Municipality",
+            "number_of_wards": "24",
+            "type": "Municipality"
+          },
+          {
+            "name": "Siraha Municipality",
+            "number_of_wards": "22",
+            "type": "Municipality"
+          },
+          {
+            "name": "Dhangadhimai Municipality",
+            "number_of_wards": "14",
+            "type": "Municipality"
+          },
+          {
+            "name": "Golbazar Municipality",
+            "number_of_wards": "13",
+            "type": "Municipality"
+          },
+          {
+            "name": "Kalyanpur Municipality",
+            "number_of_wards": "12",
+            "type": "Municipality"
+          },
+          {
+            "name": "Mirchaiya Municipality",
+            "number_of_wards": "12",
+            "type": "Municipality"
+          },
+          {
+            "name": "Karjanha Municipality",
+            "number_of_wards": "11",
+            "type": "Municipality"
+          },
+          {
+            "name": "Sukhipur Municipality",
+            "number_of_wards": "10",
+            "type": "Municipality"
+          },
+          {
+            "name": "Laxmipur Patari Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Arnama Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Aurahi Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Bariyarpatti Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Bhagawanpur Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Bishnupur Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Naraha Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Nawarajpur Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Sakhuwa Nankarkatti Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "province": "Bagmati",
+    "districts": [
+      {
+        "name": "Bhaktapur",
+        "ddc_contact_email": "info@ddcbhaktapur.gov.np",
+        "ddc_contact_number": "01-6614826",
+        "local_govs": [
+          {
+            "name": "Bhaktapur Municipality",
+            "number_of_wards": "10",
+            "type": "Municipality"
+          },
+          {
+            "name": "Suryabinayak Municipality",
+            "number_of_wards": "10",
+            "type": "Municipality"
+          },
+          {
+            "name": "Changunarayan Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Madhyapur Thimi Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          }
+        ]
+      },
+      {
+        "name": "Chitawan",
+        "ddc_contact_email": "ldo@ddcchitwan.gov.np",
+        "ddc_contact_number": "056-520147",
+        "local_govs": [
+          {
+            "name": "Bharatpur Metropolitan City",
+            "number_of_wards": "29",
+            "type": "Metropolitan City"
+          },
+          {
+            "name": "Ratnanagar Municipality",
+            "number_of_wards": "16",
+            "type": "Municipality"
+          },
+          {
+            "name": "Khairahani Municipality",
+            "number_of_wards": "13",
+            "type": "Municipality"
+          },
+          {
+            "name": "Rapti Municipality",
+            "number_of_wards": "13",
+            "type": "Municipality"
+          },
+          {
+            "name": "Kalika Municipality",
+            "number_of_wards": "11",
+            "type": "Municipality"
+          },
+          {
+            "name": "Madi Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Ichchha Kamana Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Dhading",
+        "ddc_contact_email": "ddcdhading@gmail.com",
+        "ddc_contact_number": "010-520144",
+        "local_govs": [
+          {
+            "name": "Nilkhantha Municipality",
+            "number_of_wards": "14",
+            "type": "Municipality"
+          },
+          {
+            "name": "Thakre Gaunpalika",
+            "number_of_wards": "11",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Benighat Rorang Gaunpalika",
+            "number_of_wards": "10",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Dhunibenshi Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Gajuri Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Galchhi Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Ganga Jamuna Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Jwalamukhi Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Siddhalek Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Tripurasundari Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Rubi Valley Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Khaniyabas Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Netrawati Dabjong Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Dolakha",
+        "ddc_contact_email": "ict.ddcdolakha@gmail.com",
+        "ddc_contact_number": "049-421493",
+        "local_govs": [
+          {
+            "name": "Bhimeshwor Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Gaurishankar Gaunpalika",
+            "number_of_wards": "9",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Jiri Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Kalinchowk Gaunpalika",
+            "number_of_wards": "9",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Baiteshwor Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Bigu Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Shailung Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Melung Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Tamakoshi Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Kathmandu",
+        "ddc_contact_email": "info@ddcktm.gov.np",
+        "ddc_contact_number": "014254697",
+        "local_govs": [
+          {
+            "name": "Kathmandu Metropolitan City",
+            "number_of_wards": "32",
+            "type": "Metropolitan City"
+          },
+          {
+            "name": "Chandragiri Municipality",
+            "number_of_wards": "15",
+            "type": "Municipality"
+          },
+          {
+            "name": "Budhanilkhantha Municipality",
+            "number_of_wards": "13",
+            "type": "Municipality"
+          },
+          {
+            "name": "Tarakeshwor Municipality",
+            "number_of_wards": "11",
+            "type": "Municipality"
+          },
+          {
+            "name": "Tokha Municipality",
+            "number_of_wards": "11",
+            "type": "Municipality"
+          },
+          {
+            "name": "Kirtipur Municipality",
+            "number_of_wards": "10",
+            "type": "Municipality"
+          },
+          {
+            "name": "Nagarjun Municipality",
+            "number_of_wards": "10",
+            "type": "Municipality"
+          },
+          {
+            "name": "Dakshinkali Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Gokarneshwor Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Kageshwori Manahara Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Shankharapur Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          }
+        ]
+      },
+      {
+        "name": "Kavrepalanchok",
+        "ddc_contact_email": "info@ddckavre.gov.np",
+        "ddc_contact_number": "011-490427",
+        "local_govs": [
+          {
+            "name": "Banepa Municipality",
+            "number_of_wards": "14",
+            "type": "Municipality"
+          },
+          {
+            "name": "Panchkhal Municipality",
+            "number_of_wards": "13",
+            "type": "Municipality"
+          },
+          {
+            "name": "Dhulikhel Municipality",
+            "number_of_wards": "12",
+            "type": "Municipality"
+          },
+          {
+            "name": "Mandan Deupur Municipality",
+            "number_of_wards": "12",
+            "type": "Municipality"
+          },
+          {
+            "name": "Panauti Municipality",
+            "number_of_wards": "12",
+            "type": "Municipality"
+          },
+          {
+            "name": "Roshi Gaunpalika",
+            "number_of_wards": "12",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Namobuddha Municipality",
+            "number_of_wards": "11",
+            "type": "Municipality"
+          },
+          {
+            "name": "Bhumlu Gaunpalika",
+            "number_of_wards": "10",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Chauri Deurali Gaunpalika",
+            "number_of_wards": "9",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Temal Gaunpalika",
+            "number_of_wards": "9",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Mahabharat Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Khanikhola Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Bethanchowk Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Lalitpur",
+        "ddc_contact_email": "info@ddclalitpur.gov.np",
+        "ddc_contact_number": "01-5523410",
+        "local_govs": [
+          {
+            "name": "Lalitpur Metropolitan City",
+            "number_of_wards": "29",
+            "type": "Metropolitan City"
+          },
+          {
+            "name": "Godawari Municipality",
+            "number_of_wards": "14",
+            "type": "Municipality"
+          },
+          {
+            "name": "Mahalaxmi Municipality",
+            "number_of_wards": "10",
+            "type": "Municipality"
+          },
+          {
+            "name": "Bagmati Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Mahankal Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Konjyosom Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Makwanpur",
+        "ddc_contact_email": "info@ddcmakawanpur.gov.np",
+        "ddc_contact_number": "057-525913",
+        "local_govs": [
+          {
+            "name": "Hetauda Sub-Metropolitan City",
+            "number_of_wards": "19",
+            "type": "Sub-Metropolitan City"
+          },
+          {
+            "name": "Bakaiya Gaunpalika",
+            "number_of_wards": "12",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Thaha Municipality",
+            "number_of_wards": "12",
+            "type": "Municipality"
+          },
+          {
+            "name": "Kailash Gaunpalika",
+            "number_of_wards": "10",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Bagmati Gaunpalika",
+            "number_of_wards": "9",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Bhimphedi Gaunpalika",
+            "number_of_wards": "9",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Manahari Gaunpalika",
+            "number_of_wards": "9",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Raksirang Gaunpalika",
+            "number_of_wards": "9",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Makawanpurgadhi Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Indrasarowar Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Nuwakot",
+        "ddc_contact_email": "ddcnuwakot10@gmail.com",
+        "ddc_contact_number": "10-560197",
+        "local_govs": [
+          {
+            "name": "Belkotgadhi Municipality",
+            "number_of_wards": "13",
+            "type": "Municipality"
+          },
+          {
+            "name": "Bidur Municipality",
+            "number_of_wards": "13",
+            "type": "Municipality"
+          },
+          {
+            "name": "Kakani Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Shivapuri Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Dupcheshwor Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Likhu Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Myagang Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Tadi Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Tarakeshwor Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Kispang Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Panchakanya Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Suryagadhi Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Ramechhap",
+        "ddc_contact_email": "ddcramechhap@gmail.com",
+        "ddc_contact_number": "048-540347",
+        "local_govs": [
+          {
+            "name": "Manthali  Municipality",
+            "number_of_wards": "14",
+            "type": "Municipality"
+          },
+          {
+            "name": "Khandadevi Gaunpalika",
+            "number_of_wards": "9",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Ramechhap Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Doramba Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Likhu Tamakoshi Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Umakunda Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Gokulganga Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Sunapati Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Rasuwa",
+        "ddc_contact_email": "ddcrasuwa@gmail.com",
+        "ddc_contact_number": "010-540252",
+        "local_govs": [
+          {
+            "name": "Gosaikunda Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Naukunda Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Aamachhodingmo Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Kalika Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Uttargaya Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Sindhuli",
+        "ddc_contact_email": "dccsindhuli@gmail.com",
+        "ddc_contact_number": "47-520144",
+        "local_govs": [
+          {
+            "name": "Dudhouli Municipality",
+            "number_of_wards": "14",
+            "type": "Municipality"
+          },
+          {
+            "name": "Kamalamai Municipality",
+            "number_of_wards": "14",
+            "type": "Municipality"
+          },
+          {
+            "name": "Tinpatan Gaunpalika",
+            "number_of_wards": "11",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Hariharpurgaghi Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Golanjor Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Marin Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Sunkoshi Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Phikkal Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Ghyanglekha Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Sindhupalchok",
+        "ddc_contact_email": "ddcsindhupalchowk@gmail.com",
+        "ddc_contact_number": "011-620102",
+        "local_govs": [
+          {
+            "name": "Choutara Sangachowkgadhi Municipality",
+            "number_of_wards": "14",
+            "type": "Municipality"
+          },
+          {
+            "name": "Melanchi Municipality",
+            "number_of_wards": "13",
+            "type": "Municipality"
+          },
+          {
+            "name": "Indrawoti Gaunpalika",
+            "number_of_wards": "12",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Bahrabise Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Balephi Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Panchpokhari Thangpal Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Helambu Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Jugal Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Lisankhu Pakhar Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Sunkoshi Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Tripurasundari Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Bhotekoshi Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "province": "Gandaki",
+    "districts": [
+      {
+        "name": "Baglung",
+        "ddc_contact_email": "info@ddcbaglung.gov.np",
+        "ddc_contact_number": "068-522556",
+        "local_govs": [
+          {
+            "name": "Baglung Municipality",
+            "number_of_wards": "14",
+            "type": "Municipality"
+          },
+          {
+            "name": "Galkot Municipality",
+            "number_of_wards": "11",
+            "type": "Municipality"
+          },
+          {
+            "name": "Badigad Gaunpalika",
+            "number_of_wards": "10",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Jaimuni Municipality",
+            "number_of_wards": "10",
+            "type": "Municipality"
+          },
+          {
+            "name": "Dhorpatan Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Kathekhola Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Nisikhola Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Tamankhola Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Bareng Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Tarakhola Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Gorkha",
+        "ddc_contact_email": "info@ddcgorkha.gov.np",
+        "ddc_contact_number": "064-420160",
+        "local_govs": [
+          {
+            "name": "Gorkha Municipality",
+            "number_of_wards": "14",
+            "type": "Municipality"
+          },
+          {
+            "name": "Aarughat Gaunpalika",
+            "number_of_wards": "10",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Palungtar Municipality",
+            "number_of_wards": "10",
+            "type": "Municipality"
+          },
+          {
+            "name": "Shahid Lakhan Gaunpalika",
+            "number_of_wards": "9",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Barpak Sulikot Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Bhimsenthapa Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Gandaki Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Siranchowk Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Chumanubri Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Dharche Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Ajirkot Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Kaski",
+        "ddc_contact_email": "ddckaski@gmail.com",
+        "ddc_contact_number": "061-464346",
+        "local_govs": [
+          {
+            "name": "Pokhara Metropolitan City",
+            "number_of_wards": "33",
+            "type": "Metropolitan City"
+          },
+          {
+            "name": "Madi Gaunpalika",
+            "number_of_wards": "12",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Annapurna Gaunpalika",
+            "number_of_wards": "11",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Machhapuchchhre Gaunpalika",
+            "number_of_wards": "9",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Rupa Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Lamjung",
+        "ddc_contact_email": "info@ddclamjung.gov.np",
+        "ddc_contact_number": "066-520144",
+        "local_govs": [
+          {
+            "name": "Bensishahar Municipality",
+            "number_of_wards": "11",
+            "type": "Municipality"
+          },
+          {
+            "name": "Sundarbazar Municipality",
+            "number_of_wards": "11",
+            "type": "Municipality"
+          },
+          {
+            "name": "Madhya Nepal Municipality",
+            "number_of_wards": "10",
+            "type": "Municipality"
+          },
+          {
+            "name": "Rainas Municipality",
+            "number_of_wards": "10",
+            "type": "Municipality"
+          },
+          {
+            "name": "Dordi Gaunpalika",
+            "number_of_wards": "9",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Kwhola Sothar Gaunpalika",
+            "number_of_wards": "9",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Marshyangdi Gaunpalika",
+            "number_of_wards": "9",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Dudhapokhari Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Manang",
+        "ddc_contact_email": "ddcmanang@gmail.com",
+        "ddc_contact_number": "066-440244",
+        "local_govs": [
+          {
+            "name": "Manang Ngisyang Gaunpalika",
+            "number_of_wards": "9",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Nason Gaunpalika",
+            "number_of_wards": "9",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Chame Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Narpa Bhumi Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Mustang",
+        "ddc_contact_email": "infodccmustang@gmail.com",
+        "ddc_contact_number": "069-440044",
+        "local_govs": [
+          {
+            "name": "Gharpajhong Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Lo Ghekar Damodarkunda Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Lomanthang Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Thasang Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Varagung Muktichhetra Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Myagdi",
+        "ddc_contact_email": "info@ddcmyagdi.gov.np",
+        "ddc_contact_number": "069-520108",
+        "local_govs": [
+          {
+            "name": "Beni Municipality",
+            "number_of_wards": "10",
+            "type": "Municipality"
+          },
+          {
+            "name": "Annapurna Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Raghuganga Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Dhawalagiri Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Malika Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Mangala Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Nawalpur",
+        "ddc_contact_email": "-",
+        "ddc_contact_number": "9857040472",
+        "local_govs": [
+          {
+            "name": "Gaidakot Municipality",
+            "number_of_wards": "18",
+            "type": "Municipality"
+          },
+          {
+            "name": "Devchuli Municipality",
+            "number_of_wards": "17",
+            "type": "Municipality"
+          },
+          {
+            "name": "Kawasoti Municipality",
+            "number_of_wards": "17",
+            "type": "Municipality"
+          },
+          {
+            "name": "Madhya Bindu Municipality",
+            "number_of_wards": "15",
+            "type": "Municipality"
+          },
+          {
+            "name": "Binayi Tribeni Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Baudikali Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Bulingtar Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Hupsekot Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Parbat",
+        "ddc_contact_email": "mail@ddcparbat.gov.np",
+        "ddc_contact_number": "067-420154",
+        "local_govs": [
+          {
+            "name": "Kushma Municipality",
+            "number_of_wards": "14",
+            "type": "Municipality"
+          },
+          {
+            "name": "Phalebas Municipality",
+            "number_of_wards": "11",
+            "type": "Municipality"
+          },
+          {
+            "name": "Jaljala Gaunpalika",
+            "number_of_wards": "9",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Modi Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Paiyu Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Bihadi Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Mahashila Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Syangja",
+        "ddc_contact_email": "sitasundas@gmail.com",
+        "ddc_contact_number": "063-420458",
+        "local_govs": [
+          {
+            "name": "Putalibazar Municipality",
+            "number_of_wards": "14",
+            "type": "Municipality"
+          },
+          {
+            "name": "Walling Municipality",
+            "number_of_wards": "14",
+            "type": "Municipality"
+          },
+          {
+            "name": "Galyang Municipality",
+            "number_of_wards": "11",
+            "type": "Municipality"
+          },
+          {
+            "name": "Chapakot Municipality",
+            "number_of_wards": "10",
+            "type": "Municipality"
+          },
+          {
+            "name": "Bhirkot Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Biruwa Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Harinas Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Kaligandaki Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Aandhikhola Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Arjun Choupari Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Phedikhola Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Tanahu",
+        "ddc_contact_email": "info@ddctanahun.gov.np",
+        "ddc_contact_number": "065-540144",
+        "local_govs": [
+          {
+            "name": "Byas Municipality",
+            "number_of_wards": "14",
+            "type": "Municipality"
+          },
+          {
+            "name": "Bhanu Municipality",
+            "number_of_wards": "13",
+            "type": "Municipality"
+          },
+          {
+            "name": "Shuklagandaki Municipality",
+            "number_of_wards": "12",
+            "type": "Municipality"
+          },
+          {
+            "name": "Bhimad Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Rhishing Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Myagde Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Aanbu Khaireni Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Bandipur Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Devghat Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Ghiring Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "province": "Lumbini",
+    "districts": [
+      {
+        "name": "Arghakhanchi",
+        "ddc_contact_email": "ddcarghakhanchi.gov.np",
+        "ddc_contact_number": "077-420229",
+        "local_govs": [
+          {
+            "name": "Shitaganga Municipality",
+            "number_of_wards": "14",
+            "type": "Municipality"
+          },
+          {
+            "name": "Sandhikharka Municipality",
+            "number_of_wards": "12",
+            "type": "Municipality"
+          },
+          {
+            "name": "Bhumikasthan Municipality",
+            "number_of_wards": "10",
+            "type": "Municipality"
+          },
+          {
+            "name": "Malarani Gaunpalika",
+            "number_of_wards": "9",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Chhatradev Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Panini Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Banke",
+        "ddc_contact_email": "info@ddcbanke.gov.np",
+        "ddc_contact_number": "081-520331",
+        "local_govs": [
+          {
+            "name": "Nepalganj Sub-Metropolitan City",
+            "number_of_wards": "23",
+            "type": "Sub-Metropolitan City"
+          },
+          {
+            "name": "Kohalpur Municipality",
+            "number_of_wards": "15",
+            "type": "Municipality"
+          },
+          {
+            "name": "Rapti Sonari Gaunpalika",
+            "number_of_wards": "9",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Baijanath Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Khajura Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Duduwa Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Janaki Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Narainapur Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Bardiya",
+        "ddc_contact_email": "info@ddcbardiya.gov.np",
+        "ddc_contact_number": "084-420139",
+        "local_govs": [
+          {
+            "name": "Gulariya Municipality",
+            "number_of_wards": "12",
+            "type": "Municipality"
+          },
+          {
+            "name": "Barbardiya Municipality",
+            "number_of_wards": "11",
+            "type": "Municipality"
+          },
+          {
+            "name": "Rajapur Municipality",
+            "number_of_wards": "10",
+            "type": "Municipality"
+          },
+          {
+            "name": "Badhaiyatal Gaunpalika",
+            "number_of_wards": "9",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Bansgadhi Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Madhuwan Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Thakurbaba Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Geruwa Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Dang",
+        "ddc_contact_email": "info@ddcdang.gov.np",
+        "ddc_contact_number": "082-560038",
+        "local_govs": [
+          {
+            "name": "Ghorahi Sub-Metropolitan City",
+            "number_of_wards": "19",
+            "type": "Sub-Metropolitan City"
+          },
+          {
+            "name": "Tulsipur Sub-Metropolitan City",
+            "number_of_wards": "19",
+            "type": "Sub-Metropolitan City"
+          },
+          {
+            "name": "Lamahi Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Rapti Gaunpalika",
+            "number_of_wards": "9",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Bangalachuli Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Gadhawa Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Babai Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Dangisharan Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Rajpur Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Shantinagar Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Gulmi",
+        "ddc_contact_email": "gulmiddc@gmail.com",
+        "ddc_contact_number": "079-520144",
+        "local_govs": [
+          {
+            "name": "Resunga Municipality",
+            "number_of_wards": "14",
+            "type": "Municipality"
+          },
+          {
+            "name": "Musikot Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Chandrakot Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Malika Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Satyawoti Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Dhurkot Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Gulmi Durbar Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Kali Gandaki Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Madane Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Chhatrakot Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Isma Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Ruruchhetra Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Kapilbastu",
+        "ddc_contact_email": "dcckpl7@gmail.com",
+        "ddc_contact_number": "076-560027",
+        "local_govs": [
+          {
+            "name": "Kapilbastu Municipality",
+            "number_of_wards": "12",
+            "type": "Municipality"
+          },
+          {
+            "name": "Krishnanagar Municipality",
+            "number_of_wards": "12",
+            "type": "Municipality"
+          },
+          {
+            "name": "Banganga Municipality",
+            "number_of_wards": "11",
+            "type": "Municipality"
+          },
+          {
+            "name": "Maharajganj Municipality",
+            "number_of_wards": "11",
+            "type": "Municipality"
+          },
+          {
+            "name": "Shivaraj Municipality",
+            "number_of_wards": "11",
+            "type": "Municipality"
+          },
+          {
+            "name": "Buddhabhumi Municipality",
+            "number_of_wards": "10",
+            "type": "Municipality"
+          },
+          {
+            "name": "Mayadevi Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Yasodhara Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Bijayanagar Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Shuddhodhan Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Palpa",
+        "ddc_contact_email": "palpaddc@gmail.com",
+        "ddc_contact_number": "75520424",
+        "local_govs": [
+          {
+            "name": "Tansen Municipality",
+            "number_of_wards": "14",
+            "type": "Municipality"
+          },
+          {
+            "name": "Rampur Municipality",
+            "number_of_wards": "10",
+            "type": "Municipality"
+          },
+          {
+            "name": "Baganaskali Gaunpalika",
+            "number_of_wards": "9",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Mathagadhi Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Rainadevi Chhahara Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Ribdikot Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Nisdi Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Purbakhola Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Tinau Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Rambha Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Parasi",
+        "ddc_contact_email": "ddcnawalparasi@gmail.com",
+        "ddc_contact_number": "78520144",
+        "local_govs": [
+          {
+            "name": "Ramgram Municipality",
+            "number_of_wards": "18",
+            "type": "Municipality"
+          },
+          {
+            "name": "Bardaghat Municipality",
+            "number_of_wards": "16",
+            "type": "Municipality"
+          },
+          {
+            "name": "Sunawal Municipality",
+            "number_of_wards": "13",
+            "type": "Municipality"
+          },
+          {
+            "name": "Pratapapur Gaunpalika",
+            "number_of_wards": "9",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Sarawal Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Palhinandan Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Susta Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Pyuthan",
+        "ddc_contact_email": "ddcpyuthan@gmail.com",
+        "ddc_contact_number": "086-420147",
+        "local_govs": [
+          {
+            "name": "Pyuthan Municipality",
+            "number_of_wards": "10",
+            "type": "Municipality"
+          },
+          {
+            "name": "Sworgadwari Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Jhimaruk Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Naubahini Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Gaumukhi Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Aairawati Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Sarumarani Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Mallarani Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Mandavi Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Rolpa",
+        "ddc_contact_email": "info@ddcrolpa.gov.np",
+        "ddc_contact_number": "086-440114",
+        "local_govs": [
+          {
+            "name": "Rolpa Municipality",
+            "number_of_wards": "10",
+            "type": "Municipality"
+          },
+          {
+            "name": "Runtigadhi Gaunpalika",
+            "number_of_wards": "9",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Sunil Smriti Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Gangadev Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Lungri Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Sunchhahari Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Tribeni Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Madi Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Pariwartan Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Thawang Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Rukum (East)",
+        "ddc_contact_email": "dccrukumeast@gmail.com",
+        "ddc_contact_number": "088-413086",
+        "local_govs": [
+          {
+            "name": "Putha Uttanganga Gaunpalika",
+            "number_of_wards": "14",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Bhoome Gaunpalika",
+            "number_of_wards": "9",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Sisne Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Rupandehi",
+        "ddc_contact_email": "rupandehi.ddc@gmail.com",
+        "ddc_contact_number": "071-521423",
+        "local_govs": [
+          {
+            "name": "Butwal Sub-Metropolitan City",
+            "number_of_wards": "19",
+            "type": "Sub-Metropolitan City"
+          },
+          {
+            "name": "Tilottama Municipality",
+            "number_of_wards": "17",
+            "type": "Municipality"
+          },
+          {
+            "name": "Lumbini Sanskritik Municipality",
+            "number_of_wards": "13",
+            "type": "Municipality"
+          },
+          {
+            "name": "Siddharthanagar Municipality",
+            "number_of_wards": "13",
+            "type": "Municipality"
+          },
+          {
+            "name": "Devdaha Municipality",
+            "number_of_wards": "12",
+            "type": "Municipality"
+          },
+          {
+            "name": "Sainamaina Municipality",
+            "number_of_wards": "11",
+            "type": "Municipality"
+          },
+          {
+            "name": "Gaidahawa Gaunpalika",
+            "number_of_wards": "9",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Mayadevi Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Kotahimai Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Marchawari Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Rohini Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Sammarimai Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Siyari Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Suddhodhan Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Om Satiya Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Kanchan Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "province": "Karnali",
+    "districts": [
+      {
+        "name": "Dailekh",
+        "ddc_contact_email": "ddcdailekh@gmail.com",
+        "ddc_contact_number": "089-420114",
+        "local_govs": [
+          {
+            "name": "Dullu Municipality",
+            "number_of_wards": "13",
+            "type": "Municipality"
+          },
+          {
+            "name": "Narayan Municipality",
+            "number_of_wards": "11",
+            "type": "Municipality"
+          },
+          {
+            "name": "Aathbis Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Chamunda Bindrasaini Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Gurans Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Naumule Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Bhagawatimai Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Bhairabi Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Dungeshwor Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Mahabu Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Thantikandh Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Dolpa",
+        "ddc_contact_email": "info@ddcdolpa.gov.np",
+        "ddc_contact_number": "087-550039",
+        "local_govs": [
+          {
+            "name": "Thulibheri Municipality",
+            "number_of_wards": "11",
+            "type": "Municipality"
+          },
+          {
+            "name": "Tripurasundari Municipality",
+            "number_of_wards": "11",
+            "type": "Municipality"
+          },
+          {
+            "name": "Mudkechula Gaunpalika",
+            "number_of_wards": "9",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Shey Phoksundo Gaunpalika",
+            "number_of_wards": "9",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Kaike Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Chharka Tangsong Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Dolpo Buddha Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Jagadulla Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Humla",
+        "ddc_contact_email": "info@ddchumla.gov.np",
+        "ddc_contact_number": "087-680015",
+        "local_govs": [
+          {
+            "name": "Sarkegad Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Simkot Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Adanchuli Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Chankheli Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Namkha Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Kharpunath Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Tanjakot Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Jajarkot",
+        "ddc_contact_email": "ddcjajarkotinfo@gmail.com",
+        "ddc_contact_number": "089-430299",
+        "local_govs": [
+          {
+            "name": "Bheri Malika Municipality",
+            "number_of_wards": "13",
+            "type": "Municipality"
+          },
+          {
+            "name": "Chhedagad Municipality",
+            "number_of_wards": "13",
+            "type": "Municipality"
+          },
+          {
+            "name": "Nalgad Municipality",
+            "number_of_wards": "13",
+            "type": "Municipality"
+          },
+          {
+            "name": "Junichande Gaunpalika",
+            "number_of_wards": "11",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Barekot Gaunpalika",
+            "number_of_wards": "9",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Kuse Gaunpalika",
+            "number_of_wards": "9",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Shivalaya Gaunpalika",
+            "number_of_wards": "9",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Jumla",
+        "ddc_contact_email": "ddcjumla@gmail.com",
+        "ddc_contact_number": "087-520114",
+        "local_govs": [
+          {
+            "name": "Chandannath Municipality",
+            "number_of_wards": "10",
+            "type": "Municipality"
+          },
+          {
+            "name": "Tila Gaunpalika",
+            "number_of_wards": "9",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Kanaka Sundari Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Tatopani Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Hima Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Patarasi Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Sinja Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Guthichaur Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Kalikot",
+        "ddc_contact_email": "info@ddckalikot.gov.np",
+        "ddc_contact_number": "087-440120",
+        "local_govs": [
+          {
+            "name": "Khandachakra Municipality",
+            "number_of_wards": "11",
+            "type": "Municipality"
+          },
+          {
+            "name": "Tilagupha Municipality",
+            "number_of_wards": "11",
+            "type": "Municipality"
+          },
+          {
+            "name": "Naraharinath Gaunpalika",
+            "number_of_wards": "9",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Pachal Jharana Gaunpalika",
+            "number_of_wards": "9",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Palata Gaunpalika",
+            "number_of_wards": "9",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Raskot Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Sanni Tribeni Gaunpalika",
+            "number_of_wards": "9",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Shuva Kalika Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Mahawai Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Mugu",
+        "ddc_contact_email": "info@ddcmugu.gov.np",
+        "ddc_contact_number": "087-460023",
+        "local_govs": [
+          {
+            "name": "Chhayanath Rara Municipality",
+            "number_of_wards": "14",
+            "type": "Municipality"
+          },
+          {
+            "name": "Khatyad Gaunpalika",
+            "number_of_wards": "11",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Soru Gaunpalika",
+            "number_of_wards": "11",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Mugumakarmarog Gaunpalika",
+            "number_of_wards": "9",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Rukum (West)",
+        "ddc_contact_email": "dccrukumwest@gmail.com",
+        "ddc_contact_number": "088-530120",
+        "local_govs": [
+          {
+            "name": "Aathabisakot Municipality",
+            "number_of_wards": "14",
+            "type": "Municipality"
+          },
+          {
+            "name": "Chaurjahari Municipality",
+            "number_of_wards": "14",
+            "type": "Municipality"
+          },
+          {
+            "name": "Musikot Municipality",
+            "number_of_wards": "14",
+            "type": "Municipality"
+          },
+          {
+            "name": "Sanibheri Gaunpalika",
+            "number_of_wards": "11",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Banphikot Gaunpalika",
+            "number_of_wards": "10",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Tribeni Gaunpalika",
+            "number_of_wards": "10",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Salyan",
+        "ddc_contact_email": "info@ddcsalyan.gov.np",
+        "ddc_contact_number": "088-520072",
+        "local_govs": [
+          {
+            "name": "Sharada Municipality",
+            "number_of_wards": "15",
+            "type": "Municipality"
+          },
+          {
+            "name": "Bagachour Municipality",
+            "number_of_wards": "12",
+            "type": "Municipality"
+          },
+          {
+            "name": "Banagad Kupinde Municipality",
+            "number_of_wards": "12",
+            "type": "Municipality"
+          },
+          {
+            "name": "Chhatreshwori Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Kalimati Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Kumakh Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Darma Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Kapurkot Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Tribeni Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Siddha Kumakh Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Surkhet",
+        "ddc_contact_email": "info@ddcsurkhet.gov.np",
+        "ddc_contact_number": "083-520251",
+        "local_govs": [
+          {
+            "name": "Birendranagar Municipality",
+            "number_of_wards": "16",
+            "type": "Municipality"
+          },
+          {
+            "name": "Gurbhakot Municipality",
+            "number_of_wards": "14",
+            "type": "Municipality"
+          },
+          {
+            "name": "Bheriganga Municipality",
+            "number_of_wards": "13",
+            "type": "Municipality"
+          },
+          {
+            "name": "Panchapuri Municipality",
+            "number_of_wards": "11",
+            "type": "Municipality"
+          },
+          {
+            "name": "Barahatal Gaunpalika",
+            "number_of_wards": "10",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Chaukune Gaunpalika",
+            "number_of_wards": "10",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Lekabeshi Municipality",
+            "number_of_wards": "10",
+            "type": "Municipality"
+          },
+          {
+            "name": "Simta Gaunpalika",
+            "number_of_wards": "9",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Chingad Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "province": "Sudurpaschim",
+    "districts": [
+      {
+        "name": "Achham",
+        "ddc_contact_email": "info@ddcachham.gov.np",
+        "ddc_contact_number": "097-620144",
+        "local_govs": [
+          {
+            "name": "Mangalsen Municipality",
+            "number_of_wards": "14",
+            "type": "Municipality"
+          },
+          {
+            "name": "Sanphebagar Municipality",
+            "number_of_wards": "14",
+            "type": "Municipality"
+          },
+          {
+            "name": "Kamal bazar Municipality",
+            "number_of_wards": "10",
+            "type": "Municipality"
+          },
+          {
+            "name": "Panchdebal Binayak Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Dhakari Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Mellekh Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Turmakhand Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Chaurpati Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Ramaroshan Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Bannigadhi Jayagadh Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Baitadi",
+        "ddc_contact_email": "ddcbaitadi@gmail.com",
+        "ddc_contact_number": "095-520144",
+        "local_govs": [
+          {
+            "name": "Dasharathchand Municipality",
+            "number_of_wards": "11",
+            "type": "Municipality"
+          },
+          {
+            "name": "Patan Municipality",
+            "number_of_wards": "10",
+            "type": "Municipality"
+          },
+          {
+            "name": "Puchaundi Municipality",
+            "number_of_wards": "10",
+            "type": "Municipality"
+          },
+          {
+            "name": "Melauli Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Sigas Gaunpalika",
+            "number_of_wards": "9",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Dogada Kedar Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Surnaya Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Dilasaini Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Pancheshwor Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Shivanath Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Bajhang",
+        "ddc_contact_email": "info@ddcbajhang.gov.np",
+        "ddc_contact_number": "092-421057",
+        "local_govs": [
+          {
+            "name": "Bungal Municipality",
+            "number_of_wards": "11",
+            "type": "Municipality"
+          },
+          {
+            "name": "Jayaprithbi Municipality",
+            "number_of_wards": "11",
+            "type": "Municipality"
+          },
+          {
+            "name": "Bitthadchir Gaunpalika",
+            "number_of_wards": "9",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Kedarsyun Gaunpalika",
+            "number_of_wards": "9",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Thalara Gaunpalika",
+            "number_of_wards": "9",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Chhabis Pathibhara Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Durgathali Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Khaptad Chhanna Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Masta Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Talkot Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Saipal Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Surma Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Bajura",
+        "ddc_contact_email": "info@ddcbajura.gov.np",
+        "ddc_contact_number": "097-541134",
+        "local_govs": [
+          {
+            "name": "Budhiganga Municipality",
+            "number_of_wards": "10",
+            "type": "Municipality"
+          },
+          {
+            "name": "Budhinanda Municipality",
+            "number_of_wards": "10",
+            "type": "Municipality"
+          },
+          {
+            "name": "Badimalika Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Tribeni Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Himali Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Khaptad Chhededaha Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Gaumul Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Jagannath Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Swamikartik Khapar Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Dadeldhura",
+        "ddc_contact_email": "ddcdadeldhura@gmail.com",
+        "ddc_contact_number": "096-410144",
+        "local_govs": [
+          {
+            "name": "Parashuram Municipality",
+            "number_of_wards": "12",
+            "type": "Municipality"
+          },
+          {
+            "name": "Amargadhi Municipality",
+            "number_of_wards": "11",
+            "type": "Municipality"
+          },
+          {
+            "name": "Aalital Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Ajayameru Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Bhageshwor Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Ganyapdhura Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Nawadurga Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Darchula",
+        "ddc_contact_email": "ddc.darchula@gmail.com",
+        "ddc_contact_number": "974950783",
+        "local_govs": [
+          {
+            "name": "Mahakali Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Shailyashikhar Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Malikarjun Gaunpalika",
+            "number_of_wards": "8",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Apihimal Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Byas Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Lekam Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Marma Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Naugad  Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Duhun Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Doti",
+        "ddc_contact_email": "ddcdoti@mofald.gov.np",
+        "ddc_contact_number": "094-420156",
+        "local_govs": [
+          {
+            "name": "Shikhar Municipality",
+            "number_of_wards": "11",
+            "type": "Municipality"
+          },
+          {
+            "name": "Dipayal Silgadhi Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Aadarsha Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Bogatan Phudsil Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "K.I. Singh Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Purbichouki Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Jorayal Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Sayal Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Badi Kedar Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Kailali",
+        "ddc_contact_email": "ddckailali@gmail.com",
+        "ddc_contact_number": "091-524747",
+        "local_govs": [
+          {
+            "name": "Dhangadhi Sub-Metropolitan City",
+            "number_of_wards": "19",
+            "type": "Sub-Metropolitan City"
+          },
+          {
+            "name": "Ghodaghodi Municipality",
+            "number_of_wards": "12",
+            "type": "Municipality"
+          },
+          {
+            "name": "Godawari Municipality",
+            "number_of_wards": "12",
+            "type": "Municipality"
+          },
+          {
+            "name": "Gauriganga Municipality",
+            "number_of_wards": "11",
+            "type": "Municipality"
+          },
+          {
+            "name": "Lamki Chuha Municipality",
+            "number_of_wards": "10",
+            "type": "Municipality"
+          },
+          {
+            "name": "Bhajani Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Janaki Gaunpalika",
+            "number_of_wards": "9",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Kailari Gaunpalika",
+            "number_of_wards": "9",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Tikapur Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Joshipur Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Mohanyal Gaunpalika",
+            "number_of_wards": "7",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Bardagoriya Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Chure Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          }
+        ]
+      },
+      {
+        "name": "Kanchanpur",
+        "ddc_contact_email": "info@ddckanchanpur.gov.np",
+        "ddc_contact_number": "099-521328\n",
+        "local_govs": [
+          {
+            "name": "Bhimdatta Municipality",
+            "number_of_wards": "19",
+            "type": "Municipality"
+          },
+          {
+            "name": "Shuklaphanta Municipality",
+            "number_of_wards": "12",
+            "type": "Municipality"
+          },
+          {
+            "name": "Punarbas Municipality",
+            "number_of_wards": "11",
+            "type": "Municipality"
+          },
+          {
+            "name": "Bedkot Municipality",
+            "number_of_wards": "10",
+            "type": "Municipality"
+          },
+          {
+            "name": "Belouri Municipality",
+            "number_of_wards": "10",
+            "type": "Municipality"
+          },
+          {
+            "name": "Mahakali Municipality",
+            "number_of_wards": "10",
+            "type": "Municipality"
+          },
+          {
+            "name": "Krishnapur Municipality",
+            "number_of_wards": "9",
+            "type": "Municipality"
+          },
+          {
+            "name": "Laljhadi Gaunpalika",
+            "number_of_wards": "6",
+            "type": "Gaunpalika"
+          },
+          {
+            "name": "Beldandi Gaunpalika",
+            "number_of_wards": "5",
+            "type": "Gaunpalika"
+          }
+        ]
+      }
+    ]
+  }
+]
+
