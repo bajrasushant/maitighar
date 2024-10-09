@@ -1,6 +1,10 @@
 const bcrypt = require("bcrypt");
 const userRouter = require("express").Router();
+const nodemailer = require("nodemailer");
 const User = require("../models/user");
+
+// In-memory storage for OTP
+let otpStore = {};
 
 userRouter.get("/", async (request, response) => {
   const users = await User.find({});
@@ -9,6 +13,7 @@ userRouter.get("/", async (request, response) => {
 
 userRouter.post("/", async (request, response) => {
   const { username, password, repassword, email } = request.body;
+
   if (
     !username ||
     !password ||
@@ -17,7 +22,9 @@ userRouter.post("/", async (request, response) => {
     password.trim() === "" ||
     repassword.trim() === ""
   ) {
-    return response.status(400).json({ error: "username, password, and repassword are required" });
+    return response
+      .status(400)
+      .json({ error: "username, password, and repassword are required" });
   }
 
   if (!(username.length >= 3 && password.length >= 3)) {
@@ -30,29 +37,95 @@ userRouter.post("/", async (request, response) => {
     return response.status(400).json({ error: "passwords do not match" });
   }
 
-  const saltRounds = 10;
-  const passwordHash = await bcrypt.hash(password, saltRounds);
+  // Check if the email already exists
+  const existingUser = await User.findOne({ email });
+  if (existingUser) {
+    return response.status(400).json({ error: "Email already exists" });
+  }
 
-  const user = new User({
-    username,
-    passwordHash,
-    email,
-    role: "citizen",
+  // Generate OTP
+  const otp = Math.floor(1000 + Math.random() * 9000).toString(); // A 4-digit OTP
+  const otpExpiresAt = new Date(Date.now() + 4 * 60 * 1000); // OTP valid for 4 minutes
+
+  // Store OTP temporarily in-memory
+  otpStore[email] = { otp, otpExpiresAt, username, password };
+
+  // Send OTP to the user's email
+  const transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
+    auth: {
+      user: process.env.EMAIL,
+      pass: process.env.EMAIL_PASSWORD,
+    },
+    debug: true, // This enables debugging logs
+    logger: true, // This enables the logging of emails being sent
   });
 
+  const mailOptions = {
+    from: process.env.EMAIL,
+    to: email,
+    subject: "Verify your account",
+    text: `Your OTP code is ${otp}. It will expire in 4 minutes.`,
+  };
+
+  console.log("Sending mail to:", email);
+  console.log(mailOptions);
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      return response.status(500).json({ error: "Failed to send OTP email" });
+    }
+    return response.status(201).json({
+      message: "OTP sent to email. Please verify OTP to complete registration",
+    });
+  });
+});
+
+// OTP verification route
+userRouter.post("/verify-otp", async (request, response) => {
+  const { email, otp } = request.body;
+
+  if (!email || !otp) {
+    return response.status(400).json({ error: "Email and OTP are required" });
+  }
+
+  const otpEntry = otpStore[email];
+
+  if (!otpEntry) {
+    return response.status(400).json({ error: "No OTP found for this email" });
+  }
+
+  if (otpEntry.otp !== otp) {
+    return response.status(400).json({ error: "Invalid OTP" });
+  }
+
+  if (otpEntry.otpExpiresAt < Date.now()) {
+    return response.status(400).json({ error: "OTP expired" });
+  }
+
+  // OTP is valid, proceed with user registration
   try {
+    const saltRounds = 10;
+    const passwordHash = await bcrypt.hash(otpEntry.password, saltRounds);
+
+    const user = new User({
+      username: otpEntry.username,
+      passwordHash,
+      email,
+      role: "citizen",
+    });
+
     const savedUser = await user.save();
-    return response.status(201).json(savedUser);
+
+    // Clear OTP from in-memory store after successful registration
+    delete otpStore[email];
+
+    return response
+      .status(200)
+      .json({ message: "OTP verified and user registered successfully" });
   } catch (error) {
-    if (error.name === "ValidationError") {
-      return response.status(400).json({ error: error.message });
-    }
-    if (error.code === 11000) {
-      // Duplicate key error
-      return response.status(400).json({
-        error: "Username or email already exists",
-      });
-    }
     return response.status(500).json({ error: "Something went wrong" });
   }
 });
