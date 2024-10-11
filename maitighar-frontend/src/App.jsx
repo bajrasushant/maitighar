@@ -9,6 +9,7 @@ import AdminDashboard from "./Components/AdminDashboard";
 import AdminRegister from "./Components/AdminRegister";
 import GlobalIssueMap from "./Components/GlobalIssueMap";
 import Details from "./Components/Details";
+import CusNotification from "./Components/Notification";
 
 function App() {
   const userDispatch = useUserDispatch();
@@ -25,6 +26,7 @@ function App() {
   return (
     <>
       {/* <SignIn /> */}
+      <CusNotification />
       <Router>
         <Routes>
           <Route

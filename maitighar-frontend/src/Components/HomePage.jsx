@@ -34,12 +34,13 @@ import FoundationIcon from "@mui/icons-material/Foundation";
 import { useNavigate } from "react-router-dom";
 import ReportForm from "./IssueForm";
 // import SuggestionForm from "./SuggestionForm";
-import { useUserDispatch } from "../context/UserContext";
+import { useUserValue, useUserDispatch } from "../context/UserContext";
 import issueService from "../services/issues";
-import { useUserValue } from "../context/UserContext";
+import { useNotification } from "../context/NotificationContext";
 
 function HomePage() {
   const currentUser = useUserValue();
+  const { setNotification } = useNotification();
   // const [reports, setReports] = useState([
   // 	{
   // 		id: 1,
@@ -76,9 +77,11 @@ function HomePage() {
         const fetchedIssues = await issueService.getAll();
         console.log(fetchedIssues);
         setIssues(fetchedIssues);
+        setNotification({ message: "Fetched issues.", status: "success" });
         setLoading(false);
       } catch (err) {
         setError("Failed to fetch issues");
+        setNotification({ message: "Failed to fetch issues.", status: "error" });
         setLoading(false);
       }
     };
@@ -92,6 +95,7 @@ function HomePage() {
       setIssues(issues.map((issue) => (issue.id === id ? updatedIssue : issue)));
     } catch (err) {
       console.error("Failed to update upvote", err);
+      setNotification({ message: "Failed to update upvote.", status: "error" });
     }
   };
 
@@ -111,6 +115,7 @@ function HomePage() {
       navigate("/login");
     } catch (err) {
       console.error("Error", err.message);
+      setNotification({ message: "Failed to logout.", status: "error" });
     }
   };
 
@@ -146,9 +151,11 @@ function HomePage() {
       const updatedIssues = await issueService.getAll();
       console.log("updatedIssues:", updatedIssues);
       setIssues(updatedIssues);
+      setNotification({ message: "Issue successfully updated.", status: "success" });
       setOpenForm(false);
     } catch (err) {
       console.error("Err:", err.message);
+      setNotification({ message: "Something went wrong.", status: "error" });
     }
   };
 
@@ -177,14 +184,14 @@ function HomePage() {
             Create
           </Button>
           {/* <IconButton
-						size="large"
-						color="inherit"
-						onClick={handleOpenNotifications}
-					>
-						<Badge badgeContent={4} color="error">
-							<Notifications />
-						</Badge>
-					</IconButton> */}
+            size="large"
+            color="inherit"
+            onClick={handleOpenNotifications}
+          >
+            <Badge badgeContent={4} color="error">
+              <Notifications />
+            </Badge>
+          </IconButton> */}
           <IconButton
             size="large"
             color="inherit"
@@ -370,15 +377,15 @@ function HomePage() {
 
       {/* Notifications Menu */}
       {/* <Menu
-				anchorEl={anchorElNotifications}
-				open={Boolean(anchorElNotifications)}
-				onClose={handleCloseNotifications}
-			>
-				<MenuItem onClick={handleCloseNotifications}>Notification 1</MenuItem>
-				<MenuItem onClick={handleCloseNotifications}>Notification 2</MenuItem>
-				<MenuItem onClick={handleCloseNotifications}>Notification 3</MenuItem>
-				<MenuItem onClick={handleCloseNotifications}>Notification 4</MenuItem>
-			</Menu> */}
+        anchorEl={anchorElNotifications}
+        open={Boolean(anchorElNotifications)}
+        onClose={handleCloseNotifications}
+      >
+        <MenuItem onClick={handleCloseNotifications}>Notification 1</MenuItem>
+        <MenuItem onClick={handleCloseNotifications}>Notification 2</MenuItem>
+        <MenuItem onClick={handleCloseNotifications}>Notification 3</MenuItem>
+        <MenuItem onClick={handleCloseNotifications}>Notification 4</MenuItem>
+      </Menu> */}
 
       {/* Form Dialog */}
       <Dialog
@@ -391,21 +398,21 @@ function HomePage() {
       </Dialog>
 
       {/* Report Form Dialog
-			<Dialog open={openReportForm} onClose={() => setOpenReportForm(false)}>
-				<DialogContent>
-					<ReportForm createIssue={addIssue} />
-				</DialogContent>
-			</Dialog>
+      <Dialog open={openReportForm} onClose={() => setOpenReportForm(false)}>
+        <DialogContent>
+          <ReportForm createIssue={addIssue} />
+        </DialogContent>
+      </Dialog>
 
-			Suggestion Form Dialog
-			<Dialog
-				open={openSuggestionForm}
-				onClose={() => setOpenSuggestionForm(false)}
-			>
-				<DialogContent>
-					<SuggestionForm />
-				</DialogContent>
-			</Dialog> */}
+      Suggestion Form Dialog
+      <Dialog
+        open={openSuggestionForm}
+        onClose={() => setOpenSuggestionForm(false)}
+      >
+        <DialogContent>
+          <SuggestionForm />
+        </DialogContent>
+      </Dialog> */}
     </>
   );
 }
