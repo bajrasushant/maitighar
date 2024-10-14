@@ -15,12 +15,14 @@ import {
   Radio,
 } from "@mui/material";
 import issueService from "../services/issues";
+import { useNotification } from "../context/NotificationContext";
 
 function IssuesList() {
   const [issues, setIssues] = useState([]);
   const adminData = JSON.parse(localStorage.getItem("loggedAdmin"));
   const { department } = adminData;
   const { token } = adminData;
+  const { setNotification } = useNotification();
 
   const handleStatusChange = async (id, newStatus) => {
     console.log("Updating status for issue ID:", id, "to:", newStatus);
@@ -30,8 +32,10 @@ function IssuesList() {
         prevIssues.map((issue) => (issue.id === id ? { ...issue, status: newStatus } : issue)),
       );
       console.log("Updated issue status:", updatedIssue);
+      setNotification({ message: "Updated issue status sucessfully.", status: "success" });
     } catch (error) {
       console.error("Error updating status:", error);
+      setNotification({ message: "Something went wrong.", status: "error" });
     }
   };
 
@@ -48,6 +52,7 @@ function IssuesList() {
         setIssues(response.data);
       } catch (error) {
         console.error("Error fetching issues:", error);
+        setNotification({ message: "Error fetching issues.", status: "error" });
       }
     };
 

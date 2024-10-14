@@ -16,6 +16,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useState } from "react";
 import { login } from "../services/login";
 import { useUserDispatch } from "../context/UserContext";
+import { useNotification } from "../context/NotificationContext";
 
 function Copyright(props) {
   return (
@@ -63,6 +64,7 @@ export default function SignIn() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const userDispatch = useUserDispatch();
+  const { setNotification } = useNotification();
 
   const handleLogin = async (event) => {
     // event.preventDefault();
@@ -84,6 +86,7 @@ export default function SignIn() {
       userDispatch({ type: "LOGIN", payload: user });
     } catch (err) {
       setError("Invalid username or password");
+      setNotification({ message: "Login failed. Please try again.", status: "error" });
       console.log("Error", err.message);
     }
   };
@@ -140,12 +143,12 @@ export default function SignIn() {
               onChange={({ target }) => setPassword(target.value)}
             />
             <FormControlLabel
-              control={(
+              control={
                 <Checkbox
                   value="remember"
                   color="primary"
                 />
-              )}
+              }
               label="Remember me"
             />
             {error && (
