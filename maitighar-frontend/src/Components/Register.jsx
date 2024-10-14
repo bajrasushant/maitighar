@@ -14,6 +14,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useSignup } from "../hooks/useSignup";
+import { useNavigate } from "react-router-dom";
 
 function Copyright(props) {
   return (
@@ -41,6 +42,7 @@ const defaultTheme = createTheme();
 
 export default function SignUp() {
   const signupMutation = useSignup();
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -56,7 +58,11 @@ export default function SignUp() {
       return;
     }
 
-    signupMutation.mutate(userData);
+    signupMutation.mutate(userData, {
+      onSuccess: () => {
+        navigate("/verifyOTP", { state: { email: userData.email } });
+      },
+    });
   };
 
   return (
