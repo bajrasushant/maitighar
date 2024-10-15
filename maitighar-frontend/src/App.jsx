@@ -9,6 +9,7 @@ import AdminDashboard from "./Components/AdminDashboard";
 import AdminRegister from "./Components/AdminRegister";
 import GlobalIssueMap from "./Components/GlobalIssueMap";
 import Details from "./Components/Details";
+import OtpVerification from "./Components/OTPverification";
 import CusNotification from "./Components/Notification";
 
 function App() {
@@ -36,6 +37,10 @@ function App() {
           <Route
             path="/register"
             element={<SignUp />}
+          />
+          <Route
+            path="/verifyOTP"
+            element={<OtpVerification />}
           />
           <Route
             path="/"
