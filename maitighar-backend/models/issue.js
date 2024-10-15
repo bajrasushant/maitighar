@@ -52,6 +52,40 @@ const issueSchema = new Schema({
     enum: departments,
     required: true,
   },
+  assigned_province: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Province",
+    required: true,
+  },
+  assigned_district: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "District",
+    required: true,
+  },
+  assigned_local_gov: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "LocalGov",
+    required: false,
+  },
+  assinged_ward: {
+    type: Number,
+    required: function () {
+      return this.assigned_local_gov !== null;
+    },
+    validate: {
+      validator: async function (value) {
+        if (!this.assigned_local_gov) {
+          return true;
+        }
+        if (value <= 0) {
+          return false;
+        }
+        const localGov = await mongoose.model("LocalGov").findById(this.assigned_local_gov);
+        return value <= localGov.number_of_wards;
+      },
+      message: "Assigned ward must be within the range of the local government's number of wards.",
+    },
+  },
   category: {
     type: String,
     enum: categories,

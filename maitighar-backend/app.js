@@ -13,6 +13,8 @@ const loginRouter = require("./controllers/login");
 const adminloginRouter = require("./controllers/adminlogin");
 const adminRouter = require("./controllers/admins");
 const commentRouter = require("./controllers/comments");
+const nepalRouter = require("./controllers/nepalDetails");
+
 const middleware = require("./utils/middleware");
 
 mongoose.set("strictQuery", false);
@@ -33,6 +35,7 @@ app.use("/api/users", userRouter);
 app.use("/api/login", loginRouter);
 app.use("/api/adminlogin", adminloginRouter);
 app.use("/api/admins", adminRouter);
+app.use("/api/nepal", nepalRouter);
 
 app.get("/", (request, response) => {
   response.send("<h1>Hello World!</h1>");

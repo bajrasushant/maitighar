@@ -16,7 +16,9 @@ import {
   Chip,
   Paper,
 } from "@mui/material";
-import { ArrowUpward, ArrowUpwardOutlined, Comment, ArrowBack } from "@mui/icons-material";
+import {
+  ArrowUpward, ArrowUpwardOutlined, Comment, ArrowBack,
+} from "@mui/icons-material";
 import { formatDistanceToNow } from "date-fns";
 import issueService from "../services/issues";
 import commentService from "../services/comment";
@@ -382,8 +384,8 @@ function Details() {
                         variant="subtitle1"
                         sx={{ fontWeight: "bold" }}
                       >
-                        {comment.createdBy.username ??
-                          JSON.parse(localStorage.getItem("loggedUser")).username}
+                        {comment.createdBy.username
+                          ?? JSON.parse(localStorage.getItem("loggedUser")).username}
                       </Typography>
                       <Typography
                         variant="body2"
@@ -410,12 +412,10 @@ function Details() {
                             variant="outlined"
                             placeholder="Write a reply..."
                             value={replyContent[comment.id] || ""}
-                            onChange={(e) =>
-                              setReplyContent((prev) => ({
-                                ...prev,
-                                [comment.id]: e.target.value,
-                              }))
-                            }
+                            onChange={(e) => setReplyContent((prev) => ({
+                              ...prev,
+                              [comment.id]: e.target.value,
+                            }))}
                           />
                           <Button
                             variant="contained"
@@ -429,8 +429,8 @@ function Details() {
                       )}
 
                       {/* View Replies Button */}
-                      {(replies[comment.id] && replies[comment.id].length > 0) ||
-                      !replies[comment.id] ? (
+                      {(replies[comment.id] && replies[comment.id].length > 0)
+                      || !replies[comment.id] ? (
                         <Button
                           sx={{ mt: 2 }}
                           onClick={() => toggleReplies(comment.id)}
@@ -438,7 +438,7 @@ function Details() {
                           {showReplies[comment.id] ? "Hide Replies" : "View Replies"} (
                           {replies[comment.id]?.length || "Show Replies"})
                         </Button>
-                      ) : null}
+                        ) : null}
 
                       {/* Display Replies */}
                       {replies[comment.id] && showReplies[comment.id] && (
@@ -452,8 +452,8 @@ function Details() {
                                 variant="subtitle1"
                                 sx={{ fontWeight: "bold" }}
                               >
-                                {reply.createdBy.username ??
-                                  JSON.parse(localStorage.getItem("loggedUser")).username}
+                                {reply.createdBy.username
+                                  ?? JSON.parse(localStorage.getItem("loggedUser")).username}
                               </Typography>
                               <Typography
                                 variant="body2"

@@ -1,0 +1,1515 @@
+! Province !! Districts !! जिल्ला !! Headquarters !! Area (km<sup>2</sup>) !! Local Bodies !! Number of Wards
+|-
+| KOSHI || Bhojpur || भोजपुर || Bhojpur || 1507 || Shadananda Municipality || 14
+|-
+| KOSHI || Bhojpur || भोजपुर || Bhojpur || 1507 || Bhojpur Municipality || 12
+|-
+| KOSHI || Bhojpur || भोजपुर || Bhojpur || 1507 || Aamchowk Gaunpalika || 10
+|-
+| KOSHI || Bhojpur || भोजपुर || Bhojpur || 1507 || Hatuwagadhi Gaunpalika || 9
+|-
+| KOSHI || Bhojpur || भोजपुर || Bhojpur || 1507 || Temkemaiyum Gaunpalika || 9
+|-
+| KOSHI || Bhojpur || भोजपुर || Bhojpur || 1507 || Ramprasad Rai Gaunpalika || 8
+|-
+| KOSHI || Bhojpur || भोजपुर || Bhojpur || 1507 || Arun Gaunpalika || 7
+|-
+| KOSHI || Bhojpur || भोजपुर || Bhojpur || 1507 || Pauwa Dunma Gaunpalika || 6
+|-
+| KOSHI || Bhojpur || भोजपुर || Bhojpur || 1507 || Salpa Silichho Gaunpalika || 6
+|-
+| KOSHI || Dhankuta || धनकुटा || Dhankuta || 892 || Dhankuta Municipality || 10
+|-
+| KOSHI || Dhankuta || धनकुटा || Dhankuta || 892 || Pakhribas Municipality || 10
+|-
+| KOSHI || Dhankuta || धनकुटा || Dhankuta || 892 || Sangurigadhi Gaunpalika || 10
+|-
+| KOSHI || Dhankuta || धनकुटा || Dhankuta || 892 || Mahalaxmi Municipality || 9
+|-
+| KOSHI || Dhankuta || धनकुटा || Dhankuta || 892 || Chaubise Gaunpalika || 8
+|-
+| KOSHI || Dhankuta || धनकुटा || Dhankuta || 892 || Shahidbhumi Gaunpalika || 7
+|-
+| KOSHI || Dhankuta || धनकुटा || Dhankuta || 892 || Chhathar Jorpati Gaunpalika || 6
+|-
+| KOSHI || Ilam || इलाम || Ilam || 1703 || Suryodaya Municipality || 14
+|-
+| KOSHI || Ilam || इलाम || Ilam || 1703 || Illam Municipality || 12
+|-
+| KOSHI || Ilam || इलाम || Ilam || 1703 || Mai Municipality || 10
+|-
+| KOSHI || Ilam || इलाम || Ilam || 1703 || Deumai Municipality || 9
+|-
+| KOSHI || Ilam || इलाम || Ilam || 1703 || Fakfokathum Gaunpalika || 7
+|-
+| KOSHI || Ilam || इलाम || Ilam || 1703 || Chulachuli Gaunpalika || 6
+|-
+| KOSHI || Ilam || इलाम || Ilam || 1703 || Mai Jogmai Gaunpalika || 6
+|-
+| KOSHI || Ilam || इलाम || Ilam || 1703 || Mangsebung Gaunpalika || 6
+|-
+| KOSHI || Ilam || इलाम || Ilam || 1703 || Rong Gaunpalika || 6
+|-
+| KOSHI || Ilam || इलाम || Ilam || 1703 || Sandakpur Gaunpalika || 5
+|-
+| KOSHI || Jhapa || झापा || Bhadrapur || 1606 || Mechinagar Municipality || 15
+|-
+| KOSHI || Jhapa || झापा || Bhadrapur || 1606 || Arjundhara Municipality || 11
+|-
+| KOSHI || Jhapa || झापा || Bhadrapur || 1606 || Shivasatakshi Municipality || 11
+|-
+| KOSHI || Jhapa || झापा || Bhadrapur || 1606 || Bhadrapur Municipality || 10
+|-
+| KOSHI || Jhapa || झापा || Bhadrapur || 1606 || Birtamod Municipality || 10
+|-
+| KOSHI || Jhapa || झापा || Bhadrapur || 1606 || Damak Municipality || 10
+|-
+| KOSHI || Jhapa || झापा || Bhadrapur || 1606 || Gauradaha Municipality || 9
+|-
+| KOSHI || Jhapa || झापा || Bhadrapur || 1606 || Kankai Municipality || 9
+|-
+| KOSHI || Jhapa || झापा || Bhadrapur || 1606 || Barhadashi Gaunpalika || 7
+|-
+| KOSHI || Jhapa || झापा || Bhadrapur || 1606 || Buddhashanti Gaunpalika || 7
+|-
+| KOSHI || Jhapa || झापा || Bhadrapur || 1606 || Jhapa Gaunpalika || 7
+|-
+| KOSHI || Jhapa || झापा || Bhadrapur || 1606 || Kachanakawal Gaunpalika || 7
+|-
+| KOSHI || Jhapa || झापा || Bhadrapur || 1606 || Kamal Gaunpalika || 7
+|-
+| KOSHI || Jhapa || झापा || Bhadrapur || 1606 || Gauriganj Gaunpalika || 6
+|-
+| KOSHI || Jhapa || झापा || Bhadrapur || 1606 || Haldibari Gaunpalika || 5
+|-
+| KOSHI || Khotang || खोटाँग || Diktel || 1591 || Diktel Rupakot Majhuwagadhi Municipality || 15
+|-
+| KOSHI || Khotang || खोटाँग || Diktel || 1591 || Halesi Tuwachung Municipality || 11
+|-
+| KOSHI || Khotang || खोटाँग || Diktel || 1591 || Khotehang Gaunpalika || 9
+|-
+| KOSHI || Khotang || खोटाँग || Diktel || 1591 || Aiselukharka Gaunpalika || 7
+|-
+| KOSHI || Khotang || खोटाँग || Diktel || 1591 || Diprung Chuichumma Gaunpalika || 7
+|-
+| KOSHI || Khotang || खोटाँग || Diktel || 1591 || Kepilasgadhi Gaunpalika || 7
+|-
+| KOSHI || Khotang || खोटाँग || Diktel || 1591 || Baraha Pokhari Gaunpalika || 6
+|-
+| KOSHI || Khotang || खोटाँग || Diktel || 1591 || Jante Dhunga Gaunpalika || 6
+|-
+| KOSHI || Khotang || खोटाँग || Diktel || 1591 || Rawa Besi Gaunpalika || 6
+|-
+| KOSHI || Khotang || खोटाँग || Diktel || 1591 || Sakela Gaunpalika || 5
+|-
+| KOSHI || Morang || मोरंग || Biratnagar || 1855 || Biratnagar Metropolitan City || 19
+|-
+| KOSHI || Morang || मोरंग || Biratnagar || 1855 || Sundarharaicha Municipality || 12
+|-
+| KOSHI || Morang || मोरंग || Biratnagar || 1855 || Belbari Municipality || 11
+|-
+| KOSHI || Morang || मोरंग || Biratnagar || 1855 || Kerabari Gaunpalika || 10
+|-
+| KOSHI || Morang || मोरंग || Biratnagar || 1855 || Pathari Shanishchare Municipality || 10
+|-
+| KOSHI || Morang || मोरंग || Biratnagar || 1855 || Ratuwamai Municipality || 10
+|-
+| KOSHI || Morang || मोरंग || Biratnagar || 1855 || Letang Municipality || 9
+|-
+| KOSHI || Morang || मोरंग || Biratnagar || 1855 || Miklajung Gaunpalika || 9
+|-
+| KOSHI || Morang || मोरंग || Biratnagar || 1855 || Rangeli Municipality || 9
+|-
+| KOSHI || Morang || मोरंग || Biratnagar || 1855 || Sunwarshi Municipality || 9
+|-
+| KOSHI || Morang || मोरंग || Biratnagar || 1855 || Urlabari Municipality || 9
+|-
+| KOSHI || Morang || मोरंग || Biratnagar || 1855 || Budhiganga Gaunpalika || 7
+|-
+| KOSHI || Morang || मोरंग || Biratnagar || 1855 || Dhanapalthan Gaunpalika || 7
+|-
+| KOSHI || Morang || मोरंग || Biratnagar || 1855 || Gramthan Gaunpalika || 7
+|-
+| KOSHI || Morang || मोरंग || Biratnagar || 1855 || Jahada Gaunpalika || 7
+|-
+| KOSHI || Morang || मोरंग || Biratnagar || 1855 || Kanepokhari Gaunpalika || 7
+|-
+| KOSHI || Morang || मोरंग || Biratnagar || 1855 || Katahari Gaunpalika || 7
+|-
+| KOSHI || Okhaldhunga || ओखलढुंगा || Siddhicharan || 1074 || Siddhicharan Municipality || 12
+|-
+| KOSHI || Okhaldhunga || ओखलढुंगा || Siddhicharan || 1074 || Champadevi Gaunpalika || 10
+|-
+| KOSHI || Okhaldhunga || ओखलढुंगा || Siddhicharan || 1074 || Sunkoshi Gaunpalika || 10
+|-
+| KOSHI || Okhaldhunga || ओखलढुंगा || Siddhicharan || 1074 || Khiji Demba Gaunpalika || 9
+|-
+| KOSHI || Okhaldhunga || ओखलढुंगा || Siddhicharan || 1074 || Likhu Gaunpalika || 9
+|-
+| KOSHI || Okhaldhunga || ओखलढुंगा || Siddhicharan || 1074 || Manebhanjyang Gaunpalika || 9
+|-
+| KOSHI || Okhaldhunga || ओखलढुंगा || Siddhicharan || 1074 || Chishankhu Gadhi Gaunpalika || 8
+|-
+| KOSHI || Okhaldhunga || ओखलढुंगा || Siddhicharan || 1074 || Molung Gaunpalika || 8
+|-
+| KOSHI || Panchthar || पांचथर || Phidim || 1241 || Phidim Municipality || 14
+|-
+| KOSHI || Panchthar || पांचथर || Phidim || 1241 || Falelung Gaunpalika || 8
+|-
+| KOSHI || Panchthar || पांचथर || Phidim || 1241 || Miklajung Gaunpalika || 8
+|-
+| KOSHI || Panchthar || पांचथर || Phidim || 1241 || Falgunanda Gaunpalika || 7
+|-
+| KOSHI || Panchthar || पांचथर || Phidim || 1241 || Hilihan Gaunpalika || 7
+|-
+| KOSHI || Panchthar || पांचथर || Phidim || 1241 || Yangbarak Gaunpalika || 6
+|-
+| KOSHI || Panchthar || पांचथर || Phidim || 1241 || Kummayak Gaunpalika || 5
+|-
+| KOSHI || Panchthar || पांचथर || Phidim || 1241 || Tumbewa Gaunpalika || 5
+|-
+| KOSHI || Sankhuwasabha || संखुवासभा || Khandbari || 3480 || Chainapur Municipality || 11
+|-
+| KOSHI || Sankhuwasabha || संखुवासभा || Khandbari || 3480 || Khandabari Municipality || 11
+|-
+| KOSHI || Sankhuwasabha || संखुवासभा || Khandbari || 3480 || Dharmadevi Municipality || 9
+|-
+| KOSHI || Sankhuwasabha || संखुवासभा || Khandbari || 3480 || Madi Municipality || 9
+|-
+| KOSHI || Sankhuwasabha || संखुवासभा || Khandbari || 3480 || Panchakhapan Municipality || 9
+|-
+| KOSHI || Sankhuwasabha || संखुवासभा || Khandbari || 3480 || Makalu Gaunpalika || 6
+|-
+| KOSHI || Sankhuwasabha || संखुवासभा || Khandbari || 3480 || Sabhapokhari Gaunpalika || 6
+|-
+| KOSHI || Sankhuwasabha || संखुवासभा || Khandbari || 3480 || Bhotkhola Gaunpalika || 5
+|-
+| KOSHI || Sankhuwasabha || संखुवासभा || Khandbari || 3480 || Chichila Gaunpalika || 5
+|-
+| KOSHI || Sankhuwasabha || संखुवासभा || Khandbari || 3480 || Silichong Gaunpalika || 5
+|-
+| KOSHI || Solukhumbu || सोलुखुम्बू || Salleri || 3312 || Solu Dhudhakunda Municipality || 11
+|-
+| KOSHI || Solukhumbu || सोलुखुम्बू || Salleri || 3312 || Thulung Dudhkoshi Gaunpalika || 9
+|-
+| KOSHI || Solukhumbu || सोलुखुम्बू || Salleri || 3312 || Mapya Dudhkoshi Gaunpalika || 7
+|-
+| KOSHI || Solukhumbu || सोलुखुम्बू || Salleri || 3312 || Khumbu Pasanglhamu Gaunpalika || 5
+|-
+| KOSHI || Solukhumbu || सोलुखुम्बू || Salleri || 3312 || Likhu Pike Gaunpalika || 5
+|-
+| KOSHI || Solukhumbu || सोलुखुम्बू || Salleri || 3312 || Mahakulung Gaunpalika || 5
+|-
+| KOSHI || Solukhumbu || सोलुखुम्बू || Salleri || 3312 || Necha Salyan Gaunpalika || 5
+|-
+| KOSHI || Solukhumbu || सोलुखुम्बू || Salleri || 3312 || Sotang Gaunpalika || 5
+|-
+| KOSHI || Sunsari || सुनसरी || Inaruwa || 1257 || Dharan Sub-Metropolitan City || 20
+|-
+| KOSHI || Sunsari || सुनसरी || Inaruwa || 1257 || Itahari Sub-Metropolitan City || 20
+|-
+| KOSHI || Sunsari || सुनसरी || Inaruwa || 1257 || Duhabi Municipality || 12
+|-
+| KOSHI || Sunsari || सुनसरी || Inaruwa || 1257 || Barahachhetra Municipality || 11
+|-
+| KOSHI || Sunsari || सुनसरी || Inaruwa || 1257 || Inaruwa Municipality || 10
+|-
+| KOSHI || Sunsari || सुनसरी || Inaruwa || 1257 || Ramdhuni Municipality || 9
+|-
+| KOSHI || Sunsari || सुनसरी || Inaruwa || 1257 || Bhokraha Narsingh Gaunpalika || 8
+|-
+| KOSHI || Sunsari || सुनसरी || Inaruwa || 1257 || Koshi Gaunpalika || 8
+|-
+| KOSHI || Sunsari || सुनसरी || Inaruwa || 1257 || Dewangunj Gaunpalika || 7
+|-
+| KOSHI || Sunsari || सुनसरी || Inaruwa || 1257 || Harinagar Gaunpalika || 7
+|-
+| KOSHI || Sunsari || सुनसरी || Inaruwa || 1257 || Barju Gaunpalika || 6
+|-
+| KOSHI || Sunsari || सुनसरी || Inaruwa || 1257 || Gadhi Gaunpalika || 6
+|-
+| KOSHI || Taplejung || ताप्लेजुंग || Taplejung || 3646 || Phungling Municipality || 11
+|-
+| KOSHI || Taplejung || ताप्लेजुंग || Taplejung || 3646 || Sirijanga Gaunpalika || 8
+|-
+| KOSHI || Taplejung || ताप्लेजुंग || Taplejung || 3646 || Phaktanlung Gaunpalika || 7
+|-
+| KOSHI || Taplejung || ताप्लेजुंग || Taplejung || 3646 || Sidingba Gaunpalika || 7
+|-
+| KOSHI || Taplejung || ताप्लेजुंग || Taplejung || 3646 || Maiwakhola Gaunpalika || 6
+|-
+| KOSHI || Taplejung || ताप्लेजुंग || Taplejung || 3646 || Meringden Gaunpalika || 6
+|-
+| KOSHI || Taplejung || ताप्लेजुंग || Taplejung || 3646 || Pathivara Yangwarak Gaunpalika || 6
+|-
+| KOSHI || Taplejung || ताप्लेजुंग || Taplejung || 3646 || Aatharai Tribeni Gaunpalika || 5
+|-
+| KOSHI || Taplejung || ताप्लेजुंग || Taplejung || 3646 || Mikwakhola Gaunpalika || 5
+|-
+| KOSHI || Terhathum || तेह्रथुम || Myanglung || 679 || Myanglung Municipality || 10
+|-
+| KOSHI || Terhathum || तेह्रथुम || Myanglung || 679 || Laligurans Municipality || 9
+|-
+| KOSHI || Terhathum || तेह्रथुम || Myanglung || 679 || Aatharai Gaunpalika || 7
+|-
+| KOSHI || Terhathum || तेह्रथुम || Myanglung || 679 || Chhathar Gaunpalika || 6
+|-
+| KOSHI || Terhathum || तेह्रथुम || Myanglung || 679 || Menchhayayem Gaunpalika || 6
+|-
+| KOSHI || Terhathum || तेह्रथुम || Myanglung || 679 || Phedap Gaunpalika || 5
+|-
+| KOSHI || Udayapur || उदयपुर || Gaighat || 2063 || Triyuga Municipality || 16
+|-
+| KOSHI || Udayapur || उदयपुर || Gaighat || 2063 || Katari Municipality || 14
+|-
+| KOSHI || Udayapur || उदयपुर || Gaighat || 2063 || Chaudandigadhi Municipality || 10
+|-
+| KOSHI || Udayapur || उदयपुर || Gaighat || 2063 || Belaka Municipality || 9
+|-
+| KOSHI || Udayapur || उदयपुर || Gaighat || 2063 || Rautamai Gaunpalika || 8
+|-
+| KOSHI || Udayapur || उदयपुर || Gaighat || 2063 || Udayapurgadhi Gaunpalika || 8
+|-
+| KOSHI || Udayapur || उदयपुर || Gaighat || 2063 || Limchunbung Gaunpalika || 5
+|-
+| KOSHI || Udayapur || उदयपुर || Gaighat || 2063 || Tapli Gaunpalika || 5
+|
+|-
+| Madhesh || Bara || बारा || Kalaiya || 1190 || Kalaiya Sub-Metropolitan City || 27
+|-
+| Madhesh || Bara || बारा || Kalaiya || 1190 || Jitpur Simara Sub-Metropolitan City || 24
+|-
+| Madhesh || Bara || बारा || Kalaiya || 1190 || Nijagadh Municipality || 13
+|-
+| Madhesh || Bara || बारा || Kalaiya || 1190 || Kolhabi Municipality || 11
+|-
+| Madhesh || Bara || बारा || Kalaiya || 1190 || Mahagadhimai Municipality || 11
+|-
+| Madhesh || Bara || बारा || Kalaiya || 1190 || Simroungadh Municipality || 11
+|-
+| Madhesh || Bara || बारा || Kalaiya || 1190 || Pacharauta Municipality || 9
+|-
+| Madhesh || Bara || बारा || Kalaiya || 1190 || Aadarsha Kotwal Gaunpalika || 8
+|-
+| Madhesh || Bara || बारा || Kalaiya || 1190 || Karaiyamai Gaunpalika || 8
+|-
+| Madhesh || Bara || बारा || Kalaiya || 1190 || Subarna Gaunpalika || 8
+|-
+| Madhesh || Bara || बारा || Kalaiya || 1190 || Devtal Gaunpalika || 7
+|-
+| Madhesh || Bara || बारा || Kalaiya || 1190 || Pheta Gaunpalika || 7
+|-
+| Madhesh || Bara || बारा || Kalaiya || 1190 || Prasauni Gaunpalika || 7
+|-
+| Madhesh || Bara || बारा || Kalaiya || 1190 || Baragadhi Gaunpalika || 6
+|-
+| Madhesh || Bara || बारा || Kalaiya || 1190 || Bishrampur Gaunpalika || 5
+|-
+| Madhesh || Bara || बारा || Kalaiya || 1190 || Parawanipur Gaunpalika || 5
+|-
+| Madhesh || Dhanusa || धनुषा || Janakpur || 1180 || Janakpurdham Sub-Metropolitan City || 25
+|-
+| Madhesh || Dhanusa || धनुषा || Janakpur || 1180 || Sabaila Municipality || 13
+|-
+| Madhesh || Dhanusa || धनुषा || Janakpur || 1180 || Ganeshman Charnath Municipality || 11
+|-
+| Madhesh || Dhanusa || धनुषा || Janakpur || 1180 || Mithila Municipality || 11
+|-
+| Madhesh || Dhanusa || धनुषा || Janakpur || 1180 || Chhireshwornath Municipality || 10
+|-
+| Madhesh || Dhanusa || धनुषा || Janakpur || 1180 || Mithila Bihari Municipality || 10
+|-
+| Madhesh || Dhanusa || धनुषा || Janakpur || 1180 || Bideha Municipality || 9
+|-
+| Madhesh || Dhanusa || धनुषा || Janakpur || 1180 || Dhanushadham Municipality || 9
+|-
+| Madhesh || Dhanusa || धनुषा || Janakpur || 1180 || Hansapur Municipality || 9
+|-
+| Madhesh || Dhanusa || धनुषा || Janakpur || 1180 || Kamala Municipality || 9
+|-
+| Madhesh || Dhanusa || धनुषा || Janakpur || 1180 || Nagarain Municipality || 9
+|-
+| Madhesh || Dhanusa || धनुषा || Janakpur || 1180 || Shahidnagar Municipality || 9
+|-
+| Madhesh || Dhanusa || धनुषा || Janakpur || 1180 || Laxminiya Gaunpalika || 7
+|-
+| Madhesh || Dhanusa || धनुषा || Janakpur || 1180 || Aurahi Gaunpalika || 6
+|-
+| Madhesh || Dhanusa || धनुषा || Janakpur || 1180 || Janak Nandini Gaunpalika || 6
+|-
+| Madhesh || Dhanusa || धनुषा || Janakpur || 1180 || Mukhiyapatti Musaharmiya Gaunpalika || 6
+|-
+| Madhesh || Dhanusa || धनुषा || Janakpur || 1180 || Bateshwor Gaunpalika || 5
+|-
+| Madhesh || Dhanusa || धनुषा || Janakpur || 1180 || Dhanauji Gaunpalika || 5
+|-
+| Madhesh || Mahottari || महोत्तरी || Jaleshwar || 1002 || Bardibas Municipality || 14
+|-
+| Madhesh || Mahottari || महोत्तरी || Jaleshwar || 1002 || Gaushala Municipality || 12
+|-
+| Madhesh || Mahottari || महोत्तरी || Jaleshwar || 1002 || Jaleshwor Municipality || 12
+|-
+| Madhesh || Mahottari || महोत्तरी || Jaleshwar || 1002 || Balawa Municipality || 11
+|-
+| Madhesh || Mahottari || महोत्तरी || Jaleshwar || 1002 || Manara Shisawa Municipality || 10
+|-
+| Madhesh || Mahottari || महोत्तरी || Jaleshwar || 1002 || Aurahi Municipality || 9
+|-
+| Madhesh || Mahottari || महोत्तरी || Jaleshwar || 1002 || Bhangaha Municipality || 9
+|-
+| Madhesh || Mahottari || महोत्तरी || Jaleshwar || 1002 || Loharpatti Municipality || 9
+|-
+| Madhesh || Mahottari || महोत्तरी || Jaleshwar || 1002 || Matihani Municipality || 9
+|-
+| Madhesh || Mahottari || महोत्तरी || Jaleshwar || 1002 || Ram Gopalpur Municipality || 9
+|-
+| Madhesh || Mahottari || महोत्तरी || Jaleshwar || 1002 || Sonama Gaunpalika || 8
+|-
+| Madhesh || Mahottari || महोत्तरी || Jaleshwar || 1002 || Pipara Gaunpalika || 7
+|-
+| Madhesh || Mahottari || महोत्तरी || Jaleshwar || 1002 || Samsi Gaunpalika || 7
+|-
+| Madhesh || Mahottari || महोत्तरी || Jaleshwar || 1002 || Ekadara Gaunpalika || 6
+|-
+| Madhesh || Mahottari || महोत्तरी || Jaleshwar || 1002 || Mahottari Gaunpalika || 6
+|-
+| Madhesh || Parsa || पर्सा || Birganj || 1353 || Birgunj Metropolitan City || 32
+|-
+| Madhesh || Parsa || पर्सा || Birganj || 1353 || Pokhariya Municipality || 10
+|-
+| Madhesh || Parsa || पर्सा || Birganj || 1353 || Bahudarmai Municipality || 9
+|-
+| Madhesh || Parsa || पर्सा || Birganj || 1353 || Parsagadhi Municipality || 9
+|-
+| Madhesh || Parsa || पर्सा || Birganj || 1353 || Jagarnathpur Gaunpalika || 6
+|-
+| Madhesh || Parsa || पर्सा || Birganj || 1353 || Sakhuwa Prasauni Gaunpalika || 6
+|-
+| Madhesh || Parsa || पर्सा || Birganj || 1353 || Bindabasini Gaunpalika || 5
+|-
+| Madhesh || Parsa || पर्सा || Birganj || 1353 || Chhipaharmai Gaunpalika || 5
+|-
+| Madhesh || Parsa || पर्सा || Birganj || 1353 || Dhobini Gaunpalika || 5
+|-
+| Madhesh || Parsa || पर्सा || Birganj || 1353 || Jirabhawani Gaunpalika || 5
+|-
+| Madhesh || Parsa || पर्सा || Birganj || 1353 || Kalikamai Gaunpalika || 5
+|-
+| Madhesh || Parsa || पर्सा || Birganj || 1353 || Pakaha Mainpur Gaunpalika || 5
+|-
+| Madhesh || Parsa || पर्सा || Birganj || 1353 || Paterwa Sugauli Gaunpalika || 5
+|-
+| Madhesh || Parsa || पर्सा || Birganj || 1353 || Thori Gaunpalika || 5
+|-
+| Madhesh || Rautahat || रौतहट || Gaur || 1126 || Phatuwa Bijayapur Municipality || 11
+|-
+| Madhesh || Rautahat || रौतहट || Gaur || 1126 || Chandrapur Municipality || 10
+|-
+| Madhesh || Rautahat || रौतहट || Gaur || 1126 || Boudhimai Municipality || 9
+|-
+| Madhesh || Rautahat || रौतहट || Gaur || 1126 || Brindaban Municipality || 9
+|-
+| Madhesh || Rautahat || रौतहट || Gaur || 1126 || Dewahi Gonahi Municipality || 9
+|-
+| Madhesh || Rautahat || रौतहट || Gaur || 1126 || Gadhimai Municipality || 9
+|-
+| Madhesh || Rautahat || रौतहट || Gaur || 1126 || Garuda Municipality || 9
+|-
+| Madhesh || Rautahat || रौतहट || Gaur || 1126 || Gaur Municipality || 9
+|-
+| Madhesh || Rautahat || रौतहट || Gaur || 1126 || Gujara Municipality || 9
+|-
+| Madhesh || Rautahat || रौतहट || Gaur || 1126 || Ishanath Municipality || 9
+|-
+| Madhesh || Rautahat || रौतहट || Gaur || 1126 || Katahariya Municipality || 9
+|-
+| Madhesh || Rautahat || रौतहट || Gaur || 1126 || Madhav Narayan Municipality || 9
+|-
+| Madhesh || Rautahat || रौतहट || Gaur || 1126 || Maulapur Municipality || 9
+|-
+| Madhesh || Rautahat || रौतहट || Gaur || 1126 || Paroha Municipality || 9
+|-
+| Madhesh || Rautahat || रौतहट || Gaur || 1126 || Rajdevi Municipality || 9
+|-
+| Madhesh || Rautahat || रौतहट || Gaur || 1126 || Rajpur Municipality || 9
+|-
+| Madhesh || Rautahat || रौतहट || Gaur || 1126 || Durga Bhagawati Gaunpalika || 5
+|-
+| Madhesh || Rautahat || रौतहट || Gaur || 1126 || Yamunamai Gaunpalika || 5
+|-
+| Madhesh || Saptari || सप्तरी || Rajbiraj || 1363 || Rajbiraj Municipality || 16
+|-
+| Madhesh || Saptari || सप्तरी || Rajbiraj || 1363 || Hanumannagar Kankalini Municipality || 14
+|-
+| Madhesh || Saptari || सप्तरी || Rajbiraj || 1363 || Kanchanrup Municipality || 12
+|-
+| Madhesh || Saptari || सप्तरी || Rajbiraj || 1363 || Shambhunath Municipality || 12
+|-
+| Madhesh || Saptari || सप्तरी || Rajbiraj || 1363 || Khadak Municipality || 11
+|-
+| Madhesh || Saptari || सप्तरी || Rajbiraj || 1363 || Saptakoshi Municipality || 11
+|-
+| Madhesh || Saptari || सप्तरी || Rajbiraj || 1363 || Surunga Municipality || 11
+|-
+| Madhesh || Saptari || सप्तरी || Rajbiraj || 1363 || Bode Barsain Municipality || 10
+|-
+| Madhesh || Saptari || सप्तरी || Rajbiraj || 1363 || Dakneshwori Municipality || 10
+|-
+| Madhesh || Saptari || सप्तरी || Rajbiraj || 1363 || Tilathi Koiladi Gaunpalika || 8
+|-
+| Madhesh || Saptari || सप्तरी || Rajbiraj || 1363 || Bishnupur Gaunpalika || 7
+|-
+| Madhesh || Saptari || सप्तरी || Rajbiraj || 1363 || Chhinnamasta Gaunpalika || 7
+|-
+| Madhesh || Saptari || सप्तरी || Rajbiraj || 1363 || Agnisair Krishna Sabaran Gaunpalika || 6
+|-
+| Madhesh || Saptari || सप्तरी || Rajbiraj || 1363 || Balan-Bihul Gaunpalika || 6
+|-
+| Madhesh || Saptari || सप्तरी || Rajbiraj || 1363 || Mahadewa Gaunpalika || 6
+|-
+| Madhesh || Saptari || सप्तरी || Rajbiraj || 1363 || Rajgadh Gaunpalika || 6
+|-
+| Madhesh || Saptari || सप्तरी || Rajbiraj || 1363 || Rupani Gaunpalika || 6
+|-
+| Madhesh || Saptari || सप्तरी || Rajbiraj || 1363 || Tirahut Gaunpalika || 5
+|-
+| Madhesh || Sarlahi || सर्लाही || Malangwa || 1259 || Barahathawa Municipality || 18
+|-
+| Madhesh || Sarlahi || सर्लाही || Malangwa || 1259 || Lalbandi Municipality || 17
+|-
+| Madhesh || Sarlahi || सर्लाही || Malangwa || 1259 || Ishworpur Municipality || 15
+|-
+| Madhesh || Sarlahi || सर्लाही || Malangwa || 1259 || Bagmati Municipality || 12
+|-
+| Madhesh || Sarlahi || सर्लाही || Malangwa || 1259 || Godaita Municipality || 12
+|-
+| Madhesh || Sarlahi || सर्लाही || Malangwa || 1259 || Malangawa Municipality || 12
+|-
+| Madhesh || Sarlahi || सर्लाही || Malangwa || 1259 || Balara Municipality || 11
+|-
+| Madhesh || Sarlahi || सर्लाही || Malangwa || 1259 || Hariwan Municipality || 11
+|-
+| Madhesh || Sarlahi || सर्लाही || Malangwa || 1259 || Kabilashi Municipality || 10
+|-
+| Madhesh || Sarlahi || सर्लाही || Malangwa || 1259 || Chakraghatta Gaunpalika || 9
+|-
+| Madhesh || Sarlahi || सर्लाही || Malangwa || 1259 || Haripur Municipality || 9
+|-
+| Madhesh || Sarlahi || सर्लाही || Malangwa || 1259 || Haripurwa Municipality || 9
+|-
+| Madhesh || Sarlahi || सर्लाही || Malangwa || 1259 || Bishnu Gaunpalika || 8
+|-
+| Madhesh || Sarlahi || सर्लाही || Malangwa || 1259 || Brahmapuri Gaunpalika || 7
+|-
+| Madhesh || Sarlahi || सर्लाही || Malangwa || 1259 || Chandranagar Gaunpalika || 7
+|-
+| Madhesh || Sarlahi || सर्लाही || Malangwa || 1259 || Dhanakaul Gaunpalika || 7
+|-
+| Madhesh || Sarlahi || सर्लाही || Malangwa || 1259 || Kaudena Gaunpalika || 7
+|-
+| Madhesh || Sarlahi || सर्लाही || Malangwa || 1259 || Ramnagar Gaunpalika || 7
+|-
+| Madhesh || Sarlahi || सर्लाही || Malangwa || 1259 || Basbariya Gaunpalika || 6
+|-
+| Madhesh || Sarlahi || सर्लाही || Malangwa || 1259 || Parsa Gaunpalika || 6
+|-
+| Madhesh || Siraha || सिराहा || Siraha || 1188 || Lahan Municipality || 24
+|-
+| Madhesh || Siraha || सिराहा || Siraha || 1188 || Siraha Municipality || 22
+|-
+| Madhesh || Siraha || सिराहा || Siraha || 1188 || Dhangadhimai Municipality || 14
+|-
+| Madhesh || Siraha || सिराहा || Siraha || 1188 || Golbazar Municipality || 13
+|-
+| Madhesh || Siraha || सिराहा || Siraha || 1188 || Kalyanpur Municipality || 12
+|-
+| Madhesh || Siraha || सिराहा || Siraha || 1188 || Mirchaiya Municipality || 12
+|-
+| Madhesh || Siraha || सिराहा || Siraha || 1188 || Karjanha Municipality || 11
+|-
+| Madhesh || Siraha || सिराहा || Siraha || 1188 || Sukhipur Municipality || 10
+|-
+| Madhesh || Siraha || सिराहा || Siraha || 1188 || Laxmipur Patari Gaunpalika || 6
+|-
+| Madhesh || Siraha || सिराहा || Siraha || 1188 || Arnama Gaunpalika || 5
+|-
+| Madhesh || Siraha || सिराहा || Siraha || 1188 || Aurahi Gaunpalika || 5
+|-
+| Madhesh || Siraha || सिराहा || Siraha || 1188 || Bariyarpatti Gaunpalika || 5
+|-
+| Madhesh || Siraha || सिराहा || Siraha || 1188 || Bhagawanpur Gaunpalika || 5
+|-
+| Madhesh || Siraha || सिराहा || Siraha || 1188 || Bishnupur Gaunpalika || 5
+|-
+| Madhesh || Siraha || सिराहा || Siraha || 1188 || Naraha Gaunpalika || 5
+|-
+| Madhesh || Siraha || सिराहा || Siraha || 1188 || Nawarajpur Gaunpalika || 5
+|-
+| Madhesh || Siraha || सिराहा || Siraha || 1188 || Sakhuwa Nankarkatti Gaunpalika || 5
+|
+|-
+| Bagmati || Bhaktapur || भक्तपुर || Bhaktapur || 119 || Bhaktapur Municipality || 10
+|-
+| Bagmati || Bhaktapur || भक्तपुर || Bhaktapur || 119 || Suryabinayak Municipality || 10
+|-
+| Bagmati || Bhaktapur || भक्तपुर || Bhaktapur || 119 || Changunarayan Municipality || 9
+|-
+| Bagmati || Bhaktapur || भक्तपुर || Bhaktapur || 119 || Madhyapur Thimi Municipality || 9
+|-
+| Bagmati || Chitawan || चितवन || Bharatpur || 2218 || Bharatpur Metropolitan City || 29
+|-
+| Bagmati || Chitawan || चितवन || Bharatpur || 2218 || Ratnanagar Municipality || 16
+|-
+| Bagmati || Chitawan || चितवन || Bharatpur || 2218 || Khairahani Municipality || 13
+|-
+| Bagmati || Chitawan || चितवन || Bharatpur || 2218 || Rapti Municipality || 13
+|-
+| Bagmati || Chitawan || चितवन || Bharatpur || 2218 || Kalika Municipality || 11
+|-
+| Bagmati || Chitawan || चितवन || Bharatpur || 2218 || Madi Municipality || 9
+|-
+| Bagmati || Chitawan || चितवन || Bharatpur || 2218 || Ichchha Kamana Gaunpalika || 7
+|-
+| Bagmati || Dhading || धादिङ || Nilkantha || 1926 || Nilkhantha Municipality || 14
+|-
+| Bagmati || Dhading || धादिङ || Nilkantha || 1926 || Thakre Gaunpalika || 11
+|-
+| Bagmati || Dhading || धादिङ || Nilkantha || 1926 || Benighat Rorang Gaunpalika || 10
+|-
+| Bagmati || Dhading || धादिङ || Nilkantha || 1926 || Dhunibenshi Municipality || 9
+|-
+| Bagmati || Dhading || धादिङ || Nilkantha || 1926 || Gajuri Gaunpalika || 8
+|-
+| Bagmati || Dhading || धादिङ || Nilkantha || 1926 || Galchhi Gaunpalika || 8
+|-
+| Bagmati || Dhading || धादिङ || Nilkantha || 1926 || Ganga Jamuna Gaunpalika || 7
+|-
+| Bagmati || Dhading || धादिङ || Nilkantha || 1926 || Jwalamukhi Gaunpalika || 7
+|-
+| Bagmati || Dhading || धादिङ || Nilkantha || 1926 || Siddhalek Gaunpalika || 7
+|-
+| Bagmati || Dhading || धादिङ || Nilkantha || 1926 || Tripurasundari Gaunpalika || 7
+|-
+| Bagmati || Dhading || धादिङ || Nilkantha || 1926 || Rubi Valley Gaunpalika || 6
+|-
+| Bagmati || Dhading || धादिङ || Nilkantha || 1926 || Khaniyabas Gaunpalika || 5
+|-
+| Bagmati || Dhading || धादिङ || Nilkantha || 1926 || Netrawati Dabjong Gaunpalika || 5
+|-
+| Bagmati || Dolakha || दोलखा || Bhimeshwar || 2191 || Bhimeshwor Municipality || 9
+|-
+| Bagmati || Dolakha || दोलखा || Bhimeshwar || 2191 || Gaurishankar Gaunpalika || 9
+|-
+| Bagmati || Dolakha || दोलखा || Bhimeshwar || 2191 || Jiri Municipality || 9
+|-
+| Bagmati || Dolakha || दोलखा || Bhimeshwar || 2191 || Kalinchowk Gaunpalika || 9
+|-
+| Bagmati || Dolakha || दोलखा || Bhimeshwar || 2191 || Baiteshwor Gaunpalika || 8
+|-
+| Bagmati || Dolakha || दोलखा || Bhimeshwar || 2191 || Bigu Gaunpalika || 8
+|-
+| Bagmati || Dolakha || दोलखा || Bhimeshwar || 2191 || Shailung Gaunpalika || 8
+|-
+| Bagmati || Dolakha || दोलखा || Bhimeshwar || 2191 || Melung Gaunpalika || 7
+|-
+| Bagmati || Dolakha || दोलखा || Bhimeshwar || 2191 || Tamakoshi Gaunpalika || 7
+|-
+| Bagmati || Kathmandu || काठमाडौँ || Kathmandu || 395 || Kathmandu Metropolitan City || 32
+|-
+| Bagmati || Kathmandu || काठमाडौँ || Kathmandu || 395 || Chandragiri Municipality || 15
+|-
+| Bagmati || Kathmandu || काठमाडौँ || Kathmandu || 395 || Budhanilkhantha Municipality || 13
+|-
+| Bagmati || Kathmandu || काठमाडौँ || Kathmandu || 395 || Tarakeshwor Municipality || 11
+|-
+| Bagmati || Kathmandu || काठमाडौँ || Kathmandu || 395 || Tokha Municipality || 11
+|-
+| Bagmati || Kathmandu || काठमाडौँ || Kathmandu || 395 || Kirtipur Municipality || 10
+|-
+| Bagmati || Kathmandu || काठमाडौँ || Kathmandu || 395 || Nagarjun Municipality || 10
+|-
+| Bagmati || Kathmandu || काठमाडौँ || Kathmandu || 395 || Dakshinkali Municipality || 9
+|-
+| Bagmati || Kathmandu || काठमाडौँ || Kathmandu || 395 || Gokarneshwor Municipality || 9
+|-
+| Bagmati || Kathmandu || काठमाडौँ || Kathmandu || 395 || Kageshwori Manahara Municipality || 9
+|-
+| Bagmati || Kathmandu || काठमाडौँ || Kathmandu || 395 || Shankharapur Municipality || 9
+|-
+| Bagmati || Kavrepalanchok || काभ्रेपलान्चोक || Dhulikhel || 1396 || Banepa Municipality || 14
+|-
+| Bagmati || Kavrepalanchok || काभ्रेपलान्चोक || Dhulikhel || 1396 || Panchkhal Municipality || 13
+|-
+| Bagmati || Kavrepalanchok || काभ्रेपलान्चोक || Dhulikhel || 1396 || Dhulikhel Municipality || 12
+|-
+| Bagmati || Kavrepalanchok || काभ्रेपलान्चोक || Dhulikhel || 1396 || Mandan Deupur Municipality || 12
+|-
+| Bagmati || Kavrepalanchok || काभ्रेपलान्चोक || Dhulikhel || 1396 || Panauti Municipality || 12
+|-
+| Bagmati || Kavrepalanchok || काभ्रेपलान्चोक || Dhulikhel || 1396 || Roshi Gaunpalika || 12
+|-
+| Bagmati || Kavrepalanchok || काभ्रेपलान्चोक || Dhulikhel || 1396 || Namobuddha Municipality || 11
+|-
+| Bagmati || Kavrepalanchok || काभ्रेपलान्चोक || Dhulikhel || 1396 || Bhumlu Gaunpalika || 10
+|-
+| Bagmati || Kavrepalanchok || काभ्रेपलान्चोक || Dhulikhel || 1396 || Chauri Deurali Gaunpalika || 9
+|-
+| Bagmati || Kavrepalanchok || काभ्रेपलान्चोक || Dhulikhel || 1396 || Temal Gaunpalika || 9
+|-
+| Bagmati || Kavrepalanchok || काभ्रेपलान्चोक || Dhulikhel || 1396 || Mahabharat Gaunpalika || 8
+|-
+| Bagmati || Kavrepalanchok || काभ्रेपलान्चोक || Dhulikhel || 1396 || Khanikhola Gaunpalika || 7
+|-
+| Bagmati || Kavrepalanchok || काभ्रेपलान्चोक || Dhulikhel || 1396 || Bethanchowk Gaunpalika || 6
+|-
+| Bagmati || Lalitpur || ललितपुर || Lalitpur || 385 || Lalitpur Metropolitan City || 29
+|-
+| Bagmati || Lalitpur || ललितपुर || Lalitpur || 385 || Godawari Municipality || 14
+|-
+| Bagmati || Lalitpur || ललितपुर || Lalitpur || 385 || Mahalaxmi Municipality || 10
+|-
+| Bagmati || Lalitpur || ललितपुर || Lalitpur || 385 || Bagmati Gaunpalika || 7
+|-
+| Bagmati || Lalitpur || ललितपुर || Lalitpur || 385 || Mahankal Gaunpalika || 6
+|-
+| Bagmati || Lalitpur || ललितपुर || Lalitpur || 385 || Konjyosom Gaunpalika || 5
+|-
+| Bagmati || Makwanpur || मकवानपुर || Hetauda || 2426 || Hetauda Sub-Metropolitan City || 19
+|-
+| Bagmati || Makwanpur || मकवानपुर || Hetauda || 2426 || Bakaiya Gaunpalika || 12
+|-
+| Bagmati || Makwanpur || मकवानपुर || Hetauda || 2426 || Thaha Municipality || 12
+|-
+| Bagmati || Makwanpur || मकवानपुर || Hetauda || 2426 || Kailash Gaunpalika || 10
+|-
+| Bagmati || Makwanpur || मकवानपुर || Hetauda || 2426 || Bagmati Gaunpalika || 9
+|-
+| Bagmati || Makwanpur || मकवानपुर || Hetauda || 2426 || Bhimphedi Gaunpalika || 9
+|-
+| Bagmati || Makwanpur || मकवानपुर || Hetauda || 2426 || Manahari Gaunpalika || 9
+|-
+| Bagmati || Makwanpur || मकवानपुर || Hetauda || 2426 || Raksirang Gaunpalika || 9
+|-
+| Bagmati || Makwanpur || मकवानपुर || Hetauda || 2426 || Makawanpurgadhi Gaunpalika || 8
+|-
+| Bagmati || Makwanpur || मकवानपुर || Hetauda || 2426 || Indrasarowar Gaunpalika || 5
+|-
+| Bagmati || Nuwakot || नुवाकोट || Bidur || 1121 || Belkotgadhi Municipality || 13
+|-
+| Bagmati || Nuwakot || नुवाकोट || Bidur || 1121 || Bidur Municipality || 13
+|-
+| Bagmati || Nuwakot || नुवाकोट || Bidur || 1121 || Kakani Gaunpalika || 8
+|-
+| Bagmati || Nuwakot || नुवाकोट || Bidur || 1121 || Shivapuri Gaunpalika || 8
+|-
+| Bagmati || Nuwakot || नुवाकोट || Bidur || 1121 || Dupcheshwor Gaunpalika || 7
+|-
+| Bagmati || Nuwakot || नुवाकोट || Bidur || 1121 || Likhu Gaunpalika || 6
+|-
+| Bagmati || Nuwakot || नुवाकोट || Bidur || 1121 || Myagang Gaunpalika || 6
+|-
+| Bagmati || Nuwakot || नुवाकोट || Bidur || 1121 || Tadi Gaunpalika || 6
+|-
+| Bagmati || Nuwakot || नुवाकोट || Bidur || 1121 || Tarakeshwor Gaunpalika || 6
+|-
+| Bagmati || Nuwakot || नुवाकोट || Bidur || 1121 || Kispang Gaunpalika || 5
+|-
+| Bagmati || Nuwakot || नुवाकोट || Bidur || 1121 || Panchakanya Gaunpalika || 5
+|-
+| Bagmati || Nuwakot || नुवाकोट || Bidur || 1121 || Suryagadhi Gaunpalika || 5
+|-
+| Bagmati || Ramechhap || रामेछाप || Manthali || 1546 || Manthali  Municipality || 14
+|-
+| Bagmati || Ramechhap || रामेछाप || Manthali || 1546 || Khandadevi Gaunpalika || 9
+|-
+| Bagmati || Ramechhap || रामेछाप || Manthali || 1546 || Ramechhap Municipality || 9
+|-
+| Bagmati || Ramechhap || रामेछाप || Manthali || 1546 || Doramba Gaunpalika || 7
+|-
+| Bagmati || Ramechhap || रामेछाप || Manthali || 1546 || Likhu Tamakoshi Gaunpalika || 7
+|-
+| Bagmati || Ramechhap || रामेछाप || Manthali || 1546 || Umakunda Gaunpalika || 7
+|-
+| Bagmati || Ramechhap || रामेछाप || Manthali || 1546 || Gokulganga Gaunpalika || 6
+|-
+| Bagmati || Ramechhap || रामेछाप || Manthali || 1546 || Sunapati Gaunpalika || 5
+|-
+| Bagmati || Rasuwa || रसुवा || Dhunche || 1544 || Gosaikunda Gaunpalika || 6
+|-
+| Bagmati || Rasuwa || रसुवा || Dhunche || 1544 || Naukunda Gaunpalika || 6
+|-
+| Bagmati || Rasuwa || रसुवा || Dhunche || 1544 || Aamachhodingmo Gaunpalika || 5
+|-
+| Bagmati || Rasuwa || रसुवा || Dhunche || 1544 || Kalika Gaunpalika || 5
+|-
+| Bagmati || Rasuwa || रसुवा || Dhunche || 1544 || Uttargaya Gaunpalika || 5
+|-
+| Bagmati || Sindhuli || सिन्धुली || Kamalamai || 2491 || Dudhouli Municipality || 14
+|-
+| Bagmati || Sindhuli || सिन्धुली || Kamalamai || 2491 || Kamalamai Municipality || 14
+|-
+| Bagmati || Sindhuli || सिन्धुली || Kamalamai || 2491 || Tinpatan Gaunpalika || 11
+|-
+| Bagmati || Sindhuli || सिन्धुली || Kamalamai || 2491 || Hariharpurgaghi Gaunpalika || 8
+|-
+| Bagmati || Sindhuli || सिन्धुली || Kamalamai || 2491 || Golanjor Gaunpalika || 7
+|-
+| Bagmati || Sindhuli || सिन्धुली || Kamalamai || 2491 || Marin Gaunpalika || 7
+|-
+| Bagmati || Sindhuli || सिन्धुली || Kamalamai || 2491 || Sunkoshi Gaunpalika || 7
+|-
+| Bagmati || Sindhuli || सिन्धुली || Kamalamai || 2491 || Phikkal Gaunpalika || 6
+|-
+| Bagmati || Sindhuli || सिन्धुली || Kamalamai || 2491 || Ghyanglekha Gaunpalika || 5
+|-
+| Bagmati || Sindhupalchok || सिन्धुपाल्चोक || Chautara || 2542 || Choutara Sangachowkgadhi Municipality || 14
+|-
+| Bagmati || Sindhupalchok || सिन्धुपाल्चोक || Chautara || 2542 || Melanchi Municipality || 13
+|-
+| Bagmati || Sindhupalchok || सिन्धुपाल्चोक || Chautara || 2542 || Indrawoti Gaunpalika || 12
+|-
+| Bagmati || Sindhupalchok || सिन्धुपाल्चोक || Chautara || 2542 || Bahrabise Municipality || 9
+|-
+| Bagmati || Sindhupalchok || सिन्धुपाल्चोक || Chautara || 2542 || Balephi Gaunpalika || 8
+|-
+| Bagmati || Sindhupalchok || सिन्धुपाल्चोक || Chautara || 2542 || Panchpokhari Thangpal Gaunpalika || 8
+|-
+| Bagmati || Sindhupalchok || सिन्धुपाल्चोक || Chautara || 2542 || Helambu Gaunpalika || 7
+|-
+| Bagmati || Sindhupalchok || सिन्धुपाल्चोक || Chautara || 2542 || Jugal Gaunpalika || 7
+|-
+| Bagmati || Sindhupalchok || सिन्धुपाल्चोक || Chautara || 2542 || Lisankhu Pakhar Gaunpalika || 7
+|-
+| Bagmati || Sindhupalchok || सिन्धुपाल्चोक || Chautara || 2542 || Sunkoshi Gaunpalika || 7
+|-
+| Bagmati || Sindhupalchok || सिन्धुपाल्चोक || Chautara || 2542 || Tripurasundari Gaunpalika || 6
+|-
+| Bagmati || Sindhupalchok || सिन्धुपाल्चोक || Chautara || 2542 || Bhotekoshi Gaunpalika || 5
+|
+|-
+| Gandaki || Baglung || बागलुङ || Baglung || 1784 || Baglung Municipality || 14
+|-
+| Gandaki || Baglung || बागलुङ || Baglung || 1784 || Galkot Municipality || 11
+|-
+| Gandaki || Baglung || बागलुङ || Baglung || 1784 || Badigad Gaunpalika || 10
+|-
+| Gandaki || Baglung || बागलुङ || Baglung || 1784 || Jaimuni Municipality || 10
+|-
+| Gandaki || Baglung || बागलुङ || Baglung || 1784 || Dhorpatan Municipality || 9
+|-
+| Gandaki || Baglung || बागलुङ || Baglung || 1784 || Kathekhola Gaunpalika || 8
+|-
+| Gandaki || Baglung || बागलुङ || Baglung || 1784 || Nisikhola Gaunpalika || 7
+|-
+| Gandaki || Baglung || बागलुङ || Baglung || 1784 || Tamankhola Gaunpalika || 6
+|-
+| Gandaki || Baglung || बागलुङ || Baglung || 1784 || Bareng Gaunpalika || 5
+|-
+| Gandaki || Baglung || बागलुङ || Baglung || 1784 || Tarakhola Gaunpalika || 5
+|-
+| Gandaki || Gorkha || गोरखा || Gorkha || 3610 || Gorkha Municipality || 14
+|-
+| Gandaki || Gorkha || गोरखा || Gorkha || 3610 || Aarughat Gaunpalika || 10
+|-
+| Gandaki || Gorkha || गोरखा || Gorkha || 3610 || Palungtar Municipality || 10
+|-
+| Gandaki || Gorkha || गोरखा || Gorkha || 3610 || Shahid Lakhan Gaunpalika || 9
+|-
+| Gandaki || Gorkha || गोरखा || Gorkha || 3610 || Barpak Sulikot Gaunpalika || 8
+|-
+| Gandaki || Gorkha || गोरखा || Gorkha || 3610 || Bhimsenthapa Gaunpalika || 8
+|-
+| Gandaki || Gorkha || गोरखा || Gorkha || 3610 || Gandaki Gaunpalika || 8
+|-
+| Gandaki || Gorkha || गोरखा || Gorkha || 3610 || Siranchowk Gaunpalika || 8
+|-
+| Gandaki || Gorkha || गोरखा || Gorkha || 3610 || Chumanubri Gaunpalika || 7
+|-
+| Gandaki || Gorkha || गोरखा || Gorkha || 3610 || Dharche Gaunpalika || 7
+|-
+| Gandaki || Gorkha || गोरखा || Gorkha || 3610 || Ajirkot Gaunpalika || 5
+|-
+| Gandaki || Kaski || कास्की || Pokhara || 2017 || Pokhara Metropolitan City || 33
+|-
+| Gandaki || Kaski || कास्की || Pokhara || 2017 || Madi Gaunpalika || 12
+|-
+| Gandaki || Kaski || कास्की || Pokhara || 2017 || Annapurna Gaunpalika || 11
+|-
+| Gandaki || Kaski || कास्की || Pokhara || 2017 || Machhapuchchhre Gaunpalika || 9
+|-
+| Gandaki || Kaski || कास्की || Pokhara || 2017 || Rupa Gaunpalika || 7
+|-
+| Gandaki || Lamjung || लमजुङ || Besisahar || 1692 || Bensishahar Municipality || 11
+|-
+| Gandaki || Lamjung || लमजुङ || Besisahar || 1692 || Sundarbazar Municipality || 11
+|-
+| Gandaki || Lamjung || लमजुङ || Besisahar || 1692 || Madhya Nepal Municipality || 10
+|-
+| Gandaki || Lamjung || लमजुङ || Besisahar || 1692 || Rainas Municipality || 10
+|-
+| Gandaki || Lamjung || लमजुङ || Besisahar || 1692 || Dordi Gaunpalika || 9
+|-
+| Gandaki || Lamjung || लमजुङ || Besisahar || 1692 || Kwhola Sothar Gaunpalika || 9
+|-
+| Gandaki || Lamjung || लमजुङ || Besisahar || 1692 || Marshyangdi Gaunpalika || 9
+|-
+| Gandaki || Lamjung || लमजुङ || Besisahar || 1692 || Dudhapokhari Gaunpalika || 6
+|-
+| Gandaki || Manang || मनाङ || Chame || 2246 || Manang Ngisyang Gaunpalika || 9
+|-
+| Gandaki || Manang || मनाङ || Chame || 2246 || Nason Gaunpalika || 9
+|-
+| Gandaki || Manang || मनाङ || Chame || 2246 || Chame Gaunpalika || 5
+|-
+| Gandaki || Manang || मनाङ || Chame || 2246 || Narpa Bhumi Gaunpalika || 5
+|-
+| Gandaki || Mustang || मुस्ताङ || Jomsom || 3573 || Gharpajhong Gaunpalika || 5
+|-
+| Gandaki || Mustang || मुस्ताङ || Jomsom || 3573 || Lo Ghekar Damodarkunda Gaunpalika || 5
+|-
+| Gandaki || Mustang || मुस्ताङ || Jomsom || 3573 || Lomanthang Gaunpalika || 5
+|-
+| Gandaki || Mustang || मुस्ताङ || Jomsom || 3573 || Thasang Gaunpalika || 5
+|-
+| Gandaki || Mustang || मुस्ताङ || Jomsom || 3573 || Varagung Muktichhetra Gaunpalika || 5
+|-
+| Gandaki || Myagdi || म्याग्दी || Beni || 2297 || Beni Municipality || 10
+|-
+| Gandaki || Myagdi || म्याग्दी || Beni || 2297 || Annapurna Gaunpalika || 8
+|-
+| Gandaki || Myagdi || म्याग्दी || Beni || 2297 || Raghuganga Gaunpalika || 8
+|-
+| Gandaki || Myagdi || म्याग्दी || Beni || 2297 || Dhawalagiri Gaunpalika || 7
+|-
+| Gandaki || Myagdi || म्याग्दी || Beni || 2297 || Malika Gaunpalika || 7
+|-
+| Gandaki || Myagdi || म्याग्दी || Beni || 2297 || Mangala Gaunpalika || 5
+|-
+| Gandaki || Nawalpur || नवलपुर || Kawasoti || 1043.1 || Gaidakot Municipality || 18
+|-
+| Gandaki || Nawalpur || नवलपुर || Kawasoti || 1043.1 || Devchuli Municipality || 17
+|-
+| Gandaki || Nawalpur || नवलपुर || Kawasoti || 1043.1 || Kawasoti Municipality || 17
+|-
+| Gandaki || Nawalpur || नवलपुर || Kawasoti || 1043.1 || Madhya Bindu Municipality || 15
+|-
+| Gandaki || Nawalpur || नवलपुर || Kawasoti || 1043.1 || Binayi Tribeni Gaunpalika || 7
+|-
+| Gandaki || Nawalpur || नवलपुर || Kawasoti || 1043.1 || Baudikali Gaunpalika || 6
+|-
+| Gandaki || Nawalpur || नवलपुर || Kawasoti || 1043.1 || Bulingtar Gaunpalika || 6
+|-
+| Gandaki || Nawalpur || नवलपुर || Kawasoti || 1043.1 || Hupsekot Gaunpalika || 6
+|-
+| Gandaki || Parbat || पर्वत || Kusma || 494 || Kushma Municipality || 14
+|-
+| Gandaki || Parbat || पर्वत || Kusma || 494 || Phalebas Municipality || 11
+|-
+| Gandaki || Parbat || पर्वत || Kusma || 494 || Jaljala Gaunpalika || 9
+|-
+| Gandaki || Parbat || पर्वत || Kusma || 494 || Modi Gaunpalika || 8
+|-
+| Gandaki || Parbat || पर्वत || Kusma || 494 || Paiyu Gaunpalika || 7
+|-
+| Gandaki || Parbat || पर्वत || Kusma || 494 || Bihadi Gaunpalika || 6
+|-
+| Gandaki || Parbat || पर्वत || Kusma || 494 || Mahashila Gaunpalika || 6
+|-
+| Gandaki || Syangja || स्याङग्जा || Putalibazar || 1164 || Putalibazar Municipality || 14
+|-
+| Gandaki || Syangja || स्याङग्जा || Putalibazar || 1164 || Walling Municipality || 14
+|-
+| Gandaki || Syangja || स्याङग्जा || Putalibazar || 1164 || Galyang Municipality || 11
+|-
+| Gandaki || Syangja || स्याङग्जा || Putalibazar || 1164 || Chapakot Municipality || 10
+|-
+| Gandaki || Syangja || स्याङग्जा || Putalibazar || 1164 || Bhirkot Municipality || 9
+|-
+| Gandaki || Syangja || स्याङग्जा || Putalibazar || 1164 || Biruwa Gaunpalika || 8
+|-
+| Gandaki || Syangja || स्याङग्जा || Putalibazar || 1164 || Harinas Gaunpalika || 7
+|-
+| Gandaki || Syangja || स्याङग्जा || Putalibazar || 1164 || Kaligandaki Gaunpalika || 7
+|-
+| Gandaki || Syangja || स्याङग्जा || Putalibazar || 1164 || Aandhikhola Gaunpalika || 6
+|-
+| Gandaki || Syangja || स्याङग्जा || Putalibazar || 1164 || Arjun Choupari Gaunpalika || 6
+|-
+| Gandaki || Syangja || स्याङग्जा || Putalibazar || 1164 || Phedikhola Gaunpalika || 5
+|-
+| Gandaki || Tanahu || तनहुँ || Damauli || 1546 || Byas Municipality || 14
+|-
+| Gandaki || Tanahu || तनहुँ || Damauli || 1546 || Bhanu Municipality || 13
+|-
+| Gandaki || Tanahu || तनहुँ || Damauli || 1546 || Shuklagandaki Municipality || 12
+|-
+| Gandaki || Tanahu || तनहुँ || Damauli || 1546 || Bhimad Municipality || 9
+|-
+| Gandaki || Tanahu || तनहुँ || Damauli || 1546 || Rhishing Gaunpalika || 8
+|-
+| Gandaki || Tanahu || तनहुँ || Damauli || 1546 || Myagde Gaunpalika || 7
+|-
+| Gandaki || Tanahu || तनहुँ || Damauli || 1546 || Aanbu Khaireni Gaunpalika || 6
+|-
+| Gandaki || Tanahu || तनहुँ || Damauli || 1546 || Bandipur Gaunpalika || 6
+|-
+| Gandaki || Tanahu || तनहुँ || Damauli || 1546 || Devghat Gaunpalika || 5
+|-
+| Gandaki || Tanahu || तनहुँ || Damauli || 1546 || Ghiring Gaunpalika || 5
+|
+|-
+| Lumbini || Arghakhanchi || अर्घाखाँची || Sandhikharka || 1193 || Shitaganga Municipality || 14
+|-
+| Lumbini || Arghakhanchi || अर्घाखाँची || Sandhikharka || 1193 || Sandhikharka Municipality || 12
+|-
+| Lumbini || Arghakhanchi || अर्घाखाँची || Sandhikharka || 1193 || Bhumikasthan Municipality || 10
+|-
+| Lumbini || Arghakhanchi || अर्घाखाँची || Sandhikharka || 1193 || Malarani Gaunpalika || 9
+|-
+| Lumbini || Arghakhanchi || अर्घाखाँची || Sandhikharka || 1193 || Chhatradev Gaunpalika || 8
+|-
+| Lumbini || Arghakhanchi || अर्घाखाँची || Sandhikharka || 1193 || Panini Gaunpalika || 8
+|-
+| Lumbini || Banke || बाँके || Nepalganj || 2337 || Nepalganj Sub-Metropolitan City || 23
+|-
+| Lumbini || Banke || बाँके || Nepalganj || 2337 || Kohalpur Municipality || 15
+|-
+| Lumbini || Banke || बाँके || Nepalganj || 2337 || Rapti Sonari Gaunpalika || 9
+|-
+| Lumbini || Banke || बाँके || Nepalganj || 2337 || Baijanath Gaunpalika || 8
+|-
+| Lumbini || Banke || बाँके || Nepalganj || 2337 || Khajura Gaunpalika || 8
+|-
+| Lumbini || Banke || बाँके || Nepalganj || 2337 || Duduwa Gaunpalika || 6
+|-
+| Lumbini || Banke || बाँके || Nepalganj || 2337 || Janaki Gaunpalika || 6
+|-
+| Lumbini || Banke || बाँके || Nepalganj || 2337 || Narainapur Gaunpalika || 6
+|-
+| Lumbini || Bardiya || बर्दिया || Gulariya || 2025 || Gulariya Municipality || 12
+|-
+| Lumbini || Bardiya || बर्दिया || Gulariya || 2025 || Barbardiya Municipality || 11
+|-
+| Lumbini || Bardiya || बर्दिया || Gulariya || 2025 || Rajapur Municipality || 10
+|-
+| Lumbini || Bardiya || बर्दिया || Gulariya || 2025 || Badhaiyatal Gaunpalika || 9
+|-
+| Lumbini || Bardiya || बर्दिया || Gulariya || 2025 || Bansgadhi Municipality || 9
+|-
+| Lumbini || Bardiya || बर्दिया || Gulariya || 2025 || Madhuwan Municipality || 9
+|-
+| Lumbini || Bardiya || बर्दिया || Gulariya || 2025 || Thakurbaba Municipality || 9
+|-
+| Lumbini || Bardiya || बर्दिया || Gulariya || 2025 || Geruwa Gaunpalika || 6
+|-
+| Lumbini || Dang || दाङ || Ghorahi || 2955 || Ghorahi Sub-Metropolitan City || 19
+|-
+| Lumbini || Dang || दाङ || Ghorahi || 2955 || Tulsipur Sub-Metropolitan City || 19
+|-
+| Lumbini || Dang || दाङ || Ghorahi || 2955 || Lamahi Municipality || 9
+|-
+| Lumbini || Dang || दाङ || Ghorahi || 2955 || Rapti Gaunpalika || 9
+|-
+| Lumbini || Dang || दाङ || Ghorahi || 2955 || Bangalachuli Gaunpalika || 8
+|-
+| Lumbini || Dang || दाङ || Ghorahi || 2955 || Gadhawa Gaunpalika || 8
+|-
+| Lumbini || Dang || दाङ || Ghorahi || 2955 || Babai Gaunpalika || 7
+|-
+| Lumbini || Dang || दाङ || Ghorahi || 2955 || Dangisharan Gaunpalika || 7
+|-
+| Lumbini || Dang || दाङ || Ghorahi || 2955 || Rajpur Gaunpalika || 7
+|-
+| Lumbini || Dang || दाङ || Ghorahi || 2955 || Shantinagar Gaunpalika || 7
+|-
+| Lumbini || Gulmi || गुल्मी || Tamghas || 1149 || Resunga Municipality || 14
+|-
+| Lumbini || Gulmi || गुल्मी || Tamghas || 1149 || Musikot Municipality || 9
+|-
+| Lumbini || Gulmi || गुल्मी || Tamghas || 1149 || Chandrakot Gaunpalika || 8
+|-
+| Lumbini || Gulmi || गुल्मी || Tamghas || 1149 || Malika Gaunpalika || 8
+|-
+| Lumbini || Gulmi || गुल्मी || Tamghas || 1149 || Satyawoti Gaunpalika || 8
+|-
+| Lumbini || Gulmi || गुल्मी || Tamghas || 1149 || Dhurkot Gaunpalika || 7
+|-
+| Lumbini || Gulmi || गुल्मी || Tamghas || 1149 || Gulmi Durbar Gaunpalika || 7
+|-
+| Lumbini || Gulmi || गुल्मी || Tamghas || 1149 || Kali Gandaki Gaunpalika || 7
+|-
+| Lumbini || Gulmi || गुल्मी || Tamghas || 1149 || Madane Gaunpalika || 7
+|-
+| Lumbini || Gulmi || गुल्मी || Tamghas || 1149 || Chhatrakot Gaunpalika || 6
+|-
+| Lumbini || Gulmi || गुल्मी || Tamghas || 1149 || Isma Gaunpalika || 6
+|-
+| Lumbini || Gulmi || गुल्मी || Tamghas || 1149 || Ruruchhetra Gaunpalika || 6
+|-
+| Lumbini || Kapilbastu || कपिलवस्तु || Taulihawa || 1738 || Kapilbastu Municipality || 12
+|-
+| Lumbini || Kapilbastu || कपिलवस्तु || Taulihawa || 1738 || Krishnanagar Municipality || 12
+|-
+| Lumbini || Kapilbastu || कपिलवस्तु || Taulihawa || 1738 || Banganga Municipality || 11
+|-
+| Lumbini || Kapilbastu || कपिलवस्तु || Taulihawa || 1738 || Maharajganj Municipality || 11
+|-
+| Lumbini || Kapilbastu || कपिलवस्तु || Taulihawa || 1738 || Shivaraj Municipality || 11
+|-
+| Lumbini || Kapilbastu || कपिलवस्तु || Taulihawa || 1738 || Buddhabhumi Municipality || 10
+|-
+| Lumbini || Kapilbastu || कपिलवस्तु || Taulihawa || 1738 || Mayadevi Gaunpalika || 8
+|-
+| Lumbini || Kapilbastu || कपिलवस्तु || Taulihawa || 1738 || Yasodhara Gaunpalika || 8
+|-
+| Lumbini || Kapilbastu || कपिलवस्तु || Taulihawa || 1738 || Bijayanagar Gaunpalika || 7
+|-
+| Lumbini || Kapilbastu || कपिलवस्तु || Taulihawa || 1738 || Shuddhodhan Gaunpalika || 6
+|-
+| Lumbini || Palpa || पाल्पा || Tansen || 1373 || Tansen Municipality || 14
+|-
+| Lumbini || Palpa || पाल्पा || Tansen || 1373 || Rampur Municipality || 10
+|-
+| Lumbini || Palpa || पाल्पा || Tansen || 1373 || Baganaskali Gaunpalika || 9
+|-
+| Lumbini || Palpa || पाल्पा || Tansen || 1373 || Mathagadhi Gaunpalika || 8
+|-
+| Lumbini || Palpa || पाल्पा || Tansen || 1373 || Rainadevi Chhahara Gaunpalika || 8
+|-
+| Lumbini || Palpa || पाल्पा || Tansen || 1373 || Ribdikot Gaunpalika || 8
+|-
+| Lumbini || Palpa || पाल्पा || Tansen || 1373 || Nisdi Gaunpalika || 7
+|-
+| Lumbini || Palpa || पाल्पा || Tansen || 1373 || Purbakhola Gaunpalika || 6
+|-
+| Lumbini || Palpa || पाल्पा || Tansen || 1373 || Tinau Gaunpalika || 6
+|-
+| Lumbini || Palpa || पाल्पा || Tansen || 1373 || Rambha Gaunpalika || 5
+|-
+| Lumbini || Parasi || परासी || Ramgram || 634.88 || Ramgram Municipality || 18
+|-
+| Lumbini || Parasi || परासी || Ramgram || 634.88 || Bardaghat Municipality || 16
+|-
+| Lumbini || Parasi || परासी || Ramgram || 634.88 || Sunawal Municipality || 13
+|-
+| Lumbini || Parasi || परासी || Ramgram || 634.88 || Pratapapur Gaunpalika || 9
+|-
+| Lumbini || Parasi || परासी || Ramgram || 634.88 || Sarawal Gaunpalika || 7
+|-
+| Lumbini || Parasi || परासी || Ramgram || 634.88 || Palhinandan Gaunpalika || 6
+|-
+| Lumbini || Parasi || परासी || Ramgram || 634.88 || Susta Gaunpalika || 5
+|-
+| Lumbini || Pyuthan || प्युठान || Pyuthan || 1309 || Pyuthan Municipality || 10
+|-
+| Lumbini || Pyuthan || प्युठान || Pyuthan || 1309 || Sworgadwari Municipality || 9
+|-
+| Lumbini || Pyuthan || प्युठान || Pyuthan || 1309 || Jhimaruk Gaunpalika || 8
+|-
+| Lumbini || Pyuthan || प्युठान || Pyuthan || 1309 || Naubahini Gaunpalika || 8
+|-
+| Lumbini || Pyuthan || प्युठान || Pyuthan || 1309 || Gaumukhi Gaunpalika || 7
+|-
+| Lumbini || Pyuthan || प्युठान || Pyuthan || 1309 || Aairawati Gaunpalika || 6
+|-
+| Lumbini || Pyuthan || प्युठान || Pyuthan || 1309 || Sarumarani Gaunpalika || 6
+|-
+| Lumbini || Pyuthan || प्युठान || Pyuthan || 1309 || Mallarani Gaunpalika || 5
+|-
+| Lumbini || Pyuthan || प्युठान || Pyuthan || 1309 || Mandavi Gaunpalika || 5
+|-
+| Lumbini || Rolpa || रोल्पा || Liwang || 1879 || Rolpa Municipality || 10
+|-
+| Lumbini || Rolpa || रोल्पा || Liwang || 1879 || Runtigadhi Gaunpalika || 9
+|-
+| Lumbini || Rolpa || रोल्पा || Liwang || 1879 || Sunil Smriti Gaunpalika || 8
+|-
+| Lumbini || Rolpa || रोल्पा || Liwang || 1879 || Gangadev Gaunpalika || 7
+|-
+| Lumbini || Rolpa || रोल्पा || Liwang || 1879 || Lungri Gaunpalika || 7
+|-
+| Lumbini || Rolpa || रोल्पा || Liwang || 1879 || Sunchhahari Gaunpalika || 7
+|-
+| Lumbini || Rolpa || रोल्पा || Liwang || 1879 || Tribeni Gaunpalika || 7
+|-
+| Lumbini || Rolpa || रोल्पा || Liwang || 1879 || Madi Gaunpalika || 6
+|-
+| Lumbini || Rolpa || रोल्पा || Liwang || 1879 || Pariwartan Gaunpalika || 6
+|-
+| Lumbini || Rolpa || रोल्पा || Liwang || 1879 || Thawang Gaunpalika || 5
+|-
+| Lumbini || Rukum (East) || पूर्वी रूकुम || Rukumkot || 1161.13 || Putha Uttanganga Gaunpalika || 14
+|-
+| Lumbini || Rukum (East) || पूर्वी रूकुम || Rukumkot || 1161.13 || Bhoome Gaunpalika || 9
+|-
+| Lumbini || Rukum (East) || पूर्वी रूकुम || Rukumkot || 1161.13 || Sisne Gaunpalika || 8
+|-
+| Lumbini || Rupandehi || रुपन्देही || Siddharthanagar || 1360 || Butwal Sub-Metropolitan City || 19
+|-
+| Lumbini || Rupandehi || रुपन्देही || Siddharthanagar || 1360 || Tilottama Municipality || 17
+|-
+| Lumbini || Rupandehi || रुपन्देही || Siddharthanagar || 1360 || Lumbini Sanskritik Municipality || 13
+|-
+| Lumbini || Rupandehi || रुपन्देही || Siddharthanagar || 1360 || Siddharthanagar Municipality || 13
+|-
+| Lumbini || Rupandehi || रुपन्देही || Siddharthanagar || 1360 || Devdaha Municipality || 12
+|-
+| Lumbini || Rupandehi || रुपन्देही || Siddharthanagar || 1360 || Sainamaina Municipality || 11
+|-
+| Lumbini || Rupandehi || रुपन्देही || Siddharthanagar || 1360 || Gaidahawa Gaunpalika || 9
+|-
+| Lumbini || Rupandehi || रुपन्देही || Siddharthanagar || 1360 || Mayadevi Gaunpalika || 8
+|-
+| Lumbini || Rupandehi || रुपन्देही || Siddharthanagar || 1360 || Kotahimai Gaunpalika || 7
+|-
+| Lumbini || Rupandehi || रुपन्देही || Siddharthanagar || 1360 || Marchawari Gaunpalika || 7
+|-
+| Lumbini || Rupandehi || रुपन्देही || Siddharthanagar || 1360 || Rohini Gaunpalika || 7
+|-
+| Lumbini || Rupandehi || रुपन्देही || Siddharthanagar || 1360 || Sammarimai Gaunpalika || 7
+|-
+| Lumbini || Rupandehi || रुपन्देही || Siddharthanagar || 1360 || Siyari Gaunpalika || 7
+|-
+| Lumbini || Rupandehi || रुपन्देही || Siddharthanagar || 1360 || Suddhodhan Gaunpalika || 7
+|-
+| Lumbini || Rupandehi || रुपन्देही || Siddharthanagar || 1360 || Om Satiya Gaunpalika || 6
+|-
+| Lumbini || Rupandehi || रुपन्देही || Siddharthanagar || 1360 || Kanchan Gaunpalika || 5
+|
+|-
+| Karnali || Dailekh || दैलेख || Narayan || 1502 || Dullu Municipality || 13
+|-
+| Karnali || Dailekh || दैलेख || Narayan || 1502 || Narayan Municipality || 11
+|-
+| Karnali || Dailekh || दैलेख || Narayan || 1502 || Aathbis Municipality || 9
+|-
+| Karnali || Dailekh || दैलेख || Narayan || 1502 || Chamunda Bindrasaini Municipality || 9
+|-
+| Karnali || Dailekh || दैलेख || Narayan || 1502 || Gurans Gaunpalika || 8
+|-
+| Karnali || Dailekh || दैलेख || Narayan || 1502 || Naumule Gaunpalika || 8
+|-
+| Karnali || Dailekh || दैलेख || Narayan || 1502 || Bhagawatimai Gaunpalika || 7
+|-
+| Karnali || Dailekh || दैलेख || Narayan || 1502 || Bhairabi Gaunpalika || 7
+|-
+| Karnali || Dailekh || दैलेख || Narayan || 1502 || Dungeshwor Gaunpalika || 6
+|-
+| Karnali || Dailekh || दैलेख || Narayan || 1502 || Mahabu Gaunpalika || 6
+|-
+| Karnali || Dailekh || दैलेख || Narayan || 1502 || Thantikandh Gaunpalika || 6
+|-
+| Karnali || Dolpa || डोल्पा || Dunai || 7889 || Thulibheri Municipality || 11
+|-
+| Karnali || Dolpa || डोल्पा || Dunai || 7889 || Tripurasundari Municipality || 11
+|-
+| Karnali || Dolpa || डोल्पा || Dunai || 7889 || Mudkechula Gaunpalika || 9
+|-
+| Karnali || Dolpa || डोल्पा || Dunai || 7889 || Shey Phoksundo Gaunpalika || 9
+|-
+| Karnali || Dolpa || डोल्पा || Dunai || 7889 || Kaike Gaunpalika || 7
+|-
+| Karnali || Dolpa || डोल्पा || Dunai || 7889 || Chharka Tangsong Gaunpalika || 6
+|-
+| Karnali || Dolpa || डोल्पा || Dunai || 7889 || Dolpo Buddha Gaunpalika || 6
+|-
+| Karnali || Dolpa || डोल्पा || Dunai || 7889 || Jagadulla Gaunpalika || 6
+|-
+| Karnali || Humla || हुम्ला || Simikot || 5655 || Sarkegad Gaunpalika || 8
+|-
+| Karnali || Humla || हुम्ला || Simikot || 5655 || Simkot Gaunpalika || 8
+|-
+| Karnali || Humla || हुम्ला || Simikot || 5655 || Adanchuli Gaunpalika || 6
+|-
+| Karnali || Humla || हुम्ला || Simikot || 5655 || Chankheli Gaunpalika || 6
+|-
+| Karnali || Humla || हुम्ला || Simikot || 5655 || Namkha Gaunpalika || 6
+|-
+| Karnali || Humla || हुम्ला || Simikot || 5655 || Kharpunath Gaunpalika || 5
+|-
+| Karnali || Humla || हुम्ला || Simikot || 5655 || Tanjakot Gaunpalika || 5
+|-
+| Karnali || Jajarkot || जाजरकोट || Khalanga || 2230 || Bheri Malika Municipality || 13
+|-
+| Karnali || Jajarkot || जाजरकोट || Khalanga || 2230 || Chhedagad Municipality || 13
+|-
+| Karnali || Jajarkot || जाजरकोट || Khalanga || 2230 || Nalgad Municipality || 13
+|-
+| Karnali || Jajarkot || जाजरकोट || Khalanga || 2230 || Junichande Gaunpalika || 11
+|-
+| Karnali || Jajarkot || जाजरकोट || Khalanga || 2230 || Barekot Gaunpalika || 9
+|-
+| Karnali || Jajarkot || जाजरकोट || Khalanga || 2230 || Kuse Gaunpalika || 9
+|-
+| Karnali || Jajarkot || जाजरकोट || Khalanga || 2230 || Shivalaya Gaunpalika || 9
+|-
+| Karnali || Jumla || जुम्ला || Chandannath || 2531 || Chandannath Municipality || 10
+|-
+| Karnali || Jumla || जुम्ला || Chandannath || 2531 || Tila Gaunpalika || 9
+|-
+| Karnali || Jumla || जुम्ला || Chandannath || 2531 || Kanaka Sundari Gaunpalika || 8
+|-
+| Karnali || Jumla || जुम्ला || Chandannath || 2531 || Tatopani Gaunpalika || 8
+|-
+| Karnali || Jumla || जुम्ला || Chandannath || 2531 || Hima Gaunpalika || 7
+|-
+| Karnali || Jumla || जुम्ला || Chandannath || 2531 || Patarasi Gaunpalika || 7
+|-
+| Karnali || Jumla || जुम्ला || Chandannath || 2531 || Sinja Gaunpalika || 6
+|-
+| Karnali || Jumla || जुम्ला || Chandannath || 2531 || Guthichaur Gaunpalika || 5
+|-
+| Karnali || Kalikot || कालिकोट || Manma || 1741 || Khandachakra Municipality || 11
+|-
+| Karnali || Kalikot || कालिकोट || Manma || 1741 || Tilagupha Municipality || 11
+|-
+| Karnali || Kalikot || कालिकोट || Manma || 1741 || Naraharinath Gaunpalika || 9
+|-
+| Karnali || Kalikot || कालिकोट || Manma || 1741 || Pachal Jharana Gaunpalika || 9
+|-
+| Karnali || Kalikot || कालिकोट || Manma || 1741 || Palata Gaunpalika || 9
+|-
+| Karnali || Kalikot || कालिकोट || Manma || 1741 || Raskot Municipality || 9
+|-
+| Karnali || Kalikot || कालिकोट || Manma || 1741 || Sanni Tribeni Gaunpalika || 9
+|-
+| Karnali || Kalikot || कालिकोट || Manma || 1741 || Shuva Kalika Gaunpalika || 8
+|-
+| Karnali || Kalikot || कालिकोट || Manma || 1741 || Mahawai Gaunpalika || 7
+|-
+| Karnali || Mugu || मुगु || Gamgadhi || 3535 || Chhayanath Rara Municipality || 14
+|-
+| Karnali || Mugu || मुगु || Gamgadhi || 3535 || Khatyad Gaunpalika || 11
+|-
+| Karnali || Mugu || मुगु || Gamgadhi || 3535 || Soru Gaunpalika || 11
+|-
+| Karnali || Mugu || मुगु || Gamgadhi || 3535 || Mugumakarmarog Gaunpalika || 9
+|-
+| Karnali || Rukum (West) || पश्चिमी रूकुम || Musikot || 1213.49 || Aathabisakot Municipality || 14
+|-
+| Karnali || Rukum (West) || पश्चिमी रूकुम || Musikot || 1213.49 || Chaurjahari Municipality || 14
+|-
+| Karnali || Rukum (West) || पश्चिमी रूकुम || Musikot || 1213.49 || Musikot Municipality || 14
+|-
+| Karnali || Rukum (West) || पश्चिमी रूकुम || Musikot || 1213.49 || Sanibheri Gaunpalika || 11
+|-
+| Karnali || Rukum (West) || पश्चिमी रूकुम || Musikot || 1213.49 || Banphikot Gaunpalika || 10
+|-
+| Karnali || Rukum (West) || पश्चिमी रूकुम || Musikot || 1213.49 || Tribeni Gaunpalika || 10
+|-
+| Karnali || Salyan || सल्यान || Salyan || 1462 || Sharada Municipality || 15
+|-
+| Karnali || Salyan || सल्यान || Salyan || 1462 || Bagachour Municipality || 12
+|-
+| Karnali || Salyan || सल्यान || Salyan || 1462 || Banagad Kupinde Municipality || 12
+|-
+| Karnali || Salyan || सल्यान || Salyan || 1462 || Chhatreshwori Gaunpalika || 7
+|-
+| Karnali || Salyan || सल्यान || Salyan || 1462 || Kalimati Gaunpalika || 7
+|-
+| Karnali || Salyan || सल्यान || Salyan || 1462 || Kumakh Gaunpalika || 7
+|-
+| Karnali || Salyan || सल्यान || Salyan || 1462 || Darma Gaunpalika || 6
+|-
+| Karnali || Salyan || सल्यान || Salyan || 1462 || Kapurkot Gaunpalika || 6
+|-
+| Karnali || Salyan || सल्यान || Salyan || 1462 || Tribeni Gaunpalika || 6
+|-
+| Karnali || Salyan || सल्यान || Salyan || 1462 || Siddha Kumakh Gaunpalika || 5
+|-
+| Karnali || Surkhet || सुर्खेत || Birendranagar || 2451 || Birendranagar Municipality || 16
+|-
+| Karnali || Surkhet || सुर्खेत || Birendranagar || 2451 || Gurbhakot Municipality || 14
+|-
+| Karnali || Surkhet || सुर्खेत || Birendranagar || 2451 || Bheriganga Municipality || 13
+|-
+| Karnali || Surkhet || सुर्खेत || Birendranagar || 2451 || Panchapuri Municipality || 11
+|-
+| Karnali || Surkhet || सुर्खेत || Birendranagar || 2451 || Barahatal Gaunpalika || 10
+|-
+| Karnali || Surkhet || सुर्खेत || Birendranagar || 2451 || Chaukune Gaunpalika || 10
+|-
+| Karnali || Surkhet || सुर्खेत || Birendranagar || 2451 || Lekabeshi Municipality || 10
+|-
+| Karnali || Surkhet || सुर्खेत || Birendranagar || 2451 || Simta Gaunpalika || 9
+|-
+| Karnali || Surkhet || सुर्खेत || Birendranagar || 2451 || Chingad Gaunpalika || 6
+|
+|-
+| Sudurpaschim || Achham || अछाम || Mangalsen || 1680 || Mangalsen Municipality || 14
+|-
+| Sudurpaschim || Achham || अछाम || Mangalsen || 1680 || Sanphebagar Municipality || 14
+|-
+| Sudurpaschim || Achham || अछाम || Mangalsen || 1680 || Kamal bazar Municipality || 10
+|-
+| Sudurpaschim || Achham || अछाम || Mangalsen || 1680 || Panchdebal Binayak Municipality || 9
+|-
+| Sudurpaschim || Achham || अछाम || Mangalsen || 1680 || Dhakari Gaunpalika || 8
+|-
+| Sudurpaschim || Achham || अछाम || Mangalsen || 1680 || Mellekh Gaunpalika || 8
+|-
+| Sudurpaschim || Achham || अछाम || Mangalsen || 1680 || Turmakhand Gaunpalika || 8
+|-
+| Sudurpaschim || Achham || अछाम || Mangalsen || 1680 || Chaurpati Gaunpalika || 7
+|-
+| Sudurpaschim || Achham || अछाम || Mangalsen || 1680 || Ramaroshan Gaunpalika || 7
+|-
+| Sudurpaschim || Achham || अछाम || Mangalsen || 1680 || Bannigadhi Jayagadh Gaunpalika || 6
+|-
+| Sudurpaschim || Baitadi || बैतडी || Dasharathchand || 1519 || Dasharathchand Municipality || 11
+|-
+| Sudurpaschim || Baitadi || बैतडी || Dasharathchand || 1519 || Patan Municipality || 10
+|-
+| Sudurpaschim || Baitadi || बैतडी || Dasharathchand || 1519 || Puchaundi Municipality || 10
+|-
+| Sudurpaschim || Baitadi || बैतडी || Dasharathchand || 1519 || Melauli Municipality || 9
+|-
+| Sudurpaschim || Baitadi || बैतडी || Dasharathchand || 1519 || Sigas Gaunpalika || 9
+|-
+| Sudurpaschim || Baitadi || बैतडी || Dasharathchand || 1519 || Dogada Kedar Gaunpalika || 8
+|-
+| Sudurpaschim || Baitadi || बैतडी || Dasharathchand || 1519 || Surnaya Gaunpalika || 8
+|-
+| Sudurpaschim || Baitadi || बैतडी || Dasharathchand || 1519 || Dilasaini Gaunpalika || 7
+|-
+| Sudurpaschim || Baitadi || बैतडी || Dasharathchand || 1519 || Pancheshwor Gaunpalika || 6
+|-
+| Sudurpaschim || Baitadi || बैतडी || Dasharathchand || 1519 || Shivanath Gaunpalika || 6
+|-
+| Sudurpaschim || Bajhang || बझाङ || Jayaprithvi || 3422 || Bungal Municipality || 11
+|-
+| Sudurpaschim || Bajhang || बझाङ || Jayaprithvi || 3422 || Jayaprithbi Municipality || 11
+|-
+| Sudurpaschim || Bajhang || बझाङ || Jayaprithvi || 3422 || Bitthadchir Gaunpalika || 9
+|-
+| Sudurpaschim || Bajhang || बझाङ || Jayaprithvi || 3422 || Kedarsyun Gaunpalika || 9
+|-
+| Sudurpaschim || Bajhang || बझाङ || Jayaprithvi || 3422 || Thalara Gaunpalika || 9
+|-
+| Sudurpaschim || Bajhang || बझाङ || Jayaprithvi || 3422 || Chhabis Pathibhara Gaunpalika || 7
+|-
+| Sudurpaschim || Bajhang || बझाङ || Jayaprithvi || 3422 || Durgathali Gaunpalika || 7
+|-
+| Sudurpaschim || Bajhang || बझाङ || Jayaprithvi || 3422 || Khaptad Chhanna Gaunpalika || 7
+|-
+| Sudurpaschim || Bajhang || बझाङ || Jayaprithvi || 3422 || Masta Gaunpalika || 7
+|-
+| Sudurpaschim || Bajhang || बझाङ || Jayaprithvi || 3422 || Talkot Gaunpalika || 7
+|-
+| Sudurpaschim || Bajhang || बझाङ || Jayaprithvi || 3422 || Saipal Gaunpalika || 5
+|-
+| Sudurpaschim || Bajhang || बझाङ || Jayaprithvi || 3422 || Surma Gaunpalika || 5
+|-
+| Sudurpaschim || Bajura || बाजुरा || Martadi || 2188 || Budhiganga Municipality || 10
+|-
+| Sudurpaschim || Bajura || बाजुरा || Martadi || 2188 || Budhinanda Municipality || 10
+|-
+| Sudurpaschim || Bajura || बाजुरा || Martadi || 2188 || Badimalika Municipality || 9
+|-
+| Sudurpaschim || Bajura || बाजुरा || Martadi || 2188 || Tribeni Municipality || 9
+|-
+| Sudurpaschim || Bajura || बाजुरा || Martadi || 2188 || Himali Gaunpalika || 7
+|-
+| Sudurpaschim || Bajura || बाजुरा || Martadi || 2188 || Khaptad Chhededaha Gaunpalika || 7
+|-
+| Sudurpaschim || Bajura || बाजुरा || Martadi || 2188 || Gaumul Gaunpalika || 6
+|-
+| Sudurpaschim || Bajura || बाजुरा || Martadi || 2188 || Jagannath Gaunpalika || 6
+|-
+| Sudurpaschim || Bajura || बाजुरा || Martadi || 2188 || Swamikartik Khapar Gaunpalika || 5
+|-
+| Sudurpaschim || Dadeldhura || डडेलधुरा || Amargadhi || 1538 || Parashuram Municipality || 12
+|-
+| Sudurpaschim || Dadeldhura || डडेलधुरा || Amargadhi || 1538 || Amargadhi Municipality || 11
+|-
+| Sudurpaschim || Dadeldhura || डडेलधुरा || Amargadhi || 1538 || Aalital Gaunpalika || 8
+|-
+| Sudurpaschim || Dadeldhura || डडेलधुरा || Amargadhi || 1538 || Ajayameru Gaunpalika || 6
+|-
+| Sudurpaschim || Dadeldhura || डडेलधुरा || Amargadhi || 1538 || Bhageshwor Gaunpalika || 5
+|-
+| Sudurpaschim || Dadeldhura || डडेलधुरा || Amargadhi || 1538 || Ganyapdhura Gaunpalika || 5
+|-
+| Sudurpaschim || Dadeldhura || डडेलधुरा || Amargadhi || 1538 || Nawadurga Gaunpalika || 5
+|-
+| Sudurpaschim || Darchula || दार्चुला || Api || 2322 || Mahakali Municipality || 9
+|-
+| Sudurpaschim || Darchula || दार्चुला || Api || 2322 || Shailyashikhar Municipality || 9
+|-
+| Sudurpaschim || Darchula || दार्चुला || Api || 2322 || Malikarjun Gaunpalika || 8
+|-
+| Sudurpaschim || Darchula || दार्चुला || Api || 2322 || Apihimal Gaunpalika || 6
+|-
+| Sudurpaschim || Darchula || दार्चुला || Api || 2322 || Byas Gaunpalika || 6
+|-
+| Sudurpaschim || Darchula || दार्चुला || Api || 2322 || Lekam Gaunpalika || 6
+|-
+| Sudurpaschim || Darchula || दार्चुला || Api || 2322 || Marma Gaunpalika || 6
+|-
+| Sudurpaschim || Darchula || दार्चुला || Api || 2322 || Naugad  Gaunpalika || 6
+|-
+| Sudurpaschim || Darchula || दार्चुला || Api || 2322 || Duhun Gaunpalika || 5
+|-
+| Sudurpaschim || Doti || डोटी || Dipayal Silgadhi || 2025 || Shikhar Municipality || 11
+|-
+| Sudurpaschim || Doti || डोटी || Dipayal Silgadhi || 2025 || Dipayal Silgadhi Municipality || 9
+|-
+| Sudurpaschim || Doti || डोटी || Dipayal Silgadhi || 2025 || Aadarsha Gaunpalika || 7
+|-
+| Sudurpaschim || Doti || डोटी || Dipayal Silgadhi || 2025 || Bogatan Phudsil Gaunpalika || 7
+|-
+| Sudurpaschim || Doti || डोटी || Dipayal Silgadhi || 2025 || K.I. Singh Gaunpalika || 7
+|-
+| Sudurpaschim || Doti || डोटी || Dipayal Silgadhi || 2025 || Purbichouki Gaunpalika || 7
+|-
+| Sudurpaschim || Doti || डोटी || Dipayal Silgadhi || 2025 || Jorayal Gaunpalika || 6
+|-
+| Sudurpaschim || Doti || डोटी || Dipayal Silgadhi || 2025 || Sayal Gaunpalika || 6
+|-
+| Sudurpaschim || Doti || डोटी || Dipayal Silgadhi || 2025 || Badi Kedar Gaunpalika || 5
+|-
+| Sudurpaschim || Kailali || कैलाली || Dhangadhi || 3235 || Dhangadhi Sub-Metropolitan City || 19
+|-
+| Sudurpaschim || Kailali || कैलाली || Dhangadhi || 3235 || Ghodaghodi Municipality || 12
+|-
+| Sudurpaschim || Kailali || कैलाली || Dhangadhi || 3235 || Godawari Municipality || 12
+|-
+| Sudurpaschim || Kailali || कैलाली || Dhangadhi || 3235 || Gauriganga Municipality || 11
+|-
+| Sudurpaschim || Kailali || कैलाली || Dhangadhi || 3235 || Lamki Chuha Municipality || 10
+|-
+| Sudurpaschim || Kailali || कैलाली || Dhangadhi || 3235 || Bhajani Municipality || 9
+|-
+| Sudurpaschim || Kailali || कैलाली || Dhangadhi || 3235 || Janaki Gaunpalika || 9
+|-
+| Sudurpaschim || Kailali || कैलाली || Dhangadhi || 3235 || Kailari Gaunpalika || 9
+|-
+| Sudurpaschim || Kailali || कैलाली || Dhangadhi || 3235 || Tikapur Municipality || 9
+|-
+| Sudurpaschim || Kailali || कैलाली || Dhangadhi || 3235 || Joshipur Gaunpalika || 7
+|-
+| Sudurpaschim || Kailali || कैलाली || Dhangadhi || 3235 || Mohanyal Gaunpalika || 7
+|-
+| Sudurpaschim || Kailali || कैलाली || Dhangadhi || 3235 || Bardagoriya Gaunpalika || 6
+|-
+| Sudurpaschim || Kailali || कैलाली || Dhangadhi || 3235 || Chure Gaunpalika || 6
+|-
+| Sudurpaschim || Kanchanpur || कंचनपुर || Bhimdatta || 1610 || Bhimdatta Municipality || 19
+|-
+| Sudurpaschim || Kanchanpur || कंचनपुर || Bhimdatta || 1610 || Shuklaphanta Municipality || 12
+|-
+| Sudurpaschim || Kanchanpur || कंचनपुर || Bhimdatta || 1610 || Punarbas Municipality || 11
+|-
+| Sudurpaschim || Kanchanpur || कंचनपुर || Bhimdatta || 1610 || Bedkot Municipality || 10
+|-
+| Sudurpaschim || Kanchanpur || कंचनपुर || Bhimdatta || 1610 || Belouri Municipality || 10
+|-
+| Sudurpaschim || Kanchanpur || कंचनपुर || Bhimdatta || 1610 || Mahakali Municipality || 10
+|-
+| Sudurpaschim || Kanchanpur || कंचनपुर || Bhimdatta || 1610 || Krishnapur Municipality || 9
+|-
+| Sudurpaschim || Kanchanpur || कंचनपुर || Bhimdatta || 1610 || Laljhadi Gaunpalika || 6
+|-
+| Sudurpaschim || Kanchanpur || कंचनपुर || Bhimdatta || 1610 || Beldandi Gaunpalika || 5
+|}
+
