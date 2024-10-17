@@ -9,7 +9,8 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import TextField from "@mui/material/TextField";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { verifyOtp } from "../services/user"; // Import the service to verify OTP
+import { verifyOtp, resendOtp } from "../services/user"; // Import the service to verify OTP
+
 
 const defaultTheme = createTheme();
 
@@ -18,7 +19,9 @@ export default function OtpVerification() {
   const location = useLocation();
   const email = location.state?.email; // Get the email from the previous page's state
   const [otp, setOtp] = useState(["", "", "", ""]);
-  const [timer, setTimer] = useState(240); // 4 minutes in seconds
+  const [timer, setTimer] = useState(120); // 4 minutes in seconds
+  const [canResend, setCanResend] = useState(false);//Track if the resend button can be shown
+  const [isLoading, setIsLoading] = useState(false); // Loading state for resend OTP
 
   
 
@@ -27,6 +30,7 @@ export default function OtpVerification() {
       setTimer((prev) => {
         if (prev <= 0) {
           clearInterval(countdown);
+          setCanResend(true); //Enable the resend button
           return 0;
         }
         return prev - 1;
@@ -34,7 +38,7 @@ export default function OtpVerification() {
     }, 1000);
     
     return () => clearInterval(countdown);
-  }, []);
+  }, [timer]);
 
   const handleChange = (index, value) => {
     const newOtp = [...otp];
@@ -62,6 +66,18 @@ export default function OtpVerification() {
     } catch (error) {
       console.error("OTP verification failed", error);
       alert("OTP verification failed. Please try again.");
+    }
+  };
+
+  const handleResendOtp = async () => {
+    try {
+      await resendOtp({ email }); // Call the resend OTP API
+      alert("OTP has been resent to your email.");
+      setTimer(120); // Reset the timer to 2 minutes
+      setCanResend(false); // Hide the resend button again
+    }catch (error) {
+      console.error("Failed to resend OTP", error);
+      alert("Failed to resend OTP. Please try again.");
     }
   };
 
@@ -108,6 +124,15 @@ export default function OtpVerification() {
               Verify OTP
             </Button>
           </Box>
+          {canResend && (
+            <Button
+            variant="outlined"
+            onClick={handleResendOtp}
+            sx={{ mt: 2 }}
+            >
+              Resend OTP
+            </Button>
+          )}
         </Box>
       </Container>
     </ThemeProvider>

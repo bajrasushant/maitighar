@@ -45,7 +45,7 @@ userRouter.post("/", async (request, response) => {
 
   // Generate OTP
   const otp = Math.floor(1000 + Math.random() * 9000).toString(); // A 4-digit OTP
-  const otpExpiresAt = new Date(Date.now() + 4 * 60 * 1000); // OTP valid for 4 minutes
+  const otpExpiresAt = new Date(Date.now() + 2 * 60 * 1000); // OTP valid for 4 minutes
 
   // Store OTP temporarily in-memory
   otpStore[email] = { otp, otpExpiresAt, username, password };
@@ -129,5 +129,51 @@ userRouter.post("/verify-otp", async (request, response) => {
     return response.status(500).json({ error: "Something went wrong" });
   }
 });
+
+// Resend OTP route
+userRouter.post("/resend-otp", async (request, response) => {
+  const { email } = request.body;
+
+  // Check if the email exists in OTP store
+  if (!otpStore[email]) {
+    return response.status(400).json({ error: "No OTP request found for this email" });
+  }
+
+  // Generate a new OTP
+  const newOtp = Math.floor(1000 + Math.random() * 9000).toString(); // A 4-digit OTP
+  const otpExpiresAt = new Date(Date.now() + 2 * 60 * 1000); // OTP valid for 4 minutes
+
+  // Update the stored OTP
+  otpStore[email].otp = newOtp;
+  otpStore[email].otpExpiresAt = otpExpiresAt;
+
+  // Send the new OTP to the user's email
+  const transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
+    auth: {
+      user: process.env.EMAIL,
+      pass: process.env.EMAIL_PASSWORD,
+    },
+  });
+
+  const mailOptions = {
+    from: process.env.EMAIL,
+    to: email,
+    subject: "Resend OTP",
+    text: `Your new OTP code is ${newOtp}. It will expire in 4 minutes.`,
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      return response.status(500).json({ error: "Failed to send OTP email" });
+    }
+    return response.status(200).json({
+      message: "New OTP sent to email. Please verify it to complete registration.",
+    });
+  });
+});
+
 
 module.exports = userRouter;
