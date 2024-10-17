@@ -11,6 +11,7 @@ import TextField from "@mui/material/TextField";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { verifyOtp, resendOtp } from "../services/user"; // Import the service to verify OTP
 
+
 const defaultTheme = createTheme();
 
 export default function OtpVerification() {
@@ -21,6 +22,7 @@ export default function OtpVerification() {
   const [timer, setTimer] = useState(120); // 4 minutes in seconds
   const [canResend, setCanResend] = useState(false);//Track if the resend button can be shown
   const [isLoading, setIsLoading] = useState(false); // Loading state for resend OTP
+
   
 
   useEffect(() => {
@@ -71,7 +73,7 @@ export default function OtpVerification() {
     try {
       await resendOtp({ email }); // Call the resend OTP API
       alert("OTP has been resent to your email.");
-      setTimer(120); // Reset the timer to 4 minutes
+      setTimer(120); // Reset the timer to 2 minutes
       setCanResend(false); // Hide the resend button again
     }catch (error) {
       console.error("Failed to resend OTP", error);
