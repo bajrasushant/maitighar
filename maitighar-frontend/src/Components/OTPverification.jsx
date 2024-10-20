@@ -12,6 +12,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { verifyOtp, resendOtp } from "../services/user"; // Import the service to verify OTP
 import { useNotification } from "../context/NotificationContext";
 
+
 const defaultTheme = createTheme();
 
 export default function OtpVerification() {
@@ -20,10 +21,11 @@ export default function OtpVerification() {
   const { setNotification } = useNotification();
   const email = location.state?.email; // Get the email from the previous page's state
   const [otp, setOtp] = useState(["", "", "", ""]);
+
   const [timer, setTimer] = useState(120); // 2 minutes in seconds
   const [canResend, setCanResend] = useState(false); // Track if the resend button can be shown
   const endTimeRef = useRef(Date.now() + timer * 1000); // Use useRef to track end time
-  
+
   useEffect(() => {
     const countdown = setInterval(() => {
       const timeLeft = Math.max(0, Math.floor((endTimeRef.current - Date.now()) / 1000)); // Calculate remaining time
