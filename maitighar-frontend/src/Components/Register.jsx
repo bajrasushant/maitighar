@@ -15,6 +15,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useSignup } from "../hooks/useSignup";
 import { useNavigate } from "react-router-dom";
+import { useNotification } from "../context/NotificationContext";
 
 function Copyright(props) {
   return (
@@ -43,7 +44,7 @@ const defaultTheme = createTheme();
 export default function SignUp() {
   const signupMutation = useSignup();
   const navigate = useNavigate();
-
+  const { setNotification } = useNotification();
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -61,6 +62,7 @@ export default function SignUp() {
     signupMutation.mutate(userData, {
       onSuccess: () => {
         navigate("/verifyOTP", { state: { email: userData.email } });
+        setNotification({ message: `OTP sent to ${userData.email}`, status: "success" });
       },
     });
   };
