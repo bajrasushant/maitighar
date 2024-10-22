@@ -151,7 +151,7 @@ function CommentSection({
                     variant="subtitle1"
                     className="font-bold"
                   >
-                    {reply.createdBy.username}
+                    {getDisplayUsername(reply.createdBy)}
                   </Typography>
                   <Typography
                     variant="body2"
@@ -346,7 +346,8 @@ function Details() {
             variant="body2"
             color="textSecondary"
           >
-            Posted by {issue.createdBy.username} on {new Date(issue.createdAt).toLocaleDateString()}
+            Posted by {getDisplayUsername(issue.createdBy)}
+            on {new Date(issue.createdAt).toLocaleDateString()}
           </Typography>
 
           {/* Tags */}
