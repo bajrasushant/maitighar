@@ -4,7 +4,7 @@ import { ArrowUpward, ArrowUpwardOutlined, Comment } from "@mui/icons-material";
 import { useUserValue } from "../../context/UserContext";
 import issueService from "../../services/issues";
 import MediaRenderer from "./MediaRenderer";
-import { getDisplayUsername } from "./utils";
+import getDisplayUsername from "./utils";
 
 function IssueCard({ issue, setIssue, locationName, commentsCount }) {
   const currentUser = useUserValue();

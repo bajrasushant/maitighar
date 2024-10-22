@@ -25,10 +25,7 @@ function Details() {
     setNewComment,
     replyContent,
     showReplyForm,
-    replies,
-    showReplies,
-    loadingReplies,
-    repliesLoaded,
+    repliesState,
     handleCommentSubmit,
     handleReplySubmit,
     handleReplyContentChange,
@@ -50,6 +47,11 @@ function Details() {
 
         setIssue(fetchedIssue);
         setComments(fetchedComments);
+
+        const replyPromises = fetchedComments.map((comment) => toggleReplies(comment.id));
+
+        // Wait for all replies to be fetched
+        await Promise.all(replyPromises);
 
         if (fetchedIssue?.latitude && fetchedIssue?.longitude) {
           await fetchLocationName(fetchedIssue.latitude, fetchedIssue.longitude);
@@ -124,9 +126,7 @@ function Details() {
         replyContent={replyContent}
         showReplyForm={showReplyForm}
         setShowReplyForm={setShowReplyForm}
-        replies={replies}
-        showReplies={showReplies}
-        loadingReplies={loadingReplies}
+        repliesState={repliesState}
         handleReplyContentChange={handleReplyContentChange}
         handleReplySubmit={handleReplySubmit}
         toggleReplies={toggleReplies}

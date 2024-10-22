@@ -7,10 +7,7 @@ export default function useCommentState(issueId) {
   const [newComment, setNewComment] = useState("");
   const [replyContent, setReplyContent] = useState({});
   const [showReplyForm, setShowReplyForm] = useState({});
-  const [replies, setReplies] = useState({});
-  const [showReplies, setShowReplies] = useState({});
-  const [loadingReplies, setLoadingReplies] = useState({});
-  const [repliesLoaded, setRepliesLoaded] = useState({});
+  const [repliesState, setRepliesState] = useState({});
   const { setNotification } = useNotification();
 
   const handleCommentSubmit = async (e) => {
@@ -37,29 +34,40 @@ export default function useCommentState(issueId) {
 
   const toggleReplies = useCallback(
     async (commentId) => {
-      // If replies are already loaded, just toggle visibility
-      if (repliesLoaded[commentId]) {
-        setShowReplies((prev) => ({
+      const { loaded, replies } = repliesState[commentId] || {};
+      if (loaded) {
+        setRepliesState((prev) => ({
           ...prev,
-          [commentId]: !prev[commentId],
+          [commentId]: { ...prev[commentId], show: !prev[commentId]?.show },
         }));
         return;
       }
 
       try {
-        setLoadingReplies((prev) => ({ ...prev, [commentId]: true }));
+        setRepliesState((prev) => ({
+          ...prev,
+          [commentId]: { ...prev[commentId], loading: true },
+        }));
         const fetchedReplies = await commentService.getReplyByComment(commentId);
 
-        setReplies((prev) => ({ ...prev, [commentId]: fetchedReplies }));
-        setShowReplies((prev) => ({ ...prev, [commentId]: true }));
-        setRepliesLoaded((prev) => ({ ...prev, [commentId]: true }));
+        setRepliesState((prev) => ({
+          ...prev,
+          [commentId]: {
+            replies: fetchedReplies.length > 0 ? fetchedReplies : [],
+            show: fetchedReplies > 0,
+            loaded: true,
+          },
+        }));
       } catch (err) {
         setNotification({ message: "Error fetching replies", status: "error" });
       } finally {
-        setLoadingReplies((prev) => ({ ...prev, [commentId]: false }));
+        setRepliesState((prev) => ({
+          ...prev,
+          [commentId]: { ...prev[commentId], loading: false },
+        }));
       }
     },
-    [repliesLoaded, setNotification],
+    [repliesState, setNotification],
   );
 
   const handleReplySubmit = async (commentId) => {
@@ -72,16 +80,18 @@ export default function useCommentState(issueId) {
         issue: issueId,
       });
 
-      setReplies((prev) => ({
-        ...prev,
-        [commentId]: [...(prev[commentId] || []), savedReply],
-      }));
+      setRepliesState((prev) => {
+        const existingReplies = prev[commentId]?.replies || [];
+        return {
+          ...prev,
+          [commentId]: {
+            replies: [...existingReplies, savedReply],
+            show: true,
+            loaded: true,
+          },
+        };
+      });
 
-      if (!repliesLoaded[commentId]) {
-        setRepliesLoaded((prev) => ({ ...prev, [commentId]: true }));
-      }
-
-      setShowReplies((prev) => ({ ...prev, [commentId]: true }));
       setReplyContent((prev) => ({ ...prev, [commentId]: "" }));
       setShowReplyForm((prev) => ({ ...prev, [commentId]: false }));
     } catch (err) {
@@ -96,10 +106,7 @@ export default function useCommentState(issueId) {
     setNewComment,
     replyContent,
     showReplyForm,
-    replies,
-    showReplies,
-    loadingReplies,
-    repliesLoaded,
+    repliesState,
     handleCommentSubmit,
     handleReplySubmit,
     handleReplyContentChange,

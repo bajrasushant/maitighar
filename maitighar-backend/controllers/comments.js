@@ -63,7 +63,7 @@ commentRouter.get("/replies/:id", async (req, res) => {
     });
 
     if (replies.length === 0) {
-      return res.status(404).json({ error: "No replies found for this comment" });
+      return res.status(200).json([]);
     }
 
     res.json(replies);

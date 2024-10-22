@@ -10,9 +10,7 @@ function CommentSection({
   replyContent,
   showReplyForm,
   setShowReplyForm,
-  replies,
-  showReplies,
-  loadingReplies,
+  repliesState,
   handleReplyContentChange,
   handleReplySubmit,
   toggleReplies,
@@ -54,9 +52,7 @@ function CommentSection({
               replyContent={replyContent}
               showReplyForm={showReplyForm}
               setShowReplyForm={setShowReplyForm}
-              replies={replies}
-              showReplies={showReplies}
-              loadingReplies={loadingReplies}
+              repliesState={repliesState}
               handleReplyContentChange={handleReplyContentChange}
               handleReplySubmit={handleReplySubmit}
               toggleReplies={toggleReplies}
