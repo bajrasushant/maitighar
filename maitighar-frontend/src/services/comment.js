@@ -5,6 +5,7 @@ const baseUrl = "/api/comments";
 
 const getCommentByIssue = async (issueId) => {
   const config = helpers.getConfig();
+  console.log(config);
   const response = await axios.get(`${baseUrl}/issue/${issueId}`, config);
   return response.data;
 };
