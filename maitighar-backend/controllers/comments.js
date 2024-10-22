@@ -8,7 +8,6 @@ commentRouter.post("/", async (req, res) => {
   try {
     const { user, issue, parentComment } = req.body;
 
-    console.log(req.body);
     //Create new comment
     const comment = new Comment({ ...req.body, createdBy: req.user.id });
     await comment.save();
@@ -31,7 +30,10 @@ commentRouter.post("/", async (req, res) => {
       );
     }
 
-    res.status(201).json(comment);
+    const populatedCommentUser = await Comment.findById(comment.id).populate("createdBy", {
+      username: 1,
+    });
+    res.status(201).json(populatedCommentUser);
   } catch (error) {
     console.error("Error creating comment:", error);
     res.status(500).json({ error: "Internal server error" });
