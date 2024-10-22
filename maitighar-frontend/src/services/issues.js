@@ -27,9 +27,17 @@ const createIssue = async (formData) => {
 };
 
 const getIssueId = async (id) => {
-  const config = helpers.getConfig();
+  // const config = helpers.getConfig();
+  const userInfo = JSON.parse(localStorage.getItem("loggedUser"));
+  console.log(userInfo.token);
+  const config = {
+    headers: {
+      Authorization: `Bearer ${userInfo.token}`,
+    },
+  };
+  console.log("config", config);
+
   const request = await axios.get(`${baseUrl}/${id}`, config);
-  request.config.headers;
   return request.data;
 };
 
