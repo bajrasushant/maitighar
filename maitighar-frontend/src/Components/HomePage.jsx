@@ -30,6 +30,7 @@ import {
   AccountCircle,
   ArrowUpwardOutlined,
 } from "@mui/icons-material";
+import FilterListIcon from "@mui/icons-material/FilterList";
 import FoundationIcon from "@mui/icons-material/Foundation";
 import { useNavigate } from "react-router-dom";
 import ReportForm from "./IssueForm";
@@ -71,6 +72,30 @@ function HomePage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const [anchorElFilter, setAnchorElFilter] = useState(null);
+  const [sortType, setSortType] = useState("");
+
+  // Function to open and close the filter menu
+  const handleOpenFilterMenu = (event) => {
+    setAnchorElFilter(event.currentTarget);
+  };
+
+  const handleCloseFilterMenu = () => {
+    setAnchorElFilter(null);
+  };
+
+  const handleFilterSelection = (type) => {
+    setSortType(type);
+    setAnchorElFilter(null);
+    if (type === "nearby") {
+      fetchNearbyIssues();
+    } else if (type === "upvotes") {
+      setIssues([...issues].sort((a, b) => b.upvotes - a.upvotes));
+    } else if (type === "comments") {
+      setIssues([...issues].sort((a, b) => b.comments.length - a.comments.length));
+    }
+  };
+
   useEffect(() => {
     const fetchIssues = async () => {
       try {
@@ -88,6 +113,34 @@ function HomePage() {
 
     fetchIssues();
   }, []);
+
+  const fetchNearbyIssues = async () => {
+    if (!navigator.geolocation) {
+      setNotification({
+        message: "Geolocation is not supported by your browser.",
+        status: "error",
+      });
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        try {
+          const { latitude, longitude } = position.coords;
+          const nearbyIssues = await issueService.getNearby(latitude, longitude, 5000); // Adjust distance as needed
+          setIssues(nearbyIssues);
+          setNotification({ message: "Fetched nearby issues.", status: "success" });
+        } catch (err) {
+          console.error("Failed to fetch nearby issues", err);
+          setNotification({ message: "Failed to fetch nearby issues.", status: "error" });
+        }
+      },
+      (error) => {
+        console.error("Geolocation error:", error);
+        setNotification({ message: "Failed to get location.", status: "error" });
+      },
+    );
+  };
 
   const handleUpvote = async (id) => {
     try {
@@ -178,6 +231,13 @@ function HomePage() {
           </Typography>
           <Button
             color="inherit"
+            startIcon={<FilterListIcon />}
+            onClick={handleOpenFilterMenu}
+          >
+            Filter
+          </Button>
+          <Button
+            color="inherit"
             startIcon={<Add />}
             onClick={handleOpenForm}
           >
@@ -200,6 +260,17 @@ function HomePage() {
             <AccountCircle />
           </IconButton>
         </Toolbar>
+
+        {/* filter menu */}
+        <Menu
+          anchorEl={anchorElFilter}
+          open={Boolean(anchorElFilter)}
+          onClose={handleCloseFilterMenu}
+        >
+          <MenuItem onClick={() => handleFilterSelection("nearby")}>Nearby Issues</MenuItem>
+          <MenuItem onClick={() => handleFilterSelection("upvotes")}>Sort by Upvotes</MenuItem>
+          <MenuItem onClick={() => handleFilterSelection("comments")}>Sort by Comments</MenuItem>
+        </Menu>
       </AppBar>
 
       <Container sx={{ mt: 4 }}>

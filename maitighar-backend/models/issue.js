@@ -91,6 +91,17 @@ const issueSchema = new Schema({
     enum: categories,
     required: true,
   },
+  location: {
+    type: {
+      type: String,
+      enum: ["Point"],
+      required: true,
+    },
+    coordinates: {
+      type: [Number],
+      required: true,
+    },
+  },
   latitude: {
     type: Number,
     required: true,
@@ -136,6 +147,8 @@ const issueSchema = new Schema({
   },
   comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
 });
+
+issueSchema.index({ location: "2dsphere" });
 
 // Pre-save hook to update the `upvotes` field
 issueSchema.pre("save", function (next) {
