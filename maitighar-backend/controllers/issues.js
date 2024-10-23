@@ -106,6 +106,10 @@ issueRouter.post("/", upload.array("images", 5), async (req, res) => {
       assigned_district,
       assigned_local_gov: localGov ? localGov.id : null,
       assigned_ward: localGov ? assigned_ward : null,
+      location: {
+        type: "Point",
+        coordinates: [longitude, latitude],
+      },
       latitude,
       longitude,
       status,
@@ -119,6 +123,74 @@ issueRouter.post("/", upload.array("images", 5), async (req, res) => {
     res.status(201).json(issue);
   } catch (error) {
     console.error("Error creating issue:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// get nearby issues
+issueRouter.get("/nearby", async (req, res) => {
+  try {
+    const { latitude, longitude, maxDistance = 5000 } = req.query;
+
+    const lat = parseFloat(latitude);
+    const long = parseFloat(longitude);
+    const maxDist = parseInt(maxDistance);
+
+    if (isNaN(lat) || isNaN(long)) {
+      return res.status(400).json({ error: "Latitude and longitude must be valid numbers." });
+    }
+
+    if (isNaN(maxDist) || maxDist < 0) {
+      return res.status(400).json({ error: "maxDistance must be a valid positive number." });
+    }
+
+    const issues = await Issue.find({
+      $and: [
+        {
+          location: {
+            $near: {
+              $geometry: {
+                type: "Point",
+                coordinates: [long, lat],
+              },
+              $maxDistance: maxDist,
+            },
+          },
+        },
+        {
+          location: {
+            $exists: true,
+            $ne: null,
+          },
+        },
+      ],
+    });
+    res.json(issues);
+  } catch (error) {
+    console.error("Error fetching nearby issues:", error);
+    res.status(500).json({ message: "Error fetching nearby issues", error: error.message });
+  }
+});
+
+// Get issue by department for admin
+issueRouter.get("/admin/:department", async (req, res) => {
+  try {
+    // Find issues by department
+    console.log(req.params.department);
+    const issues = await Issue.find({ department: req.params.department })
+      .populate("createdBy", { username: 1 })
+      .populate("comments"); // Populating comments if needed
+
+    // If no issues are found, return 404
+    if (issues.length === 0) {
+      return res.status(404).json({ error: "No issues found for this department" });
+    }
+
+    // Return the found issues
+    res.json(issues);
+  } catch (error) {
+    console.error("Error fetching issues by department:", error);
+    // Handle errors and return 500
     res.status(500).json({ error: "Internal server error" });
   }
 });
@@ -155,7 +227,43 @@ issueRouter.get("/:id", async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
-
+// // Combined update route
+// issueRouter.put("/:id", upload.single("image"), async (req, res) => {
+//   try {
+//     const updates = req.body;
+//
+//     // Handle image upload if present
+//     if (req.file) {
+//       updates.imagePath = req.file.path;
+//     }
+//
+//     // Handle status update if present
+//     if (updates.status) {
+//       const issue = await Issue.findById(req.params.id);
+//       if (!issue) {
+//         return res.status(404).json({ error: "Issue not found" });
+//       }
+//       issue.status = updates.status;
+//       const updatedIssue = await issue.save();
+//       return res.json(updatedIssue);
+//     }
+//
+//     // Handle other updates
+//     const issue = await Issue.findByIdAndUpdate(req.params.id, updates, {
+//       new: true,
+//       runValidators: true,
+//     });
+//
+//     if (!issue) {
+//       return res.status(404).json({ error: "Issue not found" });
+//     }
+//
+//     res.json(issue);
+//   } catch (error) {
+//     console.error("Error updating issue:", error);
+//     res.status(400).json({ error: "Bad request" });
+//   }
+// });
 // Update a issue
 issueRouter.put("/:id", async (req, res) => {
   try {
@@ -251,29 +359,6 @@ issueRouter.put("/:id/upvote", async (req, res) => {
     res.json(issue);
   } catch (error) {
     console.error("Upvote error:", error); // Log the error for more insight
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
-
-// Get issue by department for admin
-issueRouter.get("/admin/:department", async (req, res) => {
-  try {
-    // Find issues by department
-    console.log(req.params.department);
-    const issues = await Issue.find({ department: req.params.department })
-      .populate("createdBy", { username: 1 })
-      .populate("comments"); // Populating comments if needed
-
-    // If no issues are found, return 404
-    if (issues.length === 0) {
-      return res.status(404).json({ error: "No issues found for this department" });
-    }
-
-    // Return the found issues
-    res.json(issues);
-  } catch (error) {
-    console.error("Error fetching issues by department:", error);
-    // Handle errors and return 500
     res.status(500).json({ error: "Internal server error" });
   }
 });
