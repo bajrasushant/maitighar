@@ -37,16 +37,27 @@ const tokenExtractor = (request, response, next) => {
 };
 
 const userExtractor = async (request, response, next) => {
-  if (!request.token) {
+  const authHeader = request.headers.authorization;
+  console.log("header", authHeader);
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
     return response.status(401).json({ error: "token missing" });
   }
-  const decodedToken = jwt.verify(request.token, process.env.SECRET);
-  if (!decodedToken.id) {
-    return response.status(401).json({ error: "invalid token" });
+  const token = authHeader.split(" ")[1];
+  request.token = token;
+  try {
+    // Verify the token
+    const decodedToken = jwt.verify(token, process.env.SECRET);
+    if (!decodedToken.id) {
+      return response.status(401).json({ error: "invalid token" });
+    }
+
+    // Find the user based on the decoded token ID
+    const user = await User.findById(decodedToken.id);
+    request.user = user; // Attach the user to the request object
+    next(); // Call the next middleware
+  } catch (error) {
+    return response.status(401).json({ error: "token verification failed" });
   }
-  const user = await User.findById(decodedToken.id);
-  request.user = user;
-  next();
 };
 
 module.exports = {
