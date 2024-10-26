@@ -1,10 +1,8 @@
 const express = require("express");
-
 const multer = require("multer");
 const path = require("path");
 const Issue = require("../models/issue");
 const User = require("../models/user");
-
 const Province = require("../models/province");
 const District = require("../models/district");
 const LocalGov = require("../models/localgov");
@@ -264,6 +262,23 @@ issueRouter.get("/:id", async (req, res) => {
 //     res.status(400).json({ error: "Bad request" });
 //   }
 // });
+
+//Get issues created by the logged-in user
+issueRouter.get("/user/user-posts", async (req,res) => {
+  try {
+    // Check if the user is authenticated
+    if (!req.user || !req.user.id) {
+      return res.status(401).json({ error: "User not authenticated"});
+    }
+
+    const userIssues = await Issue.find({ createdBy: req.user.id});
+
+    res.json(userIssues);
+  }catch (error) {
+    console.error("Error fetchong user issues:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
 // Update a issue
 issueRouter.put("/:id", async (req, res) => {
   try {
