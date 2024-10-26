@@ -8,7 +8,6 @@ commentRouter.post("/", async (req, res) => {
   try {
     const { user, issue, parentComment } = req.body;
 
-    console.log(req.body);
     //Create new comment
     const comment = new Comment({ ...req.body, createdBy: req.user.id });
     await comment.save();
@@ -31,7 +30,10 @@ commentRouter.post("/", async (req, res) => {
       );
     }
 
-    res.status(201).json(comment);
+    const populatedCommentUser = await Comment.findById(comment.id).populate("createdBy", {
+      username: 1,
+    });
+    res.status(201).json(populatedCommentUser);
   } catch (error) {
     console.error("Error creating comment:", error);
     res.status(500).json({ error: "Internal server error" });
@@ -61,7 +63,7 @@ commentRouter.get("/replies/:id", async (req, res) => {
     });
 
     if (replies.length === 0) {
-      return res.status(404).json({ error: "No replies found for this comment" });
+      return res.status(200).json([]);
     }
 
     res.json(replies);

@@ -67,7 +67,7 @@ userRouter.post("/", async (request, response) => {
     from: process.env.EMAIL,
     to: email,
     subject: "Verify your account",
-    text: `Your OTP code is ${otp}. It will expire in 4 minutes.`,
+    text: `Your OTP code is ${otp}. It will expire in 2 minutes.`,
   };
 
   console.log("Sending mail to:", email);
@@ -162,7 +162,7 @@ userRouter.post("/resend-otp", async (request, response) => {
     from: process.env.EMAIL,
     to: email,
     subject: "Resend OTP",
-    text: `Your new OTP code is ${newOtp}. It will expire in 4 minutes.`,
+    text: `Your new OTP code is ${newOtp}. It will expire in 2 minutes.`,
   };
 
   transporter.sendMail(mailOptions, (error, info) => {

@@ -417,6 +417,18 @@ function ReportForm({ createIssue }) {
             >
               Select Location on Map
             </Typography>
+            {/* <LocationPicker */}
+            {/*   position={[report.position.latitude, report.position.longitude]} */}
+            {/*   setPosition={(newPosition) => */}
+            {/*     setReport((prevReport) => ({ */}
+            {/*       ...prevReport, */}
+            {/*       position: { */}
+            {/*         latitude: newPosition[0], */}
+            {/*         longitude: newPosition[1], */}
+            {/*       }, */}
+            {/*     })) */}
+            {/*   } */}
+            {/* /> */}
             <LocationPicker
               position={[report.position.latitude, report.position.longitude]}
               setPosition={(newPosition) =>

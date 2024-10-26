@@ -9,6 +9,14 @@ const getAll = async () => {
   return request.data;
 };
 
+const getNearby = async (latitude, longitude, maxDistance) => {
+  const config = helpers.getConfig();
+  const response = await fetch(
+    `${baseUrl}/nearby?latitude=${latitude}&longitude=${longitude}&maxDistance=${maxDistance}`, config
+  );
+  return response.json();
+};
+
 const createIssue = async (formData) => {
   const config = helpers.getConfig();
   try {
@@ -27,17 +35,9 @@ const createIssue = async (formData) => {
 };
 
 const getIssueId = async (id) => {
-  // const config = helpers.getConfig();
-  const userInfo = JSON.parse(localStorage.getItem("loggedUser"));
-  console.log(userInfo.token);
-  const config = {
-    headers: {
-      Authorization: `Bearer ${userInfo.token}`,
-    },
-  };
-  console.log("config", config);
-
+  const config = helpers.getConfig();
   const request = await axios.get(`${baseUrl}/${id}`, config);
+  request.config.headers;
   return request.data;
 };
 
@@ -66,6 +66,7 @@ const updateStatus = async (id, newStatus) => {
 
 export default {
   getAll,
+  getNearby,
   createIssue,
   upvoteIssue,
   getIssueId,
