@@ -10,6 +10,7 @@ const District = require("../models/district");
 const LocalGov = require("../models/localgov");
 
 const issueRouter = express.Router();
+const { analyzeSentiment } = require("../controllers/sentiment");
 
 // Multer configuration for image upload
 const storage = multer.diskStorage({
@@ -148,6 +149,9 @@ issueRouter.get("/:id", async (req, res) => {
     if (!issue) {
       return res.status(404).json({ error: "issue not found" });
     }
+
+    const issuesWithSentiment = await analyzeSentiment(issue.id);
+    console.log(issuesWithSentiment);
 
     res.status(201).json(issue);
   } catch (error) {
