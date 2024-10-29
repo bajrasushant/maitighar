@@ -2,41 +2,6 @@ const bcrypt = require("bcrypt");
 const adminRouter = require("express").Router();
 const Admin = require("../models/admin");
 
-const departments = [
-  "Ward No.1",
-  "Ward No.2",
-  "Ward No.3",
-  "Ward No.4",
-  "Ward No.5",
-  "Ward No.6",
-  "Ward No.7",
-  "Ward No.8",
-  "Ward No.9",
-  "Ward No.10",
-  "Ward No.11",
-  "Ward No.12",
-  "Ward No.13",
-  "Ward No.14",
-  "Ward No.15",
-  "Ward No.16",
-  "Ward No.17",
-  "Ward No.18",
-  "Ward No.19",
-  "Ward No.20",
-  "Ward No.21",
-  "Ward No.22",
-  "Ward No.23",
-  "Ward No.24",
-  "Ward No.25",
-  "Ward No.26",
-  "Ward No.27",
-  "Ward No.28",
-  "Ward No.29",
-  "Ward No.30",
-  "Ward No.31",
-  "Ward No.32",
-];
-
 //Get all admins
 adminRouter.get("/", async (request, response) => {
   try {
@@ -73,8 +38,35 @@ adminRouter.get("/:id", async (request, response) => {
 //Create new admin
 adminRouter.post("/", async (request, response) => {
   try {
-    console.log(request.body);
-    const { username, password, repassword, email, department } = request.body;
+    const {
+      username,
+      password,
+      repassword,
+      email,
+      responsible,
+      assigned_province,
+      assigned_district,
+      assigned_local_gov,
+      assigned_ward,
+      assigned_department,
+    } = request.body;
+
+    if (responsible !== "ward" && responsible !== "department") {
+      return response.status(400).json({ error: "Invalid admin responsible specified" });
+    }
+
+    if (responsible === "ward" && (!assigned_local_gov || !assigned_ward)) {
+      return response
+        .status(400)
+        .json({ error: "Local government and ward assignment are required for ward admins" });
+    } else if (
+      responsible === "department" &&
+      (!assigned_province || !assigned_district || !assigned_department)
+    ) {
+      return response
+        .status(400)
+        .json({ error: "Province, district and department are required for department admins" });
+    }
 
     //Input validation
     if (
@@ -82,7 +74,6 @@ adminRouter.post("/", async (request, response) => {
       !password ||
       !repassword ||
       !email ||
-      !department ||
       username.trim() === "" ||
       password.trim() === "" ||
       repassword.trim() === "" ||
@@ -90,7 +81,7 @@ adminRouter.post("/", async (request, response) => {
     ) {
       return response
         .status(400)
-        .json({ error: "username, password, repassword, email, and department are required" });
+        .json({ error: "username, password, repassword, email are required" });
     }
     if (username.length < 3 || password.length < 3) {
       return response.status(400).json({
@@ -100,24 +91,44 @@ adminRouter.post("/", async (request, response) => {
     if (password !== repassword) {
       return response.status(400).json({ error: "passwords do not match" });
     }
-    if (!departments.includes(department)) {
-      return response.status(400).json({ error: "Invalid department" });
+
+    if (responsible === "ward") {
+      const existingAdmin = await Admin.findOne({
+        assigned_local_gov,
+        assigned_ward,
+      });
+      if (existingAdmin) {
+        return response
+          .status(400)
+          .json({ error: `Ward ${assigned_ward} is already assigned to an admin.` });
+      }
     }
 
-    // Check if admin already exists for the department
-    const existingAdmin = await Admin.findOne({ department });
-    if (existingAdmin) {
-      return response.status(400).json({ error: "An admin for this department already exists" });
+    if (responsible === "department") {
+      const existingAdmin = await Admin.findOne({
+        assigned_department,
+      });
+      if (existingAdmin) {
+        return response
+          .status(400)
+          .json({ error: `Deparment ${assigned_department} is already assigned to an admin.` });
+      }
     }
 
     //Hash password and save the admin in database
     const saltRounds = 10;
     const passwordHash = await bcrypt.hash(password, saltRounds);
+
     const admin = new Admin({
       username,
       passwordHash,
       email,
-      department,
+      responsible,
+      assigned_province,
+      assigned_district,
+      assigned_local_gov == responsible === "ward" ? assigned_local_gov : undefined,
+      assigned_ward == responsible === "ward" ? assigned_ward : undefined,
+      assigned_department == responsible === "department" ? assigned_department : undefined,
     });
     const savedAdmin = await admin.save();
     return response.status(201).json(savedAdmin);
