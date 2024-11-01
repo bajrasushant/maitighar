@@ -9,10 +9,9 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import {
-  Select, MenuItem, InputLabel, FormControl,
-} from "@mui/material";
+import { Select, MenuItem, InputLabel, FormControl } from "@mui/material";
 import axios from "axios"; // Import axios for making HTTP requests
+import { useNotification } from "../context/NotificationContext";
 
 const theme = createTheme();
 
@@ -52,22 +51,29 @@ const departments = [
 ];
 
 export default function AdminRegister() {
+  const [responsible, setResponsible] = useState("");
   const [department, setDepartment] = useState("");
-  const [repassword, setRepassword] = useState(""); // State for repassword
-  const [error, setError] = useState(""); // Error state
-  const [isLoading, setIsLoading] = useState(false); // Loading state
-  const navigate = useNavigate(); // Initialize navigate
+  const [assignedProvince, setAssignedProvince] = useState("");
+  const [assignedDistrict, setAssignedDistrict] = useState("");
+  const [assignedLocalGov, setAssignedLocalGov] = useState("");
+  const [assignedWard, setAssignedWard] = useState("");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [repassword, setRepassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+  const { setNotification } = useNotification();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const username = data.get("username");
-    const email = data.get("email");
-    const password = data.get("password");
-    const repassword = data.get("repassword");
+    // const data = new FormData(event.currentTarget);
+    // const username = data.get("username");
+    // const email = data.get("email");
+    // const password = data.get("password");
+    // const repassword = data.get("repassword");
 
     setIsLoading(true);
-    setError(""); // Reset error state before making request
 
     try {
       const response = await axios.post("/api/admins", {
@@ -78,13 +84,14 @@ export default function AdminRegister() {
         department,
       });
       console.log("Admin registered successfully:", response.data);
+      setNotification({ message: "Admin registered successfully.", status: "success" });
       // Redirect to admin-login page after successful signup
       navigate("/admin-login");
     } catch (error) {
       if (error.response && error.response.data) {
-        setError(error.response.data.error);
+        setNotification({ message: error.response.data.error, status: "success" });
       } else {
-        setError("Something went wrong. Please try again.");
+        setNotification({ message: "Something went wrong. Please try again.", status: "success" });
       }
     } finally {
       setIsLoading(false);
@@ -100,8 +107,8 @@ export default function AdminRegister() {
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
             display: "flex",
+            marginTop: 8,
             flexDirection: "column",
             alignItems: "center",
           }}
@@ -133,6 +140,8 @@ export default function AdminRegister() {
                   fullWidth
                   id="username"
                   label="Username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                   autoFocus
                 />
               </Grid>
@@ -147,6 +156,8 @@ export default function AdminRegister() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </Grid>
               <Grid
@@ -161,6 +172,8 @@ export default function AdminRegister() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </Grid>
               <Grid
@@ -174,6 +187,8 @@ export default function AdminRegister() {
                   label="Repeat Password"
                   type="password"
                   id="repassword"
+                  value={repassword}
+                  onChange={(e) => setRepassword(e.target.value)}
                 />
               </Grid>
               <Grid

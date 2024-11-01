@@ -17,19 +17,6 @@ const DepartmentSchema = new mongoose.Schema({
       type: String,
       required: true,
     },
-    position: {
-      type: String,
-      required: true,
-    },
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-    },
-    phone: {
-      type: String,
-      required: true,
-    },
   },
   category: {
     type: mongoose.Schema.Types.ObjectId,
@@ -43,9 +30,6 @@ const DepartmentSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  parentMinistry: {
-    type: String,
-  },
   active: {
     type: Boolean,
     default: true,
@@ -57,6 +41,11 @@ const DepartmentSchema = new mongoose.Schema({
   updated_at: {
     type: Date,
     default: Date.now,
+  },
+  level: {
+    type: String,
+    enum: ["federal", "provincial"],
+    required: true,
   },
 });
 
