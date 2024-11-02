@@ -16,6 +16,7 @@ const adminloginRouter = require("./controllers/adminlogin");
 const adminRouter = require("./controllers/admins");
 const commentRouter = require("./controllers/comments");
 const nepalRouter = require("./controllers/nepalDetails");
+const categoryRouter = require("./controllers/categories");
 
 const middleware = require("./utils/middleware");
 
@@ -40,6 +41,7 @@ app.use("/api/admins", adminRouter);
 app.use("/api/nepal", nepalRouter);
 app.use("/api/departments", departmentRouter);
 app.use("/api/wards", wardRouter);
+app.use("/api/categories", categoryRouter);
 
 app.get("/", (request, response) => {
   response.send("<h1>Hello World!</h1>");

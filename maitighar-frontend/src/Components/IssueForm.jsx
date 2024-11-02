@@ -17,43 +17,6 @@ import {
 } from "@mui/material";
 import LocationPicker from "./LocationPicker";
 
-const departments = [
-  "Ward No.1",
-  "Ward No.2",
-  "Ward No.3",
-  "Ward No.4",
-  "Ward No.5",
-  "Ward No.6",
-  "Ward No.7",
-  "Ward No.8",
-  "Ward No.9",
-  "Ward No.10",
-  "Ward No.11",
-  "Ward No.12",
-  "Ward No.13",
-  "Ward No.14",
-  "Ward No.15",
-  "Ward No.16",
-  "Ward No.17",
-  "Ward No.18",
-  "Ward No.19",
-  "Ward No.20",
-  "Ward No.21",
-  "Ward No.22",
-  "Ward No.23",
-  "Ward No.24",
-  "Ward No.25",
-  "Ward No.26",
-  "Ward No.27",
-  "Ward No.28",
-  "Ward No.29",
-  "Ward No.30",
-  "Ward No.31",
-  "Ward No.32",
-];
-
-const categories = ["Water", "Road", "Education", "Others"];
-
 function ReportForm({ createIssue }) {
   const defaultReportState = {
     title: "",
@@ -79,6 +42,19 @@ function ReportForm({ createIssue }) {
   const [provincesDd, setProvincesDd] = useState([]);
   const [districtsDd, setDistrictsDd] = useState([]);
   const [localGovsDd, setLocalGovsDd] = useState([]);
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await axios.get("/api/categories");
+        setCategories(res.data);
+      } catch (err) {
+        console.error("Error fetching issues:", err);
+      }
+    };
+    fetchCategories();
+  }, []);
 
   useEffect(() => {
     const fetchProvinces = async () => {
@@ -361,33 +337,6 @@ function ReportForm({ createIssue }) {
               fullWidth
               required
             >
-              <InputLabel>Department</InputLabel>
-              <Select
-                name="department"
-                value={report.department}
-                onChange={handleChange}
-                label="Department"
-              >
-                {departments.map((dept) => (
-                  <MenuItem
-                    key={dept}
-                    value={dept}
-                  >
-                    {dept.charAt(0).toUpperCase() + dept.slice(1)}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
-
-          <Grid
-            item
-            xs={12}
-          >
-            <FormControl
-              fullWidth
-              required
-            >
               <InputLabel>Category</InputLabel>
               <Select
                 name="category"
@@ -397,10 +346,11 @@ function ReportForm({ createIssue }) {
               >
                 {categories.map((catg) => (
                   <MenuItem
-                    key={catg}
-                    value={catg}
+                    key={catg.id}
+                    value={catg.id}
                   >
-                    {catg.charAt(0).toUpperCase() + catg.slice(1)}
+                    {catg.name}
+                    {/* {catg.charAt(0).toUpperCase() + catg.slice(1)} */}
                   </MenuItem>
                 ))}
               </Select>

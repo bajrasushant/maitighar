@@ -164,7 +164,7 @@ issueRouter.get("/nearby", async (req, res) => {
           },
         },
       ],
-    });
+    }).populate("comments");
     res.json(issues);
   } catch (error) {
     console.error("Error fetching nearby issues:", error);
@@ -179,7 +179,7 @@ issueRouter.get("/admin/:department", async (req, res) => {
     console.log(req.params.department);
     const issues = await Issue.find({ department: req.params.department })
       .populate("createdBy", { username: 1 })
-      .populate("comments"); // Populating comments if needed
+      .populate("comments");
 
     // If no issues are found, return 404
     if (issues.length === 0) {
