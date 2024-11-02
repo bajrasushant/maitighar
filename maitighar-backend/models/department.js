@@ -52,6 +52,13 @@ const DepartmentSchema = new mongoose.Schema({
     ref: "Admin",
     default: null,
   },
+  province: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Province",
+    required: function () {
+      return this.level === "provincial";
+    },
+  },
 });
 
 DepartmentSchema.pre("save", function (next) {

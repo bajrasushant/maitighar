@@ -1,19 +1,24 @@
 const wardRouter = require("express").Router();
-const Wards = require("../models/department");
+const Ward = require("../models/ward");
 
+// Fetch all wards
 wardRouter.get("/", async (req, res) => {
   try {
-    const wardss = await Wards.find();
-    res.json(wardss);
-  } catch (err) {
-    res.status(500).json({ error: "Something went wrong." });
-  }
-});
+    const { localGovId, unassigned } = req.query;
+    const filter = {};
 
-wardRouter.get("/unassigned", async (req, res) => {
-  try {
-    const unassignedWards = await Wards.find({ admin_registered: null });
-    res.json(unassignedWards);
+    if (localGovId) {
+      filter.localGov = localGovId;
+    }
+
+    if (unassigned === "true") {
+      filter.admin_registered = null;
+    } else if (unassigned === "false") {
+      filter.admin_registered = { $ne: null };
+    }
+
+    const wards = await Ward.find(filter).populate("localGov");
+    res.json(wards);
   } catch (err) {
     res.status(500).json({ error: "Something went wrong." });
   }
