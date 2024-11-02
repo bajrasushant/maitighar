@@ -14,6 +14,11 @@ const wardSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  admin_registered: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Admin",
+    default: null,
+  },
 });
 
 wardSchema.set("toJSON", {

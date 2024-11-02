@@ -8,6 +8,8 @@ const mongoose = require("mongoose");
 const issueRouter = require("./controllers/issues");
 // const suggestionRouter = require("./controllers/suggestions")
 const userRouter = require("./controllers/users");
+const departmentRouter = require("./controllers/departments");
+const wardRouter = require("./controllers/wards");
 const upvoteRouter = require("./controllers/upvotes");
 const loginRouter = require("./controllers/login");
 const adminloginRouter = require("./controllers/adminlogin");
@@ -36,6 +38,8 @@ app.use("/api/login", loginRouter);
 app.use("/api/adminlogin", adminloginRouter);
 app.use("/api/admins", adminRouter);
 app.use("/api/nepal", nepalRouter);
+app.use("/api/departments", departmentRouter);
+app.use("/api/wards", wardRouter);
 
 app.get("/", (request, response) => {
   response.send("<h1>Hello World!</h1>");

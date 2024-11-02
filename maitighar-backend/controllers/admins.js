@@ -1,6 +1,8 @@
 const bcrypt = require("bcrypt");
 const adminRouter = require("express").Router();
 const Admin = require("../models/admin");
+const Department = require("../models/department");
+const Ward = require("../models/ward");
 
 //Get all admins
 adminRouter.get("/", async (request, response) => {
@@ -51,7 +53,8 @@ adminRouter.post("/", async (request, response) => {
       assigned_department,
     } = request.body;
 
-    if (responsible !== "ward" && responsible !== "department") {
+    // Check if responsible field is valid
+    if (!["ward", "department"].includes(responsible)) {
       return response.status(400).json({ error: "Invalid admin responsible specified" });
     }
 
@@ -59,7 +62,8 @@ adminRouter.post("/", async (request, response) => {
       return response
         .status(400)
         .json({ error: "Local government and ward assignment are required for ward admins" });
-    } else if (
+    }
+    if (
       responsible === "department" &&
       (!assigned_province || !assigned_district || !assigned_department)
     ) {
@@ -126,11 +130,22 @@ adminRouter.post("/", async (request, response) => {
       responsible,
       assigned_province,
       assigned_district,
-      assigned_local_gov == responsible === "ward" ? assigned_local_gov : undefined,
-      assigned_ward == responsible === "ward" ? assigned_ward : undefined,
-      assigned_department == responsible === "department" ? assigned_department : undefined,
+      assigned_local_gov: responsible === "ward" ? assigned_local_gov : undefined,
+      assigned_ward: responsible === "ward" ? assigned_ward : undefined,
+      assigned_department: responsible === "department" ? assigned_department : undefined,
     });
     const savedAdmin = await admin.save();
+
+    if (responsible === "department" && assigned_department) {
+      await Department.findByIdAndUpdate(assigned_department, { admin_registered: savedAdmin._id });
+    }
+    // Register admin to a ward
+    else if (responsible === "ward" && assigned_local_gov && assigned_ward) {
+      await Ward.findOneAndUpdate(
+        { localGov: assigned_local_gov, number: assigned_ward },
+        { admin_registered: savedAdmin._id },
+      );
+    }
     return response.status(201).json(savedAdmin);
   } catch (error) {
     console.error("Error during admin creation:", error);

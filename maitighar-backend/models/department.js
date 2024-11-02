@@ -47,6 +47,11 @@ const DepartmentSchema = new mongoose.Schema({
     enum: ["federal", "provincial"],
     required: true,
   },
+  admin_registered: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Admin",
+    default: null,
+  },
 });
 
 DepartmentSchema.pre("save", function (next) {
