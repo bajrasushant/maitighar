@@ -103,12 +103,10 @@ function ReportForm({ createIssue }) {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log(name, value);
     setReport((prevState) => ({
       ...prevState,
       [name]: value,
     }));
-    console.log(report);
   };
 
   const handleImageUpload = (e) => {
@@ -342,7 +340,7 @@ function ReportForm({ createIssue }) {
                 name="category"
                 value={report.category}
                 onChange={handleChange}
-                label="Department"
+                label="Category"
               >
                 {categories.map((catg) => (
                   <MenuItem

@@ -26,6 +26,13 @@ CategorySchema.pre("save", function (next) {
   next();
 });
 
+
+CategorySchema.set("toJSON", {
+  transform: (document, returnedObject) => {
+    returnedObject.id = returnedObject._id;
+    delete returnedObject.__v;
+  },
+});
 const Category = mongoose.model("Category", CategorySchema);
 
 module.exports = Category;

@@ -66,6 +66,12 @@ DepartmentSchema.pre("save", function (next) {
   next();
 });
 
+DepartmentSchema.set("toJSON", {
+  transform: (document, returnedObject) => {
+    returnedObject.id = returnedObject._id;
+    delete returnedObject.__v;
+  },
+});
 const Department = mongoose.model("Department", DepartmentSchema);
 
 module.exports = Department;
