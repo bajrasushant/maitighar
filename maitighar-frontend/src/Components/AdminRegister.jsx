@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -97,9 +97,10 @@ export default function AdminRegister() {
   useEffect(() => {
     const fetchWards = async () => {
       try {
-        const response = await axios.get(`/api/wards`, {
-          params: { localGovId: assignedLocalGov, unassigned: "true" },
+        const response = await axios.get("/api/wards", {
+          params: { localGovId: assignedLocalGov, unassigned: "false" },
         });
+        console.log(response);
         setWardsDd(response.data);
       } catch (error) {
         console.error("Error fetching wards:", error);
@@ -122,12 +123,13 @@ export default function AdminRegister() {
         password,
         repassword,
         responsible,
-        assignedProvince,
-        assignedDistrict,
-        assignedLocalGov: responsible === "ward" ? assignedLocalGov : undefined,
-        assignedWard: responsible === "ward" ? assignedWard : undefined,
-        assignedDepartment: responsible === "department" ? department : undefined,
+        assigned_province: assignedProvince,
+        assigned_district: assignedDistrict,
+        assigned_local_gov: responsible === "ward" ? assignedLocalGov : undefined,
+        assigned_ward: responsible === "ward" ? assignedWard : undefined,
+        assigned_department: responsible === "department" ? department : undefined,
       });
+      console.log(response);
       setNotification({ message: "Admin registered successfully.", status: "success" });
       navigate("/admin-login");
     } catch (error) {
@@ -339,6 +341,17 @@ export default function AdminRegister() {
                         onChange={(e) => setAssignedWard(e.target.value)}
                         label="Ward"
                       >
+                        {console.log(
+                          localGovsDd
+                            .filter((localGov) => localGov.id === assignedLocalGov)
+                            .map((localGov) =>
+                              [...Array(localGov.number_of_wards).keys()].filter(
+                                (ward) =>
+                                  !wardsDd.some((assignedWard) => assignedWard.number === ward + 1),
+                              ),
+                            ),
+                        )}
+                        {console.log(wardsDd)}
                         {localGovsDd
                           .filter((localGov) => localGov.id === assignedLocalGov)
                           .map((localGov) =>

@@ -67,7 +67,7 @@ const issueSchema = new Schema({
     ref: "LocalGov",
     required: false,
   },
-  assinged_ward: {
+  assigned_ward: {
     type: Number,
     required: function () {
       return this.assigned_local_gov !== null;

@@ -3,6 +3,7 @@ const adminRouter = require("express").Router();
 const Admin = require("../models/admin");
 const Department = require("../models/department");
 const Ward = require("../models/ward");
+const LocalGov = require("../models/localgov");
 
 //Get all admins
 adminRouter.get("/", async (request, response) => {
@@ -122,6 +123,7 @@ adminRouter.post("/", async (request, response) => {
     //Hash password and save the admin in database
     const saltRounds = 10;
     const passwordHash = await bcrypt.hash(password, saltRounds);
+    const localgovdetails = await LocalGov.findById(assigned_local_gov);
 
     const admin = new Admin({
       username,
@@ -141,10 +143,23 @@ adminRouter.post("/", async (request, response) => {
     }
     // Register admin to a ward
     else if (responsible === "ward" && assigned_local_gov && assigned_ward) {
-      await Ward.findOneAndUpdate(
-        { localGov: assigned_local_gov, number: assigned_ward },
-        { admin_registered: savedAdmin._id },
-      );
+      const ward = await Ward.findOne({ localGov: assigned_local_gov, number: assigned_ward });
+
+      if (ward) {
+        await Ward.findOneAndUpdate(
+          { localGov: assigned_local_gov, number: assigned_ward },
+          { admin_registered: savedAdmin._id },
+        );
+      } else {
+        const localgovdetails = await LocalGov.findById(assigned_local_gov);
+        const newWard = new Ward({
+          number: assigned_ward,
+          name: `${localgovdetails.name} Ward No. ${assigned_ward}`,
+          localGov: assigned_local_gov,
+          admin_registered: savedAdmin._id,
+        });
+        await newWard.save();
+      }
     }
     return response.status(201).json(savedAdmin);
   } catch (error) {
