@@ -20,69 +20,100 @@ function IssueCard({ issue, setIssue, locationName, commentsCount }) {
 
   return (
     <Card>
-      <CardContent className="p-8">
-        <Typography variant="h5">{issue.title}</Typography>
-        <Typography
-          variant="body2"
-          color="textSecondary"
-        >
-          Posted by {getDisplayUsername(issue.createdBy)}
-          on {new Date(issue.createdAt).toLocaleDateString()}
-        </Typography>
+      <CardContent style={{ padding: "30px" }}>
+        <Grid>
+          <Grid
+            item
+            xs={11}
+          >
+            <Typography variant="h5">{issue.title}</Typography>
+            <Typography
+              variant="body2"
+              color="textSecondary"
+              sx={{ mt: 1 }}
+            >
+              Posted by {getDisplayUsername(issue.createdBy)}
+              on {new Date(issue.createdAt).toLocaleDateString()}
+            </Typography>
 
-        <Box className="mt-2 flex items-center gap-2">
-          <Chip
-            label={issue.type}
-            color={issue.type === "issue" ? "error" : "success"}
-            size="small"
-          />
-          <Chip
-            label={issue.department}
-            color="primary"
-            variant="outlined"
-            size="small"
-          />
-        </Box>
-
-        <Typography
-          variant="body1"
-          paragraph
-          className="mt-4"
-        >
-          {issue.description}
-        </Typography>
-
-        <Typography
-          variant="body2"
-          color="textSecondary"
-        >
-          Status: {issue.status} <br />
-          Location: {locationName.split(",").slice(0, 5).join(", ")}
-        </Typography>
-
-        {issue.imagePaths?.length > 0 && (
-          <div className="mt-5">
-            {issue.imagePaths.map((mediaPath, index) => (
-              <MediaRenderer
-                key={index}
-                mediaPath={mediaPath}
+            <Box
+              sx={{
+                mt: 1,
+                display: "flex",
+                alignItems: "center",
+                gap: 1,
+              }}
+            >
+              <Chip
+                label={issue.type}
+                color={issue.type === "issue" ? "error" : "success"}
+                size="small"
               />
-            ))}
-          </div>
-        )}
+              <Chip
+                label={`Ward No. ${issue.assigned_ward}`}
+                color="primary"
+                variant="outlined"
+                size="small"
+              />
+            </Box>
 
-        <Grid className="mt-2 flex items-center gap-4">
-          <Box className="flex items-center">
-            <IconButton onClick={handleUpvote}>
-              {issue.upvotedBy.includes(currentUser?.id) ? (
-                <ArrowUpward color="primary" />
-              ) : (
-                <ArrowUpwardOutlined />
-              )}
-            </IconButton>
-            <Typography>{issue.upvotes}</Typography>
-          </Box>
-          <Button startIcon={<Comment />}>{commentsCount} Comments</Button>
+            <Typography
+              variant="body1"
+              paragraph
+              sx={{ mt: 2 }}
+            >
+              {issue.description}
+            </Typography>
+
+            <Typography
+              variant="body2"
+              color="textSecondary"
+            >
+              Status: {issue.status} <br />
+              Location: {locationName.split(",").slice(0, 5).join(", ")}
+            </Typography>
+
+            {issue.imagePaths?.length > 0 && (
+              <div
+                style={{
+                  marginTop: "20px",
+                  display: "flex",
+                }}
+              >
+                {issue.imagePaths.map((mediaPath, index) => (
+                  <MediaRenderer
+                    key={index}
+                    mediaPath={mediaPath}
+                  />
+                ))}
+              </div>
+            )}
+
+            <Grid
+              item
+              sx={{
+                mt: 1,
+                display: "flex",
+                alignItems: "center",
+                gap: 2,
+              }}
+            >
+              <Box
+                display="flex"
+                alignItems="center"
+              >
+                <IconButton onClick={handleUpvote}>
+                  {issue.upvotedBy.includes(currentUser?.id) ? (
+                    <ArrowUpward color="primary" />
+                  ) : (
+                    <ArrowUpwardOutlined />
+                  )}
+                </IconButton>
+                <Typography>{issue.upvotes}</Typography>
+              </Box>
+              <Button startIcon={<Comment />}>{commentsCount} Comments</Button>
+            </Grid>
+          </Grid>
         </Grid>
       </CardContent>
     </Card>
