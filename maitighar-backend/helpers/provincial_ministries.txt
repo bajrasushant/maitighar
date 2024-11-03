@@ -1,0 +1,478 @@
+== Provincial government ==
+{{Main|Provincial governments of Nepal}}
+The ministries of provinces in Nepal are as follows.
+
+=== Koshi Province ===
+{| class="wikitable"
+!S.N.
+!Ministry
+!Nepali
+!Minister responsible
+!Website
+|-
+!1
+|'''[[Office of the Chief Minister and Council of Ministers (Koshi Province)|Office of the Chief Minister and Council of Ministers]]'''
+|मुख्यमंत्री तथा मन्त्रिपरिषद् को कार्यालय
+|[[Hikmat Kumar Karki]]
+|
+|-
+!2
+|[[Ministry of Economic Affairs and Planning (Koshi Province)|Ministry of Economic Affairs and Planning]]
+|आर्थिक मामिला तथा योजना मन्त्रालय
+| [[Ram Bahadur Ranamagar|Ram Bahadur Rana Magar]] 
+|
+|-
+!3
+|[[Ministry of Physical Infrastructure Development]]
+|भौतिक पूर्वाधार विकास मन्त्रालय 
+|[[Ganesh Uprety]]
+|
+|-
+! rowspan="2" |4
+| rowspan="2" |[[Ministry of Social Development (Koshi Province)|Ministry of Social Development]]
+| rowspan="2" |सामाजिक विकास मन्त्रालय
+|[[Panch Karna Rai|Panchakarna Rai]]
+| rowspan="2" |
+|-
+| 
+|-
+!5
+|[[Ministry of Water Supply, Irrigation and Energy (Koshi Province)|Ministry of Water Supply, Irrigation and Energy]]
+|खानेपानी, सिँचाइ तथा उर्जा मन्त्रालय 
+|[[Ek Raj Karki|Ekraj Karki]]
+|
+|-
+!6
+|[[Ministry of Internal Affairs And Law (Koshi Province)|Ministry of Internal Affairs and Law]]
+|आन्तरिक मामिला तथा कानुन मन्त्रालय
+|[[Lila Ballabh Adhikari|Lilla Ballabh Adhikari]]
+|
+|-
+!7
+|[[Ministry of Tourism, Forests and Environment (Koshi Province)|Ministry of Tourism, Forests and Environment]]
+|पर्यटन, वन तथा वातावरण मन्त्रालय 
+|[[Bandana Jhangad|Bandana Jhagad]]
+|
+|-
+!8
+|[[Ministry of Industry, Agriculture and Cooperatives (Koshi Province)|Ministry of Industry, Agriculture and Cooperatives]]
+|उद्योग, कृषि तथा सहकारी मन्त्रालय 
+|[[Hikmat Kumar Karki]]
+|
+|-
+!9
+|[[Ministry of Health (Koshi Province)|Ministry of Health]] 
+|स्वास्थ्य मन्त्रालय 
+|[[Hikmat Kumar Karki]]
+|
+|}
+
+=== Madhesh Province ===
+{| class="wikitable"
+!S.N.
+!Ministry
+!Nepali
+!Minister responsible
+!Website
+|-
+!1
+|'''Office of Chief Minister and Council of Ministers'''
+|मुख्यमंत्री तथा मन्त्रिपरिषद्को कार्यालय
+|[[Saroj Kumar Ray]]
+|[http://ocmcm.p2.gov.np/ Official website] 
+|-
+!2
+|Ministry of Physical Infrastructure Development
+
+|भौतिक पूर्वाधार विकास मन्त्रालय
+|[[Ram Saroj Yadav]]
+|[http://mopid.p2.gov.np/ Official website]
+|-
+! rowspan="2" |3
+| rowspan="2" |Ministry of Economic Affairs and Planning
+| rowspan="2" |आर्थिक मामिला तथा योजना मन्त्रालय
+|Shailendra Prasad Sah
+| rowspan="2" |[http://moeap.p2.gov.np/ Official website]
+|-
+|Usha Yadav (Minister of [[Minister of State|state]])
+|-
+! rowspan="2" |4
+| rowspan="2" |Ministry of Internal Affairs and Communication
+| rowspan="2" |आन्तरिक मामिला तथा सञ्चार मन्त्रालय
+|Bharat Prasad Sah
+| rowspan="2" |[http://moial.p2.gov.np/ Official website]
+|-
+|Rubi Karn (Minister of [[Minister of State|state]])
+|-
+! rowspan="2" |5
+| rowspan="2" |Ministry of Land Management, Agriculture and Co-operatives
+| rowspan="2" |भुमि व्यवस्था, कृषि तथा सहकारी मन्त्रालय
+|Bijay Kumar Yadav
+| rowspan="2" |[http://molmac.p2.gov.np/ Official website]
+|-
+|Yogendra Ray Yadav (Minister of [[Minister of State|state]])
+|-
+!6
+|Ministry of Social Development
+|सामाजिक विकास मन्त्रालय
+|Nawal Kishor Sah Sudi
+|[http://mosd.p2.gov.np/ Official website]
+|-
+! rowspan="2" |7
+| rowspan="2" |Ministry of Industry, Tourism and Forest
+| rowspan="2" |उद्योग, पर्यटन तथा वन मन्त्रालय
+|[[Satrudhan Mahato]]
+| rowspan="2" |[http://moitfe.p2.gov.np/ Official website]
+|-
+|[[Nagendra Raya Yadav]] (Minister of [[Minister of State|state]])
+|-
+!8
+|Ministry of Women, Children, Youth and Sports
+|महिला, बालबालिका, युवा तथा खेलकुद मन्त्रालय
+|[[Birendra Prasad Singh]]
+|[http://mowcys.p2.gov.np/ Official website]
+|-
+!9
+|Ministry of Energy and Water Supply
+|ऊर्जा तथा खानेपानी मन्त्रालय
+|[[Om Prakash Sharma (Nepali politician)|Om Prakash Sharma]]
+|[http://mowsed.p2.gov.np/ Official website]
+|-
+!10
+|Ministry of Law, Justice and Provincial Assembly Affairs
+|कानुन, न्याय तथा प्रदेश सभा मामिला मन्त्रालय
+|[[Pramod Kumar Yadav (Siraha politician)|Pramod Kumar Yadav]]
+|[http://moljpa.p2.gov.np/ Official website]
+|}
+
+=== Bagmati Province ===
+{| class="wikitable"
+!S.N.
+!Ministry
+!Nepali
+!Minister responsible
+!Website
+|-
+!1
+|'''Office of Chief Minister and Council of Ministers'''
+|मुख्यमंत्री तथा मन्त्रिपरिषद्को कार्यालय
+|Shalikram Jamarkattel
+|[https://ocmcm.bagamati.gov.np/ Official website]
+|-
+!2
+|Minister for Economic Affairs and Planning
+|आर्थिक मामिला तथा योजना मन्त्री
+|[[Bahadur Singh Lama]]
+|[http://moeap.bagamati.gov.np/ Official website]
+|-
+!3
+|Minister for Drinking Water, Energy and Irrigation
+|खानेपानी, उर्जा तथा सिँचाइ मन्त्री
+|[[Tirtha Bahadur Lama]]
+|[http://mowsei.bagamati.gov.np/ Official website]
+|-
+!4
+|Minister for Physical Infrastructure Development
+|भौतिक पूर्वाधार विकास मन्त्री
+|Yuvaraj Dulal
+|[https://mopid.bagamati.gov.np/ Official website]
+|-
+!5
+|Minister for Internal Affairs and Law
+|आन्तरिक मामिला तथा कानून मन्त्री
+|[[Ganga Narayan Shrestha]]
+|[http://moial.bagamati.gov.np/ Official website]
+|-
+!6
+|Minister for Social Development
+|सामाजिक विकास मन्त्री
+|Kumari Moktan
+|[http://mosd.bagamati.gov.np/ Official website]
+|-
+!7
+|Minister for Agriculture and Livestock Development
+|कृषि तथा पशुपन्छी विकास मन्त्री
+|Dr.Rajendra Mann Shrestha
+|[http://molmac.bagamati.gov.np/ Official website]
+|-
+!8
+|Minister for Health
+|स्वास्थ्य मन्त्री
+| Uttam Joshi
+|[https://moh.bagamati.gov.np/ Official website]
+|-
+!9 
+|Minister for Labour, Employment and Transportation
+|श्रम, रोजगार तथा यातायात मन्त्री
+| Laxman Lamsal
+|[https://molet.bagamati.gov.np/ Official website]
+|-
+!10 
+|Minister for Industry, Commerce, Land and Administration
+|पर्यटन, उद्योग तथा सहकारी मन्त्री
+|  Ramakrishna Chitrakar
+|[http://mocat.bagamati.gov.np/ Official website]
+|-
+!11 
+|Minister for Forest and Environment
+|वन तथा वातावरण मन्त्री
+|  Masina Khadka
+|[https://mofe.bagamati.gov.np/ Official website]
+|}
+
+=== Gandaki Province ===
+{| class="wikitable"
+!S.N.
+!Ministry
+!Nepali
+!Minister responsible
+!Website
+|-
+!1
+|'''Office of Chief Minister and Council of Ministers'''
+|मुख्यमंत्री तथा मन्त्रिपरिद्को कार्यालय
+|[[Surendraraj Pandey]]
+|[https://ocmcm.gandaki.gov.np/ Official website]
+|-
+!2
+|[[Ministry of Social Development and HEALTH |Ministry of Health and Population]]
+|सामाजिक विकास तथा स्वास्थ्य मन्त्रालय
+|[[Shusila Simkhada]]
+|[http://mohp.gandaki.gov.np Official website]
+|-
+
+!3
+|Ministry of Energy, Water Resources and Drinking Water
+|ऊर्जा, जलस्रोत तथा खानेपानी मन्त्रालय
+|Saraswati Aryal Tiwari
+|[https://moewrws.gandaki.gov.np/ Official website]
+|-
+!4
+|Ministry of Land Management, Agriculture, Cooperatives and Poverty Alleviation
+|भुमिव्यवस्था, कृषि, सहकारी तथा गरिबी निवारण मन्त्रालय
+|Mahendr Dhoj G.C
+|[http://molmac.gandaki.gov.np/ Official website]
+|-
+!5
+|Ministry of Physical Infrastructures, Urban Development and Transportation
+|भौतिक पूर्वाधार, सहरी विकास तथा यातायात व्यवस्था मन्त्रालय
+|[[Resham Bahadur Jugjali]]
+|[http://mopid.gandaki.gov.np/ Official website]
+|-
+!6
+|[[Ministry of Finance]]
+|अर्थ मन्त्रालय
+|Jit Prakash Ale Magar
+|[http://moeap.gandaki.gov.np/ Official website]
+|-
+!7
+|Ministry of Tourism, Industry, Commerce and Supplies
+|पर्यटन, उद्योग, वाणिज्य तथा आपूर्ति मन्त्रालय्ति
+|[[Dipendra Bahadur Thapa]]
+|[https://motics.gandaki.gov.np/ Official website]
+|}
+
+=== Lumbini Province ===
+{| class="wikitable"
+!S.N.
+!Ministry
+!Nepali
+!Minister responsible
+!Website
+|-
+!1
+|'''Office of Chief Minister and Council of Ministers'''
+|मुख्यमंत्री तथा मन्त्रिपरिषद्को कार्यालय
+| Sujal Sharma
+|[https://ocmcm.lumbini.gov.np/ Official website]
+|-
+! rowspan="2" |2
+| rowspan="2" |Ministry of Tourism, Rural and Urban Development
+| rowspan="2" |पर्यटन, ग्रामीण तथा सहरी विकास मन्त्रालय
+|[[Dilli Bahadur Chaudhary]]
+| rowspan="2" |[https://morud.lumbini.gov.np/ Official website]
+|-
+|Rina Nepal BK (Minister of [[Minister of State|state]])
+|-
+! rowspan="2" |3
+| rowspan="2" |Ministry of Economic Affairs and Cooperatives
+| rowspan="2" |आर्थिक मामिला तथा सहकारी मन्त्रालय
+|Krishna Dhoj Khadka
+| rowspan="2" |[https://moeap.lumbini.gov.np/ Official website]
+|-
+|Sushma Yadav (Minister of [[Minister of State|state]])
+|-
+!4
+|Ministry of Physical Infrastructure Development
+|भौतिक पूर्वाधार विकास मन्त्रालय
+|Sahas Ram Yadav
+|[https://mopid.lumbini.gov.np/ Official website]
+|-
+! rowspan="2" |5
+| rowspan="2" |Ministry of Health, Population and Family Welfare
+| rowspan="2" |स्वास्थ्य, जनसंख्या तथा परिवार कल्याण मन्त्रालय
+| Krish Banjade
+| rowspan="2" |[https://mohp.lumbini.gov.np/ Official website] 
+|-
+|Bimala Khatri Oli (Minister of [[Minister of State|state]])
+|-
+!6
+|Ministry of Internal Affairs and Communication
+|आन्तरिक मामिला तथा सञ्चार मन्त्रालय
+|[[Tilakram Sharma]]
+|[https://moial.lumbini.gov.np/ Official website]
+|-
+! rowspan="2" |7
+| rowspan="2" |Ministry of Energy, Water Resource and Irrigation
+| rowspan="2" |ऊर्जा, जलश्रोत तथा सिचाई मन्त्रालय
+|[[Bir Bahadur Rana]]
+| rowspan="2" |[https://moewri.lumbini.gov.np/ Official website]
+|-
+|Arjun Kumar Shrestha (Minister of [[Minister of State|state]])
+|-
+!8
+|Ministry of Forest, Environment and Soil Conservation
+|वन, वातावरण तथा भु संरक्षण मन्त्रालय
+|Surendra Bahadur Hamal
+|[https://moitfe.lumbini.gov.np/ Official website] 
+|-
+!9
+|Ministry of Industry, Commerce and Supplies
+|उद्योग, वाणिज्य तथा आपूर्ति मन्त्रालय
+|Ajay Shahi
+|[https://moics.lumbini.gov.np/ Official website] 
+|-
+!10
+|Ministry of Law, Women Children and Senior Citizens
+|कानुन, महिला, बालबालिका तथा जेष्ठ नागरिक मन्त्रालय
+|[[Rama Gharti]]
+|[https://molwcsc.lumbini.gov.np/ Official website]
+|-
+!11
+|Ministry of Education, Science and Sports
+|शिक्षा, विज्ञान तथा खेलकुद मन्त्रालय
+|Wasiuddin Khan
+|[https://mosd.lumbini.gov.np/ Official website]
+|-
+!12
+|Ministry of Labour, Employment and Transportation Management
+|श्रम, रोजगार तथा यातायात व्यवस्था मन्त्रालय
+|Purmati Dhenga
+|[https://moletm.lumbini.gov.np/ Official website]
+|-
+!13
+|Ministry of Agriculture, Food Technology and Land Management
+|कृषि, खाद्य प्रविधि तथा भुमिव्यवस्था मन्त्रालय
+|Suman Sharma Rayamajhi
+|[https://molmac.lumbini.gov.np/ Official website] 
+|}
+
+=== Karnali Province ===
+{| class="wikitable"
+!S.N.
+!Ministry
+!Nepali
+!Minister responsible
+!Website
+|-
+!1
+|'''Office of Chief Minister and Council of Ministers'''
+|मुख्यमंत्री तथा मन्त्रिपिषद्को कार्यालय
+|[[Jeevan Bahadur Shahi]]
+|[http://ocmcm.karnali.gov.np/ Official website]
+|-
+!2
+|Ministry of Social Development
+|सामाजिक विकास मन्त्रालय
+|[[Yagya Bahadur Budha Chhetri]]
+|[http://mosd.karnali.gov.np/ Official website]
+|-
+!3
+|Ministry of Land Management, Agriculture and Cooperatives
+|भुमि व्यवस्था, कृषि तथा सहकारी मन्त्रालय
+|[[Chandra Bahadur Shahi]]
+|[http://molmac.karnali.gov.np/ Official website]
+|-
+!4
+|Ministry of Economic Affairs and Planning
+|आर्थिक मामिला तथा योजना मन्त्रालय
+|[[Binda Man Bista]]
+|[http://moeap.karnali.gov.np/ Official website]
+|-
+!5
+|Ministry of Physical Infrastructure and Urban Development
+|भौतिक पूर्वाधार तथा सहरी विकास मन्त्रालय
+|[[Padam Bahadur Rokaya]]
+|[http://mopid.karnali.gov.np/ Official website]
+|-
+!6
+|Ministry of Water Resource and Energy Development
+|जलश्रोत तथा ऊर्जा विकास मन्त्रालय
+|[[Ganesh Prasad Singh (Nepalese politician)|Ganesh Prasad Singh]]
+|[http://mowred.karnali.gov.np/ Official website]
+|-
+!7
+|Ministry of Internal Affairs and Law
+|आन्तरिक मामिला तथा कानुन मन्त्रालय
+|[[Him Bahadur Shahi]]
+|[http://moial.karnali.gov.np/ Official website]
+|-
+!8
+|Ministry of Industry, Tourism, Forest and Environment
+|उद्योग, पर्यटन, वन तथा वातावरण मन्त्रालय
+|Karchen Lama
+|[http://moitfe.karnali.gov.np/ Official website]
+|}
+
+=== Sudurpashchim Province ===
+{| class="wikitable"
+!S.N.
+!Ministry
+!Nepali
+!Minister responsible
+!Website
+|-
+!1
+|'''Office of Chief Minister and Council of Ministers'''
+|मुख्यमंत्री तथा मन्त्रीपरिषद्को कार्यालय
+|[[Kamal Bahadur Shah]]
+|[http://ocmcm.sudurpashchim.gov.np/ Official website]
+|-
+!2
+|Ministry of Physical Infrastructure Development
+|भौतिक पूर्वाधार विकास मन्त्रालय
+|[[Prakash Bahadur Deuba]]
+|[http://mopid.sudurpashchim.gov.np/ Official website]
+|-
+!3
+|Ministry of Economic Affairs and Planning
+|आर्थिक मामिला तथा योजना मन्त्रालय
+|[[Naresh Kumar Shahi]]
+|[http://moeap.sudurpashchim.gov.np/ Official website]
+|-
+!4
+|Ministry of Internal Affairs and Law
+|आन्तरिक मामिला तथा कानुन मन्त्रालय
+|
+|[http://moial.sudurpashchim.gov.np/ Official website]
+|-
+!5
+|Ministry of Industry, Tourism, Forest and Environment
+|उद्योग, पर्यटन, वन तथा वातावरण मन्त्रालय
+|
+|[http://ocmcm.sudurpashchim.gov.np/ Official Website]
+|-
+!6
+|Ministry of Social Development
+|सामाजिक विकास मन्त्रालय
+|
+|[http://mosd.sudurpashchim.gov.np/ Official website]
+|-
+!7
+|Ministry of Land Management, Agriculture and Co-operatives
+|भुमि व्यवस्था, कृषि तथा सहकारी मन्त्रालय
+|
+|[http://molmac.sudurpashchim.gov.np/ Official website]
+|-
+|}
+

@@ -20,7 +20,6 @@ import { useNotification } from "../context/NotificationContext";
 function IssuesList() {
   const [issues, setIssues] = useState([]);
   const adminData = JSON.parse(localStorage.getItem("loggedAdmin"));
-  const { department } = adminData;
   const { token } = adminData;
   const { setNotification } = useNotification();
 
@@ -46,9 +45,11 @@ function IssuesList() {
           Authorization: `Bearer ${token}`,
         },
       };
-      console.log("config", config);
       try {
-        const response = await axios.get(`/api/issues/admin/${department}`, config);
+        const response = await axios.get("/api/issues/admin", {
+          params: { adminId: adminData.id },
+          ...config,
+        });
         setIssues(response.data);
       } catch (error) {
         console.error("Error fetching issues:", error);
@@ -57,7 +58,7 @@ function IssuesList() {
     };
 
     fetchIssues();
-  }, [department, token]);
+  }, [token]);
 
   const issuesList = issues.filter((issue) => issue.type === "issue");
 
