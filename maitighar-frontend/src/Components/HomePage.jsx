@@ -43,20 +43,20 @@ function HomePage() {
   const currentUser = useUserValue();
   const { setNotification } = useNotification();
   // const [reports, setReports] = useState([
-  // 	{
-  // 		id: 1,
-  // 		title: "Pothole on Main Street",
-  // 		description: "Large pothole causing traffic issues",
-  // 		upvotes: 5,
-  // 		comments: [],
-  // 	},
-  // 	{
-  // 		id: 2,
-  // 		title: "Broken Streetlight",
-  // 		description: "Streetlight out at corner of Elm and Oak",
-  // 		upvotes: 3,
-  // 		comments: [],
-  // 	},
+  // {
+  //  id: 1,
+  //  title: "Pothole on Main Street",
+  //  description: "Large pothole causing traffic issues",
+  //  upvotes: 5,
+  //  comments: [],
+  // },
+  // {
+  //  id: 2,
+  //  title: "Broken Streetlight",
+  //  description: "Streetlight out at corner of Elm and Oak",
+  //  upvotes: 3,
+  //  comments: [],
+  // },
   // ]);
 
   const userDispatch = useUserDispatch();
@@ -173,11 +173,11 @@ function HomePage() {
   };
 
   // const handleOpenNotifications = (event) => {
-  // 	setAnchorElNotifications(event.currentTarget);
+  //  setAnchorElNotifications(event.currentTarget);
   // };
 
   // const handleCloseNotifications = () => {
-  // 	setAnchorElNotifications(null);
+  //  setAnchorElNotifications(null);
   // };
 
   const handleOpenForm = () => {
@@ -185,13 +185,13 @@ function HomePage() {
   };
 
   // const handleCreateIssue = () => {
-  // 	setOpenReportForm(true);
-  // 	handleCloseCreateMenu();
+  //  setOpenReportForm(true);
+  //  handleCloseCreateMenu();
   // };
 
   // const handleCreateSuggestion = () => {
-  // 	setOpenSuggestionForm(true);
-  // 	handleCloseCreateMenu();
+  //  setOpenSuggestionForm(true);
+  //  handleCloseCreateMenu();
   // };
 
   const handleCardClick = (id) => {
@@ -310,7 +310,7 @@ function HomePage() {
                           size="small"
                         />
                         <Chip
-                          label={issue.department}
+                          label={`Ward No. ${issue.assigned_ward}`}
                           color="primary"
                           variant="outlined"
                           size="small"
