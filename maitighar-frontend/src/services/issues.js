@@ -12,7 +12,8 @@ const getAll = async () => {
 const getNearby = async (latitude, longitude, maxDistance) => {
   const config = helpers.getConfig();
   const response = await fetch(
-    `${baseUrl}/nearby?latitude=${latitude}&longitude=${longitude}&maxDistance=${maxDistance}`, config
+    `${baseUrl}/nearby?latitude=${latitude}&longitude=${longitude}&maxDistance=${maxDistance}`,
+    config,
   );
   return response.json();
 };

@@ -122,7 +122,21 @@ issueRouter.post("/", upload.array("images", 5), async (req, res) => {
     });
 
     await issue.save();
-    res.status(201).json(issue);
+    // res.status(201).json(issue);
+    // Then analyze sentiment and update the issue
+    const sentimentResult = await analyzeSentiment(issue._id);
+
+    // Update the issue with sentiment data
+    const updatedIssue = await Issue.findByIdAndUpdate(
+      issue._id,
+      {
+        sentiment: sentimentResult.overall_sentiment,
+        sentimentScore: sentimentResult.average_score,
+      },
+      { new: true },
+    );
+
+    res.status(201).json(updatedIssue);
   } catch (error) {
     console.error("Error creating issue:", error);
     res.status(500).json({ error: "Internal server error" });
@@ -282,17 +296,17 @@ issueRouter.get("/:id", async (req, res) => {
 // });
 
 //Get issues created by the logged-in user
-issueRouter.get("/user/user-posts", async (req,res) => {
+issueRouter.get("/user/user-posts", async (req, res) => {
   try {
     // Check if the user is authenticated
     if (!req.user || !req.user.id) {
-      return res.status(401).json({ error: "User not authenticated"});
+      return res.status(401).json({ error: "User not authenticated" });
     }
 
-    const userIssues = await Issue.find({ createdBy: req.user.id});
+    const userIssues = await Issue.find({ createdBy: req.user.id });
 
     res.json(userIssues);
-  }catch (error) {
+  } catch (error) {
     console.error("Error fetchong user issues:", error);
     res.status(500).json({ error: "Internal server error" });
   }
