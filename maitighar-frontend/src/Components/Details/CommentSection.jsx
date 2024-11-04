@@ -17,7 +17,7 @@ function CommentSection({
 }) {
   return (
     <>
-      <Divider className="my-5" />
+      <Divider style={{ margin: "20px 0" }} />
 
       <form onSubmit={(e) => handleCommentSubmit(e, issueId)}>
         <TextField
@@ -26,7 +26,7 @@ function CommentSection({
           placeholder="Add a comment"
           value={newComment}
           onChange={(e) => setNewComment(e.target.value)}
-          className="mb-5"
+          style={{ marginBottom: "20px" }}
         />
         <Button
           variant="contained"
@@ -38,7 +38,7 @@ function CommentSection({
       </form>
 
       {comments.length > 0 && (
-        <Box className="mt-4">
+        <Box sx={{ mt: 2 }}>
           <Typography
             variant="h6"
             gutterBottom

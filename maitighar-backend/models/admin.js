@@ -17,6 +17,11 @@ const adminSchema = new mongoose.Schema({
     unique: true,
     required: true,
   },
+  responsible: {
+    type: String,
+    enum: ["ward", "department"],
+    required: true,
+  },
   assigned_province: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Province",
@@ -30,12 +35,14 @@ const adminSchema = new mongoose.Schema({
   assigned_local_gov: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "LocalGov",
-    required: false,
+    required: function () {
+      return this.responsible === "ward";
+    },
   },
-  assinged_ward: {
+  assigned_ward: {
     type: Number,
     required: function () {
-      return this.assigned_local_gov !== null;
+      return this.responsible === "ward";
     },
 
     validate: {
@@ -43,15 +50,19 @@ const adminSchema = new mongoose.Schema({
         if (!this.assigned_local_gov) {
           return true;
         }
-        if (value <= 0) {
-          return false;
-        }
         const localGov = await mongoose.model("LocalGov").findById(this.assigned_local_gov);
-        return value <= localGov.number_of_wards;
+        return value > 0 && value <= localGov.number_of_wards;
       },
       message: "Assigned ward must be within the range of the local government's number of wards.",
     },
-    unique: true,
+  },
+  // Assigned department or ward based on the responsibility
+  assigned_department: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Department",
+    required: function () {
+      return this.responsible === "department";
+    },
   },
   // role: String,
   //   department: {
@@ -68,22 +79,34 @@ const adminSchema = new mongoose.Schema({
 });
 
 adminSchema.pre("save", async function (next) {
-  if (this.assigned_local_gov && this.assigned_ward) {
-    const existingAdmin = await mongoose.model("Admin").findOne({
+  if (this.responsible === "ward" && this.assigned_local_gov && this.assigned_ward) {
+    const existingAdminForWard = await mongoose.model("Admin").findOne({
       assigned_local_gov: this.assigned_local_gov,
-      assigned_ward: this.assinged_ward,
+      assigned_ward: this.assigned_ward,
       _id: { $ne: this._id },
     });
 
-    if (existingAdmin) {
+    if (existingAdminForWard) {
       return next(
         new Error(
           `Ward ${this.assigned_ward} is already assigned to another admin in this local government.`,
         ),
       );
     }
-    next();
   }
+
+  if (this.responsible === "department" && this.assigned_department) {
+    const existingAdminForDepartment = await mongoose.model("Admin").findOne({
+      assigned_department: this.assigned_department,
+      _id: { $ne: this._id },
+    });
+
+    if (existingAdminForDepartment) {
+      return next(new Error("Department is already assigned to another admin."));
+    }
+  }
+
+  next();
 });
 
 adminSchema.plugin(uniqueValidator);

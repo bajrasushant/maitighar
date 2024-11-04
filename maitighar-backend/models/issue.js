@@ -1,43 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const departments = [
-  "Ward No.1",
-  "Ward No.2",
-  "Ward No.3",
-  "Ward No.4",
-  "Ward No.5",
-  "Ward No.6",
-  "Ward No.7",
-  "Ward No.8",
-  "Ward No.9",
-  "Ward No.10",
-  "Ward No.11",
-  "Ward No.12",
-  "Ward No.13",
-  "Ward No.14",
-  "Ward No.15",
-  "Ward No.16",
-  "Ward No.17",
-  "Ward No.18",
-  "Ward No.19",
-  "Ward No.20",
-  "Ward No.21",
-  "Ward No.22",
-  "Ward No.23",
-  "Ward No.24",
-  "Ward No.25",
-  "Ward No.26",
-  "Ward No.27",
-  "Ward No.28",
-  "Ward No.29",
-  "Ward No.30",
-  "Ward No.31",
-  "Ward No.32",
-];
-
-const categories = ["Water", "Road", "Education", "Others"];
-
 const issueSchema = new Schema({
   title: {
     type: String,
@@ -47,11 +10,11 @@ const issueSchema = new Schema({
     type: String,
     required: true,
   },
-  department: {
-    type: String,
-    enum: departments,
-    required: true,
-  },
+  // department: {
+  //   type: String,
+  //   enum: departments,
+  //   required: true,
+  // },
   assigned_province: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Province",
@@ -67,7 +30,7 @@ const issueSchema = new Schema({
     ref: "LocalGov",
     required: false,
   },
-  assinged_ward: {
+  assigned_ward: {
     type: Number,
     required: function () {
       return this.assigned_local_gov !== null;
@@ -87,8 +50,8 @@ const issueSchema = new Schema({
     },
   },
   category: {
-    type: String,
-    enum: categories,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Category",
     required: true,
   },
   location: {

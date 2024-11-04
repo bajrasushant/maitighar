@@ -1,0 +1,1225 @@
+{
+  "total": 87,
+  "federalCount": 22,
+  "provincialCount": 65,
+  "ministries": [
+    {
+      "name": "Office of the Prime Minister and Council of Ministers]]",
+      "nepaliName": "प्रधानमन्त्री तथा मन्त्रिपरिषदको कार्यालय",
+      "pointOfContact": {
+        "name": "KP Sharma Oli"
+      },
+      "category": "67244f46e649539ccc41cef2",
+      "website": "https://www.opmcm.gov.np/en/cabinet/",
+      "address": "Singha Durbar, Kathmandu",
+      "active": true,
+      "level": "federal",
+      "created_at": "2024-11-01T04:05:26.241Z",
+      "updated_at": "2024-11-01T04:05:26.242Z"
+    },
+    {
+      "name": "Ministry of Defence]]",
+      "nepaliName": "रक्षा मन्त्रलय",
+      "pointOfContact": {
+        "name": "Manbir Rai"
+      },
+      "category": "67244f46e649539ccc41cef2",
+      "website": "https://www.mod.gov.np/",
+      "address": "Singha Durbar, Kathmandu",
+      "active": true,
+      "level": "federal",
+      "created_at": "2024-11-01T04:05:26.243Z",
+      "updated_at": "2024-11-01T04:05:26.243Z"
+    },
+    {
+      "name": "Ministry of Home Affairs]]",
+      "nepaliName": "गृह मन्त्रलय",
+      "pointOfContact": {
+        "name": "Ramesh Lekhak"
+      },
+      "category": "67244f46e649539ccc41cef2",
+      "website": "https://www.moha.gov.np/en",
+      "address": "Singha Durbar, Kathmandu",
+      "active": true,
+      "level": "federal",
+      "created_at": "2024-11-01T04:05:26.244Z",
+      "updated_at": "2024-11-01T04:05:26.244Z"
+    },
+    {
+      "name": "Ministry of Agriculture and Livestock Development]]",
+      "nepaliName": "कृषि तथा पशुपंक्षी विकास मन्त्रालय",
+      "pointOfContact": {
+        "name": "Ram Nath Adhikari"
+      },
+      "category": "67244f46e649539ccc41cf08",
+      "website": "http://moald.gov.np/",
+      "address": "Singha Durbar, Kathmandu",
+      "active": true,
+      "level": "federal",
+      "created_at": "2024-11-01T04:05:26.244Z",
+      "updated_at": "2024-11-01T04:05:26.244Z"
+    },
+    {
+      "name": "Ministry of Law, Justice and Parliamentary Affairs]]",
+      "nepaliName": "कानुन, न्याय तथा संसदीय मामिला मन्त्रालय",
+      "pointOfContact": {
+        "name": "Ajay Chaurasiya"
+      },
+      "category": "67244f46e649539ccc41cf05",
+      "website": "http://www.moljpa.gov.np/en/",
+      "address": "Singha Durbar, Kathmandu",
+      "active": true,
+      "level": "federal",
+      "created_at": "2024-11-01T04:05:26.244Z",
+      "updated_at": "2024-11-01T04:05:26.244Z"
+    },
+    {
+      "name": "Ministry of Education, Science and Technology]]",
+      "nepaliName": "शिक्षा, विज्ञान तथा प्रविधि मन्त्रलय",
+      "pointOfContact": {
+        "name": "Bidya Bhattarai"
+      },
+      "category": "67244f46e649539ccc41cefc",
+      "website": "http://moest.gov.np/",
+      "address": "Singha Durbar, Kathmandu",
+      "active": true,
+      "level": "federal",
+      "created_at": "2024-11-01T04:05:26.244Z",
+      "updated_at": "2024-11-01T04:05:26.244Z"
+    },
+    {
+      "name": "Ministry of Labor, Employment and Social Security]]",
+      "nepaliName": "श्रम, रोजगार तथा सामाजिक सुरक्षा मन्त्रलय",
+      "pointOfContact": {
+        "name": "Sharat Singh Bhandari"
+      },
+      "category": "67244f46e649539ccc41cefc",
+      "website": "http://moless.gov.np/",
+      "address": "Singha Durbar, Kathmandu",
+      "active": true,
+      "level": "federal",
+      "created_at": "2024-11-01T04:05:26.244Z",
+      "updated_at": "2024-11-01T04:05:26.244Z"
+    },
+    {
+      "name": "Ministry of Finance]]",
+      "nepaliName": "अर्थ मन्त्रलय",
+      "pointOfContact": {
+        "name": "Bishnu Prasad Paudel"
+      },
+      "category": "67244f46e649539ccc41cef2",
+      "website": "https://new.mof.gov.np/",
+      "address": "Singha Durbar, Kathmandu",
+      "active": true,
+      "level": "federal",
+      "created_at": "2024-11-01T04:05:26.245Z",
+      "updated_at": "2024-11-01T04:05:26.245Z"
+    },
+    {
+      "name": "Ministry of Water Supply]]",
+      "nepaliName": "खानेपानी मन्त्रलय",
+      "pointOfContact": {
+        "name": "[[Pradeep Yadav (Nepalese politician)"
+      },
+      "category": "67244f46e649539ccc41cef2",
+      "website": "",
+      "address": "Singha Durbar, Kathmandu",
+      "active": true,
+      "level": "federal",
+      "created_at": "2024-11-01T04:05:26.245Z",
+      "updated_at": "2024-11-01T04:05:26.245Z"
+    },
+    {
+      "name": "Ministry of Energy, Water Resources and Irrigation]]",
+      "nepaliName": "ऊर्जा, जलस्रोत तथा सिँचाई मन्त्रलय",
+      "pointOfContact": {
+        "name": "Deepak Khadka"
+      },
+      "category": "67244f46e649539ccc41cef2",
+      "website": "https://www.moewri.gov.np/?lan=en/",
+      "address": "Singha Durbar, Kathmandu",
+      "active": true,
+      "level": "federal",
+      "created_at": "2024-11-01T04:05:26.245Z",
+      "updated_at": "2024-11-01T04:05:26.245Z"
+    },
+    {
+      "name": "Ministry of Foreign Affairs]]",
+      "nepaliName": "परराष्ट्र मन्त्रलय",
+      "pointOfContact": {
+        "name": "Arzu Rana Deuba"
+      },
+      "category": "67244f46e649539ccc41cef2",
+      "website": "https://new.mofa.gov.np/",
+      "address": "Singha Durbar, Kathmandu",
+      "active": true,
+      "level": "federal",
+      "created_at": "2024-11-01T04:05:26.245Z",
+      "updated_at": "2024-11-01T04:05:26.245Z"
+    },
+    {
+      "name": "Ministry of Communication and Information Technology]]",
+      "nepaliName": "सञ्‍चार तथा सूचना प्रविधि मन्त्रलय",
+      "pointOfContact": {
+        "name": "Prithvi Subba Gurung"
+      },
+      "category": "67244f46e649539ccc41cef2",
+      "website": "http://mocit.gov.np/",
+      "address": "Singha Durbar, Kathmandu",
+      "active": true,
+      "level": "federal",
+      "created_at": "2024-11-01T04:05:26.246Z",
+      "updated_at": "2024-11-01T04:05:26.246Z"
+    },
+    {
+      "name": "Ministry of Health and Population]]",
+      "nepaliName": "स्वास्थ्य तथा जनसङ्‌ख्या मन्त्रलय",
+      "pointOfContact": {
+        "name": "Pradip Paudel"
+      },
+      "category": "67244f46e649539ccc41cf02",
+      "website": "http://mohp.gov.np/",
+      "address": "Singha Durbar, Kathmandu",
+      "active": true,
+      "level": "federal",
+      "created_at": "2024-11-01T04:05:26.246Z",
+      "updated_at": "2024-11-01T04:05:26.246Z"
+    },
+    {
+      "name": "Ministry of Culture, Tourism and Civil Aviation]]",
+      "nepaliName": "संस्कृति, पर्यटन तथा नागरिक उड्डयन मन्त्रलय",
+      "pointOfContact": {
+        "name": "Badri Prasad Pandey"
+      },
+      "category": "67244f47e649539ccc41cf0b",
+      "website": "http://tourism.gov.np/",
+      "address": "Singha Durbar, Kathmandu",
+      "active": true,
+      "level": "federal",
+      "created_at": "2024-11-01T04:05:26.246Z",
+      "updated_at": "2024-11-01T04:05:26.246Z"
+    },
+    {
+      "name": "Ministry of Physical Infrastructure and Transport]]",
+      "nepaliName": "भौतिक पूर्वाधार तथा यातायात मन्त्रलय",
+      "pointOfContact": {
+        "name": "Devendra Dahal"
+      },
+      "category": "67244f46e649539ccc41cef5",
+      "website": "http://mopit.gov.np/",
+      "address": "Singha Durbar, Kathmandu",
+      "active": true,
+      "level": "federal",
+      "created_at": "2024-11-01T04:05:26.246Z",
+      "updated_at": "2024-11-01T04:05:26.246Z"
+    },
+    {
+      "name": "Ministry of Land Management, Cooperatives and Poverty Alleviation]]",
+      "nepaliName": "भूमि व्यवस्था, सहकारी तथा गरिबी निवारण मन्त्रलय",
+      "pointOfContact": {
+        "name": "Balaram Adhikari"
+      },
+      "category": "67244f46e649539ccc41cef2",
+      "website": "https://molcpa.gov.np/",
+      "address": "Singha Durbar, Kathmandu",
+      "active": true,
+      "level": "federal",
+      "created_at": "2024-11-01T04:05:26.246Z",
+      "updated_at": "2024-11-01T04:05:26.246Z"
+    },
+    {
+      "name": "Ministry of Industry, Commerce and Supplies]]",
+      "nepaliName": "उद्योग, वाणिज्य तथा आपूर्ति मन्त्रलय",
+      "pointOfContact": {
+        "name": "Damodar Bhandari"
+      },
+      "category": "67244f47e649539ccc41cf0b",
+      "website": "https://www.moics.gov.np/en",
+      "address": "Singha Durbar, Kathmandu",
+      "active": true,
+      "level": "federal",
+      "created_at": "2024-11-01T04:05:26.246Z",
+      "updated_at": "2024-11-01T04:05:26.246Z"
+    },
+    {
+      "name": "Ministry of Urban Development]]",
+      "nepaliName": "सहरी विकास मन्त्रलय",
+      "pointOfContact": {
+        "name": "Prakash Man Singh"
+      },
+      "category": "67244f46e649539ccc41cef2",
+      "website": "http://moud.gov.np/",
+      "address": "Singha Durbar, Kathmandu",
+      "active": true,
+      "level": "federal",
+      "created_at": "2024-11-01T04:05:26.246Z",
+      "updated_at": "2024-11-01T04:05:26.246Z"
+    },
+    {
+      "name": "Ministry of Youth and Sports]]",
+      "nepaliName": "युवा तथा खेलकुद मन्त्रलय",
+      "pointOfContact": {
+        "name": "Teju Lal Chaudhary"
+      },
+      "category": "67244f46e649539ccc41cef2",
+      "website": "http://www.moys.gov.np/",
+      "address": "Singha Durbar, Kathmandu",
+      "active": true,
+      "level": "federal",
+      "created_at": "2024-11-01T04:05:26.247Z",
+      "updated_at": "2024-11-01T04:05:26.247Z"
+    },
+    {
+      "name": "Ministry of Women, Children and Senior Citizens]]",
+      "nepaliName": "महिला, बालबालिका तथा ज्येष्ठ नागरिक मन्त्रलय",
+      "pointOfContact": {
+        "name": "Nawal Kishor Sah"
+      },
+      "category": "67244f46e649539ccc41cef2",
+      "website": "http://mowcsc.gov.np/",
+      "address": "Singha Durbar, Kathmandu",
+      "active": true,
+      "level": "federal",
+      "created_at": "2024-11-01T04:05:26.247Z",
+      "updated_at": "2024-11-01T04:05:26.247Z"
+    },
+    {
+      "name": "Ministry of Forests and Environment]]",
+      "nepaliName": "वन तथा वातावरण मन्त्रलय",
+      "pointOfContact": {
+        "name": "Aain Bahadur Shahi Thakuri"
+      },
+      "category": "67244f46e649539ccc41ceff",
+      "website": "http://mofe.gov.np/",
+      "address": "Singha Durbar, Kathmandu",
+      "active": true,
+      "level": "federal",
+      "created_at": "2024-11-01T04:05:26.247Z",
+      "updated_at": "2024-11-01T04:05:26.247Z"
+    },
+    {
+      "name": "Ministry of Federal Affairs and General Administration]]",
+      "nepaliName": "सङ्घीय मामिला तथा सामान्य प्रशासन मन्त्रालय",
+      "pointOfContact": {
+        "name": "[[Raj Kumar Gupta (Nepalese politician)"
+      },
+      "category": "67244f46e649539ccc41cef2",
+      "website": "",
+      "address": "Singha Durbar, Kathmandu",
+      "active": true,
+      "level": "federal",
+      "created_at": "2024-11-01T04:05:26.247Z",
+      "updated_at": "2024-11-01T04:05:26.247Z"
+    },
+    {
+      "name": "[[Office of the Chief Minister and Council of Ministers (Koshi Province) (Koshi Province)",
+      "nepaliName": "Office of the Chief Minister and Council of Ministers]]",
+      "pointOfContact": {
+        "name": "मुख्यमंत्री तथा मन्त्रिपरिषद् को कार्यालय"
+      },
+      "category": "67244f46e649539ccc41cef2",
+      "website": "",
+      "address": "Koshi Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.248Z",
+      "updated_at": "2024-11-01T04:05:26.248Z"
+    },
+    {
+      "name": "[[Ministry of Economic Affairs and Planning (Koshi Province) (Koshi Province)",
+      "nepaliName": "Ministry of Economic Affairs and Planning]]",
+      "pointOfContact": {
+        "name": "आर्थिक मामिला तथा योजना मन्त्रालय"
+      },
+      "category": "67244f46e649539ccc41cef8",
+      "website": "",
+      "address": "Koshi Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.249Z",
+      "updated_at": "2024-11-01T04:05:26.249Z"
+    },
+    {
+      "name": "Ministry of Physical Infrastructure Development (Koshi Province)",
+      "nepaliName": "भौतिक पूर्वाधार विकास मन्त्रालय",
+      "pointOfContact": {
+        "name": "Ganesh Uprety"
+      },
+      "category": "67244f46e649539ccc41cef5",
+      "website": "",
+      "address": "Koshi Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.249Z",
+      "updated_at": "2024-11-01T04:05:26.249Z"
+    },
+    {
+      "name": "4 (Koshi Province)",
+      "nepaliName": "rowspan=\"2\"",
+      "pointOfContact": {
+        "name": "[[Ministry of Social Development (Koshi Province)"
+      },
+      "category": "67244f46e649539ccc41cef2",
+      "website": "",
+      "address": "Koshi Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.249Z",
+      "updated_at": "2024-11-01T04:05:26.249Z"
+    },
+    {
+      "name": "[[Ministry of Water Supply, Irrigation and Energy (Koshi Province) (Koshi Province)",
+      "nepaliName": "Ministry of Water Supply, Irrigation and Energy]]",
+      "pointOfContact": {
+        "name": "खानेपानी, सिँचाइ तथा उर्जा मन्त्रालय"
+      },
+      "category": "67244f46e649539ccc41cef2",
+      "website": "",
+      "address": "Koshi Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.249Z",
+      "updated_at": "2024-11-01T04:05:26.249Z"
+    },
+    {
+      "name": "[[Ministry of Internal Affairs And Law (Koshi Province) (Koshi Province)",
+      "nepaliName": "Ministry of Internal Affairs and Law]]",
+      "pointOfContact": {
+        "name": "आन्तरिक मामिला तथा कानुन मन्त्रालय"
+      },
+      "category": "67244f46e649539ccc41cf05",
+      "website": "",
+      "address": "Koshi Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.250Z",
+      "updated_at": "2024-11-01T04:05:26.250Z"
+    },
+    {
+      "name": "[[Ministry of Tourism, Forests and Environment (Koshi Province) (Koshi Province)",
+      "nepaliName": "Ministry of Tourism, Forests and Environment]]",
+      "pointOfContact": {
+        "name": "पर्यटन, वन तथा वातावरण मन्त्रालय"
+      },
+      "category": "67244f46e649539ccc41ceff",
+      "website": "",
+      "address": "Koshi Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.250Z",
+      "updated_at": "2024-11-01T04:05:26.250Z"
+    },
+    {
+      "name": "[[Ministry of Industry, Agriculture and Cooperatives (Koshi Province) (Koshi Province)",
+      "nepaliName": "Ministry of Industry, Agriculture and Cooperatives]]",
+      "pointOfContact": {
+        "name": "उद्योग, कृषि तथा सहकारी मन्त्रालय"
+      },
+      "category": "67244f46e649539ccc41cf08",
+      "website": "",
+      "address": "Koshi Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.250Z",
+      "updated_at": "2024-11-01T04:05:26.250Z"
+    },
+    {
+      "name": "[[Ministry of Health (Koshi Province) (Koshi Province)",
+      "nepaliName": "Ministry of Health]]",
+      "pointOfContact": {
+        "name": "स्वास्थ्य मन्त्रालय"
+      },
+      "category": "67244f46e649539ccc41cf02",
+      "website": "",
+      "address": "Koshi Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.250Z",
+      "updated_at": "2024-11-01T04:05:26.250Z"
+    },
+    {
+      "name": "Office of Chief Minister and Council of Ministers (Madhesh Province)",
+      "nepaliName": "मुख्यमंत्री तथा मन्त्रिपरिषद्को कार्यालय",
+      "pointOfContact": {
+        "name": "Saroj Kumar Ray"
+      },
+      "category": "67244f46e649539ccc41cef2",
+      "website": "http://ocmcm.p2.gov.np/",
+      "address": "Madhesh Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.250Z",
+      "updated_at": "2024-11-01T04:05:26.250Z"
+    },
+    {
+      "name": "Ministry of Physical Infrastructure Development (Madhesh Province)",
+      "nepaliName": "भौतिक पूर्वाधार विकास मन्त्रालय",
+      "pointOfContact": {
+        "name": "Ram Saroj Yadav"
+      },
+      "category": "67244f46e649539ccc41cef5",
+      "website": "http://mopid.p2.gov.np/",
+      "address": "Madhesh Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.250Z",
+      "updated_at": "2024-11-01T04:05:26.250Z"
+    },
+    {
+      "name": "3 (Madhesh Province)",
+      "nepaliName": "rowspan=\"2\"",
+      "pointOfContact": {
+        "name": "Ministry of Economic Affairs and Planning"
+      },
+      "category": "67244f46e649539ccc41cef2",
+      "website": "",
+      "address": "Madhesh Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.250Z",
+      "updated_at": "2024-11-01T04:05:26.250Z"
+    },
+    {
+      "name": "4 (Madhesh Province)",
+      "nepaliName": "rowspan=\"2\"",
+      "pointOfContact": {
+        "name": "Ministry of Internal Affairs and Communication"
+      },
+      "category": "67244f46e649539ccc41cef2",
+      "website": "",
+      "address": "Madhesh Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.251Z",
+      "updated_at": "2024-11-01T04:05:26.251Z"
+    },
+    {
+      "name": "5 (Madhesh Province)",
+      "nepaliName": "rowspan=\"2\"",
+      "pointOfContact": {
+        "name": "Ministry of Land Management, Agriculture and Co-operatives"
+      },
+      "category": "67244f46e649539ccc41cef2",
+      "website": "",
+      "address": "Madhesh Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.251Z",
+      "updated_at": "2024-11-01T04:05:26.251Z"
+    },
+    {
+      "name": "Ministry of Social Development (Madhesh Province)",
+      "nepaliName": "सामाजिक विकास मन्त्रालय",
+      "pointOfContact": {
+        "name": "Nawal Kishor Sah Sudi"
+      },
+      "category": "67244f46e649539ccc41cefc",
+      "website": "http://mosd.p2.gov.np/",
+      "address": "Madhesh Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.251Z",
+      "updated_at": "2024-11-01T04:05:26.251Z"
+    },
+    {
+      "name": "7 (Madhesh Province)",
+      "nepaliName": "rowspan=\"2\"",
+      "pointOfContact": {
+        "name": "Ministry of Industry, Tourism and Forest"
+      },
+      "category": "67244f46e649539ccc41cef2",
+      "website": "",
+      "address": "Madhesh Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.251Z",
+      "updated_at": "2024-11-01T04:05:26.251Z"
+    },
+    {
+      "name": "Ministry of Women, Children, Youth and Sports (Madhesh Province)",
+      "nepaliName": "महिला, बालबालिका, युवा तथा खेलकुद मन्त्रालय",
+      "pointOfContact": {
+        "name": "Birendra Prasad Singh"
+      },
+      "category": "67244f46e649539ccc41cef2",
+      "website": "http://mowcys.p2.gov.np/",
+      "address": "Madhesh Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.251Z",
+      "updated_at": "2024-11-01T04:05:26.251Z"
+    },
+    {
+      "name": "Ministry of Energy and Water Supply (Madhesh Province)",
+      "nepaliName": "ऊर्जा तथा खानेपानी मन्त्रालय",
+      "pointOfContact": {
+        "name": "[[Om Prakash Sharma (Nepali politician)"
+      },
+      "category": "67244f46e649539ccc41cef2",
+      "website": "",
+      "address": "Madhesh Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.251Z",
+      "updated_at": "2024-11-01T04:05:26.251Z"
+    },
+    {
+      "name": "Ministry of Law, Justice and Provincial Assembly Affairs (Madhesh Province)",
+      "nepaliName": "कानुन, न्याय तथा प्रदेश सभा मामिला मन्त्रालय",
+      "pointOfContact": {
+        "name": "[[Pramod Kumar Yadav (Siraha politician)"
+      },
+      "category": "67244f46e649539ccc41cf05",
+      "website": "",
+      "address": "Madhesh Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.251Z",
+      "updated_at": "2024-11-01T04:05:26.251Z"
+    },
+    {
+      "name": "Office of Chief Minister and Council of Ministers (Bagmati Province)",
+      "nepaliName": "मुख्यमंत्री तथा मन्त्रिपरिषद्को कार्यालय",
+      "pointOfContact": {
+        "name": "Shalikram Jamarkattel"
+      },
+      "category": "67244f46e649539ccc41cef2",
+      "website": "https://ocmcm.bagamati.gov.np/",
+      "address": "Bagmati Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.251Z",
+      "updated_at": "2024-11-01T04:05:26.251Z"
+    },
+    {
+      "name": "Minister for Economic Affairs and Planning (Bagmati Province)",
+      "nepaliName": "आर्थिक मामिला तथा योजना मन्त्री",
+      "pointOfContact": {
+        "name": "Bahadur Singh Lama"
+      },
+      "category": "67244f46e649539ccc41cef8",
+      "website": "http://moeap.bagamati.gov.np/",
+      "address": "Bagmati Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.251Z",
+      "updated_at": "2024-11-01T04:05:26.251Z"
+    },
+    {
+      "name": "Minister for Drinking Water, Energy and Irrigation (Bagmati Province)",
+      "nepaliName": "खानेपानी, उर्जा तथा सिँचाइ मन्त्री",
+      "pointOfContact": {
+        "name": "Tirtha Bahadur Lama"
+      },
+      "category": "67244f46e649539ccc41cef2",
+      "website": "http://mowsei.bagamati.gov.np/",
+      "address": "Bagmati Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.251Z",
+      "updated_at": "2024-11-01T04:05:26.251Z"
+    },
+    {
+      "name": "Minister for Physical Infrastructure Development (Bagmati Province)",
+      "nepaliName": "भौतिक पूर्वाधार विकास मन्त्री",
+      "pointOfContact": {
+        "name": "Yuvaraj Dulal"
+      },
+      "category": "67244f46e649539ccc41cef5",
+      "website": "https://mopid.bagamati.gov.np/",
+      "address": "Bagmati Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.251Z",
+      "updated_at": "2024-11-01T04:05:26.251Z"
+    },
+    {
+      "name": "Minister for Internal Affairs and Law (Bagmati Province)",
+      "nepaliName": "आन्तरिक मामिला तथा कानून मन्त्री",
+      "pointOfContact": {
+        "name": "Ganga Narayan Shrestha"
+      },
+      "category": "67244f46e649539ccc41cf05",
+      "website": "http://moial.bagamati.gov.np/",
+      "address": "Bagmati Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.251Z",
+      "updated_at": "2024-11-01T04:05:26.251Z"
+    },
+    {
+      "name": "Minister for Social Development (Bagmati Province)",
+      "nepaliName": "सामाजिक विकास मन्त्री",
+      "pointOfContact": {
+        "name": "Kumari Moktan"
+      },
+      "category": "67244f46e649539ccc41cefc",
+      "website": "http://mosd.bagamati.gov.np/",
+      "address": "Bagmati Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.251Z",
+      "updated_at": "2024-11-01T04:05:26.251Z"
+    },
+    {
+      "name": "Minister for Agriculture and Livestock Development (Bagmati Province)",
+      "nepaliName": "कृषि तथा पशुपन्छी विकास मन्त्री",
+      "pointOfContact": {
+        "name": "Dr.Rajendra Mann Shrestha"
+      },
+      "category": "67244f46e649539ccc41cf08",
+      "website": "http://molmac.bagamati.gov.np/",
+      "address": "Bagmati Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.251Z",
+      "updated_at": "2024-11-01T04:05:26.251Z"
+    },
+    {
+      "name": "Minister for Health (Bagmati Province)",
+      "nepaliName": "स्वास्थ्य मन्त्री",
+      "pointOfContact": {
+        "name": "Uttam Joshi"
+      },
+      "category": "67244f46e649539ccc41cf02",
+      "website": "https://moh.bagamati.gov.np/",
+      "address": "Bagmati Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.251Z",
+      "updated_at": "2024-11-01T04:05:26.251Z"
+    },
+    {
+      "name": "Minister for Labour, Employment and Transportation (Bagmati Province)",
+      "nepaliName": "श्रम, रोजगार तथा यातायात मन्त्री",
+      "pointOfContact": {
+        "name": "Laxman Lamsal"
+      },
+      "category": "67244f46e649539ccc41cef2",
+      "website": "https://molet.bagamati.gov.np/",
+      "address": "Bagmati Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.251Z",
+      "updated_at": "2024-11-01T04:05:26.251Z"
+    },
+    {
+      "name": "Minister for Industry, Commerce, Land and Administration (Bagmati Province)",
+      "nepaliName": "पर्यटन, उद्योग तथा सहकारी मन्त्री",
+      "pointOfContact": {
+        "name": "Ramakrishna Chitrakar"
+      },
+      "category": "67244f47e649539ccc41cf0b",
+      "website": "http://mocat.bagamati.gov.np/",
+      "address": "Bagmati Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.251Z",
+      "updated_at": "2024-11-01T04:05:26.251Z"
+    },
+    {
+      "name": "Minister for Forest and Environment (Bagmati Province)",
+      "nepaliName": "वन तथा वातावरण मन्त्री",
+      "pointOfContact": {
+        "name": "Masina Khadka"
+      },
+      "category": "67244f46e649539ccc41ceff",
+      "website": "https://mofe.bagamati.gov.np/",
+      "address": "Bagmati Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.251Z",
+      "updated_at": "2024-11-01T04:05:26.251Z"
+    },
+    {
+      "name": "Office of Chief Minister and Council of Ministers (Gandaki Province)",
+      "nepaliName": "मुख्यमंत्री तथा मन्त्रिपरिद्को कार्यालय",
+      "pointOfContact": {
+        "name": "Surendraraj Pandey"
+      },
+      "category": "67244f46e649539ccc41cef2",
+      "website": "https://ocmcm.gandaki.gov.np/",
+      "address": "Gandaki Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.251Z",
+      "updated_at": "2024-11-01T04:05:26.251Z"
+    },
+    {
+      "name": "[[Ministry of Social Development and HEALTH (Gandaki Province)",
+      "nepaliName": "Ministry of Health and Population]]",
+      "pointOfContact": {
+        "name": "सामाजिक विकास तथा स्वास्थ्य मन्त्रालय"
+      },
+      "category": "67244f46e649539ccc41cefc",
+      "website": "",
+      "address": "Gandaki Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.252Z",
+      "updated_at": "2024-11-01T04:05:26.252Z"
+    },
+    {
+      "name": "Ministry of Energy, Water Resources and Drinking Water (Gandaki Province)",
+      "nepaliName": "ऊर्जा, जलस्रोत तथा खानेपानी मन्त्रालय",
+      "pointOfContact": {
+        "name": "Saraswati Aryal Tiwari"
+      },
+      "category": "67244f46e649539ccc41cef2",
+      "website": "https://moewrws.gandaki.gov.np/",
+      "address": "Gandaki Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.252Z",
+      "updated_at": "2024-11-01T04:05:26.252Z"
+    },
+    {
+      "name": "Ministry of Land Management, Agriculture, Cooperatives and Poverty Alleviation (Gandaki Province)",
+      "nepaliName": "भुमिव्यवस्था, कृषि, सहकारी तथा गरिबी निवारण मन्त्रालय",
+      "pointOfContact": {
+        "name": "Mahendr Dhoj G.C"
+      },
+      "category": "67244f46e649539ccc41cf08",
+      "website": "http://molmac.gandaki.gov.np/",
+      "address": "Gandaki Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.252Z",
+      "updated_at": "2024-11-01T04:05:26.252Z"
+    },
+    {
+      "name": "Ministry of Physical Infrastructures, Urban Development and Transportation (Gandaki Province)",
+      "nepaliName": "भौतिक पूर्वाधार, सहरी विकास तथा यातायात व्यवस्था मन्त्रालय",
+      "pointOfContact": {
+        "name": "Resham Bahadur Jugjali"
+      },
+      "category": "67244f46e649539ccc41cef5",
+      "website": "http://mopid.gandaki.gov.np/",
+      "address": "Gandaki Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.252Z",
+      "updated_at": "2024-11-01T04:05:26.252Z"
+    },
+    {
+      "name": "Ministry of Finance (Gandaki Province)",
+      "nepaliName": "अर्थ मन्त्रालय",
+      "pointOfContact": {
+        "name": "Jit Prakash Ale Magar"
+      },
+      "category": "67244f46e649539ccc41cef2",
+      "website": "http://moeap.gandaki.gov.np/",
+      "address": "Gandaki Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.252Z",
+      "updated_at": "2024-11-01T04:05:26.252Z"
+    },
+    {
+      "name": "Ministry of Tourism, Industry, Commerce and Supplies (Gandaki Province)",
+      "nepaliName": "पर्यटन, उद्योग, वाणिज्य तथा आपूर्ति मन्त्रालय्ति",
+      "pointOfContact": {
+        "name": "Dipendra Bahadur Thapa"
+      },
+      "category": "67244f47e649539ccc41cf0b",
+      "website": "https://motics.gandaki.gov.np/",
+      "address": "Gandaki Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.252Z",
+      "updated_at": "2024-11-01T04:05:26.252Z"
+    },
+    {
+      "name": "Office of Chief Minister and Council of Ministers (Lumbini Province)",
+      "nepaliName": "मुख्यमंत्री तथा मन्त्रिपरिषद्को कार्यालय",
+      "pointOfContact": {
+        "name": "Sujal Sharma"
+      },
+      "category": "67244f46e649539ccc41cef2",
+      "website": "https://ocmcm.lumbini.gov.np/",
+      "address": "Lumbini Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.252Z",
+      "updated_at": "2024-11-01T04:05:26.252Z"
+    },
+    {
+      "name": "2 (Lumbini Province)",
+      "nepaliName": "rowspan=\"2\"",
+      "pointOfContact": {
+        "name": "Ministry of Tourism, Rural and Urban Development"
+      },
+      "category": "67244f46e649539ccc41cef2",
+      "website": "",
+      "address": "Lumbini Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.252Z",
+      "updated_at": "2024-11-01T04:05:26.252Z"
+    },
+    {
+      "name": "3 (Lumbini Province)",
+      "nepaliName": "rowspan=\"2\"",
+      "pointOfContact": {
+        "name": "Ministry of Economic Affairs and Cooperatives"
+      },
+      "category": "67244f46e649539ccc41cef2",
+      "website": "",
+      "address": "Lumbini Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.252Z",
+      "updated_at": "2024-11-01T04:05:26.252Z"
+    },
+    {
+      "name": "Ministry of Physical Infrastructure Development (Lumbini Province)",
+      "nepaliName": "भौतिक पूर्वाधार विकास मन्त्रालय",
+      "pointOfContact": {
+        "name": "Sahas Ram Yadav"
+      },
+      "category": "67244f46e649539ccc41cef5",
+      "website": "https://mopid.lumbini.gov.np/",
+      "address": "Lumbini Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.252Z",
+      "updated_at": "2024-11-01T04:05:26.252Z"
+    },
+    {
+      "name": "5 (Lumbini Province)",
+      "nepaliName": "rowspan=\"2\"",
+      "pointOfContact": {
+        "name": "Ministry of Health, Population and Family Welfare"
+      },
+      "category": "67244f46e649539ccc41cef2",
+      "website": "",
+      "address": "Lumbini Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.252Z",
+      "updated_at": "2024-11-01T04:05:26.252Z"
+    },
+    {
+      "name": "Ministry of Internal Affairs and Communication (Lumbini Province)",
+      "nepaliName": "आन्तरिक मामिला तथा सञ्चार मन्त्रालय",
+      "pointOfContact": {
+        "name": "Tilakram Sharma"
+      },
+      "category": "67244f46e649539ccc41cef2",
+      "website": "https://moial.lumbini.gov.np/",
+      "address": "Lumbini Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.252Z",
+      "updated_at": "2024-11-01T04:05:26.252Z"
+    },
+    {
+      "name": "7 (Lumbini Province)",
+      "nepaliName": "rowspan=\"2\"",
+      "pointOfContact": {
+        "name": "Ministry of Energy, Water Resource and Irrigation"
+      },
+      "category": "67244f46e649539ccc41cef2",
+      "website": "",
+      "address": "Lumbini Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.252Z",
+      "updated_at": "2024-11-01T04:05:26.252Z"
+    },
+    {
+      "name": "Ministry of Forest, Environment and Soil Conservation (Lumbini Province)",
+      "nepaliName": "वन, वातावरण तथा भु संरक्षण मन्त्रालय",
+      "pointOfContact": {
+        "name": "Surendra Bahadur Hamal"
+      },
+      "category": "67244f46e649539ccc41ceff",
+      "website": "https://moitfe.lumbini.gov.np/",
+      "address": "Lumbini Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.252Z",
+      "updated_at": "2024-11-01T04:05:26.252Z"
+    },
+    {
+      "name": "Ministry of Industry, Commerce and Supplies (Lumbini Province)",
+      "nepaliName": "उद्योग, वाणिज्य तथा आपूर्ति मन्त्रालय",
+      "pointOfContact": {
+        "name": "Ajay Shahi"
+      },
+      "category": "67244f47e649539ccc41cf0b",
+      "website": "https://moics.lumbini.gov.np/",
+      "address": "Lumbini Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.252Z",
+      "updated_at": "2024-11-01T04:05:26.252Z"
+    },
+    {
+      "name": "Ministry of Law, Women Children and Senior Citizens (Lumbini Province)",
+      "nepaliName": "कानुन, महिला, बालबालिका तथा जेष्ठ नागरिक मन्त्रालय",
+      "pointOfContact": {
+        "name": "Rama Gharti"
+      },
+      "category": "67244f46e649539ccc41cf05",
+      "website": "https://molwcsc.lumbini.gov.np/",
+      "address": "Lumbini Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.252Z",
+      "updated_at": "2024-11-01T04:05:26.252Z"
+    },
+    {
+      "name": "Ministry of Education, Science and Sports (Lumbini Province)",
+      "nepaliName": "शिक्षा, विज्ञान तथा खेलकुद मन्त्रालय",
+      "pointOfContact": {
+        "name": "Wasiuddin Khan"
+      },
+      "category": "67244f46e649539ccc41cefc",
+      "website": "https://mosd.lumbini.gov.np/",
+      "address": "Lumbini Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.252Z",
+      "updated_at": "2024-11-01T04:05:26.252Z"
+    },
+    {
+      "name": "Ministry of Labour, Employment and Transportation Management (Lumbini Province)",
+      "nepaliName": "श्रम, रोजगार तथा यातायात व्यवस्था मन्त्रालय",
+      "pointOfContact": {
+        "name": "Purmati Dhenga"
+      },
+      "category": "67244f46e649539ccc41cef2",
+      "website": "https://moletm.lumbini.gov.np/",
+      "address": "Lumbini Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.252Z",
+      "updated_at": "2024-11-01T04:05:26.252Z"
+    },
+    {
+      "name": "Ministry of Agriculture, Food Technology and Land Management (Lumbini Province)",
+      "nepaliName": "कृषि, खाद्य प्रविधि तथा भुमिव्यवस्था मन्त्रालय",
+      "pointOfContact": {
+        "name": "Suman Sharma Rayamajhi"
+      },
+      "category": "67244f46e649539ccc41cf08",
+      "website": "https://molmac.lumbini.gov.np/",
+      "address": "Lumbini Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.252Z",
+      "updated_at": "2024-11-01T04:05:26.252Z"
+    },
+    {
+      "name": "Office of Chief Minister and Council of Ministers (Karnali Province)",
+      "nepaliName": "मुख्यमंत्री तथा मन्त्रिपिषद्को कार्यालय",
+      "pointOfContact": {
+        "name": "Jeevan Bahadur Shahi"
+      },
+      "category": "67244f46e649539ccc41cef2",
+      "website": "http://ocmcm.karnali.gov.np/",
+      "address": "Karnali Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.252Z",
+      "updated_at": "2024-11-01T04:05:26.252Z"
+    },
+    {
+      "name": "Ministry of Social Development (Karnali Province)",
+      "nepaliName": "सामाजिक विकास मन्त्रालय",
+      "pointOfContact": {
+        "name": "Yagya Bahadur Budha Chhetri"
+      },
+      "category": "67244f46e649539ccc41cefc",
+      "website": "http://mosd.karnali.gov.np/",
+      "address": "Karnali Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.253Z",
+      "updated_at": "2024-11-01T04:05:26.253Z"
+    },
+    {
+      "name": "Ministry of Land Management, Agriculture and Cooperatives (Karnali Province)",
+      "nepaliName": "भुमि व्यवस्था, कृषि तथा सहकारी मन्त्रालय",
+      "pointOfContact": {
+        "name": "Chandra Bahadur Shahi"
+      },
+      "category": "67244f46e649539ccc41cf08",
+      "website": "http://molmac.karnali.gov.np/",
+      "address": "Karnali Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.253Z",
+      "updated_at": "2024-11-01T04:05:26.253Z"
+    },
+    {
+      "name": "Ministry of Economic Affairs and Planning (Karnali Province)",
+      "nepaliName": "आर्थिक मामिला तथा योजना मन्त्रालय",
+      "pointOfContact": {
+        "name": "Binda Man Bista"
+      },
+      "category": "67244f46e649539ccc41cef8",
+      "website": "http://moeap.karnali.gov.np/",
+      "address": "Karnali Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.253Z",
+      "updated_at": "2024-11-01T04:05:26.253Z"
+    },
+    {
+      "name": "Ministry of Physical Infrastructure and Urban Development (Karnali Province)",
+      "nepaliName": "भौतिक पूर्वाधार तथा सहरी विकास मन्त्रालय",
+      "pointOfContact": {
+        "name": "Padam Bahadur Rokaya"
+      },
+      "category": "67244f46e649539ccc41cef5",
+      "website": "http://mopid.karnali.gov.np/",
+      "address": "Karnali Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.253Z",
+      "updated_at": "2024-11-01T04:05:26.253Z"
+    },
+    {
+      "name": "Ministry of Water Resource and Energy Development (Karnali Province)",
+      "nepaliName": "जलश्रोत तथा ऊर्जा विकास मन्त्रालय",
+      "pointOfContact": {
+        "name": "[[Ganesh Prasad Singh (Nepalese politician)"
+      },
+      "category": "67244f46e649539ccc41cef2",
+      "website": "",
+      "address": "Karnali Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.253Z",
+      "updated_at": "2024-11-01T04:05:26.253Z"
+    },
+    {
+      "name": "Ministry of Internal Affairs and Law (Karnali Province)",
+      "nepaliName": "आन्तरिक मामिला तथा कानुन मन्त्रालय",
+      "pointOfContact": {
+        "name": "Him Bahadur Shahi"
+      },
+      "category": "67244f46e649539ccc41cf05",
+      "website": "http://moial.karnali.gov.np/",
+      "address": "Karnali Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.253Z",
+      "updated_at": "2024-11-01T04:05:26.253Z"
+    },
+    {
+      "name": "Ministry of Industry, Tourism, Forest and Environment (Karnali Province)",
+      "nepaliName": "उद्योग, पर्यटन, वन तथा वातावरण मन्त्रालय",
+      "pointOfContact": {
+        "name": "Karchen Lama"
+      },
+      "category": "67244f46e649539ccc41ceff",
+      "website": "http://moitfe.karnali.gov.np/",
+      "address": "Karnali Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.253Z",
+      "updated_at": "2024-11-01T04:05:26.253Z"
+    },
+    {
+      "name": "Office of Chief Minister and Council of Ministers (Sudurpashchim Province)",
+      "nepaliName": "मुख्यमंत्री तथा मन्त्रीपरिषद्को कार्यालय",
+      "pointOfContact": {
+        "name": "Kamal Bahadur Shah"
+      },
+      "category": "67244f46e649539ccc41cef2",
+      "website": "http://ocmcm.sudurpashchim.gov.np/",
+      "address": "Sudurpashchim Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.253Z",
+      "updated_at": "2024-11-01T04:05:26.253Z"
+    },
+    {
+      "name": "Ministry of Physical Infrastructure Development (Sudurpashchim Province)",
+      "nepaliName": "भौतिक पूर्वाधार विकास मन्त्रालय",
+      "pointOfContact": {
+        "name": "Prakash Bahadur Deuba"
+      },
+      "category": "67244f46e649539ccc41cef5",
+      "website": "http://mopid.sudurpashchim.gov.np/",
+      "address": "Sudurpashchim Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.253Z",
+      "updated_at": "2024-11-01T04:05:26.253Z"
+    },
+    {
+      "name": "Ministry of Economic Affairs and Planning (Sudurpashchim Province)",
+      "nepaliName": "आर्थिक मामिला तथा योजना मन्त्रालय",
+      "pointOfContact": {
+        "name": "Naresh Kumar Shahi"
+      },
+      "category": "67244f46e649539ccc41cef8",
+      "website": "http://moeap.sudurpashchim.gov.np/",
+      "address": "Sudurpashchim Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.253Z",
+      "updated_at": "2024-11-01T04:05:26.253Z"
+    },
+    {
+      "name": "Ministry of Internal Affairs and Law (Sudurpashchim Province)",
+      "nepaliName": "आन्तरिक मामिला तथा कानुन मन्त्रालय",
+      "pointOfContact": {
+        "name": "[http://moial.sudurpashchim.gov.np/ Official website]"
+      },
+      "category": "67244f46e649539ccc41cf05",
+      "website": "",
+      "address": "Sudurpashchim Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.253Z",
+      "updated_at": "2024-11-01T04:05:26.253Z"
+    },
+    {
+      "name": "Ministry of Industry, Tourism, Forest and Environment (Sudurpashchim Province)",
+      "nepaliName": "उद्योग, पर्यटन, वन तथा वातावरण मन्त्रालय",
+      "pointOfContact": {
+        "name": "[http://ocmcm.sudurpashchim.gov.np/ Official Website]"
+      },
+      "category": "67244f46e649539ccc41ceff",
+      "website": "",
+      "address": "Sudurpashchim Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.253Z",
+      "updated_at": "2024-11-01T04:05:26.253Z"
+    },
+    {
+      "name": "Ministry of Social Development (Sudurpashchim Province)",
+      "nepaliName": "सामाजिक विकास मन्त्रालय",
+      "pointOfContact": {
+        "name": "[http://mosd.sudurpashchim.gov.np/ Official website]"
+      },
+      "category": "67244f46e649539ccc41cefc",
+      "website": "",
+      "address": "Sudurpashchim Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.253Z",
+      "updated_at": "2024-11-01T04:05:26.253Z"
+    },
+    {
+      "name": "Ministry of Land Management, Agriculture and Co-operatives (Sudurpashchim Province)",
+      "nepaliName": "भुमि व्यवस्था, कृषि तथा सहकारी मन्त्रालय",
+      "pointOfContact": {
+        "name": "[http://molmac.sudurpashchim.gov.np/ Official website]"
+      },
+      "category": "67244f46e649539ccc41cf08",
+      "website": "",
+      "address": "Sudurpashchim Province Province, Nepal",
+      "active": true,
+      "level": "provincial",
+      "created_at": "2024-11-01T04:05:26.253Z",
+      "updated_at": "2024-11-01T04:05:26.253Z"
+    }
+  ]
+}
