@@ -3,7 +3,6 @@ const multer = require("multer");
 const path = require("path");
 const Issue = require("../models/issue");
 const User = require("../models/user");
-
 const Admin = require("../models/admin");
 const Category = require("../models/category");
 const Department = require("../models/department");
