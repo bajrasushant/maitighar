@@ -21,5 +21,7 @@ module.exports = {
     "no-console": "warn",
     "linebreak-style": "off",
     quotes: ["error", "double"],
+    "no-nested-ternary": "off",
+    "jsx-a11y/media-has-caption": "off",
   },
 };

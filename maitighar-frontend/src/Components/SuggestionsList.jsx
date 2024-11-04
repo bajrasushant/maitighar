@@ -19,14 +19,15 @@ import issueService from "../services/issues";
 function SuggestionsList() {
   const [suggestions, setSuggestions] = useState([]);
   const adminData = JSON.parse(localStorage.getItem("loggedAdmin"));
-  const { department } = adminData;
   const { token } = adminData;
 
   const handleStatusChange = async (id, newStatus) => {
     console.log("Updating status for issue ID:", id, "to:", newStatus);
     try {
       const updatedIssue = await issueService.updateStatus(id, newStatus);
-      setSuggestions((prevIssues) => prevIssues.map((issue) => (issue.id === id ? { ...issue, status: newStatus } : issue)));
+      setSuggestions((prevIssues) =>
+        prevIssues.map((issue) => (issue.id === id ? { ...issue, status: newStatus } : issue)),
+      );
       console.log("Updated issue status:", updatedIssue);
     } catch (error) {
       console.error("Error updating status:", error);
@@ -34,18 +35,25 @@ function SuggestionsList() {
   };
 
   useEffect(() => {
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+    const fetchIssues = async () => {
+      try {
+        const config = {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
+        const response = await axios.get("/api/issues/admin", {
+          params: { adminId: adminData.id },
+          ...config, // Spread the config here
+        });
+        setSuggestions(response.data);
+      } catch (error) {
+        console.error("Error fetching issues:", error);
+        setNotification({ message: " Error Fetching issues.", status: "error" });
+      }
     };
-    console.log("config", config);
-
-    axios
-      .get(`/api/issues/admin/${department}`, config)
-      .then((response) => setSuggestions(response.data))
-      .catch((error) => console.error(error));
-  }, [department, token]);
+    fetchIssues();
+  }, [token]);
 
   const suggestionsList = suggestions.filter((issue) => issue.type === "suggestion");
 

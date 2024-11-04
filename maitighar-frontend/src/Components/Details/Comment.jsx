@@ -21,7 +21,12 @@ const Comment = React.memo(
     return (
       <Paper
         elevation={1}
-        className="p-4 mb-4 bg-background-default"
+        // className="p-4 mb-4 bg-background-default"
+        sx={{
+          p: 2,
+          mb: 2,
+          bgcolor: "background.default",
+        }}
       >
         <Grid
           container
@@ -34,7 +39,7 @@ const Comment = React.memo(
           >
             <Typography
               variant="subtitle1"
-              className="font-bold"
+              sx={{ fontWeight: "bold" }}
               color={comment.createdBy ? "initial" : "textSecondary"}
             >
               {getDisplayUsername(comment.createdBy)}
@@ -62,7 +67,7 @@ const Comment = React.memo(
             {showReplyForm[comment.id] && (
               <Box
                 component="form"
-                className="mt-4"
+                sx={{ mt: 4 }}
               >
                 <TextField
                   fullWidth
@@ -74,7 +79,7 @@ const Comment = React.memo(
                 <Button
                   variant="contained"
                   color="primary"
-                  className="mt-2"
+                  sx={{ mt: 2 }}
                   onClick={() => handleReplySubmit(comment.id)}
                 >
                   Submit Reply
@@ -84,7 +89,6 @@ const Comment = React.memo(
 
             {replies.length > 0 && (
               <Button
-                className="mt-4"
                 onClick={() => toggleReplies(comment.id)}
                 disabled={loading}
               >
@@ -99,15 +103,15 @@ const Comment = React.memo(
             )}
 
             {show && replies.length > 0 && (
-              <Box className="mt-4 pl-6">
+              <Box sx={{ mt: 2, pl: 2 }}>
                 {replies.map((reply) => (
                   <Paper
                     key={reply.id}
-                    className="p-4 mb-2"
+                    sx={{ p: 2, mb: 2 }}
                   >
                     <Typography
                       variant="subtitle1"
-                      className="font-bold"
+                      sx={{ fontWeight: "bold" }}
                     >
                       {getDisplayUsername(reply.createdBy)}
                     </Typography>

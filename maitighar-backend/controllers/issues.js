@@ -3,6 +3,10 @@ const multer = require("multer");
 const path = require("path");
 const Issue = require("../models/issue");
 const User = require("../models/user");
+
+const Admin = require("../models/admin");
+const Category = require("../models/category");
+const Department = require("../models/department");
 const Province = require("../models/province");
 const District = require("../models/district");
 const LocalGov = require("../models/localgov");
@@ -49,7 +53,7 @@ issueRouter.post("/", upload.array("images", 5), async (req, res) => {
       department,
       assigned_province,
       assigned_district,
-      assigned_local_gov,
+      assigned_localGov,
       assigned_ward,
       latitude,
       longitude,
@@ -79,8 +83,8 @@ issueRouter.post("/", upload.array("images", 5), async (req, res) => {
 
     // Validate the local government (if provided)
     let localGov = null;
-    if (assigned_local_gov) {
-      localGov = await LocalGov.findOne({ _id: assigned_local_gov, district: district._id });
+    if (assigned_localGov) {
+      localGov = await LocalGov.findOne({ _id: assigned_localGov, district: district._id });
       if (!localGov) {
         return res
           .status(400)
@@ -162,7 +166,7 @@ issueRouter.get("/nearby", async (req, res) => {
           },
         },
       ],
-    });
+    }).populate("comments");
     res.json(issues);
   } catch (error) {
     console.error("Error fetching nearby issues:", error);
@@ -171,13 +175,24 @@ issueRouter.get("/nearby", async (req, res) => {
 });
 
 // Get issue by department for admin
-issueRouter.get("/admin/:department", async (req, res) => {
+issueRouter.get("/admin/", async (req, res) => {
   try {
     // Find issues by department
-    console.log(req.params.department);
-    const issues = await Issue.find({ department: req.params.department })
-      .populate("createdBy", { username: 1 })
-      .populate("comments"); // Populating comments if needed
+    const adminData = await Admin.findById(req.query.adminId);
+    let issues;
+    if (adminData.responsible === "ward") {
+      issues = await Issue.find({
+        assigned_local_gov: adminData.assigned_local_gov,
+        assigned_ward: adminData.assigned_ward,
+      })
+        .populate("createdBy", { username: 1 })
+        .populate("comments");
+    } else if (adminData.responsible === "department") {
+      const department = await Department.find({ _id: adminData.assigned_department });
+      issues = await Issue.find({ cateogyr: department.category })
+        .populate("createdBy", { username: 1 })
+        .populate("comments");
+    }
 
     // If no issues are found, return 404
     if (issues.length === 0) {
