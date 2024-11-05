@@ -112,7 +112,7 @@ const issueSchema = new Schema({
   sentiment: {
     type: String,
     enum: ["Positive", "Negative", "Neutral"],
-    default: "neutral",
+    default: "Neutral",
   },
   sentimentScore: {
     type: Number,
