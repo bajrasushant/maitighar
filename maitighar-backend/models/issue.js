@@ -109,6 +109,15 @@ const issueSchema = new Schema({
     default: Date.now,
   },
   comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
+  sentiment: {
+    type: String,
+    enum: ["Positive", "Negative", "Neutral"],
+    default: "Neutral",
+  },
+  sentimentScore: {
+    type: Number,
+    default: 0,
+  },
 });
 
 issueSchema.index({ location: "2dsphere" });

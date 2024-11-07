@@ -78,6 +78,7 @@ function IssuesList() {
               <TableCell>Title</TableCell>
               <TableCell>Description</TableCell>
               <TableCell>Status</TableCell>
+              <TableCell>Sentiment</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -111,6 +112,7 @@ function IssuesList() {
                     </RadioGroup>
                   </FormControl>
                 </TableCell>
+                <TableCell>{issue.sentiment}</TableCell>
               </TableRow>
             ))}
           </TableBody>
