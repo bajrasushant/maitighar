@@ -10,7 +10,7 @@ import CommentSection from "./CommentSection";
 import useCommentState from "./hooks/useCommentState";
 import useLocationName from "./hooks/useLocationName";
 
-function Details() {
+function Details({ isAdmin = false }) {
   const { id } = useParams();
   const navigate = useNavigate();
   const [issue, setIssue] = useState(null);
@@ -74,6 +74,14 @@ function Details() {
     };
   }, [id, fetchLocationName, setNotification, setComments]);
 
+  const handleBackToHome = () => {
+    if (isAdmin) {
+      navigate("/admin-dashboard");
+    } else {
+      navigate("/");
+    }
+  };
+
   if (loading) {
     return (
       <Container className="flex justify-center items-center h-screen">
@@ -86,7 +94,7 @@ function Details() {
     return (
       <Container>
         <Typography color="error">{error}</Typography>
-        <Button onClick={() => navigate("/")}>Go back to Home</Button>
+        <Button onClick={handleBackToHome}>Go back to Home</Button>
       </Container>
     );
   }
@@ -95,7 +103,7 @@ function Details() {
     return (
       <Container>
         <Typography>No report found with this ID.</Typography>
-        <Button onClick={() => navigate("/")}>Go back to Home</Button>
+        <Button onClick={handleBackToHome}>Go back to Home</Button>
       </Container>
     );
   }
@@ -104,7 +112,7 @@ function Details() {
     <Container>
       <Button
         startIcon={<ArrowBack />}
-        onClick={() => navigate("/")}
+        onClick={handleBackToHome}
         className="mt-5 mb-5"
       >
         Back to Home
@@ -130,6 +138,7 @@ function Details() {
         handleReplyContentChange={handleReplyContentChange}
         handleReplySubmit={handleReplySubmit}
         toggleReplies={toggleReplies}
+        isAdmin={isAdmin}
       />
     </Container>
   );

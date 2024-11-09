@@ -55,6 +55,10 @@ function App() {
             element={<AdminLogin />}
           />
           <Route
+            path="/admin/details/:id"
+            element={<Details isAdmin />}
+          />
+          <Route
             path="/admin-dashboard"
             element={<AdminDashboard />}
           />

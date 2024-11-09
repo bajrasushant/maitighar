@@ -13,6 +13,7 @@ const Comment = React.memo(
     handleReplyContentChange,
     handleReplySubmit,
     toggleReplies,
+    isAdmin,
   }) => {
     console.log(repliesState, comment);
 
@@ -56,15 +57,17 @@ const Comment = React.memo(
 
             <Typography variant="body1">{comment.description}</Typography>
 
-            <Button
-              onClick={() =>
-                setShowReplyForm((prev) => ({ ...prev, [comment.id]: !prev[comment.id] }))
-              }
-            >
-              {showReplyForm[comment.id] ? "Cancel" : "Reply"}
-            </Button>
+            {!isAdmin && (
+              <Button
+                onClick={() =>
+                  setShowReplyForm((prev) => ({ ...prev, [comment.id]: !prev[comment.id] }))
+                }
+              >
+                {showReplyForm[comment.id] ? "Cancel" : "Reply"}
+              </Button>
+            )}
 
-            {showReplyForm[comment.id] && (
+            {!isAdmin && showReplyForm[comment.id] && (
               <Box
                 component="form"
                 sx={{ mt: 4 }}
