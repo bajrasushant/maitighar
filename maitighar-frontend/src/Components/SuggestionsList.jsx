@@ -14,12 +14,20 @@ import {
   FormControlLabel,
   Radio,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { useNotification } from "../context/NotificationContext";
 import issueService from "../services/issues";
 
 function SuggestionsList() {
   const [suggestions, setSuggestions] = useState([]);
+  const { setNotification } = useNotification();
+  const navigate = useNavigate();
   const adminData = JSON.parse(localStorage.getItem("loggedAdmin"));
   const { token } = adminData;
+
+  const handleIssueClick = (id) => {
+    navigate(`/admin/details/${id}`);
+  };
 
   const handleStatusChange = async (id, newStatus) => {
     console.log("Updating status for issue ID:", id, "to:", newStatus);
@@ -77,7 +85,10 @@ function SuggestionsList() {
           </TableHead>
           <TableBody>
             {suggestionsList.map((issue) => (
-              <TableRow key={issue.id}>
+              <TableRow
+                key={issue.id}
+                onClick={() => handleIssueClick(issue.id)}
+              >
                 <TableCell>{issue.upvotes}</TableCell>
                 <TableCell>{issue.title}</TableCell>
                 <TableCell>{issue.description}</TableCell>

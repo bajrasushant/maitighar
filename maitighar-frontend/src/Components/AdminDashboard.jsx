@@ -35,8 +35,7 @@ function AdminDashboard() {
 
   const handleLogout = () => {
     userDispatch({ type: "ADMIN_LOGOUT" });
-    // Redirect to login page or home page
-    window.location.href = "/login"; // Adjust the URL as necessary
+    window.location.href = "/admin-login";
   };
 
   return (

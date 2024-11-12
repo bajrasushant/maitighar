@@ -3,8 +3,9 @@ import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import axios from "axios";
-import { useNotification } from "../context/NotificationContext";
 import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { useNotification } from "../context/NotificationContext";
 
 // This component will handle changing the map view
 function ChangeView({ center, zoom }) {
@@ -14,6 +15,7 @@ function ChangeView({ center, zoom }) {
 }
 
 function GlobalIssueMap() {
+  const navigate = useNavigate();
   const [issues, setIssues] = useState([]);
   const [userLocation, setUserLocation] = useState(null);
   const adminData = JSON.parse(localStorage.getItem("loggedAdmin"));
@@ -24,6 +26,10 @@ function GlobalIssueMap() {
   const maxDistance = 5000; // 5 km, adjust as needed
 
   const initialZoom = 12; // Adjust this value as needed
+
+  const handleMarkerClick = (id) => {
+    navigate(`/admin/details/${id}`);
+  };
 
   useEffect(() => {
     // Fetch user's location
@@ -145,6 +151,7 @@ function GlobalIssueMap() {
                 Upvotes:
                 {issue.upvotes}
               </p>
+              <Button onClick={() => handleMarkerClick(issue.id)}>Go to issue</Button>
             </Popup>
           </Marker>
         ))}

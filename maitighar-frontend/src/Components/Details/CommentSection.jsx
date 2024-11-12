@@ -14,28 +14,31 @@ function CommentSection({
   handleReplyContentChange,
   handleReplySubmit,
   toggleReplies,
+  isAdmin,
 }) {
   return (
     <>
       <Divider style={{ margin: "20px 0" }} />
 
-      <form onSubmit={(e) => handleCommentSubmit(e, issueId)}>
-        <TextField
-          fullWidth
-          variant="outlined"
-          placeholder="Add a comment"
-          value={newComment}
-          onChange={(e) => setNewComment(e.target.value)}
-          style={{ marginBottom: "20px" }}
-        />
-        <Button
-          variant="contained"
-          color="primary"
-          type="submit"
-        >
-          Submit
-        </Button>
-      </form>
+      {!isAdmin && (
+        <form onSubmit={(e) => handleCommentSubmit(e, issueId)}>
+          <TextField
+            fullWidth
+            variant="outlined"
+            placeholder="Add a comment"
+            value={newComment}
+            onChange={(e) => setNewComment(e.target.value)}
+            style={{ marginBottom: "20px" }}
+          />
+          <Button
+            variant="contained"
+            color="primary"
+            type="submit"
+          >
+            Submit
+          </Button>
+        </form>
+      )}
 
       {comments.length > 0 && (
         <Box sx={{ mt: 2 }}>
@@ -56,6 +59,7 @@ function CommentSection({
               handleReplyContentChange={handleReplyContentChange}
               handleReplySubmit={handleReplySubmit}
               toggleReplies={toggleReplies}
+              isAdmin={isAdmin}
             />
           ))}
         </Box>

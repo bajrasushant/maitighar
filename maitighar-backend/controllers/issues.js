@@ -189,31 +189,59 @@ issueRouter.get("/nearby", async (req, res) => {
 });
 
 // Get issue by department for admin
-issueRouter.get("/admin/", async (req, res) => {
+issueRouter.get("/admin", async (req, res) => {
   try {
-    // Find issues by department
-    const adminData = await Admin.findById(req.query.adminId);
-    let issues;
+    const { adminId, category, dateRange, sortBy = "date", sortOrder = "desc" } = req.query;
+
+    if (!adminId) {
+      return res.status(400).json({ error: "Admin ID is required" });
+    }
+
+    const adminData = await Admin.findById(adminId);
+    if (!adminData) {
+      return res.status(404).json({ error: "Admin not found" });
+    }
+    let issuesQuery = {};
     if (adminData.responsible === "ward") {
-      issues = await Issue.find({
+      issuesQuery = {
         assigned_local_gov: adminData.assigned_local_gov,
         assigned_ward: adminData.assigned_ward,
-      })
-        .populate("createdBy", { username: 1 })
-        .populate("comments");
+      };
     } else if (adminData.responsible === "department") {
-      const department = await Department.find({ _id: adminData.assigned_department });
-      issues = await Issue.find({ cateogyr: department.category })
-        .populate("createdBy", { username: 1 })
-        .populate("comments");
+      const department = await Department.findOne({ _id: adminData.assigned_department });
+      if (!department) {
+        return res.status(404).json({ error: "Department not found" });
+      }
+      issuesQuery = { category: department.category };
     }
 
-    // If no issues are found, return 404
-    if (issues.length === 0) {
-      return res.status(404).json({ error: "No issues found for this department" });
+    // Apply additional filters
+    if (category) {
+      issuesQuery.category = category;
+    }
+    if (dateRange) {
+      const [start, end] = dateRange.split(",");
+      issuesQuery.createdAt = { $gte: new Date(start), $lte: new Date(end) };
     }
 
-    // Return the found issues
+    // Sort by the selected field and order
+    const sortOptions = {};
+    if (sortBy === "upvotes") {
+      sortOptions.upvotes = sortOrder === "asc" ? 1 : -1;
+    } else if (sortBy === "sentimentScore") {
+      sortOptions.sentimentScore = sortOrder === "asc" ? 1 : -1;
+    } else {
+      sortOptions.createdAt = sortOrder === "asc" ? 1 : -1;
+    }
+
+    const issues = await Issue.find(issuesQuery)
+      .sort(sortOptions)
+      .populate("createdBy", { username: 1 })
+      .populate("comments");
+
+    if (!issues.length) {
+      return res.status(400).json({ error: "No issues found." });
+    }
     res.json(issues);
   } catch (error) {
     console.error("Error fetching issues by department:", error);
