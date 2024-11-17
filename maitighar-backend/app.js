@@ -17,6 +17,7 @@ const adminRouter = require("./controllers/admins");
 const commentRouter = require("./controllers/comments");
 const nepalRouter = require("./controllers/nepalDetails");
 const categoryRouter = require("./controllers/categories");
+const wardOfficerRouter = require("./controllers/wardOfficers");
 
 const middleware = require("./utils/middleware");
 
@@ -48,6 +49,7 @@ app.get("/", (request, response) => {
 });
 
 app.use("/api/issues", middleware.userExtractor, issueRouter);
+app.use("api/ward-officers", middleware.userExtractor, wardOfficerRouter);
 // app.use("/api/suggestions", suggestionRouter);
 // app.use("/api/upvotes",  upvoteRouter);
 app.use("/api/comments", middleware.userExtractor, commentRouter);
