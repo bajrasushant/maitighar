@@ -12,6 +12,7 @@ const LocalGov = require("../models/localgov");
 
 const issueRouter = express.Router();
 const { analyzeSentiment } = require("../controllers/sentiment");
+const { summarizeText } = require("../controllers/summarization");
 
 // Multer configuration for image upload
 const storage = multer.diskStorage({
@@ -123,8 +124,9 @@ issueRouter.post("/", upload.array("images", 5), async (req, res) => {
 
     await issue.save();
     // res.status(201).json(issue);
-    // Then analyze sentiment and update the issue
+    // Then analyze sentiment & summarize text and update the issue
     const sentimentResult = await analyzeSentiment(issue._id);
+    const summarizedText = await summarizeText(issue._id);
 
     // Update the issue with sentiment data
     const updatedIssue = await Issue.findByIdAndUpdate(
@@ -132,6 +134,7 @@ issueRouter.post("/", upload.array("images", 5), async (req, res) => {
       {
         sentiment: sentimentResult.overall_sentiment,
         sentimentScore: sentimentResult.average_score,
+        summary: summarizedText.summary,
       },
       { new: true },
     );
@@ -278,6 +281,9 @@ issueRouter.get("/:id", async (req, res) => {
 
     const issuesWithSentiment = await analyzeSentiment(issue.id);
     console.log(issuesWithSentiment);
+
+    const summarizedText = await summarizeText(issue.id);
+    console.log(summarizedText);
 
     res.status(201).json(issue);
   } catch (error) {

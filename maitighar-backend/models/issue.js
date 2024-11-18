@@ -118,6 +118,9 @@ const issueSchema = new Schema({
     type: Number,
     default: 0,
   },
+  summary: {
+    type: String,
+  },
 });
 
 issueSchema.index({ location: "2dsphere" });
