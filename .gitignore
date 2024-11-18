@@ -3,3 +3,6 @@ node_modules/
 .vscode/
 env/
 __pycache__/
+test.csv
+train.csv
+validation.csv
