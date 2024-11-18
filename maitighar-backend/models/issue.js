@@ -120,7 +120,6 @@ const issueSchema = new Schema({
   },
   summary: {
     type: String,
-    default: "",
   },
 });
 

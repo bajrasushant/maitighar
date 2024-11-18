@@ -126,7 +126,7 @@ issueRouter.post("/", upload.array("images", 5), async (req, res) => {
     // res.status(201).json(issue);
     // Then analyze sentiment & summarize text and update the issue
     const sentimentResult = await analyzeSentiment(issue._id);
-    const summarizedText = await summarizeText(issue.description);
+    const summarizedText = await summarizeText(issue._id);
 
     // Update the issue with sentiment data
     const updatedIssue = await Issue.findByIdAndUpdate(
@@ -282,7 +282,7 @@ issueRouter.get("/:id", async (req, res) => {
     const issuesWithSentiment = await analyzeSentiment(issue.id);
     console.log(issuesWithSentiment);
 
-    const summarizedText = await summarizeText(issue.description);
+    const summarizedText = await summarizeText(issue.id);
     console.log(summarizedText);
 
     res.status(201).json(issue);
