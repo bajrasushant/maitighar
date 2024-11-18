@@ -3,4 +3,4 @@ flask-cors
 pandas
 scikit-learn
 joblib
-virturlenv
+virtualenv
