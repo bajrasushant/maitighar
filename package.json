@@ -1,8 +1,11 @@
 {
+  "main": "index.js",
   "scripts": {
-    "pretty": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\""
+    "pretty": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\"",
+    "cypress:open": "cypress open"
   },
   "devDependencies": {
+    "cypress": "^13.16.0",
     "prettier": "^3.3.3"
   }
 }
