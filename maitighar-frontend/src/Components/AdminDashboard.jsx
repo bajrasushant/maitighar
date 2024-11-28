@@ -16,6 +16,7 @@ import SuggestionsList from "./SuggestionsList";
 import GlobalIssueMap from "./GlobalIssueMap";
 import { useUserDispatch, useUserValue } from "../context/UserContext";
 import ActiveUsers from "./ActiveUsers";
+import AdminRequestViewer from "./AdminPromotionRequestViewer";
 
 function AdminDashboard() {
   const [activeTab, setActiveTab] = useState("dashboard");
@@ -32,6 +33,8 @@ function AdminDashboard() {
         return <SuggestionsList />;
       case "activeUsers":
         return <ActiveUsers adminId={userData.adminId} />;
+      case "promotionRequests":
+        return <AdminRequestViewer />;
       default:
         return <GlobalIssueMap />;
     }
@@ -92,6 +95,16 @@ function AdminDashboard() {
             }}
           >
             Suggestions
+          </Button>
+          <Button
+            color="inherit"
+            onClick={() => setActiveTab("promotionRequests")}
+            sx={{
+              backgroundColor:
+                activeTab === "promotionRequests" ? "rgba(255, 255, 255, 0.1)" : "transparent",
+            }}
+          >
+            WardOfficer Request
           </Button>
           {/* <IconButton size="large" color="inherit" onClick={handleLogout}>
 						<AccountCircle />

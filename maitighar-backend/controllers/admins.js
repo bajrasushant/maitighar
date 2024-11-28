@@ -4,6 +4,7 @@ const Admin = require("../models/admin");
 const Department = require("../models/department");
 const Ward = require("../models/ward");
 const LocalGov = require("../models/localgov");
+const PromotionRequest = require("../models/promotionRequest");
 const WardOfficer = require("../models/wardOfficer");
 const User = require("../models/user");
 
@@ -231,6 +232,67 @@ adminRouter.get("/me", async (request, response) => {
   } catch (error) {
     console.error("Error fetching admin info:", error);
     return response.status(500).json({ error: "Internal server error" });
+  }
+});
+
+adminRouter.get("/promotion-requests", async (request, response) => {
+  try {
+    if (admin.responsible !== "ward") {
+      response.status(400).json({ error: "Not applicable for departments." });
+    }
+    const adminId = request.user.id;
+    const admin = await Admin.findById(adminId).select(
+      "username email responsible assigned_province assigned_district assigned_local_gov assigned_ward",
+    );
+    const requests = await PromotionRequest.find({
+      status: "Pending",
+      assigned_province: admin.assigned_province,
+    })
+      .populate("user", "username email")
+      .exec();
+
+    response.status(200).json(requests);
+  } catch (error) {
+    console.error("Error fetching promotion requests:", error);
+    response.status(500).json({ error: "Internal server error." });
+  }
+});
+
+adminRouter.post("/promotion-review/:id", async (request, response) => {
+  try {
+    const { id } = request.params;
+    const { status } = request.body;
+
+    if (!["Accepted", "Declined"].includes(status)) {
+      return response.status(400).json({ error: "Invalid status." });
+    }
+
+    const promotionRequest = await PromotionRequest.findById(id);
+
+    if (!promotionRequest) {
+      return response.status(404).json({ error: "Promotion request not found." });
+    }
+
+    promotionRequest.status = status;
+    await promotionRequest.save();
+
+    if (status === "Accepted") {
+      const user = await User.findById(promotionRequest.user);
+      user.role = promotionRequest.requestedRole;
+      const wardOfficer = await WardOfficer.save({
+        user: user._id,
+        assigned_province: promotionRequest.assigned_province,
+        assigned_district: promotionRequest.assigned_district,
+        assigned_local_gov: promotionRequest.assigned_local_gov,
+        assigned_ward: promotionRequest.assigned_ward,
+      });
+      await user.save();
+      await wardOfficer.save();
+    }
+    response.status(200).json({ message: `Request ${status.toLowerCase()} successfully.` });
+  } catch (error) {
+    console.error("Error reviewing promotion request:", error);
+    response.status(500).json({ error: "Internal server error." });
   }
 });
 module.exports = adminRouter;
