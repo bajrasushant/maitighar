@@ -38,7 +38,7 @@ app.use(middleware.tokenExtractor);
 app.use("/api/users", userRouter);
 app.use("/api/login", loginRouter);
 app.use("/api/adminlogin", adminloginRouter);
-app.use("/api/admins", adminRouter);
+app.use("/api/admins", middleware.userExtractor, adminRouter);
 app.use("/api/nepal", nepalRouter);
 app.use("/api/departments", departmentRouter);
 app.use("/api/wards", wardRouter);

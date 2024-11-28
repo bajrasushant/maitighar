@@ -4,6 +4,7 @@ const path = require("path");
 const Issue = require("../models/issue");
 const User = require("../models/user");
 const Admin = require("../models/admin");
+const WardOfficer = require("../models/wardOfficer");
 const Category = require("../models/category");
 const Department = require("../models/department");
 const Province = require("../models/province");
@@ -185,6 +186,25 @@ issueRouter.get("/nearby", async (req, res) => {
   } catch (error) {
     console.error("Error fetching nearby issues:", error);
     res.status(500).json({ message: "Error fetching nearby issues", error: error.message });
+  }
+});
+
+issueRouter.get("/ward", async (req, res) => {
+  try {
+    const wardOfficer = await WardOfficer.findOne({ user: req.user.id });
+
+    if (!wardOfficer) {
+      return res.status(403).json({ error: "Not a ward officer" });
+    }
+
+    const issues = await Issue.find({
+      assigned_local_gov: wardOfficer.assigned_local_gov,
+      assigned_ward: wardOfficer.assigned_ward,
+    });
+    res.status(200).json(issues);
+  } catch (error) {
+    console.error("Error fetching ward issues:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 

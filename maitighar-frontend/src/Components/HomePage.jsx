@@ -172,6 +172,15 @@ function HomePage() {
     }
   };
 
+  const handleIssuesAroundWard = async () => {
+    try {
+      const issuesWard = await issueService.getIssuesWardWise();
+      setIssues(issuesWard);
+    } catch (err) {
+      setNotification({ message: "Something went wrong.", status: "error" });
+    }
+  };
+
   // const handleOpenNotifications = (event) => {
   //  setAnchorElNotifications(event.currentTarget);
   // };
@@ -444,6 +453,9 @@ function HomePage() {
         <MenuItem onClick={handleCloseUserMenu}>Profile</MenuItem>
         {/* <MenuItem onClick={handleCloseUserMenu}>My Reports</MenuItem> */}
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
+        {currentUser.isWardOfficer && (
+          <MenuItem onClick={handleIssuesAroundWard}>Issues around you</MenuItem>
+        )}
       </Menu>
 
       {/* Notifications Menu */}

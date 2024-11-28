@@ -31,7 +31,11 @@ const userSchema = new Schema({
       ref: "suggestion",
     },
   ],
-  role: String,
+  role: {
+    type: String,
+    enum: ["user", "wardOfficer", "admin"],
+    default: "user",
+  },
 });
 
 userSchema.plugin(uniqueValidator);

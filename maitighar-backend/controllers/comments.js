@@ -81,7 +81,7 @@ commentRouter.get("/issue/:id", async (req, res) => {
           select: "username",
         },
       })
-      .sort({ createdAt: -1 });
+      .sort({ isCommunityNote: -1, "approvals.length": -1, createdAt: -1 });
     const issue = await Issue.findById(req.params.id);
     const isWardOfficer = await checkWardOfficerJurisdiction(req.user.id, issue);
 
@@ -113,6 +113,11 @@ commentRouter.post("/:id/approve", async (req, res) => {
       return res.status(404).json({ error: "Associated issue not found" });
     }
 
+    if (comment.parentComment) {
+      return res.status(400).json({
+        error: "Replies cannot be approved. Only top-level comments can be approved.",
+      });
+    }
     // Check if the approving user is a ward officer for this ward
     const approvingOfficer = await checkWardOfficerJurisdiction(req.user.id, issue);
     if (!approvingOfficer) {

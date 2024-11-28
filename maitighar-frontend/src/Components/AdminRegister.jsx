@@ -117,7 +117,7 @@ export default function AdminRegister() {
     setIsLoading(true);
 
     try {
-      const response = await axios.post("/api/admins", {
+      const response = await axios.post("/api/adminlogin/register", {
         username,
         email,
         password,

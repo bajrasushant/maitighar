@@ -56,6 +56,15 @@ const Comment = React.memo(
             </Typography>
 
             <Typography variant="body1">{comment.description}</Typography>
+            {comment.canApprove && !comment.parentComment && (
+              <Button
+                variant="contained"
+                color="success"
+                onClick={() => handleApprove(comment.id)}
+              >
+                Approve
+              </Button>
+            )}
 
             {!isAdmin && (
               <Button
