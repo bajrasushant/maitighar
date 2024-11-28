@@ -174,6 +174,7 @@ function ReportForm({ createIssue }) {
           >
             <TextField
               fullWidth
+              id="title"
               label="Title"
               name="title"
               value={report.title}
@@ -187,6 +188,7 @@ function ReportForm({ createIssue }) {
           >
             <TextField
               fullWidth
+              id="description"
               label="Description"
               name="description"
               value={report.description}
@@ -207,11 +209,13 @@ function ReportForm({ createIssue }) {
               onChange={handleChange}
             >
               <FormControlLabel
+                id="issue"
                 value="issue"
                 control={<Radio />}
                 label="Issue"
               />
               <FormControlLabel
+                id="suggestion"
                 value="suggestion"
                 control={<Radio />}
                 label="Suggestion"
@@ -228,6 +232,7 @@ function ReportForm({ createIssue }) {
             >
               <InputLabel>Province</InputLabel>
               <Select
+                id="province"
                 name="province"
                 value={report.province}
                 onChange={handleChange}
@@ -254,6 +259,7 @@ function ReportForm({ createIssue }) {
             >
               <InputLabel>District</InputLabel>
               <Select
+                id="district"
                 name="district"
                 value={report.district}
                 onChange={handleChange}
@@ -280,6 +286,7 @@ function ReportForm({ createIssue }) {
             >
               <InputLabel>Local Government</InputLabel>
               <Select
+                id="localGov"
                 name="localGov"
                 value={report.localGov}
                 onChange={handleChange}
@@ -306,6 +313,7 @@ function ReportForm({ createIssue }) {
             >
               <InputLabel>Ward</InputLabel>
               <Select
+                id="ward"
                 name="ward"
                 value={report.ward}
                 onChange={handleChange}
@@ -337,6 +345,7 @@ function ReportForm({ createIssue }) {
             >
               <InputLabel>Category</InputLabel>
               <Select
+                id="category"
                 name="category"
                 value={report.category}
                 onChange={handleChange}
@@ -421,6 +430,7 @@ function ReportForm({ createIssue }) {
           >
             <Box mt={2}>
               <Button
+                id="submit"
                 type="submit"
                 variant="contained"
                 color="primary"
