@@ -1,12 +1,11 @@
-const bcrypt = require("bcrypt");
 const adminRouter = require("express").Router();
 const Admin = require("../models/admin");
-const Department = require("../models/department");
-const Ward = require("../models/ward");
 const LocalGov = require("../models/localgov");
 const PromotionRequest = require("../models/promotionRequest");
 const WardOfficer = require("../models/wardOfficer");
 const User = require("../models/user");
+const Issue = require("../models/issue");
+const mongoose = require("mongoose");
 
 //Get all admins
 adminRouter.get("/", async (request, response) => {
@@ -16,6 +15,136 @@ adminRouter.get("/", async (request, response) => {
   } catch (error) {
     console.error("Error fetching admins:", error);
     response.status(500).json({ error: "Internal server error" });
+  }
+});
+adminRouter.get("/active-users", async (req, res) => {
+  try {
+    console.log(req.query);
+    const { province, district, localGovId, ward } = req.query;
+
+    if (!province || !district || !localGovId || !ward) {
+      return res.status(400).json({ error: "Missing required query parameters" });
+    }
+
+    // Validate the local government and ward
+    const localGov = await LocalGov.findById(localGovId);
+    if (!localGov || ward > localGov.number_of_wards) {
+      return res.status(400).json({ error: "Invalid ward number or local government ID" });
+    }
+
+    // Aggregate activity scores
+    const activeUsers = await Issue.aggregate([
+      {
+        $match: {
+          assigned_province: new mongoose.Types.ObjectId(province),
+          assigned_district: new mongoose.Types.ObjectId(district),
+          assigned_local_gov: new mongoose.Types.ObjectId(localGovId),
+          assigned_ward: parseInt(ward),
+        },
+      },
+      {
+        $lookup: {
+          from: "comments",
+          localField: "comments",
+          foreignField: "_id",
+          as: "issueComments",
+        },
+      },
+      {
+        $unwind: {
+          path: "$upvotedBy",
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      {
+        $unwind: {
+          path: "$issueComments",
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      {
+        $group: {
+          _id: "$upvotedBy",
+          activityScore: { $sum: 1 },
+          commentsScore: {
+            $sum: { $cond: [{ $ifNull: ["$issueComments.createdBy", false] }, 1, 0] },
+          }, // Count comments
+        },
+      },
+      {
+        $addFields: {
+          totalActivityScore: { $add: ["$activityScore", "$commentsScore"] },
+        },
+      },
+      {
+        $sort: { totalActivityScore: -1 },
+      },
+      {
+        $limit: 10,
+      },
+      {
+        $lookup: {
+          from: "users",
+          localField: "_id",
+          foreignField: "_id",
+          as: "userDetails",
+        },
+      },
+      {
+        $unwind: "$userDetails",
+      },
+      {
+        $project: {
+          _id: 0,
+          userId: "$userDetails._id",
+          username: "$userDetails.username",
+          email: "$userDetails.email",
+          activityScore: "$totalActivityScore",
+        },
+      },
+    ]);
+
+    res.json(activeUsers);
+  } catch (error) {
+    res.status(500).json({ error: "Error fetching active users", details: error.message });
+  }
+});
+
+adminRouter.get("/me", async (request, response) => {
+  try {
+    const user = request.user;
+    const userType = request.userType;
+
+    if (!user) {
+      return response.status(404).json({ error: "No user found in request" });
+    }
+
+    if (userType === "admin") {
+      const adminData = {
+        username: user.username,
+        email: user.email,
+        responsible: user.responsible,
+        assigned_province: user.assigned_province,
+        assigned_district: user.assigned_district,
+        assigned_local_gov: user.assigned_local_gov,
+        assigned_ward: user.assigned_ward,
+        assigned_department: user.assigned_department,
+      };
+      return response.json(adminData);
+    }
+
+    if (userType === "user") {
+      const userData = {
+        username: user.username,
+        email: user.email,
+      };
+      return response.json(userData);
+    }
+
+    return response.status(400).json({ error: "Unknown user type" });
+  } catch (error) {
+    console.error("Error fetching user/admin info:", error);
+    return response.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -176,62 +305,6 @@ adminRouter.get("/ward-officers", isAdmin, async (req, res) => {
       error: "Error fetching ward officers",
       details: error.message,
     });
-  }
-});
-
-adminRouter.get("/active-users", async (req, res) => {
-  try {
-    const { province, district, localGovId, ward } = req.query;
-
-    if (!province || !district || !localGovId || !ward) {
-      return res.status(400).json({ error: "Missing required query parameters" });
-    }
-
-    const localGov = await LocalGov.findById(localGovId);
-    if (!localGov || ward > localGov.number_of_wards) {
-      return res.status(400).json({ error: "Invalid ward number or local government ID" });
-    }
-
-    const users = await User.aggregate([
-      {
-        $match: {
-          role: "user",
-        },
-      },
-      {
-        $addFields: {
-          activityScore: { $add: [{ $size: "$upvotedIssues" }, { $size: "$upvotedSuggestions" }] },
-        },
-      },
-      {
-        $sort: { activityScore: -1 },
-      },
-      {
-        $limit: 10,
-      },
-    ]);
-
-    res.json(users);
-  } catch (error) {
-    res.status(500).json({ error: "Error fetching active users", details: error.message });
-  }
-});
-
-adminRouter.get("/me", async (request, response) => {
-  try {
-    const adminId = request.user.id;
-    const admin = await Admin.findById(adminId).select(
-      "username email responsible assigned_province assigned_district assigned_local_gov assigned_ward assigned_department",
-    );
-
-    if (admin) {
-      return response.json(admin);
-    } else {
-      return response.status(404).json({ error: "Admin not found" });
-    }
-  } catch (error) {
-    console.error("Error fetching admin info:", error);
-    return response.status(500).json({ error: "Internal server error" });
   }
 });
 

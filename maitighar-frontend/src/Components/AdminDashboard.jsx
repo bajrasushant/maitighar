@@ -66,7 +66,6 @@ function AdminDashboard() {
           >
             Active Users
           </Button>
-          ;
           <Button
             color="inherit"
             onClick={() => setActiveTab("dashboard")}

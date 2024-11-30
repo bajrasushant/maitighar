@@ -15,8 +15,11 @@ export const adminSignUp = async (newUserDetail) => {
 export const loggedInAdmin = async () => {
   try {
     const config = helpers.getConfig();
+    if (!config || !config.headers || !config.headers.Authorization) {
+      throw new Error("Missing Authorization header in config");
+    }
+
     const response = await axios.get(`${baseUrl}/me`, config);
-    console.log(response.data);
     return response.data;
   } catch (error) {
     throw error.response.data;
@@ -25,6 +28,7 @@ export const loggedInAdmin = async () => {
 
 export const activeUsers = async (province, district, localGovId, ward) => {
   try {
+    const config = helpers.getConfig();
     const res = await axios.get(`${baseUrl}/active-users`, {
       params: {
         province,
@@ -32,6 +36,7 @@ export const activeUsers = async (province, district, localGovId, ward) => {
         localGovId,
         ward,
       },
+      ...config,
     });
     return res.data;
   } catch (error) {

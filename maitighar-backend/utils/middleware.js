@@ -1,4 +1,5 @@
 const logger = require("./logger");
+const mongoose = require("mongoose");
 const User = require("../models/user");
 const Admin = require("../models/admin");
 const jwt = require("jsonwebtoken");
@@ -48,8 +49,8 @@ const userExtractor = async (request, response, next) => {
   try {
     // Verify the token
     const decodedToken = jwt.verify(token, process.env.SECRET);
-    if (!decodedToken.id) {
-      return response.status(401).json({ error: "invalid token" });
+    if (!decodedToken.id || !mongoose.isValidObjectId(decodedToken.id)) {
+      return response.status(401).json({ error: "invalid or malformed token" });
     }
 
     // Find the user based on the decoded token ID

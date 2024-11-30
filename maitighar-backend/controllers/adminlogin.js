@@ -13,7 +13,6 @@ adminloginRouter.post("/", async (request, response) => {
 
     const passwordCorrect =
       admin === null ? false : await bcrypt.compare(trimmedPassword, admin.passwordHash);
-    console.log(admin);
     if (!(admin && passwordCorrect)) {
       return response.status(401).json({
         error: "invalid username or password",
@@ -177,6 +176,5 @@ adminloginRouter.post("/register", async (request, response) => {
     }
     return response.status(500).json({ error: "Something went wrong" });
   }
-}
-);
+});
 module.exports = adminloginRouter;
