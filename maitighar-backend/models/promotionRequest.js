@@ -51,29 +51,9 @@ const promotionRequestSchema = new mongoose.Schema({
       message: "Assigned ward must be within the range of the local government's number of wards.",
     },
   },
-
-  // Moderation stats
-  approved_comments: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Comment",
-    },
-  ],
-
-  // Active status
   is_active: {
     type: Boolean,
     default: true,
-  },
-
-  // Additional metadata
-  appointed_date: {
-    type: Date,
-    default: Date.now,
-  },
-  last_active: {
-    type: Date,
-    default: Date.now,
   },
 });
 

@@ -1,7 +1,9 @@
 const wardOfficerRouter = require("express").Router();
 const WardOfficer = require("../models/wardOfficer");
+const PromotionRequest = require("../models/promotionRequest");
 const Comment = require("../models/comment");
 const Issue = require("../models/issue");
+const mongoose = require("mongoose");
 
 // Middleware to check if user is a ward officer
 const isWardOfficer = async (request, response, next) => {
@@ -221,5 +223,169 @@ const checkJurisdiction = async (comment, wardOfficer) => {
 
   return false;
 };
+
+wardOfficerRouter.post("/apply-ward-officer", async (request, response) => {
+  try {
+    const {
+      requestedRole,
+      reason,
+      assigned_province,
+      assigned_district,
+      assigned_local_gov,
+      assigned_ward,
+    } = request.body;
+    console.log(request.user);
+    const userId = request.user;
+    const alreadyWardOfficer = await WardOfficer.findOne({
+      user: userId,
+    });
+
+    if (alreadyWardOfficer) {
+      return response.status(400).json({ error: "You're already a ward officer." });
+    }
+
+    // Ensure no duplicate requests
+    const existingRequest = await PromotionRequest.findOne({
+      user: userId,
+      requestedRole,
+      status: "Pending",
+    });
+
+    if (existingRequest) {
+      return response.status(400).json({ error: "You already have a pending request." });
+    }
+
+    // Create a new promotion request
+    const newRequest = new PromotionRequest({
+      user: userId,
+      requestedRole,
+      reason,
+      assigned_local_gov,
+      assigned_district,
+      assigned_province,
+      assigned_ward,
+    });
+    await newRequest.save();
+
+    response.status(201).json({ message: "Request submitted successfully!" });
+  } catch (error) {
+    console.error("Error creating promotion request:", error);
+    response.status(500).json({ error: "Internal server error." });
+  }
+});
+
+wardOfficerRouter.get("/promotion-requests/:promotionRequestId", async (req, res) => {
+  try {
+    const { promotionRequestId } = req.params;
+
+    // Find the promotion request
+    const promotionRequest = await PromotionRequest.findById(promotionRequestId).populate("user");
+    if (!promotionRequest) {
+      return res.status(404).json({ error: "Promotion request not found" });
+    }
+
+    const { user, assigned_province, assigned_district, assigned_local_gov, assigned_ward } =
+      promotionRequest;
+
+    const userStats = await Issue.aggregate([
+      {
+        $match: {
+          assigned_province: new mongoose.Types.ObjectId(assigned_province),
+          assigned_district: new mongoose.Types.ObjectId(assigned_district),
+          assigned_local_gov: new mongoose.Types.ObjectId(assigned_local_gov),
+          assigned_ward: assigned_ward,
+        },
+      },
+      {
+        $lookup: {
+          from: "comments",
+          localField: "comments",
+          foreignField: "_id",
+          as: "issueComments",
+        },
+      },
+      {
+        $unwind: {
+          path: "$upvotedBy",
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      {
+        $unwind: {
+          path: "$issueComments",
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      {
+        $group: {
+          _id: "$upvotedBy",
+          activityScore: { $sum: 1 },
+          commentsScore: {
+            $sum: { $cond: [{ $ifNull: ["$issueComments.createdBy", false] }, 1, 0] },
+          },
+        },
+      },
+      {
+        $addFields: {
+          totalActivityScore: { $add: ["$activityScore", "$commentsScore"] },
+        },
+      },
+      {
+        $match: {
+          _id: user._id, // Match the promotion request's user
+        },
+      },
+      {
+        $lookup: {
+          from: "users",
+          localField: "_id",
+          foreignField: "_id",
+          as: "userDetails",
+        },
+      },
+      {
+        $unwind: "$userDetails",
+      },
+      {
+        $project: {
+          userId: "$userDetails._id",
+          username: "$userDetails.username",
+          email: "$userDetails.email",
+          activityScore: "$totalActivityScore",
+        },
+      },
+    ]);
+
+    // Check if the user is already a ward officer
+    const isWardOfficer = await WardOfficer.findOne({ user: user._id });
+
+    const response = {
+      promotionRequest: {
+        id: promotionRequest._id,
+        requestedRole: promotionRequest.requestedRole,
+        status: promotionRequest.status,
+        reason: promotionRequest.reason,
+        createdAt: promotionRequest.createdAt,
+      },
+      user: {
+        id: user._id,
+        username: user.username,
+        email: user.email,
+        role: user.role,
+        isWardOfficer: !!isWardOfficer,
+      },
+      stats: userStats[0] || {
+        activityScore: 0,
+        commentsScore: 0,
+        totalActivityScore: 0,
+      },
+    };
+
+    res.status(200).json(response);
+  } catch (error) {
+    console.error("Error fetching promotion review:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
 
 module.exports = wardOfficerRouter;

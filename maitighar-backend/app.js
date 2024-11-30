@@ -49,7 +49,7 @@ app.get("/", (request, response) => {
 });
 
 app.use("/api/issues", middleware.userExtractor, issueRouter);
-app.use("api/ward-officers", middleware.userExtractor, wardOfficerRouter);
+app.use("/api/ward-officers", middleware.userExtractor, wardOfficerRouter);
 // app.use("/api/suggestions", suggestionRouter);
 // app.use("/api/upvotes",  upvoteRouter);
 app.use("/api/comments", middleware.userExtractor, commentRouter);

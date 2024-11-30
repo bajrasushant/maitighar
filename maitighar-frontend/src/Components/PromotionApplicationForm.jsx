@@ -1,5 +1,9 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import {
+  Grid,
+  FormControl,
+  InputLabel,
+  Select,
   TextField,
   MenuItem,
   Button,
@@ -24,6 +28,77 @@ const PromotionApplicationForm = () => {
   const [success, setSuccess] = useState(null);
   const [error, setError] = useState(null);
 
+  const [provincesDd, setProvincesDd] = useState([]);
+  const [districtsDd, setDistrictsDd] = useState([]);
+  const [localGovsDd, setLocalGovsDd] = useState([]);
+  const [wardsDd, setWardsDd] = useState([]);
+
+  useEffect(() => {
+    const fetchProvinces = async () => {
+      try {
+        const response = await axios.get("/api/nepal/provinces");
+        setProvincesDd(response.data);
+      } catch (error) {
+        console.error("Error fetching provinces:", error);
+      }
+    };
+    fetchProvinces();
+  }, []);
+
+  useEffect(() => {
+    const fetchDistricts = async () => {
+      if (formData.assignedProvince) {
+        try {
+          const response = await axios.get(
+            `/api/nepal/districts?provinceId=${formData.assignedProvince}`,
+          );
+          setDistrictsDd(response.data);
+        } catch (error) {
+          console.error("Error fetching districts:", error);
+        }
+      } else {
+        setDistrictsDd([]);
+      }
+    };
+    fetchDistricts();
+  }, [formData.assignedProvince]);
+
+  useEffect(() => {
+    const fetchLocalGovs = async () => {
+      if (formData.assignedDistrict) {
+        try {
+          const response = await axios.get(
+            `/api/nepal/localgovs?districtId=${formData.assignedDistrict}`,
+          );
+          setLocalGovsDd(response.data);
+        } catch (error) {
+          console.error("Error fetching local governments:", error);
+        }
+      } else {
+        setLocalGovsDd([]);
+      }
+    };
+    fetchLocalGovs();
+  }, [formData.assignedDistrict]);
+
+  useEffect(() => {
+    const fetchWards = async () => {
+      try {
+        const response = await axios.get("/api/wards", {
+          params: { localGovId: formData.assignedLocalGov },
+        });
+        console.log(response);
+        setWardsDd(response.data);
+      } catch (error) {
+        console.error("Error fetching wards:", error);
+      }
+    };
+
+    if (formData.assignedLocalGov) {
+      fetchWards();
+    }
+  }, [formData.assignedLocalGov]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -41,7 +116,7 @@ const PromotionApplicationForm = () => {
     try {
       const config = helpers.getConfig();
       const response = await axios.post(
-        "/api/users/apply-ward-officer",
+        "/api/ward-officers/apply-ward-officer",
         {
           ...formData,
           assigned_province: formData.assignedProvince,
@@ -108,44 +183,151 @@ const PromotionApplicationForm = () => {
           margin="normal"
           required
         />
-        <TextField
-          label="Assigned Province"
-          name="assignedProvince"
-          value={formData.assignedProvince}
-          onChange={handleChange}
-          fullWidth
-          margin="normal"
-          required
-        />
-        <TextField
-          label="Assigned District"
-          name="assignedDistrict"
-          value={formData.assignedDistrict}
-          onChange={handleChange}
-          fullWidth
-          margin="normal"
-          required
-        />
-        <TextField
-          label="Assigned Local Government"
-          name="assignedLocalGov"
-          value={formData.assignedLocalGov}
-          onChange={handleChange}
-          fullWidth
-          margin="normal"
-          required
-        />
-        <TextField
-          label="Assigned Ward"
-          name="assignedWard"
-          value={formData.assignedWard}
-          onChange={handleChange}
-          fullWidth
-          margin="normal"
-          required
-          type="number"
-          InputProps={{ inputProps: { min: 1 } }}
-        />
+
+        <Grid
+          item
+          xs={12}
+        >
+          <FormControl fullWidth>
+            <InputLabel>Province</InputLabel>
+            <Select
+              value={formData.assignedProvince}
+              name="assignedProvince"
+              onChange={handleChange}
+              label="Province"
+            >
+              {provincesDd.map((prov) => (
+                <MenuItem
+                  key={prov.id}
+                  value={prov.id}
+                >
+                  {prov.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
+        {/* District Select */}
+        <Grid
+          item
+          xs={12}
+        >
+          <FormControl fullWidth>
+            <InputLabel>District</InputLabel>
+            <Select
+              name="assignedDistrict"
+              value={formData.assignedDistrict}
+              onChange={handleChange}
+              label="District"
+            >
+              {districtsDd.map((dist) => (
+                <MenuItem
+                  key={dist.id}
+                  value={dist.id}
+                >
+                  {dist.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
+
+        <Grid
+          item
+          xs={12}
+        >
+          <FormControl fullWidth>
+            <InputLabel>Local Government</InputLabel>
+            <Select
+              value={formData.assignedLocalGov}
+              name="assignedLocalGov"
+              onChange={handleChange}
+              label="Local Government"
+            >
+              {localGovsDd.map((lg) => (
+                <MenuItem
+                  key={lg.id}
+                  value={lg.id}
+                >
+                  {lg.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
+        <Grid
+          item
+          xs={12}
+        >
+          <FormControl
+            fullWidth
+            required
+          >
+            <InputLabel>Ward</InputLabel>
+            <Select
+              name="assignedWard"
+              value={formData.assignedWard}
+              onChange={handleChange}
+              label="Ward"
+            >
+              {localGovsDd
+                .filter((localGov) => localGov.id === formData.assignedLocalGov)
+                .map((localGov) =>
+                  [...Array(localGov.number_of_wards).keys()]
+                    .filter(
+                      (ward) => !wardsDd.some((assignedWard) => assignedWard.number === ward + 1),
+                    )
+                    .map((ward) => (
+                      <MenuItem
+                        key={ward + 1}
+                        value={ward + 1}
+                      >
+                        Ward No. {ward + 1}
+                      </MenuItem>
+                    )),
+                )}
+            </Select>
+          </FormControl>
+        </Grid>
+
+        {/* <TextField */}
+        {/*   label="Assigned Province" */}
+        {/*   name="assignedProvince" */}
+        {/*   value={formData.assignedProvince} */}
+        {/*   onChange={handleChange} */}
+        {/*   fullWidth */}
+        {/*   margin="normal" */}
+        {/*   required */}
+        {/* /> */}
+        {/* <TextField */}
+        {/*   label="Assigned District" */}
+        {/*   name="assignedDistrict" */}
+        {/*   value={formData.assignedDistrict} */}
+        {/*   onChange={handleChange} */}
+        {/*   fullWidth */}
+        {/*   margin="normal" */}
+        {/*   required */}
+        {/* /> */}
+        {/* <TextField */}
+        {/*   label="Assigned Local Government" */}
+        {/*   name="assignedLocalGov" */}
+        {/*   value={formData.assignedLocalGov} */}
+        {/*   onChange={handleChange} */}
+        {/*   fullWidth */}
+        {/*   margin="normal" */}
+        {/*   required */}
+        {/* /> */}
+        {/* <TextField */}
+        {/*   label="Assigned Ward" */}
+        {/*   name="assignedWard" */}
+        {/*   value={formData.assignedWard} */}
+        {/*   onChange={handleChange} */}
+        {/*   fullWidth */}
+        {/*   margin="normal" */}
+        {/*   required */}
+        {/*   type="number" */}
+        {/*   InputProps={{ inputProps: { min: 1 } }} */}
+        {/* /> */}
         <Button
           type="submit"
           variant="contained"

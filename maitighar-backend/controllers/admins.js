@@ -148,6 +148,145 @@ adminRouter.get("/me", async (request, response) => {
   }
 });
 
+adminRouter.get("/promotion-requests", async (request, response) => {
+  try {
+    const adminId = request.user._id;
+    const admin = await Admin.findById(adminId).select(
+      "username email responsible assigned_province assigned_district assigned_local_gov assigned_ward",
+    );
+
+    if (admin.responsible !== "ward") {
+      return response.status(400).json({ error: "Not applicable for departments." });
+    }
+
+    const requests = await PromotionRequest.find({
+      status: "Pending",
+      assigned_province: admin.assigned_province,
+    })
+      .populate("user", "username email role")
+      .exec();
+
+    const userIds = requests.map((req) => req.user._id);
+
+    const userStats = await Issue.aggregate([
+      {
+        $match: {
+          assigned_province: new mongoose.Types.ObjectId(admin.assigned_province),
+          assigned_district: new mongoose.Types.ObjectId(admin.assigned_district),
+          assigned_local_gov: new mongoose.Types.ObjectId(admin.assigned_local_gov),
+          assigned_ward: admin.assigned_ward,
+        },
+      },
+      {
+        $lookup: {
+          from: "comments",
+          localField: "comments",
+          foreignField: "_id",
+          as: "issueComments",
+        },
+      },
+      {
+        $unwind: { path: "$upvotedBy", preserveNullAndEmptyArrays: true },
+      },
+      {
+        $unwind: { path: "$issueComments", preserveNullAndEmptyArrays: true },
+      },
+      {
+        $group: {
+          _id: "$upvotedBy",
+          activityScore: { $sum: 1 },
+          commentsScore: {
+            $sum: { $cond: [{ $ifNull: ["$issueComments.createdBy", false] }, 1, 0] },
+          },
+        },
+      },
+      {
+        $addFields: {
+          totalActivityScore: { $add: ["$activityScore", "$commentsScore"] },
+        },
+      },
+      {
+        $match: { _id: { $in: userIds } }, // Match users involved in the requests
+      },
+      {
+        $lookup: {
+          from: "users",
+          localField: "_id",
+          foreignField: "_id",
+          as: "userDetails",
+        },
+      },
+      {
+        $unwind: "$userDetails",
+      },
+      {
+        $project: {
+          userId: "$userDetails._id",
+          username: "$userDetails.username",
+          email: "$userDetails.email",
+          activityScore: "$totalActivityScore",
+        },
+      },
+    ]);
+
+    // Map stats to requests
+    const requestsWithStats = requests.map((req) => {
+      const stats = userStats.find((stat) => String(stat.userId) === String(req.user._id)) || {
+        activityScore: 0,
+        commentsScore: 0,
+        totalActivityScore: 0,
+      };
+      return {
+        ...req.toObject(),
+        userStats: stats,
+      };
+    });
+
+    response.status(200).json(requestsWithStats);
+  } catch (error) {
+    console.error("Error fetching promotion requests:", error);
+    response.status(500).json({ error: "Internal server error." });
+  }
+});
+
+adminRouter.post("/promotion-review/:id", async (request, response) => {
+  try {
+    const { id } = request.params;
+    const { status } = request.body;
+
+    if (!["Accepted", "Declined"].includes(status)) {
+      return response.status(400).json({ error: "Invalid status." });
+    }
+
+    const promotionRequest = await PromotionRequest.findById(id);
+
+    if (!promotionRequest) {
+      return response.status(404).json({ error: "Promotion request not found." });
+    }
+
+    promotionRequest.status = status;
+    await promotionRequest.save();
+
+    if (status === "Accepted") {
+      const user = await User.findById(promotionRequest.user);
+      user.role = promotionRequest.requestedRole;
+      const wardOfficer = await WardOfficer.save({
+        user: user._id,
+        assigned_province: promotionRequest.assigned_province,
+        assigned_district: promotionRequest.assigned_district,
+        assigned_local_gov: promotionRequest.assigned_local_gov,
+        assigned_ward: promotionRequest.assigned_ward,
+      });
+      await user.save();
+      await wardOfficer.save();
+    }
+    response.status(200).json({ message: `Request ${status.toLowerCase()} successfully.` });
+  } catch (error) {
+    console.error("Error reviewing promotion request:", error);
+    response.status(500).json({ error: "Internal server error." });
+  }
+});
+
 //Get admin by ID
 adminRouter.get("/:id", async (request, response) => {
   try {
@@ -308,64 +447,4 @@ adminRouter.get("/ward-officers", isAdmin, async (req, res) => {
   }
 });
 
-adminRouter.get("/promotion-requests", async (request, response) => {
-  try {
-    if (admin.responsible !== "ward") {
-      response.status(400).json({ error: "Not applicable for departments." });
-    }
-    const adminId = request.user.id;
-    const admin = await Admin.findById(adminId).select(
-      "username email responsible assigned_province assigned_district assigned_local_gov assigned_ward",
-    );
-    const requests = await PromotionRequest.find({
-      status: "Pending",
-      assigned_province: admin.assigned_province,
-    })
-      .populate("user", "username email")
-      .exec();
-
-    response.status(200).json(requests);
-  } catch (error) {
-    console.error("Error fetching promotion requests:", error);
-    response.status(500).json({ error: "Internal server error." });
-  }
-});
-
-adminRouter.post("/promotion-review/:id", async (request, response) => {
-  try {
-    const { id } = request.params;
-    const { status } = request.body;
-
-    if (!["Accepted", "Declined"].includes(status)) {
-      return response.status(400).json({ error: "Invalid status." });
-    }
-
-    const promotionRequest = await PromotionRequest.findById(id);
-
-    if (!promotionRequest) {
-      return response.status(404).json({ error: "Promotion request not found." });
-    }
-
-    promotionRequest.status = status;
-    await promotionRequest.save();
-
-    if (status === "Accepted") {
-      const user = await User.findById(promotionRequest.user);
-      user.role = promotionRequest.requestedRole;
-      const wardOfficer = await WardOfficer.save({
-        user: user._id,
-        assigned_province: promotionRequest.assigned_province,
-        assigned_district: promotionRequest.assigned_district,
-        assigned_local_gov: promotionRequest.assigned_local_gov,
-        assigned_ward: promotionRequest.assigned_ward,
-      });
-      await user.save();
-      await wardOfficer.save();
-    }
-    response.status(200).json({ message: `Request ${status.toLowerCase()} successfully.` });
-  } catch (error) {
-    console.error("Error reviewing promotion request:", error);
-    response.status(500).json({ error: "Internal server error." });
-  }
-});
 module.exports = adminRouter;

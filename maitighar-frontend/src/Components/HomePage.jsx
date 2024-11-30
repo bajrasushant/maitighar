@@ -34,6 +34,7 @@ import FilterListIcon from "@mui/icons-material/FilterList";
 import FoundationIcon from "@mui/icons-material/Foundation";
 import { useNavigate } from "react-router-dom";
 import ReportForm from "./IssueForm";
+import PromotionApplicationForm from "./PromotionApplicationForm";
 // import SuggestionForm from "./SuggestionForm";
 import { useUserValue, useUserDispatch } from "../context/UserContext";
 import issueService from "../services/issues";
@@ -62,6 +63,7 @@ function HomePage() {
   const userDispatch = useUserDispatch();
 
   const [openForm, setOpenForm] = useState(false);
+  const [promotionForm, setPromotionForm] = useState(false);
   // const [openReportForm, setOpenReportForm] = useState(false);
   // const [openSuggestionForm, setOpenSuggestionForm] = useState(false);
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -100,7 +102,6 @@ function HomePage() {
     const fetchIssues = async () => {
       try {
         const fetchedIssues = await issueService.getAll();
-        console.log(fetchedIssues);
         setIssues(fetchedIssues);
         setNotification({ message: "Fetched issues.", status: "success" });
         setLoading(false);
@@ -192,6 +193,9 @@ function HomePage() {
   const handleOpenForm = () => {
     setOpenForm(true);
   };
+  const handleOpenPromotionForm = () => {
+    setPromotionForm(true);
+  };
 
   // const handleCreateIssue = () => {
   //  setOpenReportForm(true);
@@ -244,6 +248,13 @@ function HomePage() {
             onClick={handleOpenFilterMenu}
           >
             Filter
+          </Button>
+          <Button
+            color="inherit"
+            startIcon={<Add />}
+            onClick={handleOpenPromotionForm}
+          >
+            Apply for ward officer
           </Button>
           <Button
             color="inherit"
@@ -477,6 +488,15 @@ function HomePage() {
       >
         <DialogContent>
           <ReportForm createIssue={addIssue} />
+        </DialogContent>
+      </Dialog>
+
+      <Dialog
+        open={promotionForm}
+        onClose={() => setPromotionForm(false)}
+      >
+        <DialogContent>
+          <PromotionApplicationForm />
         </DialogContent>
       </Dialog>
 
