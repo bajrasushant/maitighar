@@ -1,6 +1,9 @@
 Flask
 flask-cors
 pandas
+numpy
 scikit-learn
 joblib
-virturlenv
+virtualenv
+nltk
+rouge

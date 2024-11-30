@@ -20,6 +20,12 @@ const localGovSchema = new mongoose.Schema({
     ref: "District",
     required: true,
   },
+  email: {
+    type: String,
+    required: true,
+    unique: true, // Ensures that each local government has a unique email
+    match: [/.+@.+\..+/, "Please enter a valid email address"], // Validates email format
+  },
 });
 
 localGovSchema.plugin(uniqueValidator);

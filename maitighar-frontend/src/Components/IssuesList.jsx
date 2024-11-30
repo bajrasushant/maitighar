@@ -164,7 +164,7 @@ function IssuesList() {
               >
                 <TableCell>{issue.upvotes}</TableCell>
                 <TableCell>{issue.title}</TableCell>
-                <TableCell>{issue.description}</TableCell>
+                <TableCell>{issue.summary}</TableCell>
                 <TableCell>
                   <FormControl component="fieldset">
                     <RadioGroup

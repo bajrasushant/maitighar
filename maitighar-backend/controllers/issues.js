@@ -10,9 +10,13 @@ const Department = require("../models/department");
 const Province = require("../models/province");
 const District = require("../models/district");
 const LocalGov = require("../models/localgov");
+const Ward = require("../models/ward");
+
+const nodemailer = require("nodemailer");
 
 const issueRouter = express.Router();
 const { analyzeSentiment } = require("../controllers/sentiment");
+const { summarizeText } = require("../controllers/summarization");
 
 // Multer configuration for image upload
 const storage = multer.diskStorage({
@@ -124,8 +128,9 @@ issueRouter.post("/", upload.array("images", 5), async (req, res) => {
 
     await issue.save();
     // res.status(201).json(issue);
-    // Then analyze sentiment and update the issue
+    // Then analyze sentiment & summarize text and update the issue
     const sentimentResult = await analyzeSentiment(issue._id);
+    const summarizedText = await summarizeText(issue._id);
 
     // Update the issue with sentiment data
     const updatedIssue = await Issue.findByIdAndUpdate(
@@ -133,9 +138,50 @@ issueRouter.post("/", upload.array("images", 5), async (req, res) => {
       {
         sentiment: sentimentResult.overall_sentiment,
         sentimentScore: sentimentResult.average_score,
+        summary: summarizedText.summary,
       },
       { new: true },
     );
+
+    // Find the admin for the assigned local government and ward
+    const admin = await Admin.findOne({
+      responsible: "ward",
+      assigned_local_gov: assigned_localGov,
+      assigned_ward,
+    });
+
+    if (admin) {
+      // Send email to the admin
+      const transporter = nodemailer.createTransport({
+        host: "smtp.gmail.com",
+        port: 465,
+        secure: true,
+        auth: {
+          user: process.env.EMAIL,
+          pass: process.env.EMAIL_PASSWORD,
+        },
+        debug: true, // This enables debugging logs
+        logger: true, // This enables the logging of emails being sent
+      });
+
+      const mailOptions = {
+        from: '"Grievance Redressal System" <your-email@gmail.com>',
+        to: admin.email,
+        subject: `New Issue Assigned to Ward ${assigned_ward}`,
+        text: `Hello ${admin.username},
+    
+    A new issue has been posted in your ward:
+    Title: ${title}
+    Description: ${description}
+    
+    Please log in to the system to view more details.
+    
+    Thank you,
+    Grievance Redressal System`,
+      };
+
+      await transporter.sendMail(mailOptions);
+    }
 
     res.status(201).json(updatedIssue);
   } catch (error) {
@@ -299,6 +345,9 @@ issueRouter.get("/:id", async (req, res) => {
     const issuesWithSentiment = await analyzeSentiment(issue.id);
     console.log(issuesWithSentiment);
 
+    const summarizedText = await summarizeText(issue.id);
+    console.log(summarizedText);
+
     res.status(201).json(issue);
   } catch (error) {
     console.error("Error fetching issue:", error);
@@ -416,6 +465,8 @@ issueRouter.delete("/:id", async (req, res) => {
     if (issue.createdBy.toString() !== req.user.id.toString()) {
       return res.status(403).json({ error: "You do not have permission to delete this issue" });
     }
+
+    await issue.remove();
     res.json({ message: "Issue deleted" });
   } catch (error) {
     console.error("Error deleting issue:", error);

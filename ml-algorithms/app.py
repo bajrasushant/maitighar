@@ -5,15 +5,26 @@ import joblib
 from typing import List, Dict, Union
 import traceback
 
+# import sys
+# sys.path.append('/text_summarization')
+from text_summarizer import TextSummarizer
+
 app = Flask(__name__)
 CORS(app)
 
 # Load the trained model and vectorizer
 try:
-    model = joblib.load('sentiment_analysis_model.joblib')
-    vectorizer = joblib.load('tfidf_vectorizer.joblib')
+    model = joblib.load('sentiment-analysis/sentiment_analysis_model.joblib')
+    vectorizer = joblib.load('sentiment-analysis/tfidf_vectorizer.joblib')
 except Exception as e:
     print(f"Error loading model: {str(e)}")
+    raise
+
+# Load the trained text summarization model
+try:
+    summarizer = joblib.load('text_summarization/text_summarizer_model.joblib')
+except Exception as e:
+    print(f"Error loading text summarizer: {str(e)}")
     raise
 
 def predict_sentiment(text: str) -> str:
@@ -90,6 +101,30 @@ def analyze():
             
         result = analyze_post_sentiment(post_description, comments)
         return jsonify(result)
+        
+    except Exception as e:
+        traceback.print_exc()
+        return jsonify({
+            'error': 'Internal server error',
+            'message': str(e)
+        }), 500
+
+@app.route('/summarize', methods=['POST'])
+def summarize():
+    """Endpoint for text summarization"""
+    try:
+        data = request.get_json()
+        
+        if not data:
+            return jsonify({'error': 'No data provided'}), 400
+            
+        post_description = data.get('post_description')
+        
+        if not post_description:
+            return jsonify({'error': 'Post description is required'}), 400
+            
+        summary = summarizer.summarize(post_description)
+        return jsonify({'summary': summary})
         
     except Exception as e:
         traceback.print_exc()
