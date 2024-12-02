@@ -5,11 +5,14 @@ const NotificationContext = createContext();
 export function NotificationProvider({ children }) {
   const [notification, setNotification] = useState({ message: "", status: "" });
 
-  const value = useMemo(() => ({notification, setNotification}), [notification]);
+  const value = useMemo(() => ({ notification, setNotification }), [notification]);
   console.log(value);
 
   return (
-    <NotificationContext.Provider value={value}>
+    <NotificationContext.Provider
+      value={value}
+      id="notification"
+    >
       {children}
     </NotificationContext.Provider>
   );

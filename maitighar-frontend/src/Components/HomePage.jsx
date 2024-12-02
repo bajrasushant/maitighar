@@ -240,6 +240,7 @@ function HomePage() {
             color="inherit"
             startIcon={<Add />}
             onClick={handleOpenForm}
+            id="create-button"
           >
             Create
           </Button>
