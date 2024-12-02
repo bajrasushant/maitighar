@@ -28,9 +28,9 @@ Cypress.Commands.add("login", ({ username, password }) => {
   cy.request("POST", "http://localhost:3003/api/login", {
     username,
     password,
-  }).then((response) => {
-    console.log("response", response);
-    localStorage.setItem("loggedUser", JSON.stringify(response));
+  }).then(({ body }) => {
+    console.log("response", body);
+    localStorage.setItem("loggedUser", JSON.stringify(body));
     cy.visit("http://localhost:5173");
   });
 });
