@@ -12,14 +12,13 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { verifyOtp, resendOtp } from "../services/user"; // Import the service to verify OTP
 import { useNotification } from "../context/NotificationContext";
 
-
 const defaultTheme = createTheme();
 
 export default function OtpVerification() {
   const navigate = useNavigate();
   const location = useLocation();
   const { setNotification } = useNotification();
-  const email = location.state?.email; // Get the email from the previous page's state
+  const email = location.state?.email || localStorage.getItem("emailRegisteredForOtp");
   const [otp, setOtp] = useState(["", "", "", ""]);
 
   const [timer, setTimer] = useState(120); // 2 minutes in seconds
@@ -28,18 +27,23 @@ export default function OtpVerification() {
 
   useEffect(() => {
     const countdown = setInterval(() => {
-      const timeLeft = Math.max(0, Math.floor((endTimeRef.current - Date.now()) / 1000)); // Calculate remaining time
-  
+      const timeLeft = Math.max(0, Math.floor((endTimeRef.current - Date.now()) / 1000));
+
       setTimer(timeLeft); // Update the timer state
-  
+
       if (timeLeft === 0) {
         clearInterval(countdown);
         setCanResend(true); // Enable the resend button when time runs out
       }
     }, 1000);
-  
+
     return () => clearInterval(countdown); // Clean up the interval when the component unmounts
   }, [timer]);
+  if (!email) {
+    setNotification({ message: "Email not found. Please try signing up again.", status: "error" });
+    navigate("/signup"); // Redirect to signup if email is missing
+    return null; // Prevent rendering the component
+  }
 
   const handleChange = (index, value) => {
     const newOtp = [...otp];
@@ -85,18 +89,47 @@ export default function OtpVerification() {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs">
+      <Container
+        component="main"
+        maxWidth="xs"
+      >
         <CssBaseline />
-        <Box sx={{ marginTop: 8, display: "flex", flexDirection: "column", alignItems: "center" }}>
+        <Box
+          sx={{
+            marginTop: 8,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
           <Avatar sx={{ m: 1, bgcolor: "secondary.main" }} />
-          <Typography component="h1" variant="h5">Enter OTP</Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography
+            component="h1"
+            variant="h5"
+          >
+            Enter OTP
+          </Typography>
+          <Typography
+            variant="body2"
+            color="text.secondary"
+          >
             Time left: {Math.floor(timer / 60)}:{timer % 60 < 10 ? `0${timer % 60}` : timer % 60}
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
-            <Grid container spacing={2} justifyContent="center">
+          <Box
+            component="form"
+            onSubmit={handleSubmit}
+            sx={{ mt: 3 }}
+          >
+            <Grid
+              container
+              spacing={2}
+              justifyContent="center"
+            >
               {[0, 1, 2, 3].map((index) => (
-                <Grid item key={index}>
+                <Grid
+                  item
+                  key={index}
+                >
                   <TextField
                     id={`otp-${index}`}
                     type="text"
@@ -108,10 +141,21 @@ export default function OtpVerification() {
                 </Grid>
               ))}
             </Grid>
-            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>Verify OTP</Button>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Verify OTP
+            </Button>
           </Box>
           {canResend && (
-            <Button variant="outlined" onClick={handleResendOtp} sx={{ mt: 2 }}>
+            <Button
+              variant="outlined"
+              onClick={handleResendOtp}
+              sx={{ mt: 2 }}
+            >
               Resend OTP
             </Button>
           )}
