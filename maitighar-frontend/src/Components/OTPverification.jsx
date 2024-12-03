@@ -41,8 +41,8 @@ export default function OtpVerification() {
   }, [timer]);
   if (!email) {
     setNotification({ message: "Email not found. Please try signing up again.", status: "error" });
-    navigate("/signup"); // Redirect to signup if email is missing
-    return null; // Prevent rendering the component
+    navigate("/register");
+    return null;
   }
 
   const handleChange = (index, value) => {
