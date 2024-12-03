@@ -59,8 +59,8 @@ function PromotionRequestReviewForm({ requestId, onReviewed }) {
     try {
       const config = helpers.getConfig();
       await axios.post(
-        `/api/admins/promotion-review/${requestId}`,
-        { status: decision, comments },
+        "/api/admins/promotion-review",
+        { id: requestId, status: decision, comments },
         config,
       );
       setNotification({ message: "Review submitted successfully.", status: "success" });

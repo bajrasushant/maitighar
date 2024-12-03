@@ -33,8 +33,8 @@ const userSchema = new Schema({
   ],
   role: {
     type: String,
-    enum: ["user", "wardOfficer", "admin"],
-    default: "user",
+    enum: ["User", "Ward Officer", "Admin"],
+    default: "User",
   },
 });
 
