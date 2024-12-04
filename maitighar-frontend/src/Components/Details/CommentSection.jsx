@@ -1,4 +1,6 @@
-import { Typography, Box, TextField, Button, Divider } from "@mui/material";
+import {
+  Typography, Box, TextField, Button, Divider,
+} from "@mui/material";
 import Comment from "./Comment";
 
 function CommentSection({

@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Container, CircularProgress, Typography, Button } from "@mui/material";
+import {
+  Container, CircularProgress, Typography, Button,
+} from "@mui/material";
 import { ArrowBack } from "@mui/icons-material";
 import { useNotification } from "../../context/NotificationContext";
 import issueService from "../../services/issues";

@@ -1,5 +1,7 @@
 import React from "react";
-import { Paper, Grid, Typography, Button, Box, TextField, CircularProgress } from "@mui/material";
+import {
+  Paper, Grid, Typography, Button, Box, TextField, CircularProgress,
+} from "@mui/material";
 import { formatDistanceToNow } from "date-fns";
 import getDisplayUsername from "./utils";
 
@@ -59,9 +61,7 @@ const Comment = React.memo(
 
             {!isAdmin && (
               <Button
-                onClick={() =>
-                  setShowReplyForm((prev) => ({ ...prev, [comment.id]: !prev[comment.id] }))
-                }
+                onClick={() => setShowReplyForm((prev) => ({ ...prev, [comment.id]: !prev[comment.id] }))}
               >
                 {showReplyForm[comment.id] ? "Cancel" : "Reply"}
               </Button>

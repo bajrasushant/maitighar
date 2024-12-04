@@ -1,12 +1,16 @@
 import React from "react";
-import { Card, CardContent, Typography, Box, Chip, Grid, IconButton, Button } from "@mui/material";
+import {
+  Card, CardContent, Typography, Box, Chip, Grid, IconButton, Button,
+} from "@mui/material";
 import { ArrowUpward, ArrowUpwardOutlined, Comment } from "@mui/icons-material";
 import { useUserValue } from "../../context/UserContext";
 import issueService from "../../services/issues";
 import MediaRenderer from "./MediaRenderer";
 import getDisplayUsername from "./utils";
 
-function IssueCard({ issue, setIssue, locationName, commentsCount }) {
+function IssueCard({
+  issue, setIssue, locationName, commentsCount,
+}) {
   const currentUser = useUserValue();
 
   const handleUpvote = async () => {

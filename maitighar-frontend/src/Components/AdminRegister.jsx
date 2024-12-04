@@ -9,7 +9,9 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Select, MenuItem, InputLabel, FormControl } from "@mui/material";
+import {
+  Select, MenuItem, InputLabel, FormControl,
+} from "@mui/material";
 import axios from "axios";
 import { useNotification } from "../context/NotificationContext";
 
@@ -344,31 +346,25 @@ export default function AdminRegister() {
                         {console.log(
                           localGovsDd
                             .filter((localGov) => localGov.id === assignedLocalGov)
-                            .map((localGov) =>
-                              [...Array(localGov.number_of_wards).keys()].filter(
-                                (ward) =>
-                                  !wardsDd.some((assignedWard) => assignedWard.number === ward + 1),
-                              ),
-                            ),
+                            .map((localGov) => [...Array(localGov.number_of_wards).keys()].filter(
+                              (ward) => !wardsDd.some((assignedWard) => assignedWard.number === ward + 1),
+                            )),
                         )}
                         {console.log(wardsDd)}
                         {localGovsDd
                           .filter((localGov) => localGov.id === assignedLocalGov)
-                          .map((localGov) =>
-                            [...Array(localGov.number_of_wards).keys()]
-                              .filter(
-                                (ward) =>
-                                  !wardsDd.some((assignedWard) => assignedWard.number === ward + 1),
-                              )
-                              .map((ward) => (
-                                <MenuItem
-                                  key={ward + 1}
-                                  value={ward + 1}
-                                >
-                                  Ward No. {ward + 1}
-                                </MenuItem>
-                              )),
-                          )}
+                          .map((localGov) => [...Array(localGov.number_of_wards).keys()]
+                            .filter(
+                              (ward) => !wardsDd.some((assignedWard) => assignedWard.number === ward + 1),
+                            )
+                            .map((ward) => (
+                              <MenuItem
+                                key={ward + 1}
+                                value={ward + 1}
+                              >
+                                Ward No. {ward + 1}
+                              </MenuItem>
+                            )))}
                       </Select>
                     </FormControl>
                   </Grid>

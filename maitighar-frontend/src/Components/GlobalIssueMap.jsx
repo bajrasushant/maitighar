@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
-import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
+import {
+  MapContainer, TileLayer, Marker, Popup, useMap,
+} from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import axios from "axios";
@@ -100,11 +102,10 @@ function GlobalIssueMap() {
     return "blue";
   };
 
-  const createCustomIcon = (upvotes) =>
-    L.divIcon({
-      className: "custom-icon",
-      html: `<div style="background-color: ${getMarkerColor(upvotes)}; width: 25px; height: 25px; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: white; font-weight: bold;">${upvotes}</div>`,
-    });
+  const createCustomIcon = (upvotes) => L.divIcon({
+    className: "custom-icon",
+    html: `<div style="background-color: ${getMarkerColor(upvotes)}; width: 25px; height: 25px; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: white; font-weight: bold;">${upvotes}</div>`,
+  });
 
   if (!userLocation) {
     return <div>Loading map...</div>;

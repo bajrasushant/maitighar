@@ -313,16 +313,14 @@ function ReportForm({ createIssue }) {
               >
                 {localGovsDd
                   .filter((localGov) => localGov.id === report.localGov)
-                  .map((localGov) =>
-                    [...Array(localGov.number_of_wards).keys()].map((ward) => (
-                      <MenuItem
-                        key={ward + 1}
-                        value={ward + 1}
-                      >
-                        Ward No. {ward + 1}
-                      </MenuItem>
-                    )),
-                  )}
+                  .map((localGov) => [...Array(localGov.number_of_wards).keys()].map((ward) => (
+                    <MenuItem
+                      key={ward + 1}
+                      value={ward + 1}
+                    >
+                      Ward No. {ward + 1}
+                    </MenuItem>
+                  )))}
               </Select>
             </FormControl>
           </Grid>
@@ -379,15 +377,13 @@ function ReportForm({ createIssue }) {
             {/* /> */}
             <LocationPicker
               position={[report.position.latitude, report.position.longitude]}
-              setPosition={(newPosition) =>
-                setReport((prevReport) => ({
-                  ...prevReport,
-                  position: {
-                    latitude: newPosition[0],
-                    longitude: newPosition[1],
-                  },
-                }))
-              }
+              setPosition={(newPosition) => setReport((prevReport) => ({
+                ...prevReport,
+                position: {
+                  latitude: newPosition[0],
+                  longitude: newPosition[1],
+                },
+              }))}
             />
           </Grid>
           <Grid

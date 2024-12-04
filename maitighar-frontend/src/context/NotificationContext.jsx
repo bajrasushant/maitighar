@@ -1,11 +1,13 @@
-import { useMemo, createContext, useContext, useState } from "react";
+import {
+  useMemo, createContext, useContext, useState,
+} from "react";
 
 const NotificationContext = createContext();
 
 export function NotificationProvider({ children }) {
   const [notification, setNotification] = useState({ message: "", status: "" });
 
-  const value = useMemo(() => ({notification, setNotification}), [notification]);
+  const value = useMemo(() => ({ notification, setNotification }), [notification]);
   console.log(value);
 
   return (
