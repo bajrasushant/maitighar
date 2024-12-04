@@ -296,6 +296,29 @@ issueRouter.get("/admin", async (req, res) => {
   }
 });
 
+//Get issue by date for users
+issueRouter.get("/user", async (req, res) => {
+  try {
+    const { limit = 5, sortBy = "createdAt", sortOrder = "desc" } = req.query;
+
+    const sortOptions = {};
+    sortOptions[sortBy] = sortOrder === "asc" ? 1 : -1;
+
+    const issues = await Issue.find({})
+      .sort(sortOptions)
+      .limit(Number(limit))
+      .populate("createdBy", { username: 1 });
+
+    if (!issues.length) {
+      return res.status(404).json({ error: "No recent issues found." });
+    }
+    res.json(issues);
+  } catch (error) {
+    console.error("Error fetching recent issues:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 // Get all issues
 issueRouter.get("/", async (req, res) => {
   try {

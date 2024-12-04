@@ -38,32 +38,13 @@ import ReportForm from "./IssueForm";
 import { useUserValue, useUserDispatch } from "../context/UserContext";
 import issueService from "../services/issues";
 import { useNotification } from "../context/NotificationContext";
+import RecentPosts from "./RecentPosts";
 
 function HomePage() {
   const currentUser = useUserValue();
   const { setNotification } = useNotification();
-  // const [reports, setReports] = useState([
-  // {
-  //  id: 1,
-  //  title: "Pothole on Main Street",
-  //  description: "Large pothole causing traffic issues",
-  //  upvotes: 5,
-  //  comments: [],
-  // },
-  // {
-  //  id: 2,
-  //  title: "Broken Streetlight",
-  //  description: "Streetlight out at corner of Elm and Oak",
-  //  upvotes: 3,
-  //  comments: [],
-  // },
-  // ]);
-
   const userDispatch = useUserDispatch();
-
   const [openForm, setOpenForm] = useState(false);
-  // const [openReportForm, setOpenReportForm] = useState(false);
-  // const [openSuggestionForm, setOpenSuggestionForm] = useState(false);
   const [anchorElUser, setAnchorElUser] = useState(null);
   // const [anchorElCreate, setAnchorElCreate] = useState(null);
   // const [anchorElNotifications, setAnchorElNotifications] = useState(null);
@@ -184,16 +165,6 @@ function HomePage() {
     setOpenForm(true);
   };
 
-  // const handleCreateIssue = () => {
-  //  setOpenReportForm(true);
-  //  handleCloseCreateMenu();
-  // };
-
-  // const handleCreateSuggestion = () => {
-  //  setOpenSuggestionForm(true);
-  //  handleCloseCreateMenu();
-  // };
-
   const handleCardClick = (id) => {
     navigate(`/details/${id}`);
   };
@@ -226,7 +197,7 @@ function HomePage() {
               alignItems="center"
             >
               <FoundationIcon />
-              Maitighar
+              Grievance Redressal System
             </Box>
           </Typography>
           <Button
@@ -273,167 +244,195 @@ function HomePage() {
         </Menu>
       </AppBar>
 
-      <Container sx={{ mt: 4 }}>
-        {loading ? (
-          <Typography>Loading...</Typography>
-        ) : error ? (
-          <Typography color="error">{error}</Typography>
-        ) : (
-          issues.map((issue) => (
-            <Card
-              key={issue.id}
-              style={{ marginBottom: "20px" }}
-            >
-              <CardContent style={{ padding: "16px" }}>
-                <Grid
-                  container
-                  alignItems="center"
-                  spacing={2}
-                >
+      <Grid
+        container
+        spacing={3}
+        sx={{ mt: 4, px: 2 }}
+      >
+        <Grid
+          item
+          xs={12}
+          md={8}
+        >
+          {loading ? (
+            <Typography>Loading...</Typography>
+          ) : error ? (
+            <Typography color="error">{error}</Typography>
+          ) : (
+            issues.map((issue) => (
+              <Card
+                key={issue.id}
+                style={{ marginBottom: "20px" }}
+              >
+                <CardContent style={{ padding: "16px" }}>
                   <Grid
-                    item
-                    xs
+                    container
+                    alignItems="center"
+                    spacing={2}
                   >
-                    <Box onClick={() => handleCardClick(issue.id)}>
-                      <Typography variant="h6">{issue.title}</Typography>
-                      <Box
+                    <Grid item>
+                      <Box onClick={() => handleCardClick(issue.id)}>
+                        <Typography variant="h6">{issue.title}</Typography>
+                        <Box
+                          sx={{
+                            mt: 1,
+                            display: "flex",
+                            alignItems: "center",
+                            gap: 1,
+                          }}
+                        >
+                          <Chip
+                            label={issue.type}
+                            color={issue.type === "issue" ? "error" : "success"}
+                            size="small"
+                          />
+                          <Chip
+                            label={`Ward No. ${issue.assigned_ward}`}
+                            color="primary"
+                            variant="outlined"
+                            size="small"
+                          />
+                        </Box>
+                        <Typography
+                          variant="body1"
+                          sx={{
+                            mt: 2,
+                            display: "-webkit-box",
+                            overflow: "hidden",
+                            WebkitBoxOrient: "vertical",
+                            WebkitLineClamp: 3,
+                            textOverflow: "ellipsis",
+                          }}
+                        >
+                          {issue.description}
+                        </Typography>
+                      </Box>
+                      {issue.imagePaths && issue.imagePaths.length > 0 && (
+                        <div
+                          style={{
+                            marginTop: "20px",
+                            display: "flex",
+                            // , alignItem: 'center', justifyContent: 'center'
+                          }}
+                        >
+                          {issue.imagePaths.map((mediaPath, index) => {
+                            // Check if the mediaPath is an mp4 video
+                            if (mediaPath.endsWith(".mp4")) {
+                              return (
+                                <video
+                                  key={index}
+                                  controls
+                                  style={{
+                                    maxWidth: "845px",
+                                    marginBottom: "10px",
+                                    height: "720px",
+                                  }}
+                                >
+                                  <source
+                                    src={`http://localhost:3003/${mediaPath}`}
+                                    type="video/mp4"
+                                  />
+                                  Your browser does not support the video tag.
+                                </video>
+                              );
+                            }
+                            if (mediaPath.endsWith(".mkv")) {
+                              return (
+                                <video
+                                  key={index}
+                                  controls
+                                  style={{
+                                    maxWidth: "845px",
+                                    marginBottom: "10px",
+                                    height: "480px",
+                                  }}
+                                >
+                                  <source
+                                    src={`http://localhost:3003/${mediaPath}`}
+                                    type="video/x-matroska"
+                                  />
+                                  Your browser does not support the video tag.
+                                </video>
+                              );
+                            }
+                            if (mediaPath.endsWith(".avi")) {
+                              return (
+                                <video
+                                  key={index}
+                                  controls
+                                  style={{
+                                    maxWidth: "845px",
+                                    marginBottom: "10px",
+                                    height: "480px",
+                                  }}
+                                >
+                                  <source
+                                    src={`http://localhost:3003/${mediaPath}`}
+                                    type="video/x-msvideo"
+                                  />
+                                  Your browser does not support the video tag.
+                                </video>
+                              );
+                            }
+
+                            // Else, treat it as an image
+                            return (
+                              <img
+                                key={index}
+                                src={`http://localhost:3003/${mediaPath}`}
+                                alt={`media ${index + 1}`}
+                                style={{ maxWidth: "auto", marginBottom: "10px", height: "480px" }}
+                              />
+                            );
+                          })}
+                        </div>
+                      )}
+                      <Grid
+                        item
                         sx={{
                           mt: 1,
                           display: "flex",
                           alignItems: "center",
-                          gap: 1,
+                          gap: 2,
                         }}
                       >
-                        <Chip
-                          label={issue.type}
-                          color={issue.type === "issue" ? "error" : "success"}
-                          size="small"
-                        />
-                        <Chip
-                          label={`Ward No. ${issue.assigned_ward}`}
-                          color="primary"
-                          variant="outlined"
-                          size="small"
-                        />
-                      </Box>
-                      <Typography
-                        variant="body1"
-                        sx={{
-                          mt: 2,
-                          display: "-webkit-box",
-                          overflow: "hidden",
-                          WebkitBoxOrient: "vertical",
-                          WebkitLineClamp: 3,
-                          textOverflow: "ellipsis",
-                        }}
-                      >
-                        {issue.description}
-                      </Typography>
-                    </Box>
-                    {issue.imagePaths && issue.imagePaths.length > 0 && (
-                      <div
-                        style={{
-                          marginTop: "20px",
-                          display: "flex",
-                          // , alignItem: 'center', justifyContent: 'center'
-                        }}
-                      >
-                        {issue.imagePaths.map((mediaPath, index) => {
-                          // Check if the mediaPath is an mp4 video
-                          if (mediaPath.endsWith(".mp4")) {
-                            return (
-                              <video
-                                key={index}
-                                controls
-                                style={{ maxWidth: "845px", marginBottom: "10px", height: "720px" }}
-                              >
-                                <source
-                                  src={`http://localhost:3003/${mediaPath}`}
-                                  type="video/mp4"
-                                />
-                                Your browser does not support the video tag.
-                              </video>
-                            );
-                          }
-                          if (mediaPath.endsWith(".mkv")) {
-                            return (
-                              <video
-                                key={index}
-                                controls
-                                style={{ maxWidth: "845px", marginBottom: "10px", height: "480px" }}
-                              >
-                                <source
-                                  src={`http://localhost:3003/${mediaPath}`}
-                                  type="video/x-matroska"
-                                />
-                                Your browser does not support the video tag.
-                              </video>
-                            );
-                          }
-                          if (mediaPath.endsWith(".avi")) {
-                            return (
-                              <video
-                                key={index}
-                                controls
-                                style={{ maxWidth: "845px", marginBottom: "10px", height: "480px" }}
-                              >
-                                <source
-                                  src={`http://localhost:3003/${mediaPath}`}
-                                  type="video/x-msvideo"
-                                />
-                                Your browser does not support the video tag.
-                              </video>
-                            );
-                          }
-
-                          // Else, treat it as an image
-                          return (
-                            <img
-                              key={index}
-                              src={`http://localhost:3003/${mediaPath}`}
-                              alt={`media ${index + 1}`}
-                              style={{ maxWidth: "auto", marginBottom: "10px", height: "480px" }}
-                            />
-                          );
-                        })}
-                      </div>
-                    )}
-                    <Grid
-                      item
-                      sx={{
-                        mt: 1,
-                        display: "flex",
-                        alignItems: "center",
-                        gap: 2,
-                      }}
-                    >
-                      <Box
-                        display="flex"
-                        alignItems="center"
-                      >
-                        <IconButton onClick={() => handleUpvote(issue.id)}>
-                          {issue.upvotedBy.includes(currentUser?.id) ? (
-                            <ArrowUpward color="primary" />
-                          ) : (
-                            <ArrowUpwardOutlined />
-                          )}
-                        </IconButton>
-                        <Typography>{issue.upvotes}</Typography>
-                      </Box>
-                      <Button
-                        startIcon={<Comment />}
-                        onClick={() => handleCardClick(issue.id)}
-                      >
-                        Comments ({issue.comments ? issue.comments.length : 0})
-                      </Button>
+                        <Box
+                          display="flex"
+                          alignItems="center"
+                        >
+                          <IconButton onClick={() => handleUpvote(issue.id)}>
+                            {issue.upvotedBy.includes(currentUser?.id) ? (
+                              <ArrowUpward color="primary" />
+                            ) : (
+                              <ArrowUpwardOutlined />
+                            )}
+                          </IconButton>
+                          <Typography>{issue.upvotes}</Typography>
+                        </Box>
+                        <Button
+                          startIcon={<Comment />}
+                          onClick={() => handleCardClick(issue.id)}
+                        >
+                          Comments ({issue.comments ? issue.comments.length : 0})
+                        </Button>
+                      </Grid>
                     </Grid>
                   </Grid>
-                </Grid>
-              </CardContent>
-            </Card>
-          ))
-        )}
-      </Container>
+                </CardContent>
+              </Card>
+            ))
+          )}
+        </Grid>
+        <Grid
+          item
+          xs={12}
+          md={4}
+        >
+          <Card>
+            <RecentPosts />
+          </Card>
+        </Grid>
+      </Grid>
 
       {/* User Menu */}
       <Menu
@@ -467,23 +466,6 @@ function HomePage() {
           <ReportForm createIssue={addIssue} />
         </DialogContent>
       </Dialog>
-
-      {/* Report Form Dialog
-      <Dialog open={openReportForm} onClose={() => setOpenReportForm(false)}>
-        <DialogContent>
-          <ReportForm createIssue={addIssue} />
-        </DialogContent>
-      </Dialog>
-
-      Suggestion Form Dialog
-      <Dialog
-        open={openSuggestionForm}
-        onClose={() => setOpenSuggestionForm(false)}
-      >
-        <DialogContent>
-          <SuggestionForm />
-        </DialogContent>
-      </Dialog> */}
     </>
   );
 }
