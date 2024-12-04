@@ -53,7 +53,6 @@ const userExtractor = async (request, response, next) => {
       return response.status(401).json({ error: "invalid or malformed token" });
     }
 
-    // Find the user based on the decoded token ID
     const user = await User.findById(decodedToken.id);
     const admin = await Admin.findById(decodedToken.id);
     if (user) {

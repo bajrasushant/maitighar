@@ -3,6 +3,9 @@ const config = require("../utils/config");
 const bcrypt = require("bcrypt");
 const adminloginRouter = require("express").Router();
 const Admin = require("../models/admin");
+const Ward = require("../models/ward");
+const Department = require("../models/department");
+const LocalGov = require("../models/localgov");
 
 adminloginRouter.post("/", async (request, response) => {
   try {
@@ -23,7 +26,7 @@ adminloginRouter.post("/", async (request, response) => {
       username: admin.username,
       id: admin._id,
     };
-    const token = jwt.sign(adminToken, config.SECRET);
+    const token = jwt.sign(adminToken, config.SECRET, { expiresIn: "1d" });
 
     response.status(200).send({
       token,

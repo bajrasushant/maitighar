@@ -149,9 +149,7 @@ commentRouter.post("/:id/approve", async (req, res) => {
     comment.approvals.push(approvingOfficer._id);
 
     // Check if threshold reached (2 approvals makes it a community note)
-    if (comment.approvals.length >= 2) {
-      comment.isCommunityNote = true;
-    }
+    const thresholdMet = comment.checkApprovalThreshold();
 
     await comment.save();
 

@@ -305,9 +305,9 @@ issueRouter.get("/admin", async (req, res) => {
       .populate("createdBy", { username: 1 })
       .populate("comments");
 
-    if (!issues.length) {
-      return res.status(400).json({ error: "No issues found." });
-    }
+    // if (!issues.length) {
+    //   return res.status(200).json(issues);
+    // }
     res.json(issues);
   } catch (error) {
     console.error("Error fetching issues by department:", error);

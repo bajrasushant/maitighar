@@ -26,17 +26,15 @@ loginRouter.post("/", async (request, response) => {
     id: user._id,
     isWardOfficer: !!wardOfficer,
   };
-  const token = jwt.sign(userToken, config.SECRET);
+  const token = jwt.sign(userToken, config.SECRET, { expiresIn: "1d" });
 
-  response
-    .status(200)
-    .send({
-      token,
-      username: user.username,
-      email: user.email,
-      id: user._id,
-      isWardOfficer: !!wardOfficer,
-    });
+  response.status(200).send({
+    token,
+    username: user.username,
+    email: user.email,
+    id: user._id,
+    isWardOfficer: !!wardOfficer,
+  });
 });
 
 module.exports = loginRouter;

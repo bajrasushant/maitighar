@@ -51,7 +51,7 @@ const commentSchema = new Schema({
   },
 });
 
-commentSchema.methods.checkApprovalThreshold = function (threshold = 2) {
+commentSchema.methods.checkApprovalThreshold = function (threshold = 1) {
   if (this.approvals.length >= threshold) {
     this.isCommunityNote = true;
     return true;

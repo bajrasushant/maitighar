@@ -1,7 +1,9 @@
 import React from "react";
 import { Paper, Grid, Typography, Button, Box, TextField, CircularProgress } from "@mui/material";
 import { formatDistanceToNow } from "date-fns";
+import axios from "axios";
 import getDisplayUsername from "./utils";
+import helpers from "../../helpers/helpers";
 
 const Comment = React.memo(
   ({
@@ -19,6 +21,21 @@ const Comment = React.memo(
 
     const { replies = [], show = false, loading } = repliesState[comment.id] || {};
 
+    const handleApprove = async (commentId) => {
+      const config = helpers.getConfig();
+      try {
+        const response = await axios.post(`/api/comments/${commentId}/approve`, {}, config);
+        if (response.status === 200) {
+          const updatedComment = response.data;
+          console.log("Approval successful:", updatedComment);
+        } else {
+          console.error("Error approving comment:", response.data.error);
+        }
+      } catch (error) {
+        console.error("Error:", error.message);
+      }
+    };
+
     return (
       <Paper
         elevation={1}
@@ -26,7 +43,9 @@ const Comment = React.memo(
         sx={{
           p: 2,
           mb: 2,
-          bgcolor: "background.default",
+          bgcolor: comment.isCommunityNote ? "primary.light" : "background.default",
+          border: comment.isCommunityNote ? "2px solid" : "none",
+          borderColor: comment.isCommunityNote ? "primary.main" : "transparent",
         }}
       >
         <Grid
@@ -56,6 +75,15 @@ const Comment = React.memo(
             </Typography>
 
             <Typography variant="body1">{comment.description}</Typography>
+            {comment.isCommunityNote && (
+              <Typography
+                variant="subtitle2"
+                color="primary"
+                sx={{ fontWeight: "bold", mb: 1 }}
+              >
+                Community Note
+              </Typography>
+            )}
             {comment.canApprove && !comment.parentComment && (
               <Button
                 variant="contained"

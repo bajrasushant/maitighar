@@ -114,7 +114,7 @@ userRouter.post("/verify-otp", async (request, response) => {
       username: otpEntry.username,
       passwordHash,
       email,
-      role: "citizen",
+      role: "User",
     });
 
     await user.save();

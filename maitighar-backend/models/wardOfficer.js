@@ -93,9 +93,7 @@ wardOfficerSchema.methods.approveComment = async function (commentId) {
   comment.approvals.push(this._id);
   this.approved_comments.push(comment._id);
 
-  // Check if threshold reached
-  if (comment.checkApprovalThreshold(5)) {
-    // 5 officers threshold
+  if (comment.checkApprovalThreshold(1)) {
     comment.isCommunityNote = true;
   }
 

@@ -40,7 +40,7 @@ function AdminRequestViewer() {
     };
 
     fetchRequests();
-  }, []);
+  }, [selectedRequest]);
 
   const handleRequestClick = (request) => {
     setSelectedRequest(request);
