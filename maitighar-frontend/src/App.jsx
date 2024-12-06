@@ -10,6 +10,7 @@ import AdminRegister from "./Components/AdminRegister";
 import GlobalIssueMap from "./Components/GlobalIssueMap";
 import Details from "./Components/Details/index";
 import OtpVerification from "./Components/OTPverification";
+import UserProfile from "./Components/UserProfile";
 import CusNotification from "./Components/Notification";
 
 function App() {
@@ -69,6 +70,10 @@ function App() {
           <Route
             path="/admin-map"
             element={<GlobalIssueMap />}
+          />
+          <Route
+            path="/profile"
+            element={<UserProfile />}
           />
         </Routes>
       </Router>

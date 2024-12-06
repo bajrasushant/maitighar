@@ -18,6 +18,8 @@ const commentRouter = require("./controllers/comments");
 const nepalRouter = require("./controllers/nepalDetails");
 const categoryRouter = require("./controllers/categories");
 
+const userProfileRouter = require("./controllers/userProfile");
+
 const middleware = require("./utils/middleware");
 
 mongoose.set("strictQuery", false);
@@ -37,7 +39,8 @@ app.use(middleware.tokenExtractor);
 app.use("/api/users", userRouter);
 app.use("/api/login", loginRouter);
 app.use("/api/adminlogin", adminloginRouter);
-app.use("/api/admins", adminRouter);
+app.use("/api/admins", middleware.userExtractor, adminRouter);
+app.use("/api/userProfile", middleware.userExtractor, userProfileRouter);
 app.use("/api/nepal", nepalRouter);
 app.use("/api/departments", departmentRouter);
 app.use("/api/wards", wardRouter);
