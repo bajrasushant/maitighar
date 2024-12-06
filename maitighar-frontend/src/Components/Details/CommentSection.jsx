@@ -1,6 +1,4 @@
-import {
-  Typography, Box, TextField, Button, Divider,
-} from "@mui/material";
+import { Typography, Box, TextField, Button, Divider, List, ListItem } from "@mui/material";
 import Comment from "./Comment";
 
 function CommentSection({
@@ -19,8 +17,8 @@ function CommentSection({
   isAdmin,
 }) {
   return (
-    <>
-      <Divider style={{ margin: "20px 0" }} />
+    <Box sx={{ mt: 4 }}>
+      <Divider sx={{ mb: 3 }} />
 
       {!isAdmin && (
         <form onSubmit={(e) => handleCommentSubmit(e, issueId)}>
@@ -30,7 +28,7 @@ function CommentSection({
             placeholder="Add a comment"
             value={newComment}
             onChange={(e) => setNewComment(e.target.value)}
-            style={{ marginBottom: "20px" }}
+            sx={{ mb: 2 }}
           />
           <Button
             variant="contained"
@@ -43,30 +41,37 @@ function CommentSection({
       )}
 
       {comments.length > 0 && (
-        <Box sx={{ mt: 2 }}>
+        <Box sx={{ mt: 4 }}>
           <Typography
             variant="h6"
             gutterBottom
           >
             Comments ({comments.length})
           </Typography>
-          {comments.map((comment) => (
-            <Comment
-              key={comment.id}
-              comment={comment}
-              replyContent={replyContent}
-              showReplyForm={showReplyForm}
-              setShowReplyForm={setShowReplyForm}
-              repliesState={repliesState}
-              handleReplyContentChange={handleReplyContentChange}
-              handleReplySubmit={handleReplySubmit}
-              toggleReplies={toggleReplies}
-              isAdmin={isAdmin}
-            />
-          ))}
+          <List>
+            {comments.map((comment) => (
+              <ListItem
+                key={comment.id}
+                disableGutters
+                sx={{ display: "block", mb: 2 }}
+              >
+                <Comment
+                  comment={comment}
+                  replyContent={replyContent}
+                  showReplyForm={showReplyForm}
+                  setShowReplyForm={setShowReplyForm}
+                  repliesState={repliesState}
+                  handleReplyContentChange={handleReplyContentChange}
+                  handleReplySubmit={handleReplySubmit}
+                  toggleReplies={toggleReplies}
+                  isAdmin={isAdmin}
+                />
+              </ListItem>
+            ))}
+          </List>
         </Box>
       )}
-    </>
+    </Box>
   );
 }
 
