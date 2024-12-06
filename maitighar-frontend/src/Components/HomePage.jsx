@@ -201,7 +201,7 @@ function HomePage() {
 
   return (
     <>
-      <AppBar position="static">
+      <AppBar position="fixed">
         <Toolbar>
           <Typography
             variant="h6"
@@ -260,192 +260,200 @@ function HomePage() {
         </Menu>
       </AppBar>
 
-      <Container sx={{ mt: 4 }}>
-        <Grid
-          container
-          spacing={3}
-          sx={{ mt: 4, px: 2 }}
-        >
+      <Box sx={{ paddingTop: "5px", display: "flex" }}>
+        <Container sx={{ mt: 4 }}>
           <Grid
-            item
-            xs={12}
-            md={8}
+            container
+            spacing={3}
+            sx={{ mt: 4, px: 2, flexGrow: 1 }}
           >
-            {loading ? (
-              <Typography>Loading...</Typography>
-            ) : error ? (
-              <Typography color="error">{error}</Typography>
-            ) : (
-              <Card>
-                <CardContent>
-                  <List>
-                    {issues.map((issue) => (
-                      <ListItem
-                        key={issue.id}
-                        button
-                        onClick={() => handleCardClick(issue.id)}
-                        sx={{
-                          flexDirection: "column",
-                          alignItems: "flex-start",
-                          borderBottom: "1px solid #e0e0e0",
-                          py: 2,
-                        }}
-                      >
-                        <ListItemText
-                          primary={
-                            <>
-                              <Typography
-                                variant="caption"
-                                display="block"
-                                gutterBottom
-                              >
-                                {getDisplayUsername(issue.createdBy)} •{" "}
-                                {getTimeAgo(issue.createdAt)}
-                              </Typography>
-                              <Typography variant="subtitle1">{issue.title}</Typography>
-                              <Box
-                                sx={{
-                                  mt: 1,
-                                  display: "flex",
-                                  alignItems: "center",
-                                  gap: 1,
-                                }}
-                              >
-                                <Chip
-                                  label={issue.type}
-                                  color={issue.type === "issue" ? "error" : "success"}
-                                  size="small"
-                                />
-                                <Chip
-                                  label={`Ward No. ${issue.assigned_ward}`}
-                                  color="primary"
-                                  variant="outlined"
-                                  size="small"
-                                />
-                              </Box>
-                            </>
-                          }
-                          secondary={
-                            <>
-                              <Typography
-                                variant="body2"
-                                color="text.secondary"
-                                sx={{
-                                  mt: 2,
-                                  mb: 2,
-                                  display: "-webkit-box",
-                                  overflow: "hidden",
-                                  WebkitBoxOrient: "vertical",
-                                  WebkitLineClamp: 3,
-                                  textOverflow: "ellipsis",
-                                }}
-                              >
-                                {issue.description}
-                              </Typography>
-                              {issue.imagePaths && issue.imagePaths.length > 0 && (
+            <Grid
+              item
+              xs={12}
+              md={8}
+            >
+              {loading ? (
+                <Typography>Loading...</Typography>
+              ) : error ? (
+                <Typography color="error">{error}</Typography>
+              ) : (
+                <Card>
+                  <CardContent>
+                    <List>
+                      {issues.map((issue) => (
+                        <ListItem
+                          key={issue.id}
+                          button
+                          onClick={() => handleCardClick(issue.id)}
+                          sx={{
+                            flexDirection: "column",
+                            alignItems: "flex-start",
+                            borderBottom: "1px solid #e0e0e0",
+                            py: 2,
+                          }}
+                        >
+                          <ListItemText
+                            primary={
+                              <>
+                                <Typography
+                                  variant="caption"
+                                  display="block"
+                                  gutterBottom
+                                >
+                                  {getDisplayUsername(issue.createdBy)} •{" "}
+                                  {getTimeAgo(issue.createdAt)}
+                                </Typography>
+                                <Typography variant="subtitle1">{issue.title}</Typography>
                                 <Box
+                                  sx={{
+                                    mt: 1,
+                                    display: "flex",
+                                    alignItems: "center",
+                                    gap: 1,
+                                  }}
+                                >
+                                  <Chip
+                                    label={issue.type}
+                                    color={issue.type === "issue" ? "error" : "success"}
+                                    size="small"
+                                  />
+                                  <Chip
+                                    label={`Ward No. ${issue.assigned_ward}`}
+                                    color="primary"
+                                    variant="outlined"
+                                    size="small"
+                                  />
+                                </Box>
+                              </>
+                            }
+                            secondary={
+                              <>
+                                <Typography
+                                  variant="body2"
+                                  color="text.secondary"
                                   sx={{
                                     mt: 2,
                                     mb: 2,
-                                    display: "flex",
-                                    flexDirection: "column",
-                                    alignItems: "center",
-                                    gap: 2,
+                                    display: "-webkit-box",
+                                    overflow: "hidden",
+                                    WebkitBoxOrient: "vertical",
+                                    WebkitLineClamp: 3,
+                                    textOverflow: "ellipsis",
                                   }}
                                 >
-                                  {issue.imagePaths.map((mediaPath, index) => {
-                                    if (
-                                      mediaPath.endsWith(".mp4") ||
-                                      mediaPath.endsWith(".mkv") ||
-                                      mediaPath.endsWith(".avi")
-                                    ) {
-                                      return (
-                                        <video
-                                          key={index}
-                                          controls
-                                          style={{
-                                            maxWidth: "100%",
-                                            height: "720px",
-                                          }}
-                                        >
-                                          <source
-                                            src={`http://localhost:3003/${mediaPath}`}
-                                            type={
-                                              mediaPath.endsWith(".mp4")
-                                                ? "video/mp4"
-                                                : mediaPath.endsWith(".mkv")
-                                                  ? "video/x-matroska"
-                                                  : "video/x-msvideo"
-                                            }
-                                          />
-                                          Your browser does not support the video tag.
-                                        </video>
-                                      );
-                                    }
-                                    return (
-                                      <img
-                                        key={index}
-                                        src={`http://localhost:3003/${mediaPath}`}
-                                        alt={`media ${index + 1}`}
-                                        style={{
-                                          maxWidth: "100%",
-                                          // height: "240px",
-                                          objectFit: "cover",
-                                        }}
-                                      />
-                                    );
-                                  })}
-                                </Box>
-                              )}
-                              <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-                                <Box sx={{ display: "flex", alignItems: "center" }}>
-                                  <IconButton
-                                    size="small"
-                                    onClick={(e) => {
-                                      e.stopPropagation();
-                                      handleUpvote(issue.id);
+                                  {issue.description}
+                                </Typography>
+                                {issue.imagePaths && issue.imagePaths.length > 0 && (
+                                  <Box
+                                    sx={{
+                                      mt: 2,
+                                      mb: 2,
+                                      display: "flex",
+                                      flexDirection: "column",
+                                      alignItems: "center",
+                                      gap: 2,
                                     }}
                                   >
-                                    {issue.upvotedBy.includes(currentUser?.id) ? (
-                                      <ArrowUpward
-                                        fontSize="small"
-                                        color="primary"
-                                      />
-                                    ) : (
-                                      <ArrowUpwardOutlined fontSize="small" />
-                                    )}
-                                  </IconButton>
-                                  <Typography variant="body2">{issue.upvotes}</Typography>
+                                    {issue.imagePaths.map((mediaPath, index) => {
+                                      if (
+                                        mediaPath.endsWith(".mp4") ||
+                                        mediaPath.endsWith(".mkv") ||
+                                        mediaPath.endsWith(".avi")
+                                      ) {
+                                        return (
+                                          <video
+                                            key={index}
+                                            controls
+                                            style={{
+                                              maxWidth: "100%",
+                                              height: "720px",
+                                            }}
+                                          >
+                                            <source
+                                              src={`http://localhost:3003/${mediaPath}`}
+                                              type={
+                                                mediaPath.endsWith(".mp4")
+                                                  ? "video/mp4"
+                                                  : mediaPath.endsWith(".mkv")
+                                                    ? "video/x-matroska"
+                                                    : "video/x-msvideo"
+                                              }
+                                            />
+                                            Your browser does not support the video tag.
+                                          </video>
+                                        );
+                                      }
+                                      return (
+                                        <img
+                                          key={index}
+                                          src={`http://localhost:3003/${mediaPath}`}
+                                          alt={`media ${index + 1}`}
+                                          style={{
+                                            maxWidth: "100%",
+                                            // height: "240px",
+                                            objectFit: "cover",
+                                          }}
+                                        />
+                                      );
+                                    })}
+                                  </Box>
+                                )}
+                                <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+                                  <Box sx={{ display: "flex", alignItems: "center" }}>
+                                    <IconButton
+                                      size="small"
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleUpvote(issue.id);
+                                      }}
+                                    >
+                                      {issue.upvotedBy.includes(currentUser?.id) ? (
+                                        <ArrowUpward
+                                          fontSize="small"
+                                          color="primary"
+                                        />
+                                      ) : (
+                                        <ArrowUpwardOutlined fontSize="small" />
+                                      )}
+                                    </IconButton>
+                                    <Typography variant="body2">{issue.upvotes}</Typography>
+                                  </Box>
+                                  <Typography variant="body2">
+                                    <Comment
+                                      fontSize="small"
+                                      sx={{ mr: 1, verticalAlign: "middle" }}
+                                    />
+                                    {issue.comments ? issue.comments.length : 0} comments
+                                  </Typography>
                                 </Box>
-                                <Typography variant="body2">
-                                  <Comment
-                                    fontSize="small"
-                                    sx={{ mr: 1, verticalAlign: "middle" }}
-                                  />
-                                  {issue.comments ? issue.comments.length : 0} comments
-                                </Typography>
-                              </Box>
-                            </>
-                          }
-                        />
-                      </ListItem>
-                    ))}
-                  </List>
-                </CardContent>
+                              </>
+                            }
+                          />
+                        </ListItem>
+                      ))}
+                    </List>
+                  </CardContent>
+                </Card>
+              )}
+            </Grid>
+            <Grid
+              item
+              xs={12}
+              md={4}
+              sx={{
+                position: "sticky",
+                top: "80px",
+                height: "calc(100vh - 80px)",
+                overflowY: "auto",
+              }}
+            >
+              <Card sx={{ height: "100%" }}>
+                <RecentPosts />
               </Card>
-            )}
+            </Grid>
           </Grid>
-          <Grid
-            item
-            xs={12}
-            md={4}
-          >
-            <Card>
-              <RecentPosts />
-            </Card>
-          </Grid>
-        </Grid>
-      </Container>
+        </Container>
+      </Box>
 
       {/* User Menu */}
       <Menu
