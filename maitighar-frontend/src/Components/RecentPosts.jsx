@@ -58,10 +58,23 @@ function RecentPosts() {
               key={issue.id}
               button
               onClick={() => handleIssueClick(issue.id)}
+              sx={{ flexDirection: "column", alignItems: "flex-start" }}
             >
               <ListItemText
-                primary={issue.title}
-                secondary={`Posted by ${getDisplayUsername(issue.createdBy)} on ${new Date(issue.createdAt).toLocaleDateString()}`}
+                primary={
+                  <>
+                    <Typography
+                      variant="caption"
+                      display="block"
+                      gutterBottom
+                    >
+                      {getDisplayUsername(issue.createdBy)} •{" "}
+                      {new Date(issue.createdAt).toLocaleDateString()}
+                    </Typography>
+                    <Typography variant="subtitle1">{issue.title}</Typography>
+                  </>
+                }
+                secondary={`${issue.upvotes} upvotes  •   ${issue.comments.length} comments`}
               />
             </ListItem>
           ))}
