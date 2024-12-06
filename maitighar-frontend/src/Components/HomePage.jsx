@@ -8,9 +8,9 @@ import {
   IconButton,
   // TextField,
   Grid,
-  // List,
-  // ListItem,
-  // ListItemText,
+  List,
+  ListItem,
+  ListItemText,
   Dialog,
   // DialogTitle,
   DialogContent,
@@ -39,6 +39,7 @@ import { useUserValue, useUserDispatch } from "../context/UserContext";
 import issueService from "../services/issues";
 import { useNotification } from "../context/NotificationContext";
 import RecentPosts from "./RecentPosts";
+import getDisplayUsername from "./Details/utils";
 
 function HomePage() {
   const currentUser = useUserValue();
@@ -183,6 +184,21 @@ function HomePage() {
     }
   };
 
+  const getTimeAgo = (date) => {
+    const seconds = Math.floor((new Date() - new Date(date)) / 1000);
+    let interval = seconds / 31536000;
+    if (interval > 1) return `${Math.floor(interval)} years ago`;
+    interval = seconds / 2592000;
+    if (interval > 1) return `${Math.floor(interval)} months ago`;
+    interval = seconds / 86400;
+    if (interval > 1) return `${Math.floor(interval)} days ago`;
+    interval = seconds / 3600;
+    if (interval > 1) return `${Math.floor(interval)} hours ago`;
+    interval = seconds / 60;
+    if (interval > 1) return `${Math.floor(interval)} minutes ago`;
+    return `${Math.floor(seconds)} seconds ago`;
+  };
+
   return (
     <>
       <AppBar position="static">
@@ -244,195 +260,192 @@ function HomePage() {
         </Menu>
       </AppBar>
 
-      <Grid
-        container
-        spacing={3}
-        sx={{ mt: 4, px: 2 }}
-      >
+      <Container sx={{ mt: 4 }}>
         <Grid
-          item
-          xs={12}
-          md={8}
+          container
+          spacing={3}
+          sx={{ mt: 4, px: 2 }}
         >
-          {loading ? (
-            <Typography>Loading...</Typography>
-          ) : error ? (
-            <Typography color="error">{error}</Typography>
-          ) : (
-            issues.map((issue) => (
-              <Card
-                key={issue.id}
-                style={{ marginBottom: "20px" }}
-              >
-                <CardContent style={{ padding: "16px" }}>
-                  <Grid
-                    container
-                    alignItems="center"
-                    spacing={2}
-                  >
-                    <Grid item>
-                      <Box onClick={() => handleCardClick(issue.id)}>
-                        <Typography variant="h6">{issue.title}</Typography>
-                        <Box
-                          sx={{
-                            mt: 1,
-                            display: "flex",
-                            alignItems: "center",
-                            gap: 1,
-                          }}
-                        >
-                          <Chip
-                            label={issue.type}
-                            color={issue.type === "issue" ? "error" : "success"}
-                            size="small"
-                          />
-                          <Chip
-                            label={`Ward No. ${issue.assigned_ward}`}
-                            color="primary"
-                            variant="outlined"
-                            size="small"
-                          />
-                        </Box>
-                        <Typography
-                          variant="body1"
-                          sx={{
-                            mt: 2,
-                            display: "-webkit-box",
-                            overflow: "hidden",
-                            WebkitBoxOrient: "vertical",
-                            WebkitLineClamp: 3,
-                            textOverflow: "ellipsis",
-                          }}
-                        >
-                          {issue.description}
-                        </Typography>
-                      </Box>
-                      {issue.imagePaths && issue.imagePaths.length > 0 && (
-                        <div
-                          style={{
-                            marginTop: "20px",
-                            display: "flex",
-                            // , alignItem: 'center', justifyContent: 'center'
-                          }}
-                        >
-                          {issue.imagePaths.map((mediaPath, index) => {
-                            // Check if the mediaPath is an mp4 video
-                            if (mediaPath.endsWith(".mp4")) {
-                              return (
-                                <video
-                                  key={index}
-                                  controls
-                                  style={{
-                                    maxWidth: "845px",
-                                    marginBottom: "10px",
-                                    height: "720px",
-                                  }}
-                                >
-                                  <source
-                                    src={`http://localhost:3003/${mediaPath}`}
-                                    type="video/mp4"
-                                  />
-                                  Your browser does not support the video tag.
-                                </video>
-                              );
-                            }
-                            if (mediaPath.endsWith(".mkv")) {
-                              return (
-                                <video
-                                  key={index}
-                                  controls
-                                  style={{
-                                    maxWidth: "845px",
-                                    marginBottom: "10px",
-                                    height: "480px",
-                                  }}
-                                >
-                                  <source
-                                    src={`http://localhost:3003/${mediaPath}`}
-                                    type="video/x-matroska"
-                                  />
-                                  Your browser does not support the video tag.
-                                </video>
-                              );
-                            }
-                            if (mediaPath.endsWith(".avi")) {
-                              return (
-                                <video
-                                  key={index}
-                                  controls
-                                  style={{
-                                    maxWidth: "845px",
-                                    marginBottom: "10px",
-                                    height: "480px",
-                                  }}
-                                >
-                                  <source
-                                    src={`http://localhost:3003/${mediaPath}`}
-                                    type="video/x-msvideo"
-                                  />
-                                  Your browser does not support the video tag.
-                                </video>
-                              );
-                            }
-
-                            // Else, treat it as an image
-                            return (
-                              <img
-                                key={index}
-                                src={`http://localhost:3003/${mediaPath}`}
-                                alt={`media ${index + 1}`}
-                                style={{ maxWidth: "auto", marginBottom: "10px", height: "480px" }}
-                              />
-                            );
-                          })}
-                        </div>
-                      )}
-                      <Grid
-                        item
+          <Grid
+            item
+            xs={12}
+            md={8}
+          >
+            {loading ? (
+              <Typography>Loading...</Typography>
+            ) : error ? (
+              <Typography color="error">{error}</Typography>
+            ) : (
+              <Card>
+                <CardContent>
+                  <List>
+                    {issues.map((issue) => (
+                      <ListItem
+                        key={issue.id}
+                        button
+                        onClick={() => handleCardClick(issue.id)}
                         sx={{
-                          mt: 1,
-                          display: "flex",
-                          alignItems: "center",
-                          gap: 2,
+                          flexDirection: "column",
+                          alignItems: "flex-start",
+                          borderBottom: "1px solid #e0e0e0",
+                          py: 2,
                         }}
                       >
-                        <Box
-                          display="flex"
-                          alignItems="center"
-                        >
-                          <IconButton onClick={() => handleUpvote(issue.id)}>
-                            {issue.upvotedBy.includes(currentUser?.id) ? (
-                              <ArrowUpward color="primary" />
-                            ) : (
-                              <ArrowUpwardOutlined />
-                            )}
-                          </IconButton>
-                          <Typography>{issue.upvotes}</Typography>
-                        </Box>
-                        <Button
-                          startIcon={<Comment />}
-                          onClick={() => handleCardClick(issue.id)}
-                        >
-                          Comments ({issue.comments ? issue.comments.length : 0})
-                        </Button>
-                      </Grid>
-                    </Grid>
-                  </Grid>
+                        <ListItemText
+                          primary={
+                            <>
+                              <Typography
+                                variant="caption"
+                                display="block"
+                                gutterBottom
+                              >
+                                {getDisplayUsername(issue.createdBy)} •{" "}
+                                {getTimeAgo(issue.createdAt)}
+                              </Typography>
+                              <Typography variant="subtitle1">{issue.title}</Typography>
+                              <Box
+                                sx={{
+                                  mt: 1,
+                                  display: "flex",
+                                  alignItems: "center",
+                                  gap: 1,
+                                }}
+                              >
+                                <Chip
+                                  label={issue.type}
+                                  color={issue.type === "issue" ? "error" : "success"}
+                                  size="small"
+                                />
+                                <Chip
+                                  label={`Ward No. ${issue.assigned_ward}`}
+                                  color="primary"
+                                  variant="outlined"
+                                  size="small"
+                                />
+                              </Box>
+                            </>
+                          }
+                          secondary={
+                            <>
+                              <Typography
+                                variant="body2"
+                                color="text.secondary"
+                                sx={{
+                                  mt: 2,
+                                  mb: 2,
+                                  display: "-webkit-box",
+                                  overflow: "hidden",
+                                  WebkitBoxOrient: "vertical",
+                                  WebkitLineClamp: 3,
+                                  textOverflow: "ellipsis",
+                                }}
+                              >
+                                {issue.description}
+                              </Typography>
+                              {issue.imagePaths && issue.imagePaths.length > 0 && (
+                                <Box
+                                  sx={{
+                                    mt: 2,
+                                    mb: 2,
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    alignItems: "center",
+                                    gap: 2,
+                                  }}
+                                >
+                                  {issue.imagePaths.map((mediaPath, index) => {
+                                    if (
+                                      mediaPath.endsWith(".mp4") ||
+                                      mediaPath.endsWith(".mkv") ||
+                                      mediaPath.endsWith(".avi")
+                                    ) {
+                                      return (
+                                        <video
+                                          key={index}
+                                          controls
+                                          style={{
+                                            maxWidth: "100%",
+                                            height: "720px",
+                                          }}
+                                        >
+                                          <source
+                                            src={`http://localhost:3003/${mediaPath}`}
+                                            type={
+                                              mediaPath.endsWith(".mp4")
+                                                ? "video/mp4"
+                                                : mediaPath.endsWith(".mkv")
+                                                  ? "video/x-matroska"
+                                                  : "video/x-msvideo"
+                                            }
+                                          />
+                                          Your browser does not support the video tag.
+                                        </video>
+                                      );
+                                    }
+                                    return (
+                                      <img
+                                        key={index}
+                                        src={`http://localhost:3003/${mediaPath}`}
+                                        alt={`media ${index + 1}`}
+                                        style={{
+                                          maxWidth: "100%",
+                                          // height: "240px",
+                                          objectFit: "cover",
+                                        }}
+                                      />
+                                    );
+                                  })}
+                                </Box>
+                              )}
+                              <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+                                <Box sx={{ display: "flex", alignItems: "center" }}>
+                                  <IconButton
+                                    size="small"
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      handleUpvote(issue.id);
+                                    }}
+                                  >
+                                    {issue.upvotedBy.includes(currentUser?.id) ? (
+                                      <ArrowUpward
+                                        fontSize="small"
+                                        color="primary"
+                                      />
+                                    ) : (
+                                      <ArrowUpwardOutlined fontSize="small" />
+                                    )}
+                                  </IconButton>
+                                  <Typography variant="body2">{issue.upvotes}</Typography>
+                                </Box>
+                                <Typography variant="body2">
+                                  <Comment
+                                    fontSize="small"
+                                    sx={{ mr: 1, verticalAlign: "middle" }}
+                                  />
+                                  {issue.comments ? issue.comments.length : 0} comments
+                                </Typography>
+                              </Box>
+                            </>
+                          }
+                        />
+                      </ListItem>
+                    ))}
+                  </List>
                 </CardContent>
               </Card>
-            ))
-          )}
+            )}
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            md={4}
+          >
+            <Card>
+              <RecentPosts />
+            </Card>
+          </Grid>
         </Grid>
-        <Grid
-          item
-          xs={12}
-          md={4}
-        >
-          <Card>
-            <RecentPosts />
-          </Card>
-        </Grid>
-      </Grid>
+      </Container>
 
       {/* User Menu */}
       <Menu
