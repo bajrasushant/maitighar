@@ -23,5 +23,7 @@ module.exports = {
     quotes: ["error", "double"],
     "no-nested-ternary": "off",
     "jsx-a11y/media-has-caption": "off",
+    "react/jsx-wrap-multilines": "off",
+    "operator-linebreak": "off",
   },
 };
