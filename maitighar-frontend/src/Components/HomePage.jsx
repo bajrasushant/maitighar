@@ -442,6 +442,7 @@ function HomePage() {
               md={4}
               sx={{
                 position: "sticky",
+                top: "78px",
                 height: "calc(100vh - 80px)",
                 overflowY: "auto",
               }}
