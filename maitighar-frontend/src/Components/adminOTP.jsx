@@ -61,7 +61,7 @@ export default function VerifyAdminOTP() {
     try {
       await verifyAdminOtp({ email, otp: otpString });
       setNotification({ message: "Admin email verified", status: "success" });
-      navigate("/admin-login"); // Redirect to admin dashboard on success
+      navigate("/admin-login"); // Redirect to admin login on success
     } catch (error) {
       console.error("Admin OTP verification failed", error);
       setNotification({ message: "OTP verification failed. Please try again.", status: "error" });
