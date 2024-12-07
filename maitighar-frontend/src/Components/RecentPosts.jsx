@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import {
+  Avatar,
+  Box,
   Card,
   CardContent,
   Typography,
@@ -12,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import issueService from "../services/issues";
 import { useNotification } from "../context/NotificationContext";
 import getDisplayUsername from "./Details/utils";
+import { formatDistanceToNow } from "date-fns";
 
 function RecentPosts() {
   const [recentIssues, setRecentIssues] = useState([]);
@@ -63,14 +66,26 @@ function RecentPosts() {
               <ListItemText
                 primary={
                   <>
-                    <Typography
-                      variant="caption"
-                      display="block"
-                      gutterBottom
-                    >
-                      {getDisplayUsername(issue.createdBy)} •{" "}
-                      {new Date(issue.createdAt).toLocaleDateString()}
-                    </Typography>
+                    <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
+                      <Avatar
+                        sx={{
+                          width: 24,
+                          height: 24,
+                          mr: 1,
+                          bgcolor: "primary.main",
+                          fontSize: "0.8rem",
+                        }}
+                      >
+                        {getDisplayUsername(issue.createdBy).charAt(0).toUpperCase()}
+                      </Avatar>
+                      <Typography
+                        variant="caption"
+                        display="block"
+                      >
+                        @{getDisplayUsername(issue.createdBy)} •{" "}
+                        {formatDistanceToNow(new Date(issue.createdAt), { addSuffix: true })}
+                      </Typography>
+                    </Box>
                     <Typography variant="subtitle1">{issue.title}</Typography>
                   </>
                 }

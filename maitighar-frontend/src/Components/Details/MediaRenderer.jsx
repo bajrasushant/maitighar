@@ -15,6 +15,10 @@ function MediaRenderer({ mediaPath }) {
       <video
         controls
         className="max-w-full mb-2.5 h-120"
+        style={{
+          maxWidth: "100%",
+          // height: "720px",
+        }}
       >
         <source
           src={`${appUrl}/${mediaPath}`}
@@ -30,6 +34,11 @@ function MediaRenderer({ mediaPath }) {
       src={`${appUrl}/${mediaPath}`}
       alt="Issue media"
       className="max-w-auto mb-2.5 h-120"
+      style={{
+        maxWidth: "100%",
+        // height: "240px",
+        objectFit: "cover",
+      }}
     />
   );
 }

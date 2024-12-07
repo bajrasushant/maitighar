@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import {
+  Avatar,
   Container,
   Card,
   CardContent,
@@ -278,8 +279,8 @@ function HomePage() {
                 <Typography color="error">{error}</Typography>
               ) : (
                 <Card>
-                  <CardContent>
-                    <List>
+                  <CardContent sx={{ pt: 0, pb: 0 }}>
+                    <List sx={{ p: 0 }}>
                       {issues.map((issue) => (
                         <ListItem
                           key={issue.id}
@@ -295,15 +296,22 @@ function HomePage() {
                           <ListItemText
                             primary={
                               <>
-                                <Typography
-                                  variant="caption"
-                                  display="block"
-                                  gutterBottom
-                                >
-                                  {getDisplayUsername(issue.createdBy)} •{" "}
-                                  {getTimeAgo(issue.createdAt)}
-                                </Typography>
-                                <Typography variant="subtitle1">{issue.title}</Typography>
+                                <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
+                                  <Avatar
+                                    sx={{ width: 32, height: 32, mr: 1, bgcolor: "primary.main" }}
+                                  >
+                                    {getDisplayUsername(issue.createdBy).charAt(0).toUpperCase()}
+                                  </Avatar>
+                                  <Typography
+                                    variant="caption"
+                                    display="block"
+                                    gutterBottom
+                                  >
+                                    {getDisplayUsername(issue.createdBy)} •{" "}
+                                    {getTimeAgo(issue.createdAt)}
+                                  </Typography>
+                                </Box>
+                                <Typography variant="h6">{issue.title}</Typography>
                                 <Box
                                   sx={{
                                     mt: 1,
@@ -366,7 +374,7 @@ function HomePage() {
                                             controls
                                             style={{
                                               maxWidth: "100%",
-                                              height: "720px",
+                                              // height: "720px",
                                             }}
                                           >
                                             <source
