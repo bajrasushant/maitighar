@@ -61,7 +61,7 @@ export default function VerifyAdminOTP() {
     try {
       await verifyAdminOtp({ email, otp: otpString });
       setNotification({ message: "Admin email verified", status: "success" });
-      navigate("/admin-dashboard"); // Redirect to admin dashboard on success
+      navigate("/admin-login"); // Redirect to admin dashboard on success
     } catch (error) {
       console.error("Admin OTP verification failed", error);
       setNotification({ message: "OTP verification failed. Please try again.", status: "error" });
@@ -84,18 +84,40 @@ export default function VerifyAdminOTP() {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs">
+      <Container
+        component="main"
+        maxWidth="xs"
+      >
         <CssBaseline />
         <Box sx={{ marginTop: 8, display: "flex", flexDirection: "column", alignItems: "center" }}>
           <Avatar sx={{ m: 1, bgcolor: "secondary.main" }} />
-          <Typography component="h1" variant="h5">Admin OTP Verification</Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography
+            component="h1"
+            variant="h5"
+          >
+            Admin OTP Verification
+          </Typography>
+          <Typography
+            variant="body2"
+            color="text.secondary"
+          >
             Time left: {Math.floor(timer / 60)}:{timer % 60 < 10 ? `0${timer % 60}` : timer % 60}
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
-            <Grid container spacing={2} justifyContent="center">
+          <Box
+            component="form"
+            onSubmit={handleSubmit}
+            sx={{ mt: 3 }}
+          >
+            <Grid
+              container
+              spacing={2}
+              justifyContent="center"
+            >
               {[0, 1, 2, 3].map((index) => (
-                <Grid item key={index}>
+                <Grid
+                  item
+                  key={index}
+                >
                   <TextField
                     id={`otp-${index}`}
                     type="text"
@@ -107,10 +129,21 @@ export default function VerifyAdminOTP() {
                 </Grid>
               ))}
             </Grid>
-            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>Verify OTP</Button>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Verify OTP
+            </Button>
           </Box>
           {canResend && (
-            <Button variant="outlined" onClick={handleResendOtp} sx={{ mt: 2 }}>
+            <Button
+              variant="outlined"
+              onClick={handleResendOtp}
+              sx={{ mt: 2 }}
+            >
               Resend OTP
             </Button>
           )}

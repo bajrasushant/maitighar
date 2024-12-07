@@ -131,57 +131,60 @@ adminRouter.post("/", async (request, response) => {
       }
     }
 
-        // Generate OTP
-        const otp = Math.floor(1000 + Math.random() * 9000).toString(); // A 4-digit OTP
-        const otpExpiresAt = new Date(Date.now() + 2 * 60 * 1000); // OTP valid for 2 minutes
-    
-        // Store OTP temporarily in-memory
-        otpStore[email] = { 
-          otp, 
-          otpExpiresAt, 
-          username, 
-          password, 
-          responsible, 
-          assigned_province, 
-          assigned_district, 
-          assigned_local_gov, 
-          assigned_ward, 
-          assigned_department 
-        };
-    
-        // Send OTP to the admin's email
-        const transporter = nodemailer.createTransport({
-          host: "smtp.gmail.com",
-          port: 465,
-          secure: true,
-          auth: {
-            user: process.env.EMAIL,
-            pass: process.env.EMAIL_PASSWORD,
-          },
-        });
-    
-        const mailOptions = {
-          from: process.env.EMAIL,
-          to: email,
-          subject: "Verify your Admin Account",
-          text: `Your OTP code is ${otp}. It will expire in 2 minutes.`,
-        };
-    
-        transporter.sendMail(mailOptions, (error, info) => {
-          if (error) {
-            return response.status(500).json({ error: "Failed to send OTP email" });
-          }
-          return response.status(201).json({
-            message: "OTP sent to email. Please verify OTP to complete registration.",
-          });
-        });
-      } catch (error) {
-        console.error("Error during admin registration:", error);
-        response.status(500).json({ error: "Internal server error" });
-      }
+    // Generate OTP
+    const otp = Math.floor(1000 + Math.random() * 9000).toString(); // A 4-digit OTP
+    const otpExpiresAt = new Date(Date.now() + 2 * 60 * 1000); // OTP valid for 2 minutes
+
+    // Store OTP temporarily in-memory
+    otpStore[email] = {
+      otp,
+      otpExpiresAt,
+      username,
+      password,
+      responsible,
+      assigned_province,
+      assigned_district,
+      assigned_local_gov,
+      assigned_ward,
+      assigned_department,
+    };
+
+    // Send OTP to the admin's email
+    const transporter = nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true,
+      auth: {
+        user: process.env.EMAIL,
+        pass: process.env.EMAIL_PASSWORD,
+      },
     });
 
-    // OTP verification route
+    const mailOptions = {
+      from: process.env.EMAIL,
+      to: email,
+      subject: "Verify your Admin Account",
+      text: `Your OTP code is ${otp}. It will expire in 2 minutes.`,
+    };
+
+    console.log("Sending mail to:", email);
+    console.log(mailOptions);
+
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        return response.status(500).json({ error: "Failed to send OTP email" });
+      }
+      return response.status(201).json({
+        message: "OTP sent to email. Please verify OTP to complete registration.",
+      });
+    });
+  } catch (error) {
+    console.error("Error during admin registration:", error);
+    response.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// OTP verification route
 adminRouter.post("/verify-otp", async (request, response) => {
   const { email, otp } = request.body;
 
@@ -203,8 +206,17 @@ adminRouter.post("/verify-otp", async (request, response) => {
     return response.status(400).json({ error: "OTP expired" });
   }
 
-   // Extract password from the otpStore
-   const { password, username, responsible, assigned_province, assigned_district, assigned_local_gov, assigned_ward, assigned_department } = otpEntry;
+  // Extract password from the otpStore
+  const {
+    password,
+    username,
+    responsible,
+    assigned_province,
+    assigned_district,
+    assigned_local_gov,
+    assigned_ward,
+    assigned_department,
+  } = otpEntry;
 
   // OTP is valid, proceed with admin registration
   try {
@@ -226,7 +238,6 @@ adminRouter.post("/verify-otp", async (request, response) => {
     });
     const savedAdmin = await admin.save();
 
-    
     if (responsible === "department" && assigned_department) {
       await Department.findByIdAndUpdate(assigned_department, { admin_registered: savedAdmin._id });
     }
@@ -251,11 +262,10 @@ adminRouter.post("/verify-otp", async (request, response) => {
       }
     }
 
-      // Clear OTP from in-memory store after successful registration
-      delete otpStore[email];
+    // Clear OTP from in-memory store after successful registration
+    delete otpStore[email];
 
-      return response.status(201).json(savedAdmin);
-      
+    return response.status(201).json(savedAdmin);
   } catch (error) {
     console.error("Error during admin creation:", error);
 
