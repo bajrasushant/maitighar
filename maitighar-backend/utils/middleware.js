@@ -40,7 +40,6 @@ const tokenExtractor = (request, response, next) => {
 
 const userExtractor = async (request, response, next) => {
   const authHeader = request.headers.authorization;
-  console.log("header", authHeader);
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
     return response.status(401).json({ error: "token missing" });
   }

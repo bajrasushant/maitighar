@@ -173,6 +173,15 @@ function HomePage() {
     }
   };
 
+  const handleUserProfile = () => {
+    try {
+      navigate("/profile");
+    } catch (err) {
+      console.error("Error", err.message);
+      setNotification({ message: "Failed to get your details.", status: "error" });
+    }
+  };
+
   const handleIssuesAroundWard = async () => {
     try {
       const issuesWard = await issueService.getIssuesWardWise();
@@ -461,7 +470,7 @@ function HomePage() {
         open={Boolean(anchorElUser)}
         onClose={handleCloseUserMenu}
       >
-        <MenuItem onClick={handleCloseUserMenu}>Profile</MenuItem>
+        <MenuItem onClick={handleUserProfile}>Profile</MenuItem>
         {/* <MenuItem onClick={handleCloseUserMenu}>My Reports</MenuItem> */}
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
         {currentUser.isWardOfficer && (
