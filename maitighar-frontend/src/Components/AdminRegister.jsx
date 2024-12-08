@@ -128,8 +128,10 @@ export default function AdminRegister() {
         assigned_ward: responsible === "ward" ? assignedWard : undefined,
         assigned_department: responsible === "department" ? department : undefined,
       });
-      setNotification({ message: "Admin registered successfully.", status: "success" });
-      navigate("/admin-login");
+      console.log(response);
+      // Navigate to OTP verification page with email in state
+      navigate("/verifyAdminOTP", { state: { email } });
+      setNotification({ message: `OTP sent to ${email}`, status: "success" });
     } catch (error) {
       setNotification({
         message: error.response?.data?.error || "Something went wrong. Please try again.",

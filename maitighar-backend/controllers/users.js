@@ -45,7 +45,7 @@ userRouter.post("/", async (request, response) => {
 
   // Generate OTP
   const otp = Math.floor(1000 + Math.random() * 9000).toString(); // A 4-digit OTP
-  const otpExpiresAt = new Date(Date.now() + 2 * 60 * 1000); // OTP valid for 4 minutes
+  const otpExpiresAt = new Date(Date.now() + 2 * 60 * 1000); // OTP valid for 2 minutes
 
   // Store OTP temporarily in-memory
   otpStore[email] = { otp, otpExpiresAt, username, password };
