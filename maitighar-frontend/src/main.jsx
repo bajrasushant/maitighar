@@ -10,13 +10,11 @@ const queryClient = new QueryClient();
 helpers.initializeToken();
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <UserContextProvider>
-        <NotificationProvider>
-          <App />
-        </NotificationProvider>
-      </UserContextProvider>
-    </QueryClientProvider>
-  </React.StrictMode>,
+  <QueryClientProvider client={queryClient}>
+    <UserContextProvider>
+      <NotificationProvider>
+        <App />
+      </NotificationProvider>
+    </UserContextProvider>
+  </QueryClientProvider>,
 );

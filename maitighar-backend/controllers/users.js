@@ -2,9 +2,11 @@ const bcrypt = require("bcrypt");
 const userRouter = require("express").Router();
 const nodemailer = require("nodemailer");
 const User = require("../models/user");
+const WardOfficer = require("../models/wardOfficer");
+const PromotionRequest = require("../models/promotionRequest");
 
 // In-memory storage for OTP
-let otpStore = {};
+const otpStore = {};
 
 userRouter.get("/", async (request, response) => {
   const users = await User.find({});
@@ -22,9 +24,7 @@ userRouter.post("/", async (request, response) => {
     password.trim() === "" ||
     repassword.trim() === ""
   ) {
-    return response
-      .status(400)
-      .json({ error: "username, password, and repassword are required" });
+    return response.status(400).json({ error: "username, password, and repassword are required" });
   }
 
   if (!(username.length >= 3 && password.length >= 3)) {
@@ -45,7 +45,7 @@ userRouter.post("/", async (request, response) => {
 
   // Generate OTP
   const otp = Math.floor(1000 + Math.random() * 9000).toString(); // A 4-digit OTP
-  const otpExpiresAt = new Date(Date.now() + 2 * 60 * 1000); // OTP valid for 4 minutes
+  const otpExpiresAt = new Date(Date.now() + 2 * 60 * 1000); // OTP valid for 2 minutes
 
   // Store OTP temporarily in-memory
   otpStore[email] = { otp, otpExpiresAt, username, password };
@@ -114,17 +114,15 @@ userRouter.post("/verify-otp", async (request, response) => {
       username: otpEntry.username,
       passwordHash,
       email,
-      role: "citizen",
+      role: "User",
     });
 
-    const savedUser = await user.save();
+    await user.save();
 
     // Clear OTP from in-memory store after successful registration
     delete otpStore[email];
 
-    return response
-      .status(200)
-      .json({ message: "OTP verified and user registered successfully" });
+    return response.status(200).json({ message: "OTP verified and user registered successfully" });
   } catch (error) {
     return response.status(500).json({ error: "Something went wrong" });
   }
@@ -174,6 +172,5 @@ userRouter.post("/resend-otp", async (request, response) => {
     });
   });
 });
-
 
 module.exports = userRouter;

@@ -12,6 +12,7 @@ import Details from "./Components/Details/index";
 import OtpVerification from "./Components/OTPverification";
 import UserProfile from "./Components/UserProfile";
 import CusNotification from "./Components/Notification";
+import VerifyAdminOTP from "./Components/adminOTP";
 
 function App() {
   const userDispatch = useUserDispatch();
@@ -42,6 +43,10 @@ function App() {
           <Route
             path="/verifyOTP"
             element={<OtpVerification />}
+          />
+          <Route
+            path="/verifyAdminOTP"
+            element={<VerifyAdminOTP />}
           />
           <Route
             path="/"
