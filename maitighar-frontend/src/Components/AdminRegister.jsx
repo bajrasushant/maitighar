@@ -132,8 +132,9 @@ export default function AdminRegister() {
         assigned_department: responsible === "department" ? department : undefined,
       });
       console.log(response);
-      setNotification({ message: "Admin registered successfully.", status: "success" });
-      navigate("/admin-login");
+  // Navigate to OTP verification page with email in state
+  navigate("/verifyAdminOTP", { state: { email } });
+  setNotification({ message: `OTP sent to ${email}`, status: "success" });
     } catch (error) {
       setNotification({
         message: error.response?.data?.error || "Something went wrong. Please try again.",
