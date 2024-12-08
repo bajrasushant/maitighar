@@ -1,13 +1,11 @@
-const bcrypt = require("bcrypt");
 const adminRouter = require("express").Router();
 const Admin = require("../models/admin");
-const nodemailer = require("nodemailer");
-const Department = require("../models/department");
-const Ward = require("../models/ward");
 const LocalGov = require("../models/localgov");
-
-// In-memory storage for OTP
-let otpStore = {};
+const PromotionRequest = require("../models/promotionRequest");
+const WardOfficer = require("../models/wardOfficer");
+const User = require("../models/user");
+const Issue = require("../models/issue");
+const mongoose = require("mongoose");
 
 //Get all admins
 adminRouter.get("/", async (request, response) => {
@@ -17,6 +15,273 @@ adminRouter.get("/", async (request, response) => {
   } catch (error) {
     console.error("Error fetching admins:", error);
     response.status(500).json({ error: "Internal server error" });
+  }
+});
+adminRouter.get("/active-users", async (req, res) => {
+  try {
+    console.log(req.query);
+    const { province, district, localGovId, ward } = req.query;
+
+    if (!province || !district || !localGovId || !ward) {
+      return res.status(400).json({ error: "Missing required query parameters" });
+    }
+
+    // Validate the local government and ward
+    const localGov = await LocalGov.findById(localGovId);
+    if (!localGov || ward > localGov.number_of_wards) {
+      return res.status(400).json({ error: "Invalid ward number or local government ID" });
+    }
+
+    // Aggregate activity scores
+    const activeUsers = await Issue.aggregate([
+      {
+        $match: {
+          assigned_province: new mongoose.Types.ObjectId(province),
+          assigned_district: new mongoose.Types.ObjectId(district),
+          assigned_local_gov: new mongoose.Types.ObjectId(localGovId),
+          assigned_ward: parseInt(ward),
+        },
+      },
+      {
+        $lookup: {
+          from: "comments",
+          localField: "comments",
+          foreignField: "_id",
+          as: "issueComments",
+        },
+      },
+      {
+        $unwind: {
+          path: "$upvotedBy",
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      {
+        $unwind: {
+          path: "$issueComments",
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      {
+        $group: {
+          _id: "$upvotedBy",
+          activityScore: { $sum: 1 },
+          commentsScore: {
+            $sum: { $cond: [{ $ifNull: ["$issueComments.createdBy", false] }, 1, 0] },
+          }, // Count comments
+        },
+      },
+      {
+        $addFields: {
+          totalActivityScore: { $add: ["$activityScore", "$commentsScore"] },
+        },
+      },
+      {
+        $sort: { totalActivityScore: -1 },
+      },
+      {
+        $limit: 10,
+      },
+      {
+        $lookup: {
+          from: "users",
+          localField: "_id",
+          foreignField: "_id",
+          as: "userDetails",
+        },
+      },
+      {
+        $unwind: "$userDetails",
+      },
+      {
+        $project: {
+          _id: 0,
+          userId: "$userDetails._id",
+          username: "$userDetails.username",
+          email: "$userDetails.email",
+          activityScore: "$totalActivityScore",
+        },
+      },
+    ]);
+
+    res.json(activeUsers);
+  } catch (error) {
+    res.status(500).json({ error: "Error fetching active users", details: error.message });
+  }
+});
+
+adminRouter.get("/me", async (request, response) => {
+  try {
+    const user = request.user;
+    const userType = request.userType;
+
+    if (!user) {
+      return response.status(404).json({ error: "No user found in request" });
+    }
+
+    if (userType === "admin") {
+      const adminData = {
+        username: user.username,
+        email: user.email,
+        responsible: user.responsible,
+        assigned_province: user.assigned_province,
+        assigned_district: user.assigned_district,
+        assigned_local_gov: user.assigned_local_gov,
+        assigned_ward: user.assigned_ward,
+        assigned_department: user.assigned_department,
+      };
+      return response.json(adminData);
+    }
+
+    if (userType === "user") {
+      const userData = {
+        username: user.username,
+        email: user.email,
+      };
+      return response.json(userData);
+    }
+
+    return response.status(400).json({ error: "Unknown user type" });
+  } catch (error) {
+    console.error("Error fetching user/admin info:", error);
+    return response.status(500).json({ error: "Internal server error" });
+  }
+});
+
+adminRouter.get("/promotion-requests", async (request, response) => {
+  try {
+    const adminId = request.user._id;
+    const admin = await Admin.findById(adminId).select(
+      "username email responsible assigned_province assigned_district assigned_local_gov assigned_ward",
+    );
+
+    if (admin.responsible !== "ward") {
+      return response.status(400).json({ error: "Not applicable for departments." });
+    }
+
+    const requests = await PromotionRequest.find({
+      status: "Pending",
+      assigned_province: admin.assigned_province,
+      assigned_ward: admin.assigned_ward,
+    })
+      .populate("user", "username email role")
+      .exec();
+
+    const userIds = requests.map((req) => req.user._id);
+
+    const userStats = await Issue.aggregate([
+      {
+        $match: {
+          assigned_province: new mongoose.Types.ObjectId(admin.assigned_province),
+          assigned_district: new mongoose.Types.ObjectId(admin.assigned_district),
+          assigned_local_gov: new mongoose.Types.ObjectId(admin.assigned_local_gov),
+          assigned_ward: admin.assigned_ward,
+        },
+      },
+      {
+        $lookup: {
+          from: "comments",
+          localField: "comments",
+          foreignField: "_id",
+          as: "issueComments",
+        },
+      },
+      {
+        $unwind: { path: "$upvotedBy", preserveNullAndEmptyArrays: true },
+      },
+      {
+        $unwind: { path: "$issueComments", preserveNullAndEmptyArrays: true },
+      },
+      {
+        $group: {
+          _id: "$upvotedBy",
+          activityScore: { $sum: 1 },
+          commentsScore: {
+            $sum: { $cond: [{ $ifNull: ["$issueComments.createdBy", false] }, 1, 0] },
+          },
+        },
+      },
+      {
+        $addFields: {
+          totalActivityScore: { $add: ["$activityScore", "$commentsScore"] },
+        },
+      },
+      {
+        $match: { _id: { $in: userIds } }, // Match users involved in the requests
+      },
+      {
+        $lookup: {
+          from: "users",
+          localField: "_id",
+          foreignField: "_id",
+          as: "userDetails",
+        },
+      },
+      {
+        $unwind: "$userDetails",
+      },
+      {
+        $project: {
+          userId: "$userDetails._id",
+          username: "$userDetails.username",
+          email: "$userDetails.email",
+          activityScore: "$totalActivityScore",
+        },
+      },
+    ]);
+
+    // Map stats to requests
+    const requestsWithStats = requests.map((req) => {
+      const stats = userStats.find((stat) => String(stat.userId) === String(req.user._id)) || {
+        activityScore: 0,
+        commentsScore: 0,
+        totalActivityScore: 0,
+      };
+      return {
+        ...req.toObject(),
+        userStats: stats,
+      };
+    });
+
+    response.status(200).json(requestsWithStats);
+  } catch (error) {
+    console.error("Error fetching promotion requests:", error);
+    response.status(500).json({ error: "Internal server error." });
+  }
+});
+
+adminRouter.post("/promotion-review", async (request, response) => {
+  try {
+    const { id, status } = request.body;
+
+    if (!["Accepted", "Declined"].includes(status)) {
+      return response.status(400).json({ error: "Invalid status." });
+    }
+
+    const promotionRequest = await PromotionRequest.findById(id);
+
+    if (!promotionRequest) {
+      return response.status(404).json({ error: "Promotion request not found." });
+    }
+    if (status === "Accepted") {
+      const user = await User.findById(promotionRequest.user);
+      user.role = promotionRequest.requestedRole;
+      promotionRequest.status = status;
+      const wardOfficer = WardOfficer({
+        user: user._id,
+        assigned_province: promotionRequest.assigned_province,
+        assigned_district: promotionRequest.assigned_district,
+        assigned_local_gov: promotionRequest.assigned_local_gov,
+        assigned_ward: promotionRequest.assigned_ward,
+      });
+      await wardOfficer.save();
+      await promotionRequest.save();
+      await user.save();
+    }
+    response.status(200).json({ message: `Request ${status.toLowerCase()} successfully.` });
+  } catch (error) {
+    console.error("Error reviewing promotion request:", error);
+    response.status(500).json({ error: "Internal server error." });
   }
 });
 
@@ -42,298 +307,142 @@ adminRouter.get("/:id", async (request, response) => {
   }
 });
 
-//Create new admin
-adminRouter.post("/", async (request, response) => {
+const isAdmin = async (req, res, next) => {
   try {
-    const {
-      username,
-      password,
-      repassword,
-      email,
-      responsible,
+    const user = await User.findById(req.user.id);
+    if (!user || user.role !== "admin") {
+      return res.status(403).json({ error: "Admin access required" });
+    }
+    next();
+  } catch (error) {
+    res.status(500).json({ error: "Error verifying admin status" });
+  }
+};
+
+// Promote user to ward officer
+adminRouter.post("/promote-ward-officer", isAdmin, async (req, res) => {
+  try {
+    const { userId, assigned_province, assigned_district, assigned_local_gov, assigned_ward } =
+      req.body;
+
+    if (
+      !userId ||
+      !assigned_province ||
+      !assigned_district ||
+      !assigned_local_gov ||
+      !assigned_ward
+    ) {
+      return res.status(400).json({ error: "Missing required fields" });
+    }
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const existingOfficer = await WardOfficer.findOne({ user: userId });
+    if (existingOfficer) {
+      return res.status(400).json({ error: "User is already a ward officer" });
+    }
+    const officerCount = await WardOfficer.countDocuments({
+      assigned_local_gov,
+      assigned_ward,
+      is_active: true,
+    });
+
+    if (officerCount >= 5) {
+      return res.status(400).json({
+        error: "This ward already has the maximum number of ward officers (5)",
+      });
+    }
+
+    const localGov = await LocalGov.findById(assigned_local_gov);
+    if (!localGov || assigned_ward > localGov.number_of_wards) {
+      return res
+        .status(400)
+        .json({ error: "Invalid ward number for the selected local government" });
+    }
+
+    // Create new ward officer
+    const wardOfficer = new WardOfficer({
+      user: userId,
       assigned_province,
       assigned_district,
       assigned_local_gov,
       assigned_ward,
-      assigned_department,
-    } = request.body;
-
-    // Check if responsible field is valid
-    if (!["ward", "department"].includes(responsible)) {
-      return response.status(400).json({ error: "Invalid admin responsible specified" });
-    }
-
-    if (responsible === "ward" && (!assigned_local_gov || !assigned_ward)) {
-      return response
-        .status(400)
-        .json({ error: "Local government and ward assignment are required for ward admins" });
-    }
-    if (
-      responsible === "department" &&
-      (!assigned_province || !assigned_district || !assigned_department)
-    ) {
-      return response
-        .status(400)
-        .json({ error: "Province, district and department are required for department admins" });
-    }
-
-    //Input validation
-    if (
-      !username ||
-      !password ||
-      !repassword ||
-      !email ||
-      username.trim() === "" ||
-      password.trim() === "" ||
-      repassword.trim() === "" ||
-      email.trim() === ""
-    ) {
-      return response
-        .status(400)
-        .json({ error: "username, password, repassword, email are required" });
-    }
-    if (username.length < 3 || password.length < 3) {
-      return response.status(400).json({
-        error: "username and password should contain at least 3 characters",
-      });
-    }
-    if (password !== repassword) {
-      return response.status(400).json({ error: "passwords do not match" });
-    }
-
-    if (responsible === "ward") {
-      const existingAdmin = await Admin.findOne({
-        assigned_local_gov,
-        assigned_ward,
-      });
-      if (existingAdmin) {
-        return response
-          .status(400)
-          .json({ error: `Ward ${assigned_ward} is already assigned to an admin.` });
-      }
-    }
-
-    if (responsible === "department") {
-      const existingAdmin = await Admin.findOne({
-        assigned_department,
-      });
-      if (existingAdmin) {
-        return response
-          .status(400)
-          .json({ error: `Deparment ${assigned_department} is already assigned to an admin.` });
-      }
-
-      if (otpStore[email]) {
-        const otpEntry = otpStore[email];
-        if (otpEntry.otpExpiresAt > Date.now()) {
-          return response.status(400).json({ error: "An OTP is already active for this email" });
-        }
-      }
-    }
-
-    // Generate OTP
-    const otp = Math.floor(1000 + Math.random() * 9000).toString(); // A 4-digit OTP
-    const otpExpiresAt = new Date(Date.now() + 2 * 60 * 1000); // OTP valid for 2 minutes
-
-    // Store OTP temporarily in-memory
-    otpStore[email] = {
-      otp,
-      otpExpiresAt,
-      username,
-      password,
-      responsible,
-      assigned_province,
-      assigned_district,
-      assigned_local_gov,
-      assigned_ward,
-      assigned_department,
-    };
-
-    // Send OTP to the admin's email
-    const transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com",
-      port: 465,
-      secure: true,
-      auth: {
-        user: process.env.EMAIL,
-        pass: process.env.EMAIL_PASSWORD,
-      },
+      appointed_date: new Date(),
+      is_active: true,
     });
 
-    const mailOptions = {
-      from: process.env.EMAIL,
-      to: email,
-      subject: "Verify your Admin Account",
-      text: `Your OTP code is ${otp}. It will expire in 2 minutes.`,
-    };
+    await wardOfficer.save();
 
-    console.log("Sending mail to:", email);
-    console.log(mailOptions);
+    // Update user's role
+    user.role = "wardOfficer";
+    await user.save();
 
-    transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-        return response.status(500).json({ error: "Failed to send OTP email" });
-      }
-      return response.status(201).json({
-        message: "OTP sent to email. Please verify OTP to complete registration.",
-      });
+    res.status(201).json({
+      message: "User successfully promoted to ward officer",
+      wardOfficer,
     });
   } catch (error) {
-    console.error("Error during admin registration:", error);
-    response.status(500).json({ error: "Internal server error" });
+    res.status(500).json({
+      error: "Error promoting user to ward officer",
+      details: error.message,
+    });
   }
 });
 
-// OTP verification route
-adminRouter.post("/verify-otp", async (request, response) => {
-  const { email, otp } = request.body;
-
-  if (!email || !otp) {
-    return response.status(400).json({ error: "Email and OTP are required" });
-  }
-
-  const otpEntry = otpStore[email];
-
-  if (!otpEntry) {
-    return response.status(400).json({ error: "No OTP found for this email" });
-  }
-
-  if (otpEntry.otp !== otp) {
-    return response.status(400).json({ error: "Invalid OTP" });
-  }
-
-  if (otpEntry.otpExpiresAt < Date.now()) {
-    return response.status(400).json({ error: "OTP expired" });
-  }
-
-  // Extract password from the otpStore
-  const {
-    password,
-    username,
-    responsible,
-    assigned_province,
-    assigned_district,
-    assigned_local_gov,
-    assigned_ward,
-    assigned_department,
-  } = otpEntry;
-
-  // OTP is valid, proceed with admin registration
+// Deactivate ward officer
+adminRouter.post("/deactivate-ward-officer/:id", isAdmin, async (req, res) => {
   try {
-    //Hash password and save the admin in database
-    const saltRounds = 10;
-    const passwordHash = await bcrypt.hash(password, saltRounds);
-    const localgovdetails = await LocalGov.findById(assigned_local_gov);
-
-    const admin = new Admin({
-      username,
-      passwordHash,
-      email,
-      responsible,
-      assigned_province,
-      assigned_district,
-      assigned_local_gov: responsible === "ward" ? assigned_local_gov : undefined,
-      assigned_ward: responsible === "ward" ? assigned_ward : undefined,
-      assigned_department: responsible === "department" ? assigned_department : undefined,
-    });
-    const savedAdmin = await admin.save();
-
-    if (responsible === "department" && assigned_department) {
-      await Department.findByIdAndUpdate(assigned_department, { admin_registered: savedAdmin._id });
-    }
-    // Register admin to a ward
-    else if (responsible === "ward" && assigned_local_gov && assigned_ward) {
-      const ward = await Ward.findOne({ localGov: assigned_local_gov, number: assigned_ward });
-
-      if (ward) {
-        await Ward.findOneAndUpdate(
-          { localGov: assigned_local_gov, number: assigned_ward },
-          { admin_registered: savedAdmin._id },
-        );
-      } else {
-        const localgovdetails = await LocalGov.findById(assigned_local_gov);
-        const newWard = new Ward({
-          number: assigned_ward,
-          name: `${localgovdetails.name} Ward No. ${assigned_ward}`,
-          localGov: assigned_local_gov,
-          admin_registered: savedAdmin._id,
-        });
-        await newWard.save();
-      }
+    const wardOfficer = await WardOfficer.findById(req.params.id);
+    if (!wardOfficer) {
+      return res.status(404).json({ error: "Ward officer not found" });
     }
 
-    // Clear OTP from in-memory store after successful registration
-    delete otpStore[email];
+    wardOfficer.is_active = false;
+    await wardOfficer.save();
 
-    return response.status(201).json(savedAdmin);
+    // Update user's role back to regular user
+    const user = await User.findById(wardOfficer.user);
+    if (user) {
+      user.role = "user";
+      await user.save();
+    }
+
+    res.json({ message: "Ward officer successfully deactivated" });
   } catch (error) {
-    console.error("Error during admin creation:", error);
-
-    if (error.name === "ValidationError") {
-      return response.status(400).json({ error: error.message });
-    }
-
-    if (error.code === 11000) {
-      // Duplicate key error
-      return response.status(400).json({
-        error: "Username or email already exists",
-      });
-    }
-    return response.status(500).json({ error: "Something went wrong" });
+    res.status(500).json({
+      error: "Error deactivating ward officer",
+      details: error.message,
+    });
   }
 });
-// Resend OTP route
-adminRouter.post("/resend-otp", async (request, response) => {
-  const { email } = request.body;
 
-  if (!email) {
-    return response.status(400).json({ error: "Email is required" });
-  }
+// Get all ward officers with filters
+adminRouter.get("/ward-officers", isAdmin, async (req, res) => {
+  try {
+    const { province, district, local_gov, ward, active_only } = req.query;
 
-  // Check if an OTP is already active for this email
-  const otpEntry = otpStore[email];
+    const filter = {};
+    if (province) filter.assigned_province = province;
+    if (district) filter.assigned_district = district;
+    if (local_gov) filter.assigned_local_gov = local_gov;
+    if (ward) filter.assigned_ward = parseInt(ward);
+    if (active_only === "true") filter.is_active = true;
 
-  if (!otpEntry) {
-    return response.status(400).json({ error: "No OTP request found for this email" });
-  }
+    const wardOfficers = await WardOfficer.find(filter)
+      .populate("user", "username email")
+      .populate("assigned_province", "name")
+      .populate("assigned_district", "name")
+      .populate("assigned_local_gov", "name");
 
-  // Generate a new OTP and update the in-memory store
-  const newOtp = Math.floor(1000 + Math.random() * 9000).toString(); // Generate a new 4-digit OTP
-  const newOtpExpiresAt = new Date(Date.now() + 2 * 60 * 1000); // New OTP valid for 2 minutes
-
-  // Update the OTP details in the store
-  otpStore[email] = {
-    ...otpEntry,
-    otp: newOtp,
-    otpExpiresAt: newOtpExpiresAt,
-  };
-
-  // Send the new OTP to the admin's email
-  const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 465,
-    secure: true,
-    auth: {
-      user: process.env.EMAIL,
-      pass: process.env.EMAIL_PASSWORD,
-    },
-  });
-
-  const mailOptions = {
-    from: process.env.EMAIL,
-    to: email,
-    subject: "Resend OTP for Admin Account Verification",
-    text: `Your new OTP code is ${newOtp}. It will expire in 2 minutes.`,
-  };
-
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      return response.status(500).json({ error: "Failed to send OTP email" });
-    }
-    return response.status(200).json({
-      message: "New OTP sent to email. Please verify the OTP to complete registration.",
+    res.json(wardOfficers);
+  } catch (error) {
+    res.status(500).json({
+      error: "Error fetching ward officers",
+      details: error.message,
     });
-  });
+  }
 });
 
 module.exports = adminRouter;

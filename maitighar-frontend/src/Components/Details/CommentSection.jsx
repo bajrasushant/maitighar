@@ -18,6 +18,12 @@ function CommentSection({
   toggleReplies,
   isAdmin,
 }) {
+  const sortedComments = comments.sort((a, b) => {
+    if (a.isCommunityNote && !b.isCommunityNote) return -1; // a comes first
+    if (!a.isCommunityNote && b.isCommunityNote) return 1; // b comes first
+    return 0; // maintain original order otherwise
+  });
+
   return (
     <Box sx={{ mt: 4 }}>
       <Divider sx={{ mb: 3 }} />
@@ -62,7 +68,13 @@ function CommentSection({
 
       {comments.length > 0 && (
         <List sx={{ p: 0 }}>
-          {comments.map((comment) => (
+          {/* <Typography
+            variant="h6"
+            gutterBottom
+          >
+            Comments ({comments.length})
+          </Typography> */}
+          {sortedComments.map((comment) => (
             <ListItem
               key={comment.id}
               disableGutters

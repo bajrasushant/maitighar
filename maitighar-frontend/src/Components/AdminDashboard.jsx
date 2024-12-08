@@ -14,11 +14,14 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import IssuesList from "./IssuesList";
 import SuggestionsList from "./SuggestionsList";
 import GlobalIssueMap from "./GlobalIssueMap";
-import { useUserDispatch } from "../context/UserContext";
+import { useUserDispatch, useUserValue } from "../context/UserContext";
+import ActiveUsers from "./ActiveUsers";
+import AdminRequestViewer from "./AdminPromotionRequestViewer";
 
 function AdminDashboard() {
   const [activeTab, setActiveTab] = useState("dashboard");
   const userDispatch = useUserDispatch();
+  const userData = useUserValue();
 
   const renderContent = () => {
     switch (activeTab) {
@@ -28,6 +31,10 @@ function AdminDashboard() {
         return <IssuesList />;
       case "suggestions":
         return <SuggestionsList />;
+      case "activeUsers":
+        return <ActiveUsers adminId={userData.adminId} />;
+      case "promotionRequests":
+        return <AdminRequestViewer />;
       default:
         return <GlobalIssueMap />;
     }
@@ -49,6 +56,16 @@ function AdminDashboard() {
           >
             Admin Dashboard
           </Typography>
+          <Button
+            color="inherit"
+            onClick={() => setActiveTab("activeUsers")}
+            sx={{
+              backgroundColor:
+                activeTab === "activeUsers" ? "rgba(255, 255, 255, 0.1)" : "transparent",
+            }}
+          >
+            Active Users
+          </Button>
           <Button
             color="inherit"
             onClick={() => setActiveTab("dashboard")}
@@ -77,6 +94,16 @@ function AdminDashboard() {
             }}
           >
             Suggestions
+          </Button>
+          <Button
+            color="inherit"
+            onClick={() => setActiveTab("promotionRequests")}
+            sx={{
+              backgroundColor:
+                activeTab === "promotionRequests" ? "rgba(255, 255, 255, 0.1)" : "transparent",
+            }}
+          >
+            WardOfficer Request
           </Button>
           {/* <IconButton size="large" color="inherit" onClick={handleLogout}>
 						<AccountCircle />

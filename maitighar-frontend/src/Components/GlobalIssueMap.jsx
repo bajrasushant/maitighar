@@ -113,12 +113,14 @@ function GlobalIssueMap() {
 
   return (
     <>
-      <Button
-        variant="contained"
-        onClick={fetchNearbyIssues}
-      >
-        See all nearby issues
-      </Button>
+      {!showNearby && (
+        <Button
+          variant="contained"
+          onClick={fetchNearbyIssues}
+        >
+          See all nearby issues
+        </Button>
+      )}
       <MapContainer
         center={userLocation}
         zoom={initialZoom}

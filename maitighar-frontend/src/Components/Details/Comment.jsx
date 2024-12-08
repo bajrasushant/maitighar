@@ -15,7 +15,9 @@ import {
   ExpandLess as ExpandLessIcon,
 } from "@mui/icons-material";
 import { formatDistanceToNow } from "date-fns";
+import axios from "axios";
 import getDisplayUsername from "./utils";
+import helpers from "../../helpers/helpers";
 
 const Comment = React.memo(
   ({
@@ -31,10 +33,31 @@ const Comment = React.memo(
   }) => {
     const { replies = [], show = false, loading } = repliesState[comment.id] || {};
 
+    const handleApprove = async (commentId) => {
+      const config = helpers.getConfig();
+      try {
+        const response = await axios.post(`/api/comments/${commentId}/approve`, {}, config);
+        if (response.status === 200) {
+          const updatedComment = response.data;
+          console.log("Approval successful:", updatedComment);
+        } else {
+          console.error("Error approving comment:", response.data.error);
+        }
+      } catch (error) {
+        console.error("Error:", error.message);
+      }
+    };
+
     return (
       <Paper
         elevation={0}
-        sx={{ p: 2, bgcolor: "background.paper", borderRadius: 2 }}
+        sx={{
+          p: 2,
+          bgcolor: comment.isCommunityNote ? "primary.light" : "background.default",
+          border: comment.isCommunityNote ? "2px solid" : "none",
+          borderColor: comment.isCommunityNote ? "primary.main" : "transparent",
+          borderRadius: 2,
+        }}
       >
         <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
           <Avatar sx={{ width: 32, height: 32, mr: 2, bgcolor: "primary.main" }}>
@@ -69,6 +92,25 @@ const Comment = React.memo(
         </Typography>
 
         <Box sx={{ ml: 6, display: "flex", justifyContent: "flex-start", gap: 1 }}>
+          {comment.isCommunityNote && (
+            <Typography
+              variant="subtitle2"
+              color="primary"
+              sx={{ fontWeight: "bold", mb: 1 }}
+            >
+              Community Note
+            </Typography>
+          )}
+          {comment.canApprove && !comment.parentComment && (
+            <Button
+              variant="contained"
+              color="success"
+              onClick={() => handleApprove(comment.id)}
+            >
+              Approve
+            </Button>
+          )}
+
           {!isAdmin && (
             <Button
               size="small"
