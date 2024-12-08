@@ -16,6 +16,12 @@ function CommentSection({
   toggleReplies,
   isAdmin,
 }) {
+  const sortedComments = comments.sort((a, b) => {
+    if (a.isCommunityNote && !b.isCommunityNote) return -1; // a comes first
+    if (!a.isCommunityNote && b.isCommunityNote) return 1; // b comes first
+    return 0; // maintain original order otherwise
+  });
+
   return (
     <>
       <Divider style={{ margin: "20px 0" }} />
@@ -48,7 +54,7 @@ function CommentSection({
           >
             Comments ({comments.length})
           </Typography>
-          {comments.map((comment) => (
+          {sortedComments.map((comment) => (
             <Comment
               key={comment.id}
               comment={comment}

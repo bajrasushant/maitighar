@@ -4,10 +4,12 @@ import helpers from "../helpers/helpers";
 const userReducer = (state, action) => {
   switch (action.type) {
     case "LOGIN":
+      window.localStorage.removeItem("loggedAdmin");
       window.localStorage.setItem("loggedUser", JSON.stringify(action.payload));
       helpers.setToken(action.payload.token);
       return action.payload;
     case "ADMIN_LOGIN":
+      window.localStorage.removeItem("loggedUser");
       window.localStorage.setItem("loggedAdmin", JSON.stringify(action.payload));
       helpers.setToken(action.payload.token);
       return action.payload;
@@ -25,7 +27,11 @@ const userReducer = (state, action) => {
 const UserContext = createContext();
 
 export function UserContextProvider(props) {
-  const [user, userDispatch] = useReducer(userReducer, null);
+  const initialState = () => {
+    const storedAdmin = window.localStorage.getItem("loggedAdmin");
+    return storedAdmin ? JSON.parse(storedAdmin) : null;
+  };
+  const [user, userDispatch] = useReducer(userReducer, null, initialState);
 
   return <UserContext.Provider value={[user, userDispatch]}>{props.children}</UserContext.Provider>;
 }

@@ -18,6 +18,12 @@ const getNearby = async (latitude, longitude, maxDistance) => {
   return response.json();
 };
 
+const getIssuesWardWise = async () => {
+  const config = helpers.getConfig();
+  const req = await axios.get(`${baseUrl}/ward`, config);
+  return response.json();
+};
+
 const createIssue = async (formData) => {
   const config = helpers.getConfig();
   try {
