@@ -71,6 +71,12 @@ const updateStatus = async (id, newStatus) => {
   return response.data;
 };
 
+const getRecentIssues = async (limit = 10) => {
+  const config = helpers.getConfig();
+  const response = await axios.get(`${baseUrl}/user?limit=${limit}`, config);
+  return response.data;
+};
+
 export default {
   getAll,
   getNearby,
@@ -79,4 +85,5 @@ export default {
   getIssueId,
   getIssuesByDepartment,
   updateStatus,
+  getRecentIssues,
 };

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import {
+  Avatar,
   Container,
   Card,
   CardContent,
@@ -8,9 +9,9 @@ import {
   IconButton,
   // TextField,
   Grid,
-  // List,
-  // ListItem,
-  // ListItemText,
+  List,
+  ListItem,
+  ListItemText,
   Dialog,
   // DialogTitle,
   DialogContent,
@@ -39,29 +40,13 @@ import PromotionApplicationForm from "./PromotionApplicationForm";
 import { useUserValue, useUserDispatch } from "../context/UserContext";
 import issueService from "../services/issues";
 import { useNotification } from "../context/NotificationContext";
+import RecentPosts from "./RecentPosts";
+import getDisplayUsername from "./Details/utils";
 
 function HomePage() {
   const currentUser = useUserValue();
   const { setNotification } = useNotification();
-  // const [reports, setReports] = useState([
-  // {
-  //  id: 1,
-  //  title: "Pothole on Main Street",
-  //  description: "Large pothole causing traffic issues",
-  //  upvotes: 5,
-  //  comments: [],
-  // },
-  // {
-  //  id: 2,
-  //  title: "Broken Streetlight",
-  //  description: "Streetlight out at corner of Elm and Oak",
-  //  upvotes: 3,
-  //  comments: [],
-  // },
-  // ]);
-
   const userDispatch = useUserDispatch();
-
   const [openForm, setOpenForm] = useState(false);
   const [promotionForm, setPromotionForm] = useState(false);
   // const [openReportForm, setOpenReportForm] = useState(false);
@@ -234,9 +219,24 @@ function HomePage() {
     }
   };
 
+  const getTimeAgo = (date) => {
+    const seconds = Math.floor((new Date() - new Date(date)) / 1000);
+    let interval = seconds / 31536000;
+    if (interval > 1) return `${Math.floor(interval)} years ago`;
+    interval = seconds / 2592000;
+    if (interval > 1) return `${Math.floor(interval)} months ago`;
+    interval = seconds / 86400;
+    if (interval > 1) return `${Math.floor(interval)} days ago`;
+    interval = seconds / 3600;
+    if (interval > 1) return `${Math.floor(interval)} hours ago`;
+    interval = seconds / 60;
+    if (interval > 1) return `${Math.floor(interval)} minutes ago`;
+    return `${Math.floor(seconds)} seconds ago`;
+  };
+
   return (
     <>
-      <AppBar position="static">
+      <AppBar position="fixed">
         <Toolbar>
           <Typography
             variant="h6"
@@ -248,7 +248,7 @@ function HomePage() {
               alignItems="center"
             >
               <FoundationIcon />
-              Maitighar
+              Grievance Redressal System
             </Box>
           </Typography>
           <Button
@@ -302,167 +302,207 @@ function HomePage() {
         </Menu>
       </AppBar>
 
-      <Container sx={{ mt: 4 }}>
-        {loading ? (
-          <Typography>Loading...</Typography>
-        ) : error ? (
-          <Typography color="error">{error}</Typography>
-        ) : (
-          issues.map((issue) => (
-            <Card
-              key={issue.id}
-              style={{ marginBottom: "20px" }}
+      <Box sx={{ paddingTop: "5px", display: "flex" }}>
+        <Container sx={{ mt: 4 }}>
+          <Grid
+            container
+            spacing={3}
+            sx={{ mt: 4, px: 2, flexGrow: 1 }}
+          >
+            <Grid
+              item
+              xs={12}
+              md={8}
             >
-              <CardContent style={{ padding: "16px" }}>
-                <Grid
-                  container
-                  alignItems="center"
-                  spacing={2}
-                >
-                  <Grid
-                    item
-                    xs
-                  >
-                    <Box onClick={() => handleCardClick(issue.id)}>
-                      <Typography variant="h6">{issue.title}</Typography>
-                      <Box
-                        sx={{
-                          mt: 1,
-                          display: "flex",
-                          alignItems: "center",
-                          gap: 1,
-                        }}
-                      >
-                        <Chip
-                          label={issue.type}
-                          color={issue.type === "issue" ? "error" : "success"}
-                          size="small"
-                        />
-                        <Chip
-                          label={`Ward No. ${issue.assigned_ward}`}
-                          color="primary"
-                          variant="outlined"
-                          size="small"
-                        />
-                      </Box>
-                      <Typography
-                        variant="body1"
-                        sx={{
-                          mt: 2,
-                          display: "-webkit-box",
-                          overflow: "hidden",
-                          WebkitBoxOrient: "vertical",
-                          WebkitLineClamp: 3,
-                          textOverflow: "ellipsis",
-                        }}
-                      >
-                        {issue.description}
-                      </Typography>
-                    </Box>
-                    {issue.imagePaths && issue.imagePaths.length > 0 && (
-                      <div
-                        style={{
-                          marginTop: "20px",
-                          display: "flex",
-                          // , alignItem: 'center', justifyContent: 'center'
-                        }}
-                      >
-                        {issue.imagePaths.map((mediaPath, index) => {
-                          // Check if the mediaPath is an mp4 video
-                          if (mediaPath.endsWith(".mp4")) {
-                            return (
-                              <video
-                                key={index}
-                                controls
-                                style={{ maxWidth: "845px", marginBottom: "10px", height: "720px" }}
-                              >
-                                <source
-                                  src={`http://localhost:3003/${mediaPath}`}
-                                  type="video/mp4"
-                                />
-                                Your browser does not support the video tag.
-                              </video>
-                            );
-                          }
-                          if (mediaPath.endsWith(".mkv")) {
-                            return (
-                              <video
-                                key={index}
-                                controls
-                                style={{ maxWidth: "845px", marginBottom: "10px", height: "480px" }}
-                              >
-                                <source
-                                  src={`http://localhost:3003/${mediaPath}`}
-                                  type="video/x-matroska"
-                                />
-                                Your browser does not support the video tag.
-                              </video>
-                            );
-                          }
-                          if (mediaPath.endsWith(".avi")) {
-                            return (
-                              <video
-                                key={index}
-                                controls
-                                style={{ maxWidth: "845px", marginBottom: "10px", height: "480px" }}
-                              >
-                                <source
-                                  src={`http://localhost:3003/${mediaPath}`}
-                                  type="video/x-msvideo"
-                                />
-                                Your browser does not support the video tag.
-                              </video>
-                            );
-                          }
-
-                          // Else, treat it as an image
-                          return (
-                            <img
-                              key={index}
-                              src={`http://localhost:3003/${mediaPath}`}
-                              alt={`media ${index + 1}`}
-                              style={{ maxWidth: "auto", marginBottom: "10px", height: "480px" }}
-                            />
-                          );
-                        })}
-                      </div>
-                    )}
-                    <Grid
-                      item
-                      sx={{
-                        mt: 1,
-                        display: "flex",
-                        alignItems: "center",
-                        gap: 2,
-                      }}
-                    >
-                      <Box
-                        display="flex"
-                        alignItems="center"
-                      >
-                        <IconButton onClick={() => handleUpvote(issue.id)}>
-                          {issue.upvotedBy.includes(currentUser?.id) ? (
-                            <ArrowUpward color="primary" />
-                          ) : (
-                            <ArrowUpwardOutlined />
-                          )}
-                        </IconButton>
-                        <Typography>{issue.upvotes}</Typography>
-                      </Box>
-                      <Button
-                        startIcon={<Comment />}
-                        onClick={() => handleCardClick(issue.id)}
-                      >
-                        Comments ({issue.comments ? issue.comments.length : 0})
-                      </Button>
-                    </Grid>
-                  </Grid>
-                </Grid>
-              </CardContent>
-            </Card>
-          ))
-        )}
-      </Container>
+              {loading ? (
+                <Typography>Loading...</Typography>
+              ) : error ? (
+                <Typography color="error">{error}</Typography>
+              ) : (
+                <Card>
+                  <CardContent sx={{ pt: 0, pb: 0 }}>
+                    <List sx={{ p: 0 }}>
+                      {issues.map((issue) => (
+                        <ListItem
+                          key={issue.id}
+                          button
+                          onClick={() => handleCardClick(issue.id)}
+                          sx={{
+                            flexDirection: "column",
+                            alignItems: "flex-start",
+                            borderBottom: "1px solid #e0e0e0",
+                            py: 2,
+                          }}
+                        >
+                          <ListItemText
+                            primary={
+                              <>
+                                <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
+                                  <Avatar
+                                    sx={{ width: 32, height: 32, mr: 1, bgcolor: "primary.main" }}
+                                  >
+                                    {getDisplayUsername(issue.createdBy).charAt(0).toUpperCase()}
+                                  </Avatar>
+                                  <Typography
+                                    variant="caption"
+                                    display="block"
+                                    gutterBottom
+                                  >
+                                    {getDisplayUsername(issue.createdBy)} •{" "}
+                                    {getTimeAgo(issue.createdAt)}
+                                  </Typography>
+                                </Box>
+                                <Typography variant="h6">{issue.title}</Typography>
+                                <Box
+                                  sx={{
+                                    mt: 1,
+                                    display: "flex",
+                                    alignItems: "center",
+                                    gap: 1,
+                                  }}
+                                >
+                                  <Chip
+                                    label={issue.type}
+                                    color={issue.type === "issue" ? "error" : "success"}
+                                    size="small"
+                                  />
+                                  <Chip
+                                    label={`Ward No. ${issue.assigned_ward}`}
+                                    color="primary"
+                                    variant="outlined"
+                                    size="small"
+                                  />
+                                </Box>
+                              </>
+                            }
+                            secondary={
+                              <>
+                                <Typography
+                                  variant="body2"
+                                  color="text.secondary"
+                                  sx={{
+                                    mt: 2,
+                                    mb: 2,
+                                    display: "-webkit-box",
+                                    overflow: "hidden",
+                                    WebkitBoxOrient: "vertical",
+                                    WebkitLineClamp: 3,
+                                    textOverflow: "ellipsis",
+                                  }}
+                                >
+                                  {issue.description}
+                                </Typography>
+                                {issue.imagePaths && issue.imagePaths.length > 0 && (
+                                  <Box
+                                    sx={{
+                                      mt: 2,
+                                      mb: 2,
+                                      display: "flex",
+                                      flexDirection: "column",
+                                      alignItems: "center",
+                                      gap: 2,
+                                    }}
+                                  >
+                                    {issue.imagePaths.map((mediaPath, index) => {
+                                      if (
+                                        mediaPath.endsWith(".mp4") ||
+                                        mediaPath.endsWith(".mkv") ||
+                                        mediaPath.endsWith(".avi")
+                                      ) {
+                                        return (
+                                          <video
+                                            key={index}
+                                            controls
+                                            style={{
+                                              maxWidth: "100%",
+                                              // height: "720px",
+                                            }}
+                                          >
+                                            <source
+                                              src={`http://localhost:3003/${mediaPath}`}
+                                              type={
+                                                mediaPath.endsWith(".mp4")
+                                                  ? "video/mp4"
+                                                  : mediaPath.endsWith(".mkv")
+                                                    ? "video/x-matroska"
+                                                    : "video/x-msvideo"
+                                              }
+                                            />
+                                            Your browser does not support the video tag.
+                                          </video>
+                                        );
+                                      }
+                                      return (
+                                        <img
+                                          key={index}
+                                          src={`http://localhost:3003/${mediaPath}`}
+                                          alt={`media ${index + 1}`}
+                                          style={{
+                                            maxWidth: "100%",
+                                            // height: "240px",
+                                            objectFit: "cover",
+                                          }}
+                                        />
+                                      );
+                                    })}
+                                  </Box>
+                                )}
+                                <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+                                  <Box sx={{ display: "flex", alignItems: "center" }}>
+                                    <IconButton
+                                      size="small"
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleUpvote(issue.id);
+                                      }}
+                                    >
+                                      {issue.upvotedBy.includes(currentUser?.id) ? (
+                                        <ArrowUpward
+                                          fontSize="small"
+                                          color="primary"
+                                        />
+                                      ) : (
+                                        <ArrowUpwardOutlined fontSize="small" />
+                                      )}
+                                    </IconButton>
+                                    <Typography variant="body2">{issue.upvotes}</Typography>
+                                  </Box>
+                                  <Typography variant="body2">
+                                    <Comment
+                                      fontSize="small"
+                                      sx={{ mr: 1, verticalAlign: "middle" }}
+                                    />
+                                    {issue.comments ? issue.comments.length : 0} comments
+                                  </Typography>
+                                </Box>
+                              </>
+                            }
+                          />
+                        </ListItem>
+                      ))}
+                    </List>
+                  </CardContent>
+                </Card>
+              )}
+            </Grid>
+            <Grid
+              item
+              xs={12}
+              md={4}
+              sx={{
+                position: "sticky",
+                top: "78px",
+                height: "calc(100vh - 80px)",
+                overflowY: "auto",
+              }}
+            >
+              <Card sx={{ height: "100%" }}>
+                <RecentPosts />
+              </Card>
+            </Grid>
+          </Grid>
+        </Container>
+      </Box>
 
       {/* User Menu */}
       <Menu

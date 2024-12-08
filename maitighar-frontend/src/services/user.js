@@ -31,4 +31,3 @@ export const resendOtp = async ({ email }) => {
     throw error.response.data; // Throw error in case of failure
   }
 };
-

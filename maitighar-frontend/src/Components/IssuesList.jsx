@@ -41,9 +41,7 @@ function IssuesList() {
     console.log("Updating status for issue ID:", id, "to:", newStatus);
     try {
       const updatedIssue = await issueService.updateStatus(id, newStatus);
-      setIssues((prevIssues) =>
-        prevIssues.map((issue) => (issue.id === id ? { ...issue, status: newStatus } : issue)),
-      );
+      setIssues((prevIssues) => prevIssues.map((issue) => (issue.id === id ? { ...issue, status: newStatus } : issue)));
       console.log("Updated issue status:", updatedIssue);
       setNotification({ message: "Updated issue status sucessfully.", status: "success" });
     } catch (error) {

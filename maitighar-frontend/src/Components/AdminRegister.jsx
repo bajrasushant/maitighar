@@ -341,6 +341,17 @@ export default function AdminRegister() {
                         onChange={(e) => setAssignedWard(e.target.value)}
                         label="Ward"
                       >
+                        {console.log(
+                          localGovsDd
+                            .filter((localGov) => localGov.id === assignedLocalGov)
+                            .map((localGov) =>
+                              [...Array(localGov.number_of_wards).keys()].filter(
+                                (ward) =>
+                                  !wardsDd.some((assignedWard) => assignedWard.number === ward + 1),
+                              ),
+                            ),
+                        )}
+                        {console.log(wardsDd)}
                         {localGovsDd
                           .filter((localGov) => localGov.id === assignedLocalGov)
                           .map((localGov) =>
