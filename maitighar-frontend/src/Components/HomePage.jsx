@@ -34,9 +34,7 @@ import {
 import FilterListIcon from "@mui/icons-material/FilterList";
 import FoundationIcon from "@mui/icons-material/Foundation";
 import { useNavigate } from "react-router-dom";
-import ReportForm from "./IssueForm";
 import PromotionApplicationForm from "./PromotionApplicationForm";
-// import SuggestionForm from "./SuggestionForm";
 import { useUserValue, useUserDispatch } from "../context/UserContext";
 import issueService from "../services/issues";
 import { useNotification } from "../context/NotificationContext";
@@ -47,10 +45,7 @@ function HomePage() {
   const currentUser = useUserValue();
   const { setNotification } = useNotification();
   const userDispatch = useUserDispatch();
-  const [openForm, setOpenForm] = useState(false);
   const [promotionForm, setPromotionForm] = useState(false);
-  // const [openReportForm, setOpenReportForm] = useState(false);
-  // const [openSuggestionForm, setOpenSuggestionForm] = useState(false);
   const [anchorElUser, setAnchorElUser] = useState(null);
   // const [anchorElCreate, setAnchorElCreate] = useState(null);
   // const [anchorElNotifications, setAnchorElNotifications] = useState(null);
@@ -185,38 +180,14 @@ function HomePage() {
   // };
 
   const handleOpenForm = () => {
-    setOpenForm(true);
+    navigate("/create");
   };
   const handleOpenPromotionForm = () => {
     setPromotionForm(true);
   };
 
-  // const handleCreateIssue = () => {
-  //  setOpenReportForm(true);
-  //  handleCloseCreateMenu();
-  // };
-
-  // const handleCreateSuggestion = () => {
-  //  setOpenSuggestionForm(true);
-  //  handleCloseCreateMenu();
-  // };
-
   const handleCardClick = (id) => {
     navigate(`/details/${id}`);
-  };
-
-  const addIssue = async (issueObject) => {
-    try {
-      await issueService.createIssue(issueObject);
-      const updatedIssues = await issueService.getAll();
-      console.log("updatedIssues:", updatedIssues);
-      setIssues(updatedIssues);
-      setNotification({ message: "Issue successfully updated.", status: "success" });
-      setOpenForm(false);
-    } catch (err) {
-      console.error("Err:", err.message);
-      setNotification({ message: "Something went wrong.", status: "error" });
-    }
   };
 
   const getTimeAgo = (date) => {
@@ -531,16 +502,6 @@ function HomePage() {
         <MenuItem onClick={handleCloseNotifications}>Notification 4</MenuItem>
       </Menu> */}
 
-      {/* Form Dialog */}
-      <Dialog
-        open={openForm}
-        onClose={() => setOpenForm(false)}
-      >
-        <DialogContent>
-          <ReportForm createIssue={addIssue} />
-        </DialogContent>
-      </Dialog>
-
       <Dialog
         open={promotionForm}
         onClose={() => setPromotionForm(false)}
@@ -549,23 +510,6 @@ function HomePage() {
           <PromotionApplicationForm />
         </DialogContent>
       </Dialog>
-
-      {/* Report Form Dialog
-      <Dialog open={openReportForm} onClose={() => setOpenReportForm(false)}>
-        <DialogContent>
-          <ReportForm createIssue={addIssue} />
-        </DialogContent>
-      </Dialog>
-
-      Suggestion Form Dialog
-      <Dialog
-        open={openSuggestionForm}
-        onClose={() => setOpenSuggestionForm(false)}
-      >
-        <DialogContent>
-          <SuggestionForm />
-        </DialogContent>
-      </Dialog> */}
     </>
   );
 }

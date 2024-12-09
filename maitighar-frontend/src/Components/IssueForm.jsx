@@ -15,9 +15,11 @@ import {
   FormControlLabel,
   Radio,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import LocationPicker from "./LocationPicker";
 
 function ReportForm({ createIssue }) {
+  const navigate = useNavigate();
   const defaultReportState = {
     title: "",
     description: "",
@@ -149,6 +151,7 @@ function ReportForm({ createIssue }) {
     try {
       await createIssue(formData);
       setReport(defaultReportState);
+      navigate("/");
     } catch (err) {
       console.error("Err: ", err.message);
     }
@@ -313,14 +316,16 @@ function ReportForm({ createIssue }) {
               >
                 {localGovsDd
                   .filter((localGov) => localGov.id === report.localGov)
-                  .map((localGov) => [...Array(localGov.number_of_wards).keys()].map((ward) => (
-                    <MenuItem
-                      key={ward + 1}
-                      value={ward + 1}
-                    >
-                      Ward No. {ward + 1}
-                    </MenuItem>
-                  )))}
+                  .map((localGov) =>
+                    [...Array(localGov.number_of_wards).keys()].map((ward) => (
+                      <MenuItem
+                        key={ward + 1}
+                        value={ward + 1}
+                      >
+                        Ward No. {ward + 1}
+                      </MenuItem>
+                    )),
+                  )}
               </Select>
             </FormControl>
           </Grid>
@@ -377,13 +382,15 @@ function ReportForm({ createIssue }) {
             {/* /> */}
             <LocationPicker
               position={[report.position.latitude, report.position.longitude]}
-              setPosition={(newPosition) => setReport((prevReport) => ({
-                ...prevReport,
-                position: {
-                  latitude: newPosition[0],
-                  longitude: newPosition[1],
-                },
-              }))}
+              setPosition={(newPosition) =>
+                setReport((prevReport) => ({
+                  ...prevReport,
+                  position: {
+                    latitude: newPosition[0],
+                    longitude: newPosition[1],
+                  },
+                }))
+              }
             />
           </Grid>
           <Grid
