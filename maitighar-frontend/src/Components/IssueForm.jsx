@@ -15,6 +15,7 @@ import {
   FormControlLabel,
   Radio,
 } from "@mui/material";
+import { ArrowBack } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import LocationPicker from "./LocationPicker";
 
@@ -157,8 +158,19 @@ function ReportForm({ createIssue }) {
     }
   };
 
+  const handleBackToHome = () => {
+    navigate("/");
+  };
+
   return (
     <Container maxWidth="sm">
+      <Button
+        startIcon={<ArrowBack />}
+        onClick={handleBackToHome}
+        sx={{ mb: 3 }}
+      >
+        Back to Home
+      </Button>
       <Typography
         variant="h4"
         align="center"

@@ -12,11 +12,12 @@ import {
   CircularProgress,
   Alert,
 } from "@mui/material";
+import { ArrowBack } from "@mui/icons-material";
 import axios from "axios";
-import helpers from "../helpers/helpers";
 import { useNavigate } from "react-router-dom";
+import helpers from "../helpers/helpers";
 
-const PromotionApplicationForm = () => {
+function PromotionApplicationForm() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     requestedRole: "Ward Officer",
@@ -145,6 +146,10 @@ const PromotionApplicationForm = () => {
     }
   };
 
+  const handleBackToHome = () => {
+    navigate("/");
+  };
+
   return (
     <Box
       maxWidth={600}
@@ -152,6 +157,13 @@ const PromotionApplicationForm = () => {
       my={4}
       p={2}
     >
+      <Button
+        startIcon={<ArrowBack />}
+        onClick={handleBackToHome}
+        sx={{ mb: 3 }}
+      >
+        Back to Home
+      </Button>
       <Typography
         variant="h5"
         align="center"
@@ -344,6 +356,6 @@ const PromotionApplicationForm = () => {
       </form>
     </Box>
   );
-};
+}
 
 export default PromotionApplicationForm;
