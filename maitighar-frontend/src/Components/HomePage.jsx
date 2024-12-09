@@ -337,7 +337,7 @@ function HomePage() {
                           <ListItemText
                             primary={
                               <>
-                                <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
+                                <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
                                   <Avatar
                                     sx={{ width: 32, height: 32, mr: 1, bgcolor: "primary.main" }}
                                   >
@@ -346,16 +346,16 @@ function HomePage() {
                                   <Typography
                                     variant="caption"
                                     display="block"
-                                    gutterBottom
+                                    // gutterBottom
                                   >
-                                    {getDisplayUsername(issue.createdBy)} •{" "}
+                                    @{getDisplayUsername(issue.createdBy)} •{" "}
                                     {getTimeAgo(issue.createdAt)}
                                   </Typography>
                                 </Box>
-                                <Typography variant="h6">{issue.title}</Typography>
                                 <Box
                                   sx={{
                                     mt: 1,
+                                    mb: 1,
                                     display: "flex",
                                     alignItems: "center",
                                     gap: 1,
@@ -373,6 +373,7 @@ function HomePage() {
                                     size="small"
                                   />
                                 </Box>
+                                <Typography variant="h6">{issue.title}</Typography>
                               </>
                             }
                             secondary={
@@ -381,8 +382,8 @@ function HomePage() {
                                   variant="body2"
                                   color="text.secondary"
                                   sx={{
-                                    mt: 2,
-                                    mb: 2,
+                                    mt: 1,
+                                    mb: 1,
                                     display: "-webkit-box",
                                     overflow: "hidden",
                                     WebkitBoxOrient: "vertical",
