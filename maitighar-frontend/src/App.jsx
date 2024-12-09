@@ -15,6 +15,7 @@ import CusNotification from "./Components/Notification";
 import VerifyAdminOTP from "./Components/adminOTP";
 import issueService from "./services/issues";
 import ReportForm from "./Components/IssueForm";
+import PromotionApplicationForm from "./Components/PromotionApplicationForm";
 
 function App() {
   const userDispatch = useUserDispatch();
@@ -99,6 +100,10 @@ function App() {
           <Route
             path="/create"
             element={<ReportForm createIssue={addIssue} />}
+          />
+          <Route
+            path="/promotion-form"
+            element={<PromotionApplicationForm />}
           />
         </Routes>
       </Router>

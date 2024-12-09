@@ -77,7 +77,7 @@ function IssueCard({ issue, setIssue, locationName, commentsCount }) {
         </Typography>
 
         <Typography
-          variant="body2"
+          variant="subtitle1"
           color="text.secondary"
           sx={{ mt: 2, mb: 2 }}
         >

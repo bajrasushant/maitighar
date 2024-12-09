@@ -182,8 +182,10 @@ function HomePage() {
   const handleOpenForm = () => {
     navigate("/create");
   };
+
   const handleOpenPromotionForm = () => {
-    setPromotionForm(true);
+    navigate("/promotion-form");
+    // setPromotionForm(true);
   };
 
   const handleCardClick = (id) => {

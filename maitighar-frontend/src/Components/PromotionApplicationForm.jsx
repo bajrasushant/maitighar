@@ -14,8 +14,10 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import helpers from "../helpers/helpers";
+import { useNavigate } from "react-router-dom";
 
 const PromotionApplicationForm = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     requestedRole: "Ward Officer",
     reason: "",
@@ -135,6 +137,7 @@ const PromotionApplicationForm = () => {
         assignedLocalGov: "",
         assignedWard: "",
       });
+      navigate("/");
     } catch (err) {
       setError("Failed to submit the promotion request.");
     } finally {
