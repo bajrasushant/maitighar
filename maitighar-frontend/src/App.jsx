@@ -13,27 +13,12 @@ import OtpVerification from "./Components/OTPverification";
 import UserProfile from "./Components/UserProfile";
 import CusNotification from "./Components/Notification";
 import VerifyAdminOTP from "./Components/adminOTP";
-import issueService from "./services/issues";
 import ReportForm from "./Components/IssueForm";
 import PromotionApplicationForm from "./Components/PromotionApplicationForm";
 
 function App() {
   const userDispatch = useUserDispatch();
   const user = useUserValue();
-
-  const addIssue = async (issueObject) => {
-    try {
-      await issueService.createIssue(issueObject);
-      const updatedIssues = await issueService.getAll();
-      console.log("updatedIssues:", updatedIssues);
-      // setIssues(updatedIssues);
-      // setNotification({ message: "Issue successfully updated.", status: "success" });
-      // setOpenForm(false);
-    } catch (err) {
-      console.error("Err:", err.message);
-      // setNotification({ message: "Something went wrong.", status: "error" });
-    }
-  };
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem("loggedUser");
@@ -99,7 +84,7 @@ function App() {
           />
           <Route
             path="/create"
-            element={<ReportForm createIssue={addIssue} />}
+            element={<ReportForm />}
           />
           <Route
             path="/promotion-form"

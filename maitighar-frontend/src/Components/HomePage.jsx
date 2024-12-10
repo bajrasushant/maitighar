@@ -192,6 +192,19 @@ function HomePage() {
     navigate(`/details/${id}`);
   };
 
+  // const addIssue = async (issueObject) => {
+  //   try {
+  //     await issueService.createIssue(issueObject);
+  //     const updatedIssues = await issueService.getAll();
+  //     console.log("updatedIssues:", updatedIssues);
+  //     setIssues(updatedIssues);
+  //     setNotification({ message: "Issue successfully updated.", status: "success" });
+  //   } catch (err) {
+  //     console.error("Err:", err.message);
+  //     setNotification({ message: "Something went wrong.", status: "error" });
+  //   }
+  // };
+
   const getTimeAgo = (date) => {
     const seconds = Math.floor((new Date() - new Date(date)) / 1000);
     let interval = seconds / 31536000;

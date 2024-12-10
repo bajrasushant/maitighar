@@ -18,8 +18,9 @@ import {
 import { ArrowBack } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import LocationPicker from "./LocationPicker";
+import issueService from "../services/issues";
 
-function ReportForm({ createIssue }) {
+function ReportForm() {
   const navigate = useNavigate();
   const defaultReportState = {
     title: "",
@@ -150,7 +151,7 @@ function ReportForm({ createIssue }) {
     });
 
     try {
-      await createIssue(formData);
+      await issueService.createIssue(formData);
       setReport(defaultReportState);
       navigate("/");
     } catch (err) {
