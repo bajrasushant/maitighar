@@ -15,8 +15,6 @@ wardRouter.get("/", async (req, res) => {
       filter.admin_registered = null;
     } else if (unassigned === "false") {
       filter.admin_registered = { $ne: null };
-    } else {
-      filter.admin_registered = null;
     }
 
     const wards = await Ward.find(filter).populate("localGov");

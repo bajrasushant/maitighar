@@ -342,7 +342,7 @@ issueRouter.get("/user", async (req, res) => {
 // Get all issues
 issueRouter.get("/", async (req, res) => {
   try {
-    const issues = await Issue.find({}).populate("comments");
+    const issues = await Issue.find({}).populate("comments").populate("createdBy");
     const issuesWithCommentLength = issues.map((issue) => ({
       ...issue.toJSON(),
       commentCount: issue.comments.length,
@@ -525,7 +525,8 @@ issueRouter.put("/:id/upvote", async (req, res) => {
     }
 
     await issue.save();
-    res.json(issue);
+    const populatedIssue = await issue.populate("createdBy");
+    res.json(populatedIssue);
   } catch (error) {
     console.error("Upvote error:", error); // Log the error for more insight
     res.status(500).json({ error: "Internal server error" });
