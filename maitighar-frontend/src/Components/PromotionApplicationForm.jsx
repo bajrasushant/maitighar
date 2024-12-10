@@ -15,7 +15,7 @@ import {
 import axios from "axios";
 import helpers from "../helpers/helpers";
 
-const PromotionApplicationForm = () => {
+function PromotionApplicationForm() {
   const [formData, setFormData] = useState({
     requestedRole: "Ward Officer",
     reason: "",
@@ -31,7 +31,6 @@ const PromotionApplicationForm = () => {
   const [provincesDd, setProvincesDd] = useState([]);
   const [districtsDd, setDistrictsDd] = useState([]);
   const [localGovsDd, setLocalGovsDd] = useState([]);
-  const [wardsDd, setWardsDd] = useState([]);
 
   useEffect(() => {
     const fetchProvinces = async () => {
@@ -80,24 +79,6 @@ const PromotionApplicationForm = () => {
     };
     fetchLocalGovs();
   }, [formData.assignedDistrict]);
-
-  useEffect(() => {
-    const fetchWards = async () => {
-      try {
-        const response = await axios.get("/api/wards", {
-          params: { localGovId: formData.assignedLocalGov },
-        });
-        console.log(response);
-        setWardsDd(response.data);
-      } catch (error) {
-        console.error("Error fetching wards:", error);
-      }
-    };
-
-    if (formData.assignedLocalGov) {
-      fetchWards();
-    }
-  }, [formData.assignedLocalGov]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -170,7 +151,6 @@ const PromotionApplicationForm = () => {
           required
         >
           <MenuItem value="Ward Officer">Ward Officer</MenuItem>
-          {/* Add more roles here if needed */}
         </TextField>
         <TextField
           label="Reason for Applying"
@@ -273,18 +253,14 @@ const PromotionApplicationForm = () => {
               {localGovsDd
                 .filter((localGov) => localGov.id === formData.assignedLocalGov)
                 .map((localGov) =>
-                  [...Array(localGov.number_of_wards).keys()]
-                    .filter(
-                      (ward) => !wardsDd.some((assignedWard) => assignedWard.number === ward + 1),
-                    )
-                    .map((ward) => (
-                      <MenuItem
-                        key={ward + 1}
-                        value={ward + 1}
-                      >
-                        Ward No. {ward + 1}
-                      </MenuItem>
-                    )),
+                  [...Array(localGov.number_of_wards).keys()].map((ward) => (
+                    <MenuItem
+                      key={ward + 1}
+                      value={ward + 1}
+                    >
+                      Ward No. {ward + 1}
+                    </MenuItem>
+                  )),
                 )}
             </Select>
           </FormControl>
@@ -341,6 +317,6 @@ const PromotionApplicationForm = () => {
       </form>
     </Box>
   );
-};
+}
 
 export default PromotionApplicationForm;
