@@ -5,12 +5,11 @@ const Issue = require("../models/issue");
 const User = require("../models/user");
 const Admin = require("../models/admin");
 const WardOfficer = require("../models/wardOfficer");
-const Category = require("../models/category");
 const Department = require("../models/department");
 const Province = require("../models/province");
 const District = require("../models/district");
 const LocalGov = require("../models/localgov");
-const Ward = require("../models/ward");
+const Comment = require("../models/comment");
 
 const nodemailer = require("nodemailer");
 
@@ -350,6 +349,57 @@ issueRouter.get("/", async (req, res) => {
     res.json(issuesWithCommentLength);
   } catch (error) {
     console.error("Error fetchin issues:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+issueRouter.get("/search", async (req, res) => {
+  try {
+    const { query, mode } = req.query;
+
+    if (!query) {
+      return res.status(400).json({ error: "Query parameter is required" });
+    }
+
+    let results = [];
+
+    if (mode === ":all" || !mode) {
+      const issueResults = await Issue.find(
+        { $text: { $search: query } },
+        { score: { $meta: "textScore" } },
+      )
+        .sort({ score: { $meta: "textScore" } })
+        .populate("createdBy category comments");
+
+      let commentResults = await Comment.find(
+        { $text: { $search: query } },
+        { score: { $meta: "textScore" } },
+      ).sort({ score: { $meta: "textScore" } });
+
+      if (commentResults.length === 0) {
+        commentResults = await Comment.find({
+          description: { $regex: query, $options: "i" },
+        });
+      }
+
+      results = {
+        issues: issueResults,
+        comments: commentResults,
+      };
+    } else if (mode === ":issue") {
+      results = await Issue.find({ $text: { $search: query } }, { score: { $meta: "textScore" } })
+        .sort({ score: { $meta: "textScore" } })
+        .populate("createdBy category");
+    } else if (mode === ":comment") {
+      results = await Comment.find(
+        { $text: { $search: query } },
+        { score: { $meta: "textScore" } },
+      ).sort({ score: { $meta: "textScore" } });
+    }
+
+    res.json(results);
+  } catch (error) {
+    console.error("Error in search:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 });
