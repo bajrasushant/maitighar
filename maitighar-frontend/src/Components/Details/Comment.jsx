@@ -8,11 +8,13 @@ import {
   CircularProgress,
   Avatar,
   Divider,
+  Chip,
 } from "@mui/material";
 import {
   Reply as ReplyIcon,
   ExpandMore as ExpandMoreIcon,
   ExpandLess as ExpandLessIcon,
+  Info as InfoIcon,
 } from "@mui/icons-material";
 import { formatDistanceToNow } from "date-fns";
 import axios from "axios";
@@ -53,14 +55,27 @@ const Comment = React.memo(
         elevation={0}
         sx={{
           p: 2,
-          bgcolor: comment.isCommunityNote ? "primary.light" : "background.default",
+          // bgcolor: comment.isCommunityNote ? "primary.light" : "background.default",
           border: comment.isCommunityNote ? "2px solid" : "none",
           borderColor: comment.isCommunityNote ? "primary.main" : "transparent",
           borderRadius: 2,
         }}
       >
+        {comment.isCommunityNote && (
+          <Box sx={{ mb: 2, display: "flex", alignItems: "center", gap: 1 }}>
+            <InfoIcon color="primary" />
+            <Typography
+              variant="subtitle1"
+              color="primary"
+              sx={{ fontWeight: "bold" }}
+            >
+              Community Note
+            </Typography>
+          </Box>
+        )}
+
         <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
-          <Avatar sx={{ width: 32, height: 32, mr: 2, bgcolor: "primary.main" }}>
+          <Avatar sx={{ width: 32, height: 32, mr: 1, bgcolor: "primary.main" }}>
             {getDisplayUsername(comment.createdBy).charAt(0).toUpperCase()}
           </Avatar>
 
@@ -68,7 +83,7 @@ const Comment = React.memo(
             variant="subtitle2"
             sx={{ fontWeight: "bold" }}
           >
-            {getDisplayUsername(comment.createdBy)}{" "}
+            @{getDisplayUsername(comment.createdBy)}{" "}
           </Typography>
           <Typography
             variant="caption"
@@ -91,20 +106,12 @@ const Comment = React.memo(
           {comment.description}
         </Typography>
 
-        <Box sx={{ ml: 6, display: "flex", justifyContent: "flex-start", gap: 1 }}>
-          {comment.isCommunityNote && (
-            <Typography
-              variant="subtitle2"
-              color="primary"
-              sx={{ fontWeight: "bold", mb: 1 }}
-            >
-              Community Note
-            </Typography>
-          )}
+        <Box sx={{ ml: 6, display: "flex", alignItems: "center", gap: 1 }}>
           {comment.canApprove && !comment.parentComment && (
             <Button
               variant="contained"
               color="success"
+              size="small"
               onClick={() => handleApprove(comment.id)}
             >
               Approve
@@ -182,6 +189,7 @@ const Comment = React.memo(
                 elevation={0}
                 sx={{
                   p: 2,
+                  mb: 2,
                   bgcolor: "background.default",
                   borderRadius: 2,
                 }}
