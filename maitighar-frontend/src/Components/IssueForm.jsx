@@ -14,10 +14,17 @@ import {
   RadioGroup,
   FormControlLabel,
   Radio,
+  Paper,
+  Divider,
+  CircularProgress,
 } from "@mui/material";
+import { ArrowBack, CloudUpload, Send } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 import LocationPicker from "./LocationPicker";
+import issueService from "../services/issues";
 
-function ReportForm({ createIssue }) {
+function ReportForm() {
+  const navigate = useNavigate();
   const defaultReportState = {
     title: "",
     description: "",
@@ -38,11 +45,11 @@ function ReportForm({ createIssue }) {
   };
 
   const [report, setReport] = useState(defaultReportState);
-
   const [provincesDd, setProvincesDd] = useState([]);
   const [districtsDd, setDistrictsDd] = useState([]);
   const [localGovsDd, setLocalGovsDd] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -50,7 +57,7 @@ function ReportForm({ createIssue }) {
         const res = await axios.get("/api/categories");
         setCategories(res.data);
       } catch (err) {
-        console.error("Error fetching issues:", err);
+        console.error("Error fetching categories:", err);
       }
     };
     fetchCategories();
@@ -62,7 +69,7 @@ function ReportForm({ createIssue }) {
         const response = await axios.get("/api/nepal/provinces");
         setProvincesDd(response.data);
       } catch (error) {
-        console.error("Error fetching issues:", error);
+        console.error("Error fetching provinces:", error);
       }
     };
     fetchProvinces();
@@ -75,7 +82,7 @@ function ReportForm({ createIssue }) {
           const response = await axios.get(`/api/nepal/districts?provinceId=${report.province}`);
           setDistrictsDd(response.data);
         } catch (error) {
-          console.error("Error fetching issues:", error);
+          console.error("Error fetching districts:", error);
         }
       } else {
         setDistrictsDd([]);
@@ -88,11 +95,10 @@ function ReportForm({ createIssue }) {
     const fetchLocalGovs = async () => {
       if (report.district) {
         try {
-          console.log("Fetcching localgovs");
           const response = await axios.get(`/api/nepal/localgovs?districtId=${report.district}`);
           setLocalGovsDd(response.data);
         } catch (error) {
-          console.error("Error fetching issues:", error);
+          console.error("Error fetching local governments:", error);
         }
       } else {
         setLocalGovsDd([]);
@@ -111,7 +117,6 @@ function ReportForm({ createIssue }) {
 
   const handleImageUpload = (e) => {
     const files = Array.from(e.target.files);
-    console.log(files); // Add this line to check the files being read
     setReport((prevState) => ({
       ...prevState,
       images: files,
@@ -120,6 +125,7 @@ function ReportForm({ createIssue }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const formData = new FormData();
     formData.append("title", report.title);
     formData.append("description", report.description);
@@ -147,287 +153,330 @@ function ReportForm({ createIssue }) {
     });
 
     try {
-      await createIssue(formData);
+      await issueService.createIssue(formData);
       setReport(defaultReportState);
+      navigate("/");
     } catch (err) {
       console.error("Err: ", err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
+  const handleBackToHome = () => {
+    navigate("/");
+  };
+
   return (
-    <Container maxWidth="sm">
-      <Typography
-        variant="h4"
-        align="center"
-        gutterBottom
+    <Container
+      maxWidth="md"
+      sx={{ mt: 4, mb: 4 }}
+    >
+      <Button
+        startIcon={<ArrowBack />}
+        onClick={handleBackToHome}
+        sx={{ mb: 3 }}
       >
-        Report an Issue or Make a Suggestion
-      </Typography>
-      <form onSubmit={handleSubmit}>
-        <Grid
-          container
-          spacing={2}
+        Back to Home
+      </Button>
+      <Paper
+        elevation={3}
+        sx={{ p: 4, borderRadius: 2 }}
+      >
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ mb: 4, fontWeight: "bold" }}
         >
+          Report an Issue or Make a Suggestion
+        </Typography>
+        <form onSubmit={handleSubmit}>
           <Grid
-            item
-            xs={12}
+            container
+            spacing={3}
           >
-            <TextField
-              fullWidth
-              label="Title"
-              name="title"
-              value={report.title}
-              onChange={handleChange}
-              required
-            />
-          </Grid>
-          <Grid
-            item
-            xs={12}
-          >
-            <TextField
-              fullWidth
-              label="Description"
-              name="description"
-              value={report.description}
-              onChange={handleChange}
-              multiline
-              rows={4}
-              required
-            />
-          </Grid>
-          <Grid
-            item
-            xs={12}
-          >
-            <RadioGroup
-              row
-              name="type"
-              value={report.type}
-              onChange={handleChange}
+            <Grid
+              item
+              xs={12}
             >
-              <FormControlLabel
-                value="issue"
-                control={<Radio />}
-                label="Issue"
+              <TextField
+                fullWidth
+                label="Title"
+                name="title"
+                value={report.title}
+                onChange={handleChange}
+                required
+                variant="outlined"
               />
-              <FormControlLabel
-                value="suggestion"
-                control={<Radio />}
-                label="Suggestion"
+            </Grid>
+            <Grid
+              item
+              xs={12}
+            >
+              <TextField
+                fullWidth
+                label="Description"
+                name="description"
+                value={report.description}
+                onChange={handleChange}
+                multiline
+                rows={4}
+                required
+                variant="outlined"
               />
-            </RadioGroup>
-          </Grid>
-          <Grid
-            item
-            xs={12}
-          >
-            <FormControl
-              fullWidth
-              required
+            </Grid>
+            <Grid
+              item
+              xs={12}
             >
-              <InputLabel>Province</InputLabel>
-              <Select
-                name="province"
-                value={report.province}
-                onChange={handleChange}
-                label="Province"
+              <Typography
+                variant="subtitle1"
+                gutterBottom
               >
-                {provincesDd.map((prov) => (
-                  <MenuItem
-                    key={prov.id}
-                    value={prov.id}
-                  >
-                    {prov.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
-          <Grid
-            item
-            xs={12}
-          >
-            <FormControl
-              fullWidth
-              required
+                Type
+              </Typography>
+              <RadioGroup
+                row
+                name="type"
+                value={report.type}
+                onChange={handleChange}
+              >
+                <FormControlLabel
+                  value="issue"
+                  control={<Radio />}
+                  label="Issue"
+                />
+                <FormControlLabel
+                  value="suggestion"
+                  control={<Radio />}
+                  label="Suggestion"
+                />
+              </RadioGroup>
+            </Grid>
+            <Grid
+              item
+              xs={12}
+              sm={6}
             >
-              <InputLabel>District</InputLabel>
-              <Select
-                name="district"
-                value={report.district}
-                onChange={handleChange}
-                label="District"
+              <FormControl
+                fullWidth
+                required
+                variant="outlined"
               >
-                {districtsDd.map((district) => (
-                  <MenuItem
-                    key={district.id}
-                    value={district.id}
-                  >
-                    {district.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
-          <Grid
-            item
-            xs={12}
-          >
-            <FormControl
-              fullWidth
-              required
-            >
-              <InputLabel>Local Government</InputLabel>
-              <Select
-                name="localGov"
-                value={report.localGov}
-                onChange={handleChange}
-                label="LocalGovernment"
-              >
-                {localGovsDd.map((localGov) => (
-                  <MenuItem
-                    key={localGov.id}
-                    value={localGov.id}
-                  >
-                    {localGov.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
-          <Grid
-            item
-            xs={12}
-          >
-            <FormControl
-              fullWidth
-              required
-            >
-              <InputLabel>Ward</InputLabel>
-              <Select
-                name="ward"
-                value={report.ward}
-                onChange={handleChange}
-                label="Ward"
-              >
-                {localGovsDd
-                  .filter((localGov) => localGov.id === report.localGov)
-                  .map((localGov) => [...Array(localGov.number_of_wards).keys()].map((ward) => (
+                <InputLabel>Province</InputLabel>
+                <Select
+                  name="province"
+                  value={report.province}
+                  onChange={handleChange}
+                  label="Province"
+                >
+                  {provincesDd.map((prov) => (
                     <MenuItem
-                      key={ward + 1}
-                      value={ward + 1}
+                      key={prov.id}
+                      value={prov.id}
                     >
-                      Ward No. {ward + 1}
+                      {prov.name}
                     </MenuItem>
-                  )))}
-              </Select>
-            </FormControl>
-          </Grid>
-
-          <Grid
-            item
-            xs={12}
-          >
-            <FormControl
-              fullWidth
-              required
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid
+              item
+              xs={12}
+              sm={6}
             >
-              <InputLabel>Category</InputLabel>
-              <Select
-                name="category"
-                value={report.category}
-                onChange={handleChange}
-                label="Category"
+              <FormControl
+                fullWidth
+                required
+                variant="outlined"
               >
-                {categories.map((catg) => (
-                  <MenuItem
-                    key={catg.id}
-                    value={catg.id}
-                  >
-                    {catg.name}
-                    {/* {catg.charAt(0).toUpperCase() + catg.slice(1)} */}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
-
-          <Grid
-            item
-            xs={12}
-          >
-            <Typography
-              variant="subtitle1"
-              gutterBottom
+                <InputLabel>District</InputLabel>
+                <Select
+                  name="district"
+                  value={report.district}
+                  onChange={handleChange}
+                  label="District"
+                >
+                  {districtsDd.map((district) => (
+                    <MenuItem
+                      key={district.id}
+                      value={district.id}
+                    >
+                      {district.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid
+              item
+              xs={12}
+              sm={6}
             >
-              Select Location on Map
-            </Typography>
-            {/* <LocationPicker */}
-            {/*   position={[report.position.latitude, report.position.longitude]} */}
-            {/*   setPosition={(newPosition) => */}
-            {/*     setReport((prevReport) => ({ */}
-            {/*       ...prevReport, */}
-            {/*       position: { */}
-            {/*         latitude: newPosition[0], */}
-            {/*         longitude: newPosition[1], */}
-            {/*       }, */}
-            {/*     })) */}
-            {/*   } */}
-            {/* /> */}
-            <LocationPicker
-              position={[report.position.latitude, report.position.longitude]}
-              setPosition={(newPosition) => setReport((prevReport) => ({
-                ...prevReport,
-                position: {
-                  latitude: newPosition[0],
-                  longitude: newPosition[1],
-                },
-              }))}
-            />
-          </Grid>
-          <Grid
-            item
-            xs={12}
-          >
-            <input
-              accept="image/*,video/*,.mkv,.avi,.mov"
-              id="image-upload"
-              type="file"
-              multiple
-              name="images"
-              onChange={handleImageUpload}
-              style={{ display: "none" }}
-            />
-            <label htmlFor="image-upload">
-              <Button
-                variant="contained"
-                component="span"
+              <FormControl
+                fullWidth
+                required
+                variant="outlined"
               >
-                Upload Image
-              </Button>
-            </label>
-            {report.images.length > 0 && (
-              <Typography variant="body2">{report.images.length} selected</Typography>
-            )}
-          </Grid>
-          <Grid
-            item
-            xs={12}
-          >
-            <Box mt={2}>
+                <InputLabel>Local Government</InputLabel>
+                <Select
+                  name="localGov"
+                  value={report.localGov}
+                  onChange={handleChange}
+                  label="Local Government"
+                >
+                  {localGovsDd.map((localGov) => (
+                    <MenuItem
+                      key={localGov.id}
+                      value={localGov.id}
+                    >
+                      {localGov.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid
+              item
+              xs={12}
+              sm={6}
+            >
+              <FormControl
+                fullWidth
+                required
+                variant="outlined"
+              >
+                <InputLabel>Ward</InputLabel>
+                <Select
+                  name="ward"
+                  value={report.ward}
+                  onChange={handleChange}
+                  label="Ward"
+                >
+                  {localGovsDd
+                    .filter((localGov) => localGov.id === report.localGov)
+                    .map((localGov) =>
+                      [...Array(localGov.number_of_wards).keys()].map((ward) => (
+                        <MenuItem
+                          key={ward + 1}
+                          value={ward + 1}
+                        >
+                          Ward No. {ward + 1}
+                        </MenuItem>
+                      )),
+                    )}
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid
+              item
+              xs={12}
+            >
+              <FormControl
+                fullWidth
+                required
+                variant="outlined"
+              >
+                <InputLabel>Category</InputLabel>
+                <Select
+                  name="category"
+                  value={report.category}
+                  onChange={handleChange}
+                  label="Category"
+                >
+                  {categories.map((catg) => (
+                    <MenuItem
+                      key={catg.id}
+                      value={catg.id}
+                    >
+                      {catg.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid
+              item
+              xs={12}
+            >
+              <Typography
+                variant="subtitle1"
+                gutterBottom
+              >
+                Select Location on Map
+              </Typography>
+              <Paper
+                elevation={2}
+                sx={{ p: 2, borderRadius: 2 }}
+              >
+                <LocationPicker
+                  position={[report.position.latitude, report.position.longitude]}
+                  setPosition={(newPosition) =>
+                    setReport((prevReport) => ({
+                      ...prevReport,
+                      position: {
+                        latitude: newPosition[0],
+                        longitude: newPosition[1],
+                      },
+                    }))
+                  }
+                />
+              </Paper>
+            </Grid>
+            <Grid
+              item
+              xs={12}
+            >
+              <input
+                accept="image/*,video/*,.mkv,.avi,.mov"
+                id="image-upload"
+                type="file"
+                multiple
+                name="images"
+                onChange={handleImageUpload}
+                style={{ display: "none" }}
+              />
+              <label htmlFor="image-upload">
+                <Button
+                  variant="outlined"
+                  component="span"
+                  startIcon={<CloudUpload />}
+                  fullWidth
+                >
+                  Upload Images or Videos
+                </Button>
+              </label>
+              {report.images.length > 0 && (
+                <Typography
+                  variant="body2"
+                  sx={{ mt: 1 }}
+                >
+                  {report.images.length} file(s) selected
+                </Typography>
+              )}
+            </Grid>
+            <Grid
+              item
+              xs={12}
+            >
+              <Divider sx={{ my: 2 }} />
               <Button
                 type="submit"
                 variant="contained"
                 color="primary"
                 fullWidth
+                size="large"
+                disabled={loading}
+                startIcon={loading ? <CircularProgress size={24} /> : <Send />}
               >
-                Submit Report
+                {loading ? "Submitting..." : "Submit Report"}
               </Button>
-            </Box>
+            </Grid>
           </Grid>
-        </Grid>
-      </form>
+        </form>
+      </Paper>
     </Container>
   );
 }

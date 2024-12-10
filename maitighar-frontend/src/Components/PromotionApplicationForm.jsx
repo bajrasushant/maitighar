@@ -11,11 +11,17 @@ import {
   Box,
   CircularProgress,
   Alert,
+  Paper,
+  Container,
+  Divider,
 } from "@mui/material";
+import { ArrowBack, CloudUpload } from "@mui/icons-material";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import helpers from "../helpers/helpers";
 
 function PromotionApplicationForm() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     requestedRole: "Ward Officer",
     reason: "",
@@ -116,6 +122,7 @@ function PromotionApplicationForm() {
         assignedLocalGov: "",
         assignedWard: "",
       });
+      navigate("/");
     } catch (err) {
       setError("Failed to submit the promotion request.");
     } finally {
@@ -123,199 +130,229 @@ function PromotionApplicationForm() {
     }
   };
 
+  const handleBackToHome = () => {
+    navigate("/");
+  };
+
   return (
-    <Box
-      maxWidth={600}
-      mx="auto"
-      my={4}
-      p={2}
+    <Container
+      maxWidth="md"
+      sx={{ mt: 4, mb: 4 }}
     >
-      <Typography
-        variant="h5"
-        align="center"
-        gutterBottom
+      <Button
+        startIcon={<ArrowBack />}
+        onClick={handleBackToHome}
+        sx={{ mb: 3 }}
       >
-        Apply for Promotion
-      </Typography>
-      {success && <Alert severity="success">{success}</Alert>}
-      {error && <Alert severity="error">{error}</Alert>}
-      <form onSubmit={handleSubmit}>
-        <TextField
-          select
-          label="Requested Role"
-          name="requestedRole"
-          value={formData.requestedRole}
-          onChange={handleChange}
-          fullWidth
-          margin="normal"
-          required
+        Back to Home
+      </Button>
+      <Paper
+        elevation={3}
+        sx={{ p: 4, borderRadius: 2 }}
+      >
+        <Typography
+          variant="h4"
+          align="center"
+          gutterBottom
+          sx={{ mb: 4, fontWeight: "bold" }}
         >
-          <MenuItem value="Ward Officer">Ward Officer</MenuItem>
-        </TextField>
-        <TextField
-          label="Reason for Applying"
-          name="reason"
-          value={formData.reason}
-          onChange={handleChange}
-          fullWidth
-          multiline
-          rows={4}
-          margin="normal"
-          required
-        />
-
-        <Grid
-          item
-          xs={12}
-        >
-          <FormControl fullWidth>
-            <InputLabel>Province</InputLabel>
-            <Select
-              value={formData.assignedProvince}
-              name="assignedProvince"
-              onChange={handleChange}
-              label="Province"
-            >
-              {provincesDd.map((prov) => (
-                <MenuItem
-                  key={prov.id}
-                  value={prov.id}
-                >
-                  {prov.name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </Grid>
-        {/* District Select */}
-        <Grid
-          item
-          xs={12}
-        >
-          <FormControl fullWidth>
-            <InputLabel>District</InputLabel>
-            <Select
-              name="assignedDistrict"
-              value={formData.assignedDistrict}
-              onChange={handleChange}
-              label="District"
-            >
-              {districtsDd.map((dist) => (
-                <MenuItem
-                  key={dist.id}
-                  value={dist.id}
-                >
-                  {dist.name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </Grid>
-
-        <Grid
-          item
-          xs={12}
-        >
-          <FormControl fullWidth>
-            <InputLabel>Local Government</InputLabel>
-            <Select
-              value={formData.assignedLocalGov}
-              name="assignedLocalGov"
-              onChange={handleChange}
-              label="Local Government"
-            >
-              {localGovsDd.map((lg) => (
-                <MenuItem
-                  key={lg.id}
-                  value={lg.id}
-                >
-                  {lg.name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </Grid>
-        <Grid
-          item
-          xs={12}
-        >
-          <FormControl
-            fullWidth
-            required
+          Apply for Promotion
+        </Typography>
+        {success && (
+          <Alert
+            severity="success"
+            sx={{ mb: 2 }}
           >
-            <InputLabel>Ward</InputLabel>
-            <Select
-              name="assignedWard"
-              value={formData.assignedWard}
-              onChange={handleChange}
-              label="Ward"
+            {success}
+          </Alert>
+        )}
+        {error && (
+          <Alert
+            severity="error"
+            sx={{ mb: 2 }}
+          >
+            {error}
+          </Alert>
+        )}
+        <form onSubmit={handleSubmit}>
+          <Grid
+            container
+            spacing={3}
+          >
+            <Grid
+              item
+              xs={12}
             >
-              {localGovsDd
-                .filter((localGov) => localGov.id === formData.assignedLocalGov)
-                .map((localGov) =>
-                  [...Array(localGov.number_of_wards).keys()].map((ward) => (
+              <FormControl
+                fullWidth
+                variant="outlined"
+              >
+                <InputLabel>Requested Role</InputLabel>
+                <Select
+                  label="Requested Role"
+                  name="requestedRole"
+                  value={formData.requestedRole}
+                  onChange={handleChange}
+                  required
+                >
+                  <MenuItem value="Ward Officer">Ward Officer</MenuItem>
+                  {/* Add more roles here if needed */}
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid
+              item
+              xs={12}
+            >
+              <TextField
+                label="Reason for Applying"
+                name="reason"
+                value={formData.reason}
+                onChange={handleChange}
+                fullWidth
+                multiline
+                rows={4}
+                variant="outlined"
+                required
+              />
+            </Grid>
+            <Grid
+              item
+              xs={12}
+              sm={6}
+            >
+              <FormControl
+                fullWidth
+                variant="outlined"
+              >
+                <InputLabel>Province</InputLabel>
+                <Select
+                  value={formData.assignedProvince}
+                  name="assignedProvince"
+                  onChange={handleChange}
+                  label="Province"
+                  required
+                >
+                  {provincesDd.map((prov) => (
                     <MenuItem
-                      key={ward + 1}
-                      value={ward + 1}
+                      key={prov.id}
+                      value={prov.id}
                     >
-                      Ward No. {ward + 1}
+                      {prov.name}
                     </MenuItem>
-                  )),
-                )}
-            </Select>
-          </FormControl>
-        </Grid>
-
-        {/* <TextField */}
-        {/*   label="Assigned Province" */}
-        {/*   name="assignedProvince" */}
-        {/*   value={formData.assignedProvince} */}
-        {/*   onChange={handleChange} */}
-        {/*   fullWidth */}
-        {/*   margin="normal" */}
-        {/*   required */}
-        {/* /> */}
-        {/* <TextField */}
-        {/*   label="Assigned District" */}
-        {/*   name="assignedDistrict" */}
-        {/*   value={formData.assignedDistrict} */}
-        {/*   onChange={handleChange} */}
-        {/*   fullWidth */}
-        {/*   margin="normal" */}
-        {/*   required */}
-        {/* /> */}
-        {/* <TextField */}
-        {/*   label="Assigned Local Government" */}
-        {/*   name="assignedLocalGov" */}
-        {/*   value={formData.assignedLocalGov} */}
-        {/*   onChange={handleChange} */}
-        {/*   fullWidth */}
-        {/*   margin="normal" */}
-        {/*   required */}
-        {/* /> */}
-        {/* <TextField */}
-        {/*   label="Assigned Ward" */}
-        {/*   name="assignedWard" */}
-        {/*   value={formData.assignedWard} */}
-        {/*   onChange={handleChange} */}
-        {/*   fullWidth */}
-        {/*   margin="normal" */}
-        {/*   required */}
-        {/*   type="number" */}
-        {/*   InputProps={{ inputProps: { min: 1 } }} */}
-        {/* /> */}
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          fullWidth
-          sx={{ mt: 2 }}
-          disabled={loading}
-        >
-          {loading ? <CircularProgress size={24} /> : "Submit Application"}
-        </Button>
-      </form>
-    </Box>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid
+              item
+              xs={12}
+              sm={6}
+            >
+              <FormControl
+                fullWidth
+                variant="outlined"
+              >
+                <InputLabel>District</InputLabel>
+                <Select
+                  name="assignedDistrict"
+                  value={formData.assignedDistrict}
+                  onChange={handleChange}
+                  label="District"
+                  required
+                >
+                  {districtsDd.map((dist) => (
+                    <MenuItem
+                      key={dist.id}
+                      value={dist.id}
+                    >
+                      {dist.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid
+              item
+              xs={12}
+              sm={6}
+            >
+              <FormControl
+                fullWidth
+                variant="outlined"
+              >
+                <InputLabel>Local Government</InputLabel>
+                <Select
+                  value={formData.assignedLocalGov}
+                  name="assignedLocalGov"
+                  onChange={handleChange}
+                  label="Local Government"
+                  required
+                >
+                  {localGovsDd.map((lg) => (
+                    <MenuItem
+                      key={lg.id}
+                      value={lg.id}
+                    >
+                      {lg.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid
+              item
+              xs={12}
+              sm={6}
+            >
+              <FormControl
+                fullWidth
+                variant="outlined"
+                required
+              >
+                <InputLabel>Ward</InputLabel>
+                <Select
+                  name="assignedWard"
+                  value={formData.assignedWard}
+                  onChange={handleChange}
+                  label="Ward"
+                >
+                  {localGovsDd
+                    .filter((localGov) => localGov.id === formData.assignedLocalGov)
+                    .map((localGov) =>
+                      [...Array(localGov.number_of_wards).keys()].map((ward) => (
+                        <MenuItem
+                          key={ward + 1}
+                          value={ward + 1}
+                        >
+                          Ward No. {ward + 1}
+                        </MenuItem>
+                      )),
+                    )}
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid
+              item
+              xs={12}
+            >
+              <Divider sx={{ my: 2 }} />
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                fullWidth
+                size="large"
+                disabled={loading}
+                startIcon={loading ? <CircularProgress size={24} /> : <CloudUpload />}
+              >
+                {loading ? "Submitting..." : "Submit Application"}
+              </Button>
+            </Grid>
+          </Grid>
+        </form>
+      </Paper>
+    </Container>
   );
 }
 

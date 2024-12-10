@@ -13,6 +13,8 @@ import OtpVerification from "./Components/OTPverification";
 import UserProfile from "./Components/UserProfile";
 import CusNotification from "./Components/Notification";
 import VerifyAdminOTP from "./Components/adminOTP";
+import ReportForm from "./Components/IssueForm";
+import PromotionApplicationForm from "./Components/PromotionApplicationForm";
 
 function App() {
   const userDispatch = useUserDispatch();
@@ -79,6 +81,14 @@ function App() {
           <Route
             path="/profile"
             element={<UserProfile />}
+          />
+          <Route
+            path="/create"
+            element={<ReportForm />}
+          />
+          <Route
+            path="/promotion-form"
+            element={<PromotionApplicationForm />}
           />
         </Routes>
       </Router>
