@@ -36,6 +36,22 @@ const userSchema = new Schema({
     enum: ["User", "Ward Officer", "Admin"],
     default: "User",
   },
+  notifications: [
+    {
+      message: {
+        type: String,
+        required: true,
+      },
+      timestamp: {
+        type: Date,
+        default: Date.now,
+      },
+      read: {
+        type: Boolean,
+        default: false,
+      },
+    },
+  ],
 });
 
 userSchema.plugin(uniqueValidator);

@@ -14,11 +14,13 @@ const checkWardOfficerJurisdiction = async (userId, issue) => {
   });
   return wardOfficer;
 };
+const User = require("../models/user");
+const { addNotification } = require("../utils/notification");
 
 // Create a new comment
 commentRouter.post("/", async (req, res) => {
   try {
-    const { issue, parentComment } = req.body;
+    const { user, issue, parentComment, description } = req.body;
 
     const issueDoc = await Issue.findById(issue);
     if (!issueDoc) {
@@ -37,22 +39,51 @@ commentRouter.post("/", async (req, res) => {
 
     //If the comment is related to an issue, push the comment to the issue
     if (issue) {
-      await Issue.findByIdAndUpdate(
+      const updatedIssue = await Issue.findByIdAndUpdate(
         issue,
         { $push: { comments: comment.id } },
         { new: true, useFindAndModify: false },
       );
+
+       // Notify the issue creator if the comment is from someone else
+       if (updatedIssue && updatedIssue.createdBy && updatedIssue.createdBy.id !== req.user.id) {
+        const userId = updatedIssue.createdBy.toString();
+        const commenter = await User.findById(req.user.id);
+        const notificationMessage = `${commenter.username} commented on your issue: "${description}".`;
+
+        console.log("updatedIssue:", updatedIssue);
+        await addNotification(updatedIssue.createdBy, notificationMessage, {
+          type: "comment",
+          issueId: updatedIssue._id,
+          commentId: comment._id,
+          content: description, // Include the comment content in metadata if needed
+        });
+      }
     }
 
-    //If the comment is a reply, push it to the parent comment's replies
-    if (parentComment) {
-      await Comment.findByIdAndUpdate(
-        parentComment,
-        { $push: { replies: comment.id } },
-        { new: true, useFindAndModify: false },
-      );
-    }
+  // If the comment is a reply, push it to the parent comment's replies
+  if (parentComment) {
+    await Comment.findByIdAndUpdate(
+      parentComment,
+      { $push: { replies: comment.id } },
+      { new: true, useFindAndModify: false },
+    );
 
+    // Find the parent comment and notify its creator if the reply is from a different user
+    const parent = await Comment.findById(parentComment).populate("createdBy");
+
+    if (parent && parent.createdBy && parent.createdBy.id !== req.user.id) {
+      const replier = await User.findById(req.user.id);
+      const notificationMessage = `${replier.username} replied to your comment: "${description}".`;
+
+      await addNotification(parent.createdBy.id, notificationMessage, {
+        type: "reply",
+        commentId: parentComment,
+        replyId: comment._id,
+        content: description, // Include the reply content in metadata if needed
+      });
+    }
+  }
     const populatedCommentUser = await Comment.findById(comment.id)
       .populate("createdBy", {
         username: 1,
