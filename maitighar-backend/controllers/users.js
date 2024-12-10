@@ -5,6 +5,8 @@ const User = require("../models/user");
 const WardOfficer = require("../models/wardOfficer");
 const PromotionRequest = require("../models/promotionRequest");
 
+const { addNotification } = require("../utils/notification"); // Adjust the path as needed
+
 // In-memory storage for OTP
 const otpStore = {};
 
@@ -172,5 +174,62 @@ userRouter.post("/resend-otp", async (request, response) => {
     });
   });
 });
+
+//Get user notifications
+userRouter.get("/:id/notifications", async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id).select("notifications");
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    res.json(user.notifications);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch notifications." });
+  }
+});
+
+//Mark notification as read
+userRouter.patch("/:id/notifications/:notificationId", async (req, res) => {
+  try {
+    const { id, notificationId } = req.params;
+
+    const user = await User.findOneAndUpdate(
+      { _id: id, "notifications._id": notificationId },
+      { $set: { "notifications.$.read": true } },
+      { new: true }
+    );
+
+    if (!user) {
+      return res.status(404).json({ error: "Notification not found" });
+    }
+
+    res.json({ message: "Notification marked as read" });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to update notification status." });
+  }
+});
+
+userRouter.post("/test-notification", async (req, res) => {
+  const { userId, message } = req.body;
+
+  try {
+    if (!userId || !message) {
+      return res.status(400).json({ error: "userId and message are required" });
+    }
+
+    console.log("Received test-notification request:", { userId, message });
+
+    const metadata = { issueId: "exampleIssueId" }; // Optional
+    await addNotification(userId, message, metadata);
+
+    res.status(200).json({ message: "Notification added successfully!" });
+  } catch (error) {
+    console.error("Error in /test-notification route:", error);
+    res.status(500).json({ error: "Failed to add notification", details: error.message });
+  }
+});
+
+
+
 
 module.exports = userRouter;

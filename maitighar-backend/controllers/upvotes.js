@@ -1,6 +1,7 @@
 const upvoteRouter = require("express").Router();
 const Upvote = require("../models/upvote");
 const User = require("../models/user");
+const { addNotification } = require("../utils/notification");
 
 // Create a new upvote
 upvoteRouter.post("/", async (req, res) => {
@@ -23,6 +24,20 @@ upvoteRouter.post("/", async (req, res) => {
       // Create a new upvote if none exists
       const upvote = new Upvote({ user, issue, suggestion });
       await upvote.save();
+
+      // Fetch the issue and the upvoter for notification
+      const issueDocument = await Issue.findById(issue).populate("user", "username");
+      const upvoter = await User.findById(user);
+
+       // Send a notification to the issue's creator
+       if (issueDocument && upvoter) {
+        const notificationMessage = `${upvoter.username} upvoted your issue: "${issueDocument.title}".`;
+        await addNotification(issueDocument.user._id, notificationMessage, {
+          type: "upvote",
+          issueId: issue,
+        });
+      }
+
       return res.status(201).json(upvote);
     }
   } catch (error) {
