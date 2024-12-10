@@ -10,6 +10,7 @@ const Province = require("../models/province");
 const District = require("../models/district");
 const LocalGov = require("../models/localgov");
 const Comment = require("../models/comment");
+const { addNotification } = require("../utils/notification");
 
 const nodemailer = require("nodemailer");
 
@@ -126,6 +127,8 @@ issueRouter.post("/", upload.array("images", 5), async (req, res) => {
     });
 
     await issue.save();
+
+        
     // res.status(201).json(issue);
     // Then analyze sentiment & summarize text and update the issue
     const sentimentResult = await analyzeSentiment(issue._id);
@@ -559,21 +562,50 @@ issueRouter.put("/:id/upvote", async (req, res) => {
     if (!issue) {
       return res.status(404).json({ error: "Issue not found" });
     }
-
+    const userId = req.user.id;
+    const upvoter = await User.findById(userId);
     const hasUpvoted = issue.upvotedBy.some(
-      (userId) => userId.toString() === req.user.id.toString(),
+      (id) => id.toString() === userId.toString()
     );
 
     if (hasUpvoted) {
       issue.upvotes -= 1;
       issue.upvotedBy = issue.upvotedBy.filter(
-        (userId) => userId.toString() !== req.user.id.toString(),
+        (id) => id.toString() !== userId.toString()
       );
+      // Remove the notification
+      if (issue.createdBy && issue.createdBy._id.toString() !== userId) {
+        const upvoter = await User.findById(userId); // Fetch upvoter details
+        if(upvoter){
+        const notificationMessage = `${upvoter.username} upvoted your issue: "${issue.title}".`;
+
+        await User.findByIdAndUpdate(
+          issue.createdBy._id,
+          {
+            $pull: { notifications: { message: notificationMessage } },
+          },
+          { new: true } // To return the updated user document
+        );
+        }
+      }
     } else {
       issue.upvotes += 1;
       issue.upvotedBy.push(req.user.id);
-    }
 
+     // Notify the issue creator
+     if (issue.createdBy && issue.createdBy._id.toString() !== userId) {
+      const upvoter = await User.findById(userId); // Fetch upvoter details
+      if (upvoter) {
+        const notificationMessage = `${upvoter.username} upvoted your issue: "${issue.title}".`;
+
+        console.log("Notification message:", notificationMessage);
+        await addNotification(issue.createdBy._id, notificationMessage, {
+          type: "upvote",
+          issueId: issue._id,
+       });
+      }
+     }
+    }
     await issue.save();
     const populatedIssue = await issue.populate("createdBy");
     res.json(populatedIssue);
