@@ -139,4 +139,10 @@ issueSchema.set("toJSON", {
   },
 });
 
+issueSchema.index({
+  title: "text",
+  description: "text",
+  summary: "text",
+});
+
 module.exports = mongoose.model("Issue", issueSchema);

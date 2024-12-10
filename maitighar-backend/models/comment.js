@@ -67,4 +67,6 @@ commentSchema.set("toJSON", {
   },
 });
 
+commentSchema.index({ description: "text" });
+
 module.exports = mongoose.model("Comment", commentSchema);

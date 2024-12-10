@@ -31,6 +31,7 @@ import {
   AccountCircle,
   ArrowUpwardOutlined,
 } from "@mui/icons-material";
+import SearchIcon from "@mui/icons-material/Search";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import FoundationIcon from "@mui/icons-material/Foundation";
 import { useNavigate } from "react-router-dom";
@@ -40,9 +41,11 @@ import issueService from "../services/issues";
 import { useNotification } from "../context/NotificationContext";
 import RecentPosts from "./RecentPosts";
 import getDisplayUsername from "./Details/utils";
+import SearchIssues from "./FuzzySearch";
 
 function HomePage() {
   const currentUser = useUserValue();
+  const navigate = useNavigate();
   const { setNotification } = useNotification();
   const userDispatch = useUserDispatch();
   const [promotionForm, setPromotionForm] = useState(false);
@@ -57,25 +60,23 @@ function HomePage() {
   const [anchorElFilter, setAnchorElFilter] = useState(null);
   const [sortType, setSortType] = useState("");
 
+  const [openSearchModal, setOpenSearchModal] = useState(false);
+
   // Function to open and close the filter menu
   const handleOpenFilterMenu = (event) => {
     setAnchorElFilter(event.currentTarget);
   };
+  const handleSearch = () => {
+    setOpenSearchModal(true);
+  };
+
+  const handleSearchIssueClick = (issueId) => {
+    setOpenSearchModal(false);
+    navigate(`/details/${issueId}`);
+  };
 
   const handleCloseFilterMenu = () => {
     setAnchorElFilter(null);
-  };
-
-  const handleFilterSelection = (type) => {
-    setSortType(type);
-    setAnchorElFilter(null);
-    if (type === "nearby") {
-      fetchNearbyIssues();
-    } else if (type === "upvotes") {
-      setIssues([...issues].sort((a, b) => b.upvotes - a.upvotes));
-    } else if (type === "comments") {
-      setIssues([...issues].sort((a, b) => b.comments.length - a.comments.length));
-    }
   };
 
   useEffect(() => {
@@ -108,7 +109,8 @@ function HomePage() {
       async (position) => {
         try {
           const { latitude, longitude } = position.coords;
-          const nearbyIssues = await issueService.getNearby(latitude, longitude, 5000); // Adjust distance as needed
+          const nearbyIssues = await issueService.getNearby(latitude, longitude, 5000);
+          // Adjust distance as needed
           setIssues(nearbyIssues);
           setNotification({ message: "Fetched nearby issues.", status: "success" });
         } catch (err) {
@@ -123,6 +125,17 @@ function HomePage() {
     );
   };
 
+  const handleFilterSelection = (type) => {
+    setSortType(type);
+    setAnchorElFilter(null);
+    if (type === "nearby") {
+      fetchNearbyIssues();
+    } else if (type === "upvotes") {
+      setIssues([...issues].sort((a, b) => b.upvotes - a.upvotes));
+    } else if (type === "comments") {
+      setIssues([...issues].sort((a, b) => b.comments.length - a.comments.length));
+    }
+  };
   const handleUpvote = async (id) => {
     try {
       const updatedIssue = await issueService.upvoteIssue(id);
@@ -140,8 +153,6 @@ function HomePage() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-
-  const navigate = useNavigate();
 
   const handleLogout = () => {
     try {
@@ -253,6 +264,13 @@ function HomePage() {
           </Button>
           <Button
             color="inherit"
+            startIcon={<SearchIcon />}
+            onClick={handleSearch}
+          >
+            Search
+          </Button>
+          <Button
+            color="inherit"
             startIcon={<Add />}
             onClick={handleOpenForm}
           >
@@ -325,7 +343,12 @@ function HomePage() {
                               <>
                                 <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
                                   <Avatar
-                                    sx={{ width: 32, height: 32, mr: 1, bgcolor: "primary.main" }}
+                                    sx={{
+                                      width: 32,
+                                      height: 32,
+                                      mr: 1,
+                                      bgcolor: "primary.main",
+                                    }}
                                   >
                                     {getDisplayUsername(issue.createdBy).charAt(0).toUpperCase()}
                                   </Avatar>
@@ -525,6 +548,12 @@ function HomePage() {
           <PromotionApplicationForm />
         </DialogContent>
       </Dialog>
+
+      <SearchIssues
+        open={openSearchModal}
+        onClose={() => setOpenSearchModal(false)}
+        onIssueClick={handleSearchIssueClick}
+      />
     </>
   );
 }
