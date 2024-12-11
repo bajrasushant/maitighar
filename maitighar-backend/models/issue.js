@@ -121,6 +121,18 @@ const issueSchema = new Schema({
   summary: {
     type: String,
   },
+  resolvedAt: {
+    type: Date,
+    default: null,
+  },
+  reopened: {
+    type: Boolean,
+    default: false,
+  },
+  reopenedAt: {
+    type: Date,
+    default: null,
+  },
 });
 
 issueSchema.index({ location: "2dsphere" });
