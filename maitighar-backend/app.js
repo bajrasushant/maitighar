@@ -57,7 +57,14 @@ app.use("/api/ward-officers", middleware.userExtractor, wardOfficerRouter);
 // app.use("/api/upvotes",  upvoteRouter);
 app.use("/api/comments", middleware.userExtractor, commentRouter);
 
-// app.use("/api/comments", middleware.userExtractor, commentRouter);
+if (process.env.NODE_ENV === "test") {
+  app.get("/test", (request, response) => {
+    response.send("<h1>Hello test!</h1>");
+  });
+
+  const testingRouter = require("./controllers/testing");
+  app.use("/api/testing", testingRouter);
+}
 
 app.use(middleware.errorHandler);
 app.use(middleware.unknownEndpoint);
