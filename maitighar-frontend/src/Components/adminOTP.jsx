@@ -9,16 +9,16 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import TextField from "@mui/material/TextField";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { verifyOtp, resendOtp } from "../services/user"; // Import the service to verify OTP
+import { verifyAdminOtp, resendAdminOtp } from "../services/admin"; // Import admin-specific OTP services
 import { useNotification } from "../context/NotificationContext";
 
 const defaultTheme = createTheme();
 
-export default function OtpVerification() {
+export default function VerifyAdminOTP() {
   const navigate = useNavigate();
   const location = useLocation();
   const { setNotification } = useNotification();
-  const email = location.state?.email || localStorage.getItem("emailRegisteredForOtp");
+  const email = location.state?.email; // Get the email from the previous page's state
   const [otp, setOtp] = useState(["", "", "", ""]);
 
   const [timer, setTimer] = useState(120); // 2 minutes in seconds
@@ -27,7 +27,7 @@ export default function OtpVerification() {
 
   useEffect(() => {
     const countdown = setInterval(() => {
-      const timeLeft = Math.max(0, Math.floor((endTimeRef.current - Date.now()) / 1000));
+      const timeLeft = Math.max(0, Math.floor((endTimeRef.current - Date.now()) / 1000)); // Calculate remaining time
 
       setTimer(timeLeft); // Update the timer state
 
@@ -39,11 +39,6 @@ export default function OtpVerification() {
 
     return () => clearInterval(countdown); // Clean up the interval when the component unmounts
   }, [timer]);
-  if (!email) {
-    setNotification({ message: "Email not found. Please try signing up again.", status: "error" });
-    navigate("/register");
-    return null;
-  }
 
   const handleChange = (index, value) => {
     const newOtp = [...otp];
@@ -62,20 +57,20 @@ export default function OtpVerification() {
     event.preventDefault();
     const otpString = otp.join(""); // Join the array into a string
 
-    // Call the OTP verification API
+    // Call the admin OTP verification API
     try {
-      await verifyOtp({ email, otp: otpString });
-      setNotification({ message: "Email verified", status: "success" });
-      navigate("/login"); // Redirect to login on success
+      await verifyAdminOtp({ email, otp: otpString });
+      setNotification({ message: "Admin email verified", status: "success" });
+      navigate("/admin-login"); // Redirect to admin login on success
     } catch (error) {
-      console.error("OTP verification failed", error);
+      console.error("Admin OTP verification failed", error);
       setNotification({ message: "OTP verification failed. Please try again.", status: "error" });
     }
   };
 
   const handleResendOtp = async () => {
     try {
-      await resendOtp({ email }); // Call the resend OTP API
+      await resendAdminOtp({ email }); // Call the admin resend OTP API
       setNotification({ message: "OTP has been resent to your email.", status: "success" });
 
       // Reset timer and endTime after resending OTP
@@ -94,20 +89,13 @@ export default function OtpVerification() {
         maxWidth="xs"
       >
         <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
+        <Box sx={{ marginTop: 8, display: "flex", flexDirection: "column", alignItems: "center" }}>
           <Avatar sx={{ m: 1, bgcolor: "secondary.main" }} />
           <Typography
             component="h1"
             variant="h5"
           >
-            Enter OTP
+            Admin OTP Verification
           </Typography>
           <Typography
             variant="body2"

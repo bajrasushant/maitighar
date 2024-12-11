@@ -98,9 +98,8 @@ export default function AdminRegister() {
     const fetchWards = async () => {
       try {
         const response = await axios.get("/api/wards", {
-          params: { localGovId: assignedLocalGov, unassigned: "false" },
+          params: { localGovId: assignedLocalGov, unassigned: "true" },
         });
-        console.log(response);
         setWardsDd(response.data);
       } catch (error) {
         console.error("Error fetching wards:", error);
@@ -117,7 +116,7 @@ export default function AdminRegister() {
     setIsLoading(true);
 
     try {
-      const response = await axios.post("/api/admins", {
+      const response = await axios.post("/api/adminlogin/register", {
         username,
         email,
         password,
@@ -130,8 +129,9 @@ export default function AdminRegister() {
         assigned_department: responsible === "department" ? department : undefined,
       });
       console.log(response);
-      setNotification({ message: "Admin registered successfully.", status: "success" });
-      navigate("/admin-login");
+      // Navigate to OTP verification page with email in state
+      navigate("/verifyAdminOTP", { state: { email } });
+      setNotification({ message: `OTP sent to ${email}`, status: "success" });
     } catch (error) {
       setNotification({
         message: error.response?.data?.error || "Something went wrong. Please try again.",

@@ -2,9 +2,13 @@ const bcrypt = require("bcrypt");
 const userRouter = require("express").Router();
 const nodemailer = require("nodemailer");
 const User = require("../models/user");
+const WardOfficer = require("../models/wardOfficer");
+const PromotionRequest = require("../models/promotionRequest");
+
+const { addNotification } = require("../utils/notification"); // Adjust the path as needed
 
 // In-memory storage for OTP
-let otpStore = {};
+const otpStore = {};
 
 userRouter.get("/", async (request, response) => {
   const users = await User.find({});
@@ -22,9 +26,7 @@ userRouter.post("/", async (request, response) => {
     password.trim() === "" ||
     repassword.trim() === ""
   ) {
-    return response
-      .status(400)
-      .json({ error: "username, password, and repassword are required" });
+    return response.status(400).json({ error: "username, password, and repassword are required" });
   }
 
   if (!(username.length >= 3 && password.length >= 3)) {
@@ -45,7 +47,7 @@ userRouter.post("/", async (request, response) => {
 
   // Generate OTP
   const otp = Math.floor(1000 + Math.random() * 9000).toString(); // A 4-digit OTP
-  const otpExpiresAt = new Date(Date.now() + 2 * 60 * 1000); // OTP valid for 4 minutes
+  const otpExpiresAt = new Date(Date.now() + 2 * 60 * 1000); // OTP valid for 2 minutes
 
   // Store OTP temporarily in-memory
   otpStore[email] = { otp, otpExpiresAt, username, password };
@@ -114,17 +116,15 @@ userRouter.post("/verify-otp", async (request, response) => {
       username: otpEntry.username,
       passwordHash,
       email,
-      role: "citizen",
+      role: "User",
     });
 
-    const savedUser = await user.save();
+    await user.save();
 
     // Clear OTP from in-memory store after successful registration
     delete otpStore[email];
 
-    return response
-      .status(200)
-      .json({ message: "OTP verified and user registered successfully" });
+    return response.status(200).json({ message: "OTP verified and user registered successfully" });
   } catch (error) {
     return response.status(500).json({ error: "Something went wrong" });
   }
@@ -174,6 +174,62 @@ userRouter.post("/resend-otp", async (request, response) => {
     });
   });
 });
+
+//Get user notifications
+userRouter.get("/:id/notifications", async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id).select("notifications");
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    res.json(user.notifications);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch notifications." });
+  }
+});
+
+//Mark notification as read
+userRouter.patch("/:id/notifications/:notificationId", async (req, res) => {
+  try {
+    const { id, notificationId } = req.params;
+
+    const user = await User.findOneAndUpdate(
+      { _id: id, "notifications._id": notificationId },
+      { $set: { "notifications.$.read": true } },
+      { new: true }
+    );
+
+    if (!user) {
+      return res.status(404).json({ error: "Notification not found" });
+    }
+
+    res.json({ message: "Notification marked as read" });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to update notification status." });
+  }
+});
+
+userRouter.post("/test-notification", async (req, res) => {
+  const { userId, message } = req.body;
+
+  try {
+    if (!userId || !message) {
+      return res.status(400).json({ error: "userId and message are required" });
+    }
+
+    console.log("Received test-notification request:", { userId, message });
+
+    const metadata = { issueId: "exampleIssueId" }; // Optional
+    await addNotification(userId, message, metadata);
+
+    res.status(200).json({ message: "Notification added successfully!" });
+  } catch (error) {
+    console.error("Error in /test-notification route:", error);
+    res.status(500).json({ error: "Failed to add notification", details: error.message });
+  }
+});
+
+
 
 
 module.exports = userRouter;

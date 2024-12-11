@@ -8,6 +8,9 @@ Maitighar is a web application designed to revolutionize how residents communica
 /maitighar
   /maitighar-backend
   /maitighar-frontend
+  /ml-algorithms
+    /sentiment-analysis
+    /text_summarization
 ```
 
 ## Prerequisites
@@ -17,6 +20,7 @@ Before you begin, ensure you have the following installed:
 - Node.js
 - npm
 - MongoDB or MongoAtlas
+- Python
 
 ## Installation
 
@@ -41,7 +45,14 @@ Before you begin, ensure you have the following installed:
    npm install
    ```
 
-4. Create a `.env` file in the `maitighar-backend` directory and add your MongoDB connection string, port for the backend and JWT secret similarly as .env.example file:
+4. Set up the ML alogrithms
+
+   ```
+   cd ../ml-algorithms
+   pip install -r requirements.txt
+   ```
+
+5. Create a `.env` file in the `maitighar-backend` directory and add your MongoDB connection string, port for the backend and JWT secret similarly as .env.example file:
 
    ```
    MONGODB_URI=your_mongodb_connection_string
@@ -65,7 +76,14 @@ Before you begin, ensure you have the following installed:
    npm run start
    ```
 
-3. Open your browser and navigate to `http://localhost:5173` to view the application.
+3. In another terminal, run the flask app:
+
+   ```
+   cd ml-algorithms
+   python app.py
+   ```
+
+4. Open your browser and navigate to `http://localhost:5173` to view the application.
 
 ## Features
 
@@ -88,4 +106,4 @@ Before you begin, ensure you have the following installed:
 
 ## Todos
 
-- ML-powered sentiment analysis and text summarization
+- Mobile app

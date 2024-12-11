@@ -1,7 +1,25 @@
 import React from "react";
-import { Paper, Grid, Typography, Button, Box, TextField, CircularProgress } from "@mui/material";
+import {
+  Paper,
+  Typography,
+  Button,
+  Box,
+  TextField,
+  CircularProgress,
+  Avatar,
+  Divider,
+  Chip,
+} from "@mui/material";
+import {
+  Reply as ReplyIcon,
+  ExpandMore as ExpandMoreIcon,
+  ExpandLess as ExpandLessIcon,
+  Info as InfoIcon,
+} from "@mui/icons-material";
 import { formatDistanceToNow } from "date-fns";
+import axios from "axios";
 import getDisplayUsername from "./utils";
+import helpers from "../../helpers/helpers";
 
 const Comment = React.memo(
   ({
@@ -15,123 +33,210 @@ const Comment = React.memo(
     toggleReplies,
     isAdmin,
   }) => {
-    console.log(repliesState, comment);
-
     const { replies = [], show = false, loading } = repliesState[comment.id] || {};
+
+    const handleApprove = async (commentId) => {
+      const config = helpers.getConfig();
+      try {
+        const response = await axios.post(`/api/comments/${commentId}/approve`, {}, config);
+        if (response.status === 200) {
+          const updatedComment = response.data;
+          console.log("Approval successful:", updatedComment);
+        } else {
+          console.error("Error approving comment:", response.data.error);
+        }
+      } catch (error) {
+        console.error("Error:", error.message);
+      }
+    };
 
     return (
       <Paper
-        elevation={1}
-        // className="p-4 mb-4 bg-background-default"
+        elevation={0}
         sx={{
           p: 2,
-          mb: 2,
-          bgcolor: "background.default",
+          // bgcolor: comment.isCommunityNote ? "primary.light" : "background.default",
+          border: comment.isCommunityNote ? "2px solid" : "none",
+          borderColor: comment.isCommunityNote ? "primary.main" : "transparent",
+          borderRadius: 2,
         }}
       >
-        <Grid
-          container
-          spacing={2}
-          alignItems="flex-start"
-        >
-          <Grid
-            item
-            xs
-          >
+        {comment.isCommunityNote && (
+          <Box sx={{ mb: 2, display: "flex", alignItems: "center", gap: 1 }}>
+            <InfoIcon color="primary" />
             <Typography
               variant="subtitle1"
+              color="primary"
               sx={{ fontWeight: "bold" }}
-              color={comment.createdBy ? "initial" : "textSecondary"}
             >
-              {getDisplayUsername(comment.createdBy)}
-              {!comment.createdBy && " (Account Deleted)"}
+              Community Note
             </Typography>
+          </Box>
+        )}
 
-            <Typography
-              variant="body2"
-              color="text.secondary"
-              gutterBottom
+        <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
+          <Avatar sx={{ width: 32, height: 32, mr: 1, bgcolor: "primary.main" }}>
+            {getDisplayUsername(comment.createdBy).charAt(0).toUpperCase()}
+          </Avatar>
+
+          <Typography
+            variant="subtitle2"
+            sx={{ fontWeight: "bold" }}
+          >
+            @{getDisplayUsername(comment.createdBy)}{" "}
+          </Typography>
+          <Typography
+            variant="caption"
+            color="text.secondary"
+          >
+            &nbsp; • &nbsp;
+          </Typography>
+          <Typography
+            variant="caption"
+            color="text.secondary"
+          >
+            {formatDistanceToNow(new Date(comment.createdAt), { addSuffix: true })}
+          </Typography>
+        </Box>
+
+        <Typography
+          variant="body2"
+          sx={{ mb: 2, ml: 6 }}
+        >
+          {comment.description}
+        </Typography>
+
+        <Box sx={{ ml: 6, display: "flex", alignItems: "center", gap: 1 }}>
+          {comment.canApprove && !comment.parentComment && (
+            <Button
+              variant="contained"
+              color="success"
+              size="small"
+              onClick={() => handleApprove(comment.id)}
             >
-              {formatDistanceToNow(new Date(comment.createdAt), { addSuffix: true })}
-            </Typography>
+              Approve
+            </Button>
+          )}
 
-            <Typography variant="body1">{comment.description}</Typography>
+          {!isAdmin && (
+            <Button
+              size="small"
+              startIcon={<ReplyIcon />}
+              onClick={() =>
+                setShowReplyForm((prev) => ({ ...prev, [comment.id]: !prev[comment.id] }))
+              }
+            >
+              {showReplyForm[comment.id] ? "Cancel" : "Reply"}
+            </Button>
+          )}
 
-            {!isAdmin && (
-              <Button
-                onClick={() =>
-                  setShowReplyForm((prev) => ({ ...prev, [comment.id]: !prev[comment.id] }))
-                }
-              >
-                {showReplyForm[comment.id] ? "Cancel" : "Reply"}
-              </Button>
-            )}
-
-            {!isAdmin && showReplyForm[comment.id] && (
-              <Box
-                component="form"
-                sx={{ mt: 4 }}
-              >
-                <TextField
-                  fullWidth
-                  variant="outlined"
-                  placeholder="Write a reply..."
-                  value={replyContent[comment.id] || ""}
-                  onChange={(e) => handleReplyContentChange(comment.id, e.target.value)}
-                />
-                <Button
-                  variant="contained"
-                  color="primary"
-                  sx={{ mt: 2 }}
-                  onClick={() => handleReplySubmit(comment.id)}
-                >
-                  Submit Reply
-                </Button>
-              </Box>
-            )}
-
-            {replies.length > 0 && (
-              <Button
-                onClick={() => toggleReplies(comment.id)}
-                disabled={loading}
-              >
-                {loading ? (
-                  <CircularProgress size={20} />
+          {replies.length > 0 && (
+            <Button
+              size="small"
+              onClick={() => toggleReplies(comment.id)}
+              disabled={loading}
+              startIcon={
+                loading ? (
+                  <CircularProgress size={16} />
+                ) : show ? (
+                  <ExpandLessIcon />
                 ) : (
-                  `${show ? "Hide" : "Show"} ${replies.length} ${
-                    replies.length === 1 ? "Reply" : "Replies"
-                  }`
-                )}
-              </Button>
-            )}
+                  <ExpandMoreIcon />
+                )
+              }
+            >
+              {loading
+                ? "Loading"
+                : `${show ? "Hide" : "Show"} ${replies.length} ${replies.length === 1 ? "Reply" : "Replies"}`}
+            </Button>
+          )}
+        </Box>
 
-            {show && replies.length > 0 && (
-              <Box sx={{ mt: 2, pl: 2 }}>
-                {replies.map((reply) => (
-                  <Paper
-                    key={reply.id}
-                    sx={{ p: 2, mb: 2 }}
+        {!isAdmin && showReplyForm[comment.id] && (
+          <Box
+            component="form"
+            sx={{ mt: 2, ml: 6 }}
+          >
+            <TextField
+              fullWidth
+              variant="outlined"
+              size="small"
+              placeholder="Write a reply..."
+              value={replyContent[comment.id] || ""}
+              onChange={(e) => handleReplyContentChange(comment.id, e.target.value)}
+              multiline
+              rows={2}
+              sx={{ mb: 1 }}
+            />
+            <Button
+              variant="contained"
+              color="primary"
+              size="small"
+              onClick={() => handleReplySubmit(comment.id)}
+              endIcon={<ReplyIcon />}
+            >
+              Post Reply
+            </Button>
+          </Box>
+        )}
+
+        {show && replies.length > 0 && (
+          <Box sx={{ mt: 2, ml: 6 }}>
+            <Divider sx={{ mb: 2 }} />
+            {replies.map((reply) => (
+              <Paper
+                key={reply.id}
+                elevation={0}
+                sx={{
+                  p: 2,
+                  mb: 2,
+                  bgcolor: "background.default",
+                  borderRadius: 2,
+                }}
+              >
+                <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
+                  <Avatar
+                    sx={{
+                      width: 24,
+                      height: 24,
+                      mr: 2,
+                      bgcolor: "primary.main",
+                      fontSize: "0.8rem",
+                    }}
                   >
-                    <Typography
-                      variant="subtitle1"
-                      sx={{ fontWeight: "bold" }}
-                    >
-                      {getDisplayUsername(reply.createdBy)}
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      color="text.secondary"
-                      gutterBottom
-                    >
-                      {formatDistanceToNow(new Date(reply.createdAt), { addSuffix: true })}
-                    </Typography>
-                    <Typography variant="subtitle2">{reply.description}</Typography>
-                  </Paper>
-                ))}
-              </Box>
-            )}
-          </Grid>
-        </Grid>
+                    {getDisplayUsername(reply.createdBy).charAt(0).toUpperCase()}
+                  </Avatar>
+
+                  <Typography
+                    variant="subtitle2"
+                    sx={{ fontWeight: "bold", fontSize: "0.9rem" }}
+                  >
+                    {getDisplayUsername(reply.createdBy)}
+                  </Typography>
+                  <Typography
+                    variant="caption"
+                    color="text.secondary"
+                  >
+                    &nbsp; • &nbsp;
+                  </Typography>
+                  <Typography
+                    variant="caption"
+                    color="text.secondary"
+                    sx={{ fontSize: "0.8rem" }}
+                  >
+                    {formatDistanceToNow(new Date(reply.createdAt), { addSuffix: true })}
+                  </Typography>
+                </Box>
+                <Typography
+                  variant="body2"
+                  sx={{ ml: 4 }}
+                >
+                  {reply.description}
+                </Typography>
+              </Paper>
+            ))}
+          </Box>
+        )}
       </Paper>
     );
   },

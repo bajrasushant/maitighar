@@ -18,6 +18,12 @@ const getNearby = async (latitude, longitude, maxDistance) => {
   return response.json();
 };
 
+const getIssuesWardWise = async () => {
+  const config = helpers.getConfig();
+  const req = await axios.get(`${baseUrl}/ward`, config);
+  return req.json();
+};
+
 const createIssue = async (formData) => {
   const config = helpers.getConfig();
   try {
@@ -38,7 +44,6 @@ const createIssue = async (formData) => {
 const getIssueId = async (id) => {
   const config = helpers.getConfig();
   const request = await axios.get(`${baseUrl}/${id}`, config);
-  request.config.headers;
   return request.data;
 };
 
@@ -65,6 +70,12 @@ const updateStatus = async (id, newStatus) => {
   return response.data;
 };
 
+const getRecentIssues = async (limit = 10) => {
+  const config = helpers.getConfig();
+  const response = await axios.get(`${baseUrl}/user?limit=${limit}`, config);
+  return response.data;
+};
+
 export default {
   getAll,
   getNearby,
@@ -73,4 +84,5 @@ export default {
   getIssueId,
   getIssuesByDepartment,
   updateStatus,
+  getRecentIssues,
 };

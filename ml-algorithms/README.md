@@ -1,6 +1,6 @@
-# Sentiment Analysis Service
+# ML Algorithms Service
 
-This folder provides a sentiment analysis service using Flask. It includes a pre-trained sentiment analysis model and a TF-IDF vectorizer.
+This folder provides a sentiment analysis and text summarization service using Flask. It includes a pre-trained sentiment analysis and text summariztaion model and a TF-IDF vectorizer.
 
 ## Setup
 
@@ -8,6 +8,8 @@ This folder provides a sentiment analysis service using Flask. It includes a pre
 
 - Python 3.x
 - `pip` (Python package installer)
+
+### Download Text summarization Dataset from here: https://drive.google.com/drive/folders/12X191nJyELEiNWBexbQ5C0zuCHIj1P-R?usp=sharing
 
 ### Create and Activate Virtual Environment
 
@@ -39,7 +41,7 @@ This folder provides a sentiment analysis service using Flask. It includes a pre
 4. **Install Dependencies**
 
    ```
-   cd sentiment-analysis
+   cd ml-algorithms
    pip install -r requirements.txt
    ```
 

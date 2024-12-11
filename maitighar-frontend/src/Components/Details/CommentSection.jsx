@@ -1,4 +1,6 @@
-import { Typography, Box, TextField, Button, Divider } from "@mui/material";
+import React from "react";
+import { Typography, Box, TextField, Button, Divider, List, ListItem, Paper } from "@mui/material";
+import { Send as SendIcon } from "@mui/icons-material";
 import Comment from "./Comment";
 
 function CommentSection({
@@ -16,55 +18,84 @@ function CommentSection({
   toggleReplies,
   isAdmin,
 }) {
+  const sortedComments = comments.sort((a, b) => {
+    if (a.isCommunityNote && !b.isCommunityNote) return -1; // a comes first
+    if (!a.isCommunityNote && b.isCommunityNote) return 1; // b comes first
+    return 0; // maintain original order otherwise
+  });
+
   return (
-    <>
-      <Divider style={{ margin: "20px 0" }} />
+    <Box sx={{ mt: 4 }}>
+      <Divider sx={{ mb: 3 }} />
+
+      <Typography
+        variant="h6"
+        gutterBottom
+        sx={{ fontWeight: "bold", mb: 1 }}
+      >
+        Comments ({comments.length})
+      </Typography>
 
       {!isAdmin && (
-        <form onSubmit={(e) => handleCommentSubmit(e, issueId)}>
-          <TextField
-            fullWidth
-            variant="outlined"
-            placeholder="Add a comment"
-            value={newComment}
-            onChange={(e) => setNewComment(e.target.value)}
-            style={{ marginBottom: "20px" }}
-          />
-          <Button
-            variant="contained"
-            color="primary"
-            type="submit"
-          >
-            Submit
-          </Button>
-        </form>
+        <Paper
+          elevation={0}
+          sx={{ p: 2, backgroundColor: "background.paper" }}
+        >
+          <form onSubmit={(e) => handleCommentSubmit(e, issueId)}>
+            <TextField
+              fullWidth
+              variant="outlined"
+              placeholder="Add a comment"
+              value={newComment}
+              onChange={(e) => setNewComment(e.target.value)}
+              sx={{ mb: 2 }}
+              multiline
+              rows={3}
+            />
+            <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+              <Button
+                variant="contained"
+                color="primary"
+                type="submit"
+                endIcon={<SendIcon />}
+              >
+                Post Comment
+              </Button>
+            </Box>
+          </form>
+        </Paper>
       )}
 
       {comments.length > 0 && (
-        <Box sx={{ mt: 2 }}>
-          <Typography
+        <List sx={{ p: 0 }}>
+          {/* <Typography
             variant="h6"
             gutterBottom
           >
             Comments ({comments.length})
-          </Typography>
-          {comments.map((comment) => (
-            <Comment
+          </Typography> */}
+          {sortedComments.map((comment) => (
+            <ListItem
               key={comment.id}
-              comment={comment}
-              replyContent={replyContent}
-              showReplyForm={showReplyForm}
-              setShowReplyForm={setShowReplyForm}
-              repliesState={repliesState}
-              handleReplyContentChange={handleReplyContentChange}
-              handleReplySubmit={handleReplySubmit}
-              toggleReplies={toggleReplies}
-              isAdmin={isAdmin}
-            />
+              disableGutters
+              sx={{ display: "block", p: 0, borderBottom: "1px solid #e0e0e0" }}
+            >
+              <Comment
+                comment={comment}
+                replyContent={replyContent}
+                showReplyForm={showReplyForm}
+                setShowReplyForm={setShowReplyForm}
+                repliesState={repliesState}
+                handleReplyContentChange={handleReplyContentChange}
+                handleReplySubmit={handleReplySubmit}
+                toggleReplies={toggleReplies}
+                isAdmin={isAdmin}
+              />
+            </ListItem>
           ))}
-        </Box>
+        </List>
       )}
-    </>
+    </Box>
   );
 }
 

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Container, CircularProgress, Typography, Button } from "@mui/material";
+import { Container, CircularProgress, Typography, Button, Box } from "@mui/material";
 import { ArrowBack } from "@mui/icons-material";
 import { useNotification } from "../../context/NotificationContext";
 import issueService from "../../services/issues";
@@ -109,37 +109,55 @@ function Details({ isAdmin = false }) {
   }
 
   return (
-    <Container>
+    <Container
+      maxWidth="md"
+      sx={{ mt: 4, mb: 4 }}
+    >
       <Button
         startIcon={<ArrowBack />}
         onClick={handleBackToHome}
-        className="mt-5 mb-5"
+        sx={{ mb: 3 }}
       >
         Back to Home
       </Button>
 
-      <IssueCard
-        issue={issue}
-        setIssue={setIssue}
-        locationName={locationName}
-        commentsCount={comments.length}
-      />
+      {loading ? (
+        <Box
+          display="flex"
+          justifyContent="center"
+        >
+          <CircularProgress />
+        </Box>
+      ) : error ? (
+        <Typography color="error">{error}</Typography>
+      ) : !issue ? (
+        <Typography>No report found with this ID.</Typography>
+      ) : (
+        <>
+          <IssueCard
+            issue={issue}
+            setIssue={setIssue}
+            locationName={locationName}
+            commentsCount={comments.length}
+          />
 
-      <CommentSection
-        issueId={id}
-        comments={comments}
-        newComment={newComment}
-        setNewComment={setNewComment}
-        handleCommentSubmit={handleCommentSubmit}
-        replyContent={replyContent}
-        showReplyForm={showReplyForm}
-        setShowReplyForm={setShowReplyForm}
-        repliesState={repliesState}
-        handleReplyContentChange={handleReplyContentChange}
-        handleReplySubmit={handleReplySubmit}
-        toggleReplies={toggleReplies}
-        isAdmin={isAdmin}
-      />
+          <CommentSection
+            issueId={id}
+            comments={comments}
+            newComment={newComment}
+            setNewComment={setNewComment}
+            handleCommentSubmit={handleCommentSubmit}
+            replyContent={replyContent}
+            showReplyForm={showReplyForm}
+            setShowReplyForm={setShowReplyForm}
+            repliesState={repliesState}
+            handleReplyContentChange={handleReplyContentChange}
+            handleReplySubmit={handleReplySubmit}
+            toggleReplies={toggleReplies}
+            isAdmin={isAdmin}
+          />
+        </>
+      )}
     </Container>
   );
 }

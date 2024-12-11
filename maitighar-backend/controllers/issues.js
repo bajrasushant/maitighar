@@ -4,12 +4,13 @@ const path = require("path");
 const Issue = require("../models/issue");
 const User = require("../models/user");
 const Admin = require("../models/admin");
-const Category = require("../models/category");
+const WardOfficer = require("../models/wardOfficer");
 const Department = require("../models/department");
 const Province = require("../models/province");
 const District = require("../models/district");
 const LocalGov = require("../models/localgov");
-const Ward = require("../models/ward");
+const Comment = require("../models/comment");
+const { addNotification } = require("../utils/notification");
 
 const nodemailer = require("nodemailer");
 
@@ -126,6 +127,8 @@ issueRouter.post("/", upload.array("images", 5), async (req, res) => {
     });
 
     await issue.save();
+
+        
     // res.status(201).json(issue);
     // Then analyze sentiment & summarize text and update the issue
     const sentimentResult = await analyzeSentiment(issue._id);
@@ -234,6 +237,25 @@ issueRouter.get("/nearby", async (req, res) => {
   }
 });
 
+issueRouter.get("/ward", async (req, res) => {
+  try {
+    const wardOfficer = await WardOfficer.findOne({ user: req.user.id });
+
+    if (!wardOfficer) {
+      return res.status(403).json({ error: "Not a ward officer" });
+    }
+
+    const issues = await Issue.find({
+      assigned_local_gov: wardOfficer.assigned_local_gov,
+      assigned_ward: wardOfficer.assigned_ward,
+    });
+    res.status(200).json(issues);
+  } catch (error) {
+    console.error("Error fetching ward issues:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 // Get issue by department for admin
 issueRouter.get("/admin", async (req, res) => {
   try {
@@ -285,9 +307,9 @@ issueRouter.get("/admin", async (req, res) => {
       .populate("createdBy", { username: 1 })
       .populate("comments");
 
-    if (!issues.length) {
-      return res.status(400).json({ error: "No issues found." });
-    }
+    // if (!issues.length) {
+    //   return res.status(200).json(issues);
+    // }
     res.json(issues);
   } catch (error) {
     console.error("Error fetching issues by department:", error);
@@ -296,10 +318,33 @@ issueRouter.get("/admin", async (req, res) => {
   }
 });
 
+//Get issue by date for users
+issueRouter.get("/user", async (req, res) => {
+  try {
+    const { limit = 5, sortBy = "createdAt", sortOrder = "desc" } = req.query;
+
+    const sortOptions = {};
+    sortOptions[sortBy] = sortOrder === "asc" ? 1 : -1;
+
+    const issues = await Issue.find({})
+      .sort(sortOptions)
+      .limit(Number(limit))
+      .populate("createdBy", { username: 1 });
+
+    if (!issues.length) {
+      return res.status(404).json({ error: "No recent issues found." });
+    }
+    res.json(issues);
+  } catch (error) {
+    console.error("Error fetching recent issues:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 // Get all issues
 issueRouter.get("/", async (req, res) => {
   try {
-    const issues = await Issue.find({}).populate("comments");
+    const issues = await Issue.find({}).populate("comments").populate("createdBy");
     const issuesWithCommentLength = issues.map((issue) => ({
       ...issue.toJSON(),
       commentCount: issue.comments.length,
@@ -307,6 +352,57 @@ issueRouter.get("/", async (req, res) => {
     res.json(issuesWithCommentLength);
   } catch (error) {
     console.error("Error fetchin issues:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+issueRouter.get("/search", async (req, res) => {
+  try {
+    const { query, mode } = req.query;
+
+    if (!query) {
+      return res.status(400).json({ error: "Query parameter is required" });
+    }
+
+    let results = [];
+
+    if (mode === ":all" || !mode) {
+      const issueResults = await Issue.find(
+        { $text: { $search: query } },
+        { score: { $meta: "textScore" } },
+      )
+        .sort({ score: { $meta: "textScore" } })
+        .populate("createdBy category comments");
+
+      let commentResults = await Comment.find(
+        { $text: { $search: query } },
+        { score: { $meta: "textScore" } },
+      ).sort({ score: { $meta: "textScore" } });
+
+      if (commentResults.length === 0) {
+        commentResults = await Comment.find({
+          description: { $regex: query, $options: "i" },
+        });
+      }
+
+      results = {
+        issues: issueResults,
+        comments: commentResults,
+      };
+    } else if (mode === ":issue") {
+      results = await Issue.find({ $text: { $search: query } }, { score: { $meta: "textScore" } })
+        .sort({ score: { $meta: "textScore" } })
+        .populate("createdBy category");
+    } else if (mode === ":comment") {
+      results = await Comment.find(
+        { $text: { $search: query } },
+        { score: { $meta: "textScore" } },
+      ).sort({ score: { $meta: "textScore" } });
+    }
+
+    res.json(results);
+  } catch (error) {
+    console.error("Error in search:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 });
@@ -466,23 +562,53 @@ issueRouter.put("/:id/upvote", async (req, res) => {
     if (!issue) {
       return res.status(404).json({ error: "Issue not found" });
     }
-
+    const userId = req.user.id;
+    const upvoter = await User.findById(userId);
     const hasUpvoted = issue.upvotedBy.some(
-      (userId) => userId.toString() === req.user.id.toString(),
+      (id) => id.toString() === userId.toString()
     );
 
     if (hasUpvoted) {
       issue.upvotes -= 1;
       issue.upvotedBy = issue.upvotedBy.filter(
-        (userId) => userId.toString() !== req.user.id.toString(),
+        (id) => id.toString() !== userId.toString()
       );
+      // Remove the notification
+      if (issue.createdBy && issue.createdBy._id.toString() !== userId) {
+        const upvoter = await User.findById(userId); // Fetch upvoter details
+        if(upvoter){
+        const notificationMessage = `${upvoter.username} upvoted your issue: "${issue.title}".`;
+
+        await User.findByIdAndUpdate(
+          issue.createdBy._id,
+          {
+            $pull: { notifications: { message: notificationMessage } },
+          },
+          { new: true } // To return the updated user document
+        );
+        }
+      }
     } else {
       issue.upvotes += 1;
       issue.upvotedBy.push(req.user.id);
-    }
 
+     // Notify the issue creator
+     if (issue.createdBy && issue.createdBy._id.toString() !== userId) {
+      const upvoter = await User.findById(userId); // Fetch upvoter details
+      if (upvoter) {
+        const notificationMessage = `${upvoter.username} upvoted your issue: "${issue.title}".`;
+
+        console.log("Notification message:", notificationMessage);
+        await addNotification(issue.createdBy._id, notificationMessage, {
+          type: "upvote",
+          issueId: issue._id,
+       });
+      }
+     }
+    }
     await issue.save();
-    res.json(issue);
+    const populatedIssue = await issue.populate("createdBy");
+    res.json(populatedIssue);
   } catch (error) {
     console.error("Upvote error:", error); // Log the error for more insight
     res.status(500).json({ error: "Internal server error" });

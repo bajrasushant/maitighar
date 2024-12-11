@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -14,7 +14,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useSignup } from "../hooks/useSignup";
-import { useNavigate } from "react-router-dom";
+
 import { useNotification } from "../context/NotificationContext";
 
 function Copyright(props) {
@@ -61,6 +61,7 @@ export default function SignUp() {
 
     signupMutation.mutate(userData, {
       onSuccess: () => {
+        localStorage.setItem("emailRegisteredForOtp", userData.email);
         navigate("/verifyOTP", { state: { email: userData.email } });
         setNotification({ message: `OTP sent to ${userData.email}`, status: "success" });
       },

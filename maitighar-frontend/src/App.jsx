@@ -10,7 +10,11 @@ import AdminRegister from "./Components/AdminRegister";
 import GlobalIssueMap from "./Components/GlobalIssueMap";
 import Details from "./Components/Details/index";
 import OtpVerification from "./Components/OTPverification";
+import UserProfile from "./Components/UserProfile";
 import CusNotification from "./Components/Notification";
+import VerifyAdminOTP from "./Components/adminOTP";
+import ReportForm from "./Components/IssueForm";
+import PromotionApplicationForm from "./Components/PromotionApplicationForm";
 
 function App() {
   const userDispatch = useUserDispatch();
@@ -43,6 +47,10 @@ function App() {
             element={<OtpVerification />}
           />
           <Route
+            path="/verifyAdminOTP"
+            element={<VerifyAdminOTP />}
+          />
+          <Route
             path="/"
             element={user ? <HomePage /> : <SignIn />}
           />{" "}
@@ -69,6 +77,18 @@ function App() {
           <Route
             path="/admin-map"
             element={<GlobalIssueMap />}
+          />
+          <Route
+            path="/profile"
+            element={<UserProfile />}
+          />
+          <Route
+            path="/create"
+            element={<ReportForm />}
+          />
+          <Route
+            path="/promotion-form"
+            element={<PromotionApplicationForm />}
           />
         </Routes>
       </Router>

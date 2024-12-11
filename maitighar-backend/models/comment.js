@@ -34,7 +34,30 @@ const commentSchema = new Schema({
       ref: "Comment",
     },
   ],
+  type: {
+    type: String,
+    enum: ["general", "wardOfficer"],
+    default: "general",
+  },
+  approvals: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "WardOfficer",
+    },
+  ],
+  isCommunityNote: {
+    type: Boolean,
+    default: false,
+  },
 });
+
+commentSchema.methods.checkApprovalThreshold = function (threshold = 1) {
+  if (this.approvals.length >= threshold) {
+    this.isCommunityNote = true;
+    return true;
+  }
+  return false;
+};
 
 commentSchema.set("toJSON", {
   transform: (document, returnedObject) => {
@@ -43,5 +66,7 @@ commentSchema.set("toJSON", {
     delete returnedObject.__v;
   },
 });
+
+commentSchema.index({ description: "text" });
 
 module.exports = mongoose.model("Comment", commentSchema);

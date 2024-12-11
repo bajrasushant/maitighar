@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef } from "react";
-import { MapContainer, TileLayer, Marker, useMapEvents } from "react-leaflet";
+import {
+  MapContainer, TileLayer, Marker, useMapEvents,
+} from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { Button, Box, Typography } from "@mui/material";
 
@@ -35,7 +37,7 @@ function LocationPicker({ position, setPosition }) {
         },
         () => {
           setError("Unable to retrieve your location. Please select manually on the map.");
-        }
+        },
       );
     } else {
       setError("Geolocation is not supported by your browser. Please select manually on the map.");
