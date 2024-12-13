@@ -41,7 +41,9 @@ function IssuesList() {
     console.log("Updating status for issue ID:", id, "to:", newStatus);
     try {
       const updatedIssue = await issueService.updateStatus(id, newStatus);
-      setIssues((prevIssues) => prevIssues.map((issue) => (issue.id === id ? { ...issue, status: newStatus } : issue)));
+      setIssues((prevIssues) =>
+        prevIssues.map((issue) => (issue.id === id ? { ...issue, status: newStatus } : issue)),
+      );
       console.log("Updated issue status:", updatedIssue);
       setNotification({ message: "Updated issue status sucessfully.", status: "success" });
     } catch (error) {
@@ -66,6 +68,7 @@ function IssuesList() {
     };
     try {
       const response = await axios.get("/api/issues/admin", config);
+      console.log("Fetched issues:", response.data);
       setIssues(response.data);
     } catch (error) {
       console.error("Error fetching issues:", error);
