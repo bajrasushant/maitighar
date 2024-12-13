@@ -110,6 +110,7 @@ function AdminDashboard() {
             </Grid>
           </Grid>
         )}
+        <Outlet />
       </Container>
     </Box>
   );

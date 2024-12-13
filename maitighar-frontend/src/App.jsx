@@ -115,7 +115,8 @@ function App() {
             />
             <Route
               path="active-users"
-              element={<ActiveUsers adminId={user.adminId} />}
+              // element={<ActiveUsers adminId={user.adminId} />}
+              element={<ActiveUsers />}
             />
           </Route>
           <Route
