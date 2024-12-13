@@ -11,8 +11,20 @@ const District = require("../models/district");
 const LocalGov = require("../models/localgov");
 const Comment = require("../models/comment");
 const { addNotification } = require("../utils/notification");
-
 const nodemailer = require("nodemailer");
+
+const NepaliProfanityFilter = require("../utils/profanityfilter");
+const profanityFilter = new NepaliProfanityFilter();
+
+profanityFilter
+  .loadProfaneWords()
+  .then(() => {
+    console.log("Profanity filter ready for use.");
+  })
+  .catch((error) => {
+    console.error("Failed to initialize profanity filter:", error);
+  });
+
 
 const issueRouter = express.Router();
 const { analyzeSentiment } = require("../controllers/sentiment");
@@ -27,6 +39,7 @@ const storage = multer.diskStorage({
     cb(null, `${Date.now()}-${file.originalname}`);
   },
 });
+
 
 const upload = multer({
   storage: storage,
@@ -46,26 +59,35 @@ const upload = multer({
   },
 });
 
+
 // Create a new issue with image upload
 issueRouter.post("/", upload.array("images", 5), async (req, res) => {
   try {
+ 
+    const { title, description, department, assigned_province, assigned_district, assigned_localGov, assigned_ward, latitude, longitude, status, type, category } = req.body;
+
+    // Check profanity only if the filter is ready
+    if (!profanityFilter.isReady) {
+      return res.status(503).json({
+        error: "Profanity filter is not initialized. Please try again later.",
+      });
+    }
+
+
+
+    //     if (
+    //   profanityFilter.containsProfaneWord(sanitizedTitle) ||
+    //   profanityFilter.containsProfaneWord(sanitizedDescription)
+    // ) {
+    //   return res.status(400).json({
+    //     error: "Profane language is not allowed in title or description.",
+    //   });
+    // }
+
     if (!req.user || !req.user.id) {
       return res.status(401).json({ error: "User not authenticated" });
     }
-    const {
-      title,
-      description,
-      department,
-      assigned_province,
-      assigned_district,
-      assigned_localGov,
-      assigned_ward,
-      latitude,
-      longitude,
-      status,
-      type,
-      category,
-    } = req.body;
+
     const user = await User.findById(req.user.id);
 
     if (!user) {
@@ -104,10 +126,14 @@ issueRouter.post("/", upload.array("images", 5), async (req, res) => {
       }
     }
 
+    // Sanitize profane words in title and description
+    const sanitizedTitle = profanityFilter.censorText(title);
+    const sanitizedDescription = profanityFilter.censorText(description);
+
     const issue = new Issue({
-      title,
+      title: sanitizedTitle,
       type,
-      description,
+      description: sanitizedDescription,
       department,
       assigned_province,
       assigned_district,
@@ -128,8 +154,6 @@ issueRouter.post("/", upload.array("images", 5), async (req, res) => {
 
     await issue.save();
 
-        
-    // res.status(201).json(issue);
     // Then analyze sentiment & summarize text and update the issue
     const sentimentResult = await analyzeSentiment(issue._id);
     const summarizedText = await summarizeText(issue._id);
@@ -191,6 +215,8 @@ issueRouter.post("/", upload.array("images", 5), async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
+
+
 
 // get nearby issues
 issueRouter.get("/nearby", async (req, res) => {

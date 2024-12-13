@@ -22,9 +22,12 @@ import { ArrowBack, CloudUpload, Send } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import LocationPicker from "./LocationPicker";
 import issueService from "../services/issues";
+import { useNotification } from "../context/NotificationContext";
+
 
 function ReportForm() {
   const navigate = useNavigate();
+  const { setNotification } = useNotification();
   const defaultReportState = {
     title: "",
     description: "",
