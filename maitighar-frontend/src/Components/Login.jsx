@@ -160,6 +160,7 @@ export default function SignIn() {
               </Typography>
             )}
             <Button
+              id="login-button"
               type="submit"
               fullWidth
               variant="contained"

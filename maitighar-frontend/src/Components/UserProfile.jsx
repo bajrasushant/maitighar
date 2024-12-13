@@ -12,6 +12,7 @@ import {
   Box,
   Tabs,
   Tab,
+  Button,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import helpers from "../helpers/helpers";
@@ -39,12 +40,35 @@ function UserProfile() {
     fetchUserProfile();
   }, []);
 
+  const canReopen = (issue) => {
+    if (!issue || issue.status !== "resolved" || !issue.resolvedAt) {
+      return false;
+    }
+
+    const resolvedAt = new Date(issue.resolvedAt);
+    const oneWeekAgo = new Date();
+    oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+
+    return resolvedAt >= oneWeekAgo;
+  };
+
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue);
   };
 
   const handleCardClick = (id) => {
     navigate(`/details/${id}`);
+  };
+
+  const handleReopenIssue = async (id) => {
+    try {
+      const response = await axios.put(`/api/issues/${id}/reopen`, {}, helpers.getConfig());
+      setNotification({ message: "Issue reopened successfully.", status: "success" });
+      fetchUserProfile(); // Refresh the data
+    } catch (error) {
+      console.error("Error reopening issue:", error);
+      setNotification({ message: "Failed to reopen issue.", status: "error" });
+    }
   };
 
   if (loading) {
@@ -133,6 +157,15 @@ function UserProfile() {
                       issue.createdAt,
                     ).toLocaleDateString()}`}
                   />
+                  {canReopen(issue) && (
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={() => handleReopenIssue(issue.id)}
+                    >
+                      Reopen Issue
+                    </Button>
+                  )}
                 </ListItemButton>
               ))}
             </List>

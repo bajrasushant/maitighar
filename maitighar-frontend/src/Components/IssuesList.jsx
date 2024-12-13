@@ -41,7 +41,9 @@ function IssuesList() {
     console.log("Updating status for issue ID:", id, "to:", newStatus);
     try {
       const updatedIssue = await issueService.updateStatus(id, newStatus);
-      setIssues((prevIssues) => prevIssues.map((issue) => (issue.id === id ? { ...issue, status: newStatus } : issue)));
+      setIssues((prevIssues) =>
+        prevIssues.map((issue) => (issue.id === id ? { ...issue, status: newStatus } : issue)),
+      );
       console.log("Updated issue status:", updatedIssue);
       setNotification({ message: "Updated issue status sucessfully.", status: "success" });
     } catch (error) {
@@ -158,11 +160,16 @@ function IssuesList() {
             {issuesList.map((issue) => (
               <TableRow
                 key={issue.id}
-                onClick={() => handleIssueClick(issue.id)}
+                onClick={(e) => {
+                  const target = e.target.closest("[data-clickable]");
+                  if (target) {
+                    handleIssueClick(issue.id);
+                  }
+                }}
               >
-                <TableCell>{issue.upvotes}</TableCell>
-                <TableCell>{issue.title}</TableCell>
-                <TableCell>{issue.summary}</TableCell>
+                <TableCell data-clickable>{issue.upvotes}</TableCell>
+                <TableCell data-clickable>{issue.title}</TableCell>
+                <TableCell data-cilckable>{issue.summary}</TableCell>
                 <TableCell>
                   <FormControl component="fieldset">
                     <RadioGroup
