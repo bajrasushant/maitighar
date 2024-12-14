@@ -25,7 +25,6 @@ profanityFilter
     console.error("Failed to initialize profanity filter:", error);
   });
 
-
 const issueRouter = express.Router();
 const { analyzeSentiment } = require("../controllers/sentiment");
 const { summarizeText } = require("../controllers/summarization");
@@ -39,7 +38,6 @@ const storage = multer.diskStorage({
     cb(null, `${Date.now()}-${file.originalname}`);
   },
 });
-
 
 const upload = multer({
   storage: storage,
@@ -59,12 +57,23 @@ const upload = multer({
   },
 });
 
-
 // Create a new issue with image upload
 issueRouter.post("/", upload.array("images", 5), async (req, res) => {
   try {
- 
-    const { title, description, department, assigned_province, assigned_district, assigned_localGov, assigned_ward, latitude, longitude, status, type, category } = req.body;
+    const {
+      title,
+      description,
+      department,
+      assigned_province,
+      assigned_district,
+      assigned_localGov,
+      assigned_ward,
+      latitude,
+      longitude,
+      status,
+      type,
+      category,
+    } = req.body;
 
     // Check profanity only if the filter is ready
     if (!profanityFilter.isReady) {
@@ -72,8 +81,6 @@ issueRouter.post("/", upload.array("images", 5), async (req, res) => {
         error: "Profanity filter is not initialized. Please try again later.",
       });
     }
-
-
 
     //     if (
     //   profanityFilter.containsProfaneWord(sanitizedTitle) ||
@@ -216,7 +223,28 @@ issueRouter.post("/", upload.array("images", 5), async (req, res) => {
   }
 });
 
+//Get issue by date for users
+issueRouter.get("/user", async (req, res) => {
+  try {
+    const { limit = 5, sortBy = "createdAt", sortOrder = "desc" } = req.query;
 
+    const sortOptions = {};
+    sortOptions[sortBy] = sortOrder === "asc" ? 1 : -1;
+
+    const issues = await Issue.find({})
+      .sort(sortOptions)
+      .limit(Number(limit))
+      .populate("createdBy", { username: 1 });
+
+    if (!issues.length) {
+      return res.status(404).json({ error: "No recent issues found." });
+    }
+    res.json(issues);
+  } catch (error) {
+    console.error("Error fetching recent issues:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
 
 // get nearby issues
 issueRouter.get("/nearby", async (req, res) => {
@@ -340,29 +368,6 @@ issueRouter.get("/admin", async (req, res) => {
   } catch (error) {
     console.error("Error fetching issues by department:", error);
     // Handle errors and return 500
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
-
-//Get issue by date for users
-issueRouter.get("/user", async (req, res) => {
-  try {
-    const { limit = 5, sortBy = "createdAt", sortOrder = "desc" } = req.query;
-
-    const sortOptions = {};
-    sortOptions[sortBy] = sortOrder === "asc" ? 1 : -1;
-
-    const issues = await Issue.find({})
-      .sort(sortOptions)
-      .limit(Number(limit))
-      .populate("createdBy", { username: 1 });
-
-    if (!issues.length) {
-      return res.status(404).json({ error: "No recent issues found." });
-    }
-    res.json(issues);
-  } catch (error) {
-    console.error("Error fetching recent issues:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 });
@@ -513,21 +518,125 @@ issueRouter.get("/user/user-posts", async (req, res) => {
 // Update a issue
 issueRouter.put("/:id", async (req, res) => {
   try {
-    const { status } = req.body;
-    const issue = await Issue.findById(req.params.id);
+    const { id } = req.params;
+    const updates = req.body;
+
+    // Allowed fields for update
+    const allowedUpdates = [
+      "title",
+      "description",
+      "status",
+      "category",
+      "location",
+      "latitude",
+      "longitude",
+      "assigned_province",
+      "assigned_district",
+      "assigned_local_gov",
+      "assigned_ward",
+      "type",
+      "isActive",
+    ];
+
+    const isValidOperation = Object.keys(updates).every((update) =>
+      allowedUpdates.includes(update),
+    );
+
+    if (!isValidOperation) {
+      return res.status(400).json({
+        error: "Invalid updates!",
+        allowedFields: allowedUpdates,
+      });
+    }
+
+    const issue = await Issue.findById(id);
 
     if (!issue) {
       return res.status(404).json({ error: "Issue not found" });
     }
-    if (status === "resolved") {
-      issue.resolvedAt = new Date();
+
+    if (!issue.isActive) {
+      return res.status(403).json({ error: "Cannot update a deleted issue" });
     }
 
-    issue.status = status;
+    if (updates.status) {
+      if (!["open", "received", "resolved"].includes(updates.status)) {
+        return res.status(400).json({ error: "Invalid status" });
+      }
+
+      if (updates.status === "resolved") {
+        updates.resolvedAt = new Date();
+      }
+    }
+
+    // Validate location if updating
+    if (updates.location) {
+      if (
+        updates.location.type !== "Point" ||
+        !Array.isArray(updates.location.coordinates) ||
+        updates.location.coordinates.length !== 2
+      ) {
+        return res.status(400).json({ error: "Invalid location format" });
+      }
+    }
+
+    const updateFields = [
+      "title",
+      "description",
+      "status",
+      "category",
+      "location",
+      "latitude",
+      "longitude",
+      "assigned_province",
+      "assigned_district",
+      "assigned_local_gov",
+      "assigned_ward",
+      "type",
+      "isActive",
+    ];
+
+    updateFields.forEach((field) => {
+      if (updates[field] !== undefined) {
+        issue[field] = updates[field];
+      }
+    });
+
+    // Special handling for ward validation
+    if (updates.assigned_ward !== undefined) {
+      if (issue.assigned_local_gov) {
+        const localGov = await LocalGov.findById(issue.assigned_local_gov);
+        if (
+          !localGov ||
+          updates.assigned_ward <= 0 ||
+          updates.assigned_ward > localGov.number_of_wards
+        ) {
+          return res.status(400).json({
+            error: "Invalid ward number for the selected local government",
+          });
+        }
+      } else if (updates.assigned_ward) {
+        return res.status(400).json({
+          error: "Ward can only be set when a local government is assigned",
+        });
+      }
+    }
+
+    // Save the updated issue
     await issue.save();
-    res.json(issue);
+
+    const populated = await issue.populate("createdBy");
+    res.json(populated);
   } catch (error) {
-    console.error("Error updating issue status:", error);
+    console.error("Error updating issue:", error);
+
+    if (error.name === "ValidationError") {
+      return res.status(400).json({
+        error: "Validation Error",
+        details: error.errors,
+      });
+    }
+
     res.status(500).json({ error: "Internal server error" });
   }
 });
@@ -560,7 +669,7 @@ issueRouter.put("/:id", upload.single("image"), async (req, res) => {
 // Delete an issue
 issueRouter.delete("/:id", async (req, res) => {
   try {
-    const issue = await Issue.findByIdAndDelete(req.params.id);
+    const issue = await Issue.findById(req.params.id);
 
     if (!issue) {
       return res.status(404).json({ error: "issue not found" });
@@ -571,7 +680,9 @@ issueRouter.delete("/:id", async (req, res) => {
       return res.status(403).json({ error: "You do not have permission to delete this issue" });
     }
 
-    await issue.remove();
+    // await issue.remove();
+    issue.isActive = false;
+    await issue.save();
     res.json({ message: "Issue deleted" });
   } catch (error) {
     console.error("Error deleting issue:", error);
