@@ -4,6 +4,7 @@ import { useNavigate, Outlet } from "react-router-dom";
 import { useUserDispatch, useUserValue } from "../context/UserContext";
 import GlobalIssueMap from "./GlobalIssueMap";
 import IssuesSuggestionsLineChart from "./IssuesSuggestionsLineChart";
+import IssuesSuggestionsPieChart from "./IssuesSuggestionsPieChart";
 
 function AdminDashboard() {
   const [activeTab, setActiveTab] = useState("dashboard");
@@ -75,7 +76,7 @@ function AdminDashboard() {
             <Grid
               item
               xs={12}
-              md={6}
+              // md={6}
             >
               <Paper
                 elevation={3}
@@ -90,6 +91,7 @@ function AdminDashboard() {
                 <GlobalIssueMap />
               </Paper>
             </Grid>
+            {/* TODO: fix responsiveness */}
             <Grid
               item
               xs={12}
@@ -106,6 +108,24 @@ function AdminDashboard() {
                   Issues and Suggestions Over Time
                 </Typography>
                 <IssuesSuggestionsLineChart />
+              </Paper>
+            </Grid>
+            <Grid
+              item
+              xs={12}
+              md={6}
+            >
+              <Paper
+                elevation={3}
+                sx={{ p: 2, height: "100%" }}
+              >
+                <Typography
+                  variant="h6"
+                  gutterBottom
+                >
+                  Issues and Suggestions Overview
+                </Typography>
+                <IssuesSuggestionsPieChart />
               </Paper>
             </Grid>
           </Grid>

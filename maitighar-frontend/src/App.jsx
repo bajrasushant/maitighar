@@ -96,7 +96,7 @@ function App() {
           >
             {/* Default dashboard route */}
             <Route
-              index
+              // index
               element={<GlobalIssueMap />}
             />
 
