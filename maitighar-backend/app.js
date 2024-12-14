@@ -18,6 +18,7 @@ const commentRouter = require("./controllers/comments");
 const nepalRouter = require("./controllers/nepalDetails");
 const categoryRouter = require("./controllers/categories");
 const wardOfficerRouter = require("./controllers/wardOfficers");
+const landingPageRouter = require("./controllers/landingpage");
 
 const userProfileRouter = require("./controllers/userProfile");
 
@@ -37,6 +38,7 @@ app.use(middleware.requestLogger);
 app.use(middleware.tokenExtractor);
 
 // Routes without middleware
+app.use("/api/landingpage", landingPageRouter);
 app.use("/api/users", userRouter);
 app.use("/api/login", loginRouter);
 app.use("/api/adminlogin", adminloginRouter);
