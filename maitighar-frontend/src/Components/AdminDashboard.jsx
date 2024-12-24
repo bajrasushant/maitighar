@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { AppBar, Toolbar, Typography, Button, Container, Box, Grid, Paper } from "@mui/material";
 import { useNavigate, Outlet } from "react-router-dom";
-import { useUserDispatch, useUserValue } from "../context/UserContext";
+import { useUserDispatch } from "../context/UserContext";
 import GlobalIssueMap from "./GlobalIssueMap";
 import IssuesSuggestionsLineChart from "./IssuesSuggestionsLineChart";
 import IssuesSuggestionsPieChart from "./IssuesSuggestionsPieChart";
@@ -10,7 +10,6 @@ import SentimentGauge from "./SentimentGaugeChart";
 function AdminDashboard() {
   const [activeTab, setActiveTab] = useState("dashboard");
   const userDispatch = useUserDispatch();
-  const userData = useUserValue();
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -65,10 +64,10 @@ function AdminDashboard() {
           </Button>
         </Toolbar>
       </AppBar>
-      {/* <Container sx={{ mt: 4, height: "calc(100vh - 64px)" }}>
-        <Outlet /> {/* This will render child routes
-      </Container> */}
-      <Container sx={{ mt: 4, height: "calc(100vh - 64px)" }}>
+      <Container
+        maxWidth="xl"
+        sx={{ mt: 4, mb: 4 }}
+      >
         {activeTab === "dashboard" && (
           <Grid
             container
@@ -77,11 +76,10 @@ function AdminDashboard() {
             <Grid
               item
               xs={12}
-              // md={6}
             >
               <Paper
-                elevation={3}
-                sx={{ p: 2, height: "100%" }}
+                elevation={2}
+                sx={{ p: 2, height: 400, borderRadius: 2, overflow: "hidden" }}
               >
                 <Typography
                   variant="h6"
@@ -92,15 +90,20 @@ function AdminDashboard() {
                 <GlobalIssueMap />
               </Paper>
             </Grid>
-            {/* TODO: fix responsiveness */}
             <Grid
               item
               xs={12}
-              md={6}
+              md={4}
             >
               <Paper
-                elevation={3}
-                sx={{ p: 2, height: "100%" }}
+                elevation={2}
+                sx={{
+                  p: 2,
+                  height: 400,
+                  borderRadius: 2,
+                  display: "flex",
+                  flexDirection: "column",
+                }}
               >
                 <Typography
                   variant="h6"
@@ -108,17 +111,32 @@ function AdminDashboard() {
                 >
                   Issues and Suggestions Over Time
                 </Typography>
-                <IssuesSuggestionsLineChart />
+                <Box
+                  sx={{
+                    flexGrow: 1,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <IssuesSuggestionsLineChart />
+                </Box>
               </Paper>
             </Grid>
             <Grid
               item
               xs={12}
-              md={6}
+              md={4}
             >
               <Paper
-                elevation={3}
-                sx={{ p: 2, height: "100%" }}
+                elevation={2}
+                sx={{
+                  p: 2,
+                  height: 400,
+                  borderRadius: 2,
+                  display: "flex",
+                  flexDirection: "column",
+                }}
               >
                 <Typography
                   variant="h6"
@@ -126,17 +144,32 @@ function AdminDashboard() {
                 >
                   Issues and Suggestions Overview
                 </Typography>
-                <IssuesSuggestionsPieChart />
+                <Box
+                  sx={{
+                    flexGrow: 1,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <IssuesSuggestionsPieChart />
+                </Box>
               </Paper>
             </Grid>
             <Grid
               item
               xs={12}
-              md={6}
+              md={4}
             >
               <Paper
-                elevation={3}
-                sx={{ p: 2, height: "100%" }}
+                elevation={2}
+                sx={{
+                  p: 2,
+                  height: 400,
+                  borderRadius: 2,
+                  display: "flex",
+                  flexDirection: "column",
+                }}
               >
                 <Typography
                   variant="h6"
@@ -144,7 +177,16 @@ function AdminDashboard() {
                 >
                   Sentiment Analysis Overview
                 </Typography>
-                <SentimentGauge />
+                <Box
+                  sx={{
+                    flexGrow: 1,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <SentimentGauge />
+                </Box>
               </Paper>
             </Grid>
           </Grid>

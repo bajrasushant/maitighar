@@ -5,8 +5,7 @@ import {
   GaugeReferenceArc,
   useGaugeState,
 } from "@mui/x-charts/Gauge";
-import { Typography, Box } from "@mui/material";
-import axios from "axios";
+import { Typography, Box, useTheme, useMediaQuery } from "@mui/material";
 import issueService from "../services/issues";
 
 function GaugePointer() {
@@ -42,28 +41,19 @@ function SentimentGauge() {
   const [sentimentData, setSentimentData] = useState({
     averageScore: 0,
     totalIssues: 0,
-    distribution: {
-      negative: 0,
-      neutral: 0,
-      positive: 0,
-    },
+    distribution: { negative: 0, neutral: 0, positive: 0 },
   });
-  const adminData = JSON.parse(localStorage.getItem("loggedAdmin"));
-  const { token } = adminData;
   const [isLoading, setIsLoading] = useState(true);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   useEffect(() => {
     const fetchSentimentData = async () => {
       try {
         setIsLoading(true);
-        // Calculate sentiment statistics
         const issues = await issueService.getAll();
         let totalScore = 0;
-        let sentimentCounts = {
-          negative: 0,
-          neutral: 0,
-          positive: 0,
-        };
+        let sentimentCounts = { negative: 0, neutral: 0, positive: 0 };
 
         issues.forEach((issue) => {
           totalScore += issue.sentimentScore;
@@ -71,7 +61,6 @@ function SentimentGauge() {
         });
 
         const averageScore = issues.length > 0 ? totalScore / issues.length : 0;
-        // Convert from -1:1 range to 0:100 range
         const normalizedScore = ((averageScore + 1) / 2) * 100;
 
         setSentimentData({
@@ -112,10 +101,18 @@ function SentimentGauge() {
   const sentiment = getSentimentCategory(sentimentData.averageScore);
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        width: "100%",
+        height: "100%",
+      }}
+    >
       <GaugeContainer
-        width={300}
-        height={200}
+        width={isMobile ? 250 : 300}
+        height={isMobile ? 150 : 200}
         startAngle={-150}
         endAngle={150}
         value={sentimentData.averageScore}
