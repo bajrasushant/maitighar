@@ -5,6 +5,7 @@ import { useUserDispatch, useUserValue } from "../context/UserContext";
 import GlobalIssueMap from "./GlobalIssueMap";
 import IssuesSuggestionsLineChart from "./IssuesSuggestionsLineChart";
 import IssuesSuggestionsPieChart from "./IssuesSuggestionsPieChart";
+import SentimentGauge from "./SentimentGaugeChart";
 
 function AdminDashboard() {
   const [activeTab, setActiveTab] = useState("dashboard");
@@ -126,6 +127,24 @@ function AdminDashboard() {
                   Issues and Suggestions Overview
                 </Typography>
                 <IssuesSuggestionsPieChart />
+              </Paper>
+            </Grid>
+            <Grid
+              item
+              xs={12}
+              md={6}
+            >
+              <Paper
+                elevation={3}
+                sx={{ p: 2, height: "100%" }}
+              >
+                <Typography
+                  variant="h6"
+                  gutterBottom
+                >
+                  Sentiment Analysis Overview
+                </Typography>
+                <SentimentGauge />
               </Paper>
             </Grid>
           </Grid>

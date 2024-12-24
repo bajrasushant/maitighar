@@ -24,7 +24,7 @@ function IssuesSuggestionsPieChart() {
           return acc;
         }, {});
 
-        console.log("Categories:", categoriesMap);
+        // console.log("Categories:", categoriesMap);
         setCategories(categoriesMap);
 
         // Fetch issues
