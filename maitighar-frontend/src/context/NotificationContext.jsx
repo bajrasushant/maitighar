@@ -11,7 +11,10 @@ export function NotificationProvider({ children }) {
   console.log(value);
 
   return (
-    <NotificationContext.Provider value={value}>
+    <NotificationContext.Provider
+      value={value}
+      id="notification"
+    >
       {children}
     </NotificationContext.Provider>
   );

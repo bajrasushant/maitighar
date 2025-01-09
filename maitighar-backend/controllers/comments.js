@@ -17,6 +17,20 @@ const checkWardOfficerJurisdiction = async (userId, issue) => {
 const User = require("../models/user");
 const { addNotification } = require("../utils/notification");
 
+const NepaliProfanityFilter = require("../utils/profanityfilter");
+const profanityFilter = new NepaliProfanityFilter();
+
+profanityFilter
+  .loadProfaneWords()
+  .then(() => {
+    console.log("Profanity filter ready for use.");
+  })
+  .catch((error) => {
+    console.error("Failed to initialize profanity filter:", error);
+  });
+
+
+
 // Create a new comment
 commentRouter.post("/", async (req, res) => {
   try {
@@ -29,9 +43,13 @@ commentRouter.post("/", async (req, res) => {
 
     const isWardOfficer = await checkWardOfficerJurisdiction(req.user.id, issueDoc);
 
+    // Censor the comment description
+    const censoredDescription = profanityFilter.censorText(description);
+
     //Create new comment
     const comment = new Comment({
       ...req.body,
+      description: censoredDescription,
       createdBy: req.user.id,
       type: isWardOfficer ? "wardOfficer" : "general",
     });
@@ -49,14 +67,14 @@ commentRouter.post("/", async (req, res) => {
        if (updatedIssue && updatedIssue.createdBy && updatedIssue.createdBy.id !== req.user.id) {
         const userId = updatedIssue.createdBy.toString();
         const commenter = await User.findById(req.user.id);
-        const notificationMessage = `${commenter.username} commented on your issue: "${description}".`;
+        const notificationMessage = `${commenter.username} commented on your issue: "${censoredDescription}".`;
 
         console.log("updatedIssue:", updatedIssue);
         await addNotification(updatedIssue.createdBy, notificationMessage, {
           type: "comment",
           issueId: updatedIssue._id,
           commentId: comment._id,
-          content: description, // Include the comment content in metadata if needed
+          content: censoredDescription, // Include the comment content in metadata if needed
         });
       }
     }
@@ -74,13 +92,13 @@ commentRouter.post("/", async (req, res) => {
 
     if (parent && parent.createdBy && parent.createdBy.id !== req.user.id) {
       const replier = await User.findById(req.user.id);
-      const notificationMessage = `${replier.username} replied to your comment: "${description}".`;
+      const notificationMessage = `${replier.username} replied to your comment: "${censoredDescription}".`;
 
       await addNotification(parent.createdBy.id, notificationMessage, {
         type: "reply",
         commentId: parentComment,
         replyId: comment._id,
-        content: description, // Include the reply content in metadata if needed
+        content: censoredDescription, // Include the reply content in metadata if needed
       });
     }
   }

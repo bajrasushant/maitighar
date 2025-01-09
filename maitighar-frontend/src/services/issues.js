@@ -76,6 +76,28 @@ const getRecentIssues = async (limit = 10) => {
   return response.data;
 };
 
+const updateIssue = async (id, updatedIssue) => {
+  try {
+    const config = helpers.getConfig();
+    const response = await axios.put(`${baseUrl}/${id}`, updatedIssue, config);
+    return response.data;
+  } catch (error) {
+    console.error("Error updating the issue:", error.response?.data || error.message);
+    throw error; // Re-throw the error to handle it in the calling function
+  }
+};
+
+const deleteIssue = async (id) => {
+  try {
+    const config = helpers.getConfig();
+    const response = await axios.delete(`${baseUrl}/${id}`, config);
+    return response.data;
+  } catch (error) {
+    console.error("Error deleting the issue:", error.response?.data || error.message);
+    throw error;
+  }
+};
+
 export default {
   getAll,
   getNearby,
@@ -85,4 +107,6 @@ export default {
   getIssuesByDepartment,
   updateStatus,
   getRecentIssues,
+  updateIssue,
+  deleteIssue,
 };

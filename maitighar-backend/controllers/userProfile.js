@@ -13,11 +13,11 @@ userProfileRouter.get("/me", async (req, res) => {
       .populate("upvotedIssues", "title description status createdAt");
 
     if (!user) {
-      return res.status(404).json({ error: "User not found" });
+      return res.status(400).json({ error: "User not found" });
     }
 
     const postedIssues = await Issue.find({ createdBy: userId })
-      .select("title description status createdAt")
+      .select("title description status createdAt status resolvedAt")
       .sort({ createdAt: -1 });
 
     const postedComments = await Comment.find({ createdBy: userId })

@@ -121,6 +121,22 @@ const issueSchema = new Schema({
   summary: {
     type: String,
   },
+  resolvedAt: {
+    type: Date,
+    default: null,
+  },
+  reopened: {
+    type: Boolean,
+    default: false,
+  },
+  reopenedAt: {
+    type: Date,
+    default: null,
+  },
+  isActive:{
+    type: Boolean,
+    default: true,
+  }
 });
 
 issueSchema.index({ location: "2dsphere" });
@@ -129,6 +145,10 @@ issueSchema.index({ location: "2dsphere" });
 issueSchema.pre("save", function (next) {
   this.upvotes = this.upvotedBy.length;
   next();
+});
+
+issueSchema.pre('find', function() {
+  this.where({ isActive: true });
 });
 
 issueSchema.set("toJSON", {

@@ -15,7 +15,7 @@ function Details({ isAdmin = false }) {
   const navigate = useNavigate();
   const [issue, setIssue] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
   const { setNotification } = useNotification();
   const { locationName, fetchLocationName } = useLocationName();
   const {
@@ -58,7 +58,7 @@ function Details({ isAdmin = false }) {
         }
       } catch (err) {
         if (!isMounted) return;
-        setError("Failed to fetch issue details");
+        setErrorMessage("Failed to fetch issue details");
         setNotification({ message: "Error loading issue details", status: "error" });
       } finally {
         if (isMounted) {
@@ -82,6 +82,17 @@ function Details({ isAdmin = false }) {
     }
   };
 
+  const handleDelete = async (issueId) => {
+    try {
+      await issueService.deleteIssue(issueId);
+      setNotification({ message: "Issue deleted successfully", status: "success" });
+      navigate("/");
+    } catch (error) {
+      console.error("Failed to delete issue:", error);
+      setNotification({ message: "Failed to delete issue", status: "error" });
+    }
+  };
+
   if (loading) {
     return (
       <Container className="flex justify-center items-center h-screen">
@@ -90,10 +101,10 @@ function Details({ isAdmin = false }) {
     );
   }
 
-  if (error) {
+  if (errorMessage) {
     return (
       <Container>
-        <Typography color="error">{error}</Typography>
+        <Typography color="error">{errorMessage}</Typography>
         <Button onClick={handleBackToHome}>Go back to Home</Button>
       </Container>
     );
@@ -121,17 +132,13 @@ function Details({ isAdmin = false }) {
         Back to Home
       </Button>
 
-      {loading ? (
-        <Box
-          display="flex"
-          justifyContent="center"
+      {!issue || !issue.isActive ? (
+        <Typography
+          variant="h6"
+          color="error"
         >
-          <CircularProgress />
-        </Box>
-      ) : error ? (
-        <Typography color="error">{error}</Typography>
-      ) : !issue ? (
-        <Typography>No report found with this ID.</Typography>
+          This issue has been deleted.
+        </Typography>
       ) : (
         <>
           <IssueCard
@@ -139,6 +146,7 @@ function Details({ isAdmin = false }) {
             setIssue={setIssue}
             locationName={locationName}
             commentsCount={comments.length}
+            onDelete={handleDelete}
           />
 
           <CommentSection
