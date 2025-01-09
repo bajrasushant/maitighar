@@ -79,7 +79,15 @@ function AdminDashboard() {
             >
               <Paper
                 elevation={2}
-                sx={{ p: 2, height: 400, borderRadius: 2, overflow: "hidden" }}
+                sx={{
+                  p: 2,
+                  height: 400,
+                  borderRadius: 2,
+                  // overflow: "hidden",
+                  justifyContent: "center",
+                  display: "flex",
+                  flexDirection: "column",
+                }}
               >
                 <Typography
                   variant="h6"
