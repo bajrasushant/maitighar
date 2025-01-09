@@ -11,10 +11,10 @@ import {
   CircularProgress,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { formatDistanceToNow } from "date-fns";
 import issueService from "../services/issues";
 import { useNotification } from "../context/NotificationContext";
 import getDisplayUsername from "./Details/utils";
-import { formatDistanceToNow } from "date-fns";
 
 function RecentPosts() {
   const [recentIssues, setRecentIssues] = useState([]);
