@@ -67,7 +67,8 @@ function IssuesList() {
       },
     };
     try {
-      const response = await axios.get("/api/issues/admin", config);
+      const response = await axios.get("/api/issues/admin", config); //TODO: Use issueService to get exact number of issues
+      console.log("Fetched issues:", response.data);
       setIssues(response.data);
     } catch (error) {
       console.error("Error fetching issues:", error);
