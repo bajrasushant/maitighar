@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { useEffect } from "react";
 import SignIn from "./Components/Login";
 import SignUp from "./Components/Register";
@@ -15,6 +15,7 @@ import CusNotification from "./Components/Notification";
 import VerifyAdminOTP from "./Components/adminOTP";
 import ReportForm from "./Components/IssueForm";
 import PromotionApplicationForm from "./Components/PromotionApplicationForm";
+import LandingPage from "./Components/LandingPage";
 
 function App() {
   const userDispatch = useUserDispatch();
@@ -36,7 +37,7 @@ function App() {
         <Routes>
           <Route
             path="/login"
-            element={user ? <HomePage /> : <SignIn />}
+            element={user ? <Navigate to="/" /> : <SignIn />}
           />
           <Route
             path="/register"
@@ -52,7 +53,7 @@ function App() {
           />
           <Route
             path="/"
-            element={user ? <HomePage /> : <SignIn />}
+            element={user ? <HomePage /> : <LandingPage />}
           />{" "}
           <Route
             path="/details/:id"
