@@ -594,6 +594,7 @@ issueRouter.put("/:id", async (req, res) => {
       "assigned_ward",
       "type",
       "isActive",
+      "resolvedAt"
     ];
 
     updateFields.forEach((field) => {
@@ -770,6 +771,7 @@ issueRouter.put("/:id/reopen", async (req, res) => {
 
     issue.status = "open";
     issue.reopened = true;
+    issue.resolvedAt = null;
     issue.reopenedAt = new Date();
     await issue.save();
 
