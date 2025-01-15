@@ -30,7 +30,7 @@ function Copyright(props) {
         color="inherit"
         href="https://mui.com/"
       >
-        Maitighar
+        Grievance Redressal System
       </Link>{" "}
       {new Date().getFullYear()}.
     </Typography>

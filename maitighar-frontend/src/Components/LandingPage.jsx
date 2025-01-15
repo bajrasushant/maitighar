@@ -9,13 +9,16 @@ import {
   CardActions,
   Grid,
   Box,
-  Link,
+  List,
+  ListItem,
+  ListItemText,
+  Divider,
   Chip,
   ThemeProvider,
   createTheme,
   CssBaseline,
 } from "@mui/material";
-import { ThumbUp, Comment } from "@mui/icons-material";
+import { ThumbUp, Comment, ArrowUpward } from "@mui/icons-material";
 
 // Create a theme instance
 const theme = createTheme({
@@ -48,6 +51,21 @@ function LandingPage() {
 
     fetchTrendingIssues();
   }, []);
+
+  const getTimeAgo = (date) => {
+    const seconds = Math.floor((new Date() - new Date(date)) / 1000);
+    let interval = seconds / 31536000;
+    if (interval > 1) return `${Math.floor(interval)} years ago`;
+    interval = seconds / 2592000;
+    if (interval > 1) return `${Math.floor(interval)} months ago`;
+    interval = seconds / 86400;
+    if (interval > 1) return `${Math.floor(interval)} days ago`;
+    interval = seconds / 3600;
+    if (interval > 1) return `${Math.floor(interval)} hours ago`;
+    interval = seconds / 60;
+    if (interval > 1) return `${Math.floor(interval)} minutes ago`;
+    return `${Math.floor(seconds)} seconds ago`;
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -135,60 +153,91 @@ function LandingPage() {
           >
             Trending Issues Nearby
           </Typography>
-          <Grid
-            container
-            spacing={3}
-          >
-            {trendingIssues.map((issue) => (
-              <Grid
-                item
-                xs={12}
-                sm={6}
-                md={4}
-                key={issue.id}
-              >
-                <Card>
-                  <CardContent>
-                    <Typography
-                      variant="h6"
-                      component="div"
-                      gutterBottom
-                    >
-                      {issue.title}
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      color="text.secondary"
-                      paragraph
-                    >
-                      {issue.description.substring(0, 100)}...
-                    </Typography>
-                    <Typography
-                      variant="caption"
-                      display="block"
-                      gutterBottom
-                    >
-                      Posted on {new Date(issue.createdAt).toLocaleDateString()}
-                    </Typography>
-                    <Box sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}>
-                      <Chip
-                        icon={<ThumbUp />}
-                        label={issue.upvotes}
-                        size="small"
-                        color="primary"
-                      />
-                      <Chip
-                        icon={<Comment />}
-                        label={issue.comments.length}
-                        size="small"
-                        color="secondary"
-                      />
-                    </Box>
-                  </CardContent>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
+          <Card>
+            <List>
+              {trendingIssues.map((issue, index) => (
+                <ListItem
+                  key={issue.id}
+                  alignItems="flex-start"
+                >
+                  <ListItemText
+                    primary={
+                      <Typography
+                        variant="subtitle1"
+                        color="text.primary"
+                      >
+                        {issue.title}
+                      </Typography>
+                    }
+                    secondary={
+                      <Box>
+                        <Typography
+                          component="span"
+                          variant="body2"
+                          color="text.primary"
+                        >
+                          {/* {issue.createdBy ? `@${issue.createdBy.username} • ` : ""} */}
+                          {getTimeAgo(issue.createdAt)}
+                        </Typography>
+                        <Typography
+                          variant="body2"
+                          color="text.secondary"
+                          paragraph
+                        >
+                          {issue.description.substring(0, 150)}...
+                        </Typography>
+                        {/* <Box sx={{ display: "flex", alignItems: "center", gap: 2, mt: 1 }}>
+                          <Chip
+                            label={issue.type}
+                            color={issue.type === "issue" ? "error" : "success"}
+                            size="small"
+                          />
+                          <Chip
+                            label={`Ward No. ${issue.assigned_ward}`}
+                            color="primary"
+                            variant="outlined"
+                            size="small"
+                          />
+                        </Box> */}
+                        <Box sx={{ display: "flex", alignItems: "center", gap: 2, mt: 1 }}>
+                          <Box sx={{ display: "flex", alignItems: "center" }}>
+                            <ArrowUpward
+                              fontSize="small"
+                              color="action"
+                            />
+                            <Typography
+                              variant="body2"
+                              color="text.secondary"
+                            >
+                              {issue.upvotes}
+                            </Typography>
+                          </Box>
+                          <Box sx={{ display: "flex", alignItems: "center" }}>
+                            <Comment
+                              fontSize="small"
+                              color="action"
+                            />
+                            <Typography
+                              variant="body2"
+                              color="text.secondary"
+                            >
+                              {issue.comments.length}
+                            </Typography>
+                          </Box>
+                        </Box>
+                      </Box>
+                    }
+                  />
+                  {index < trendingIssues.length - 1 && (
+                    <Divider
+                      component="li"
+                      sx={{ position: "absolute", bottom: 0, left: 0, right: 0 }}
+                    />
+                  )}
+                </ListItem>
+              ))}
+            </List>
+          </Card>
         </Box>
       </Container>
     </ThemeProvider>

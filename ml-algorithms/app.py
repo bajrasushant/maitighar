@@ -14,8 +14,8 @@ CORS(app)
 
 # Load the trained model and vectorizer
 try:
-    model = joblib.load('sentiment-analysis/sentiment_analysis_model.joblib')
-    vectorizer = joblib.load('sentiment-analysis/tfidf_vectorizer.joblib')
+    model = joblib.load('sentiment-analysis/sentiment_analysis_model-v3.joblib')
+    vectorizer = joblib.load('sentiment-analysis/tfidf_vectorizer-v3.joblib')
 except Exception as e:
     print(f"Error loading model: {str(e)}")
     raise

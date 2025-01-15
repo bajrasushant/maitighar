@@ -28,7 +28,7 @@ function Copyright(props) {
         color="inherit"
         to="/"
       >
-        Maitighar
+        Grievance Redressal System
       </Link>{" "}
       {new Date().getFullYear()}.
     </Typography>
@@ -111,12 +111,12 @@ export default function AdminLogin() {
               onChange={({ target }) => setPassword(target.value)}
             />
             <FormControlLabel
-              control={(
+              control={
                 <Checkbox
                   value="remember"
                   color="primary"
                 />
-              )}
+              }
               label="Remember me"
             />
             {error && (
