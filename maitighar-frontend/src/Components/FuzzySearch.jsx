@@ -18,10 +18,7 @@ function SearchIssues({ open, onClose, onIssueClick }) {
   const [results, setResults] = useState([]);
 
   useEffect(() => {
-    // Simulate fetching data based on searchQuery and mode
     const fetchData = async () => {
-      // Replace this with your actual API call
-      //
       if (!query.trim()) {
         setResults([]);
         return;
@@ -33,7 +30,6 @@ function SearchIssues({ open, onClose, onIssueClick }) {
           params: { query, mode },
           ...config,
         });
-        console.log(response.data);
         setResults(response.data);
       } catch (error) {
         console.error("Search error:", error);
@@ -43,7 +39,7 @@ function SearchIssues({ open, onClose, onIssueClick }) {
     if (query) {
       fetchData();
     }
-  }, [query, mode]);
+  }, [query]);
 
   const handleSearchChange = (event) => {
     setQuery(event.target.value);
@@ -112,7 +108,7 @@ function SearchIssues({ open, onClose, onIssueClick }) {
           )}
 
           {mode === ":issue" &&
-            results.map((issue) => (
+            results.issues.map((issue) => (
               <ListItemButton
                 key={issue.id}
                 onClick={() => onIssueClick(issue.id)}
@@ -125,7 +121,7 @@ function SearchIssues({ open, onClose, onIssueClick }) {
             ))}
 
           {mode === ":comment" &&
-            results.map((comment) => (
+            results.comments.map((comment) => (
               <ListItemButton
                 key={comment.id}
                 onClick={() => onIssueClick(comment.issue)}
