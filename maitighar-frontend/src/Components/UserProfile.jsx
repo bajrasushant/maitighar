@@ -22,10 +22,12 @@ import {
 import { useNavigate } from "react-router-dom";
 import { Person, Comment, ThumbUp } from "@mui/icons-material";
 import helpers from "../helpers/helpers";
+import { useNotification } from "../context/NotificationContext";
 
 function UserProfile() {
   const [profileData, setProfileData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const { setNotification } = useNotification();
   const [error, setError] = useState("");
   const [tabValue, setTabValue] = useState(0);
   const navigate = useNavigate();
@@ -70,7 +72,7 @@ function UserProfile() {
     try {
       const response = await axios.put(`/api/issues/${id}/reopen`, {}, helpers.getConfig());
       setNotification({ message: "Issue reopened successfully.", status: "success" });
-      fetchUserProfile(); // Refresh the data
+      //fetchUserProfile(); // Refresh the data
     } catch (error) {
       console.error("Error reopening issue:", error);
       setNotification({ message: "Failed to reopen issue.", status: "error" });
