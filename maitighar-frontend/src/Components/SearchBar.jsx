@@ -9,47 +9,148 @@ import {
   ListItemText,
   Typography,
   Chip,
-  Popper,
   ClickAwayListener,
-  Fade,
 } from "@mui/material";
 import { Search as SearchIcon, Close as CloseIcon } from "@mui/icons-material";
 import axios from "axios";
 import helpers from "../helpers/helpers";
 
+function SearchResults({ results, onIssueClick, handleClear }) {
+  return (
+    <Paper
+      sx={{
+        position: "absolute",
+        top: "100%",
+        left: 0,
+        right: 0,
+        mt: 0.5,
+        maxHeight: "50vh",
+        overflow: "auto",
+        border: "1px solid",
+        borderColor: "divider",
+        zIndex: 1500,
+        bgcolor: "background.paper",
+      }}
+      elevation={3}
+    >
+      <List sx={{ p: 1, width: "100%" }}>
+        {results.issues.map((issue) => (
+          <ListItemButton
+            key={issue.id}
+            onClick={() => {
+              onIssueClick(issue.id);
+              handleClear();
+            }}
+            sx={{ borderRadius: 1 }}
+          >
+            <ListItemText
+              primary={<Typography variant="subtitle1">{issue.title}</Typography>}
+              secondary={
+                <Box sx={{ mt: 0.5 }}>
+                  <Box sx={{ display: "flex", gap: 1, mb: 0.5 }}>
+                    <Chip
+                      label={issue.type}
+                      color={issue.type === "issue" ? "error" : "success"}
+                      size="small"
+                    />
+                    <Typography
+                      variant="caption"
+                      color="text.secondary"
+                    >
+                      {getTimeAgo(issue.createdAt)} ago
+                    </Typography>
+                  </Box>
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    sx={{
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      display: "-webkit-box",
+                      WebkitLineClamp: 2,
+                      WebkitBoxOrient: "vertical",
+                    }}
+                  >
+                    {issue.description}
+                  </Typography>
+                </Box>
+              }
+            />
+          </ListItemButton>
+        ))}
+        {results.comments.map((comment) => (
+          <ListItemButton
+            key={comment.id}
+            onClick={() => {
+              onIssueClick(comment.issue);
+              handleClear();
+            }}
+            sx={{ borderRadius: 1 }}
+          >
+            <ListItemText
+              primary={
+                <Typography
+                  variant="body2"
+                  sx={{
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    display: "-webkit-box",
+                    WebkitLineClamp: 2,
+                    WebkitBoxOrient: "vertical",
+                  }}
+                >
+                  {comment.description}
+                </Typography>
+              }
+              secondary={
+                <Typography
+                  variant="caption"
+                  color="text.secondary"
+                >
+                  Comment • {getTimeAgo(comment.createdAt)} ago
+                </Typography>
+              }
+            />
+          </ListItemButton>
+        ))}
+      </List>
+    </Paper>
+  );
+}
+
+const getTimeAgo = (date) => {
+  const seconds = Math.floor((new Date() - new Date(date)) / 1000);
+  let interval = seconds / 31536000;
+  if (interval > 1) return `${Math.floor(interval)}y`;
+  interval = seconds / 2592000;
+  if (interval > 1) return `${Math.floor(interval)}mo`;
+  interval = seconds / 86400;
+  if (interval > 1) return `${Math.floor(interval)}d`;
+  interval = seconds / 3600;
+  if (interval > 1) return `${Math.floor(interval)}h`;
+  interval = seconds / 60;
+  if (interval > 1) return `${Math.floor(interval)}m`;
+  return `${Math.floor(seconds)}s`;
+};
+
 export default function SearchBar({ onIssueClick }) {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState({ issues: [], comments: [] });
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleSearchChange = (event) => {
     setQuery(event.target.value);
-    setAnchorEl(event.currentTarget);
+    setIsOpen(true);
   };
 
   const handleClear = () => {
     setQuery("");
     setResults({ issues: [], comments: [] });
-    setAnchorEl(null);
+    setIsOpen(false);
   };
 
   const handleClickAway = () => {
-    setAnchorEl(null);
-  };
-
-  const getTimeAgo = (date) => {
-    const seconds = Math.floor((new Date() - new Date(date)) / 1000);
-    let interval = seconds / 31536000;
-    if (interval > 1) return `${Math.floor(interval)}y`;
-    interval = seconds / 2592000;
-    if (interval > 1) return `${Math.floor(interval)}mo`;
-    interval = seconds / 86400;
-    if (interval > 1) return `${Math.floor(interval)}d`;
-    interval = seconds / 3600;
-    if (interval > 1) return `${Math.floor(interval)}h`;
-    interval = seconds / 60;
-    if (interval > 1) return `${Math.floor(interval)}m`;
-    return `${Math.floor(seconds)}s`;
+    setIsOpen(false);
   };
 
   useEffect(() => {
@@ -80,7 +181,7 @@ export default function SearchBar({ onIssueClick }) {
     return () => clearTimeout(debounce);
   }, [query]);
 
-  const open = Boolean(anchorEl) && (results.issues.length > 0 || results.comments.length > 0);
+  const showResults = isOpen && (results.issues.length > 0 || results.comments.length > 0);
 
   return (
     <ClickAwayListener onClickAway={handleClickAway}>
@@ -123,116 +224,13 @@ export default function SearchBar({ onIssueClick }) {
           )}
         </Paper>
 
-        <Popper
-          open={open}
-          anchorEl={anchorEl}
-          placement="bottom-start"
-          transition
-          sx={{
-            width: anchorEl?.offsetWidth || "100%",
-            zIndex: 1500,
-          }}
-        >
-          {({ TransitionProps }) => (
-            <Fade
-              {...TransitionProps}
-              timeout={350}
-            >
-              <Paper
-                elevation={3}
-                sx={{
-                  mt: 1,
-                  maxHeight: "80vh",
-                  overflow: "auto",
-                  border: "1px solid",
-                  borderColor: "divider",
-                }}
-              >
-                <List sx={{ p: 1 }}>
-                  {results.issues.map((issue) => (
-                    <ListItemButton
-                      key={issue.id}
-                      onClick={() => {
-                        onIssueClick(issue.id);
-                        handleClear();
-                      }}
-                      sx={{ borderRadius: 1 }}
-                    >
-                      <ListItemText
-                        primary={<Typography variant="subtitle1">{issue.title}</Typography>}
-                        secondary={
-                          <Box sx={{ mt: 0.5 }}>
-                            <Box sx={{ display: "flex", gap: 1, mb: 0.5 }}>
-                              <Chip
-                                label={issue.type}
-                                color={issue.type === "issue" ? "error" : "success"}
-                                size="small"
-                              />
-                              <Typography
-                                variant="caption"
-                                color="text.secondary"
-                              >
-                                {getTimeAgo(issue.createdAt)} ago
-                              </Typography>
-                            </Box>
-                            <Typography
-                              variant="body2"
-                              color="text.secondary"
-                              sx={{
-                                overflow: "hidden",
-                                textOverflow: "ellipsis",
-                                display: "-webkit-box",
-                                WebkitLineClamp: 2,
-                                WebkitBoxOrient: "vertical",
-                              }}
-                            >
-                              {issue.description}
-                            </Typography>
-                          </Box>
-                        }
-                      />
-                    </ListItemButton>
-                  ))}
-                  {results.comments.map((comment) => (
-                    <ListItemButton
-                      key={comment.id}
-                      onClick={() => {
-                        onIssueClick(comment.issue);
-                        handleClear();
-                      }}
-                      sx={{ borderRadius: 1 }}
-                    >
-                      <ListItemText
-                        primary={
-                          <Typography
-                            variant="body2"
-                            sx={{
-                              overflow: "hidden",
-                              textOverflow: "ellipsis",
-                              display: "-webkit-box",
-                              WebkitLineClamp: 2,
-                              WebkitBoxOrient: "vertical",
-                            }}
-                          >
-                            {comment.description}
-                          </Typography>
-                        }
-                        secondary={
-                          <Typography
-                            variant="caption"
-                            color="text.secondary"
-                          >
-                            Comment • {getTimeAgo(comment.createdAt)} ago
-                          </Typography>
-                        }
-                      />
-                    </ListItemButton>
-                  ))}
-                </List>
-              </Paper>
-            </Fade>
-          )}
-        </Popper>
+        {showResults && (
+          <SearchResults
+            results={results}
+            onIssueClick={onIssueClick}
+            handleClear={handleClear}
+          />
+        )}
       </Box>
     </ClickAwayListener>
   );
