@@ -337,7 +337,6 @@ function UserProfile() {
 
           {tabValue === 2 && (
             <List>
-              {console.log(profileData)}
               {profileData.upvotedIssues.map((issue) => (
                 <ListItemButton
                   key={issue.id}
