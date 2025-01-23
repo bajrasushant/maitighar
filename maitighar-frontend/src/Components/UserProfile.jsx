@@ -32,23 +32,23 @@ function UserProfile() {
   const [tabValue, setTabValue] = useState(0);
   const navigate = useNavigate();
 
+  const fetchUserProfile = async () => {
+    try {
+      const config = helpers.getConfig();
+      const response = await axios.get("/api/userProfile/me", config);
+      setProfileData(response.data);
+      setLoading(false);
+    } catch (err) {
+      setError("Failed to load profile. Please try again.");
+      setLoading(false);
+    }
+  };
+
   const handleBackToHome = () => {
     navigate("/");
   };
 
   useEffect(() => {
-    const fetchUserProfile = async () => {
-      try {
-        const config = helpers.getConfig();
-        const response = await axios.get("/api/userProfile/me", config);
-        setProfileData(response.data);
-        setLoading(false);
-      } catch (err) {
-        setError("Failed to load profile. Please try again.");
-        setLoading(false);
-      }
-    };
-
     fetchUserProfile();
   }, []);
 
@@ -76,7 +76,7 @@ function UserProfile() {
     try {
       const response = await axios.put(`/api/issues/${id}/reopen`, {}, helpers.getConfig());
       setNotification({ message: "Issue reopened successfully.", status: "success" });
-      // fetchUserProfile(); // Refresh the data
+      fetchUserProfile(); // Refresh the data
     } catch (error) {
       console.error("Error reopening issue:", error);
       setNotification({ message: "Failed to reopen issue.", status: "error" });
