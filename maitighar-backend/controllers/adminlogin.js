@@ -38,6 +38,7 @@ adminloginRouter.post("/", async (request, response) => {
       email: admin.email,
       id: admin._id,
       department: admin.department,
+      responsible: admin.responsible,
     });
   } catch (error) {
     console.error("Error during login:", error);
