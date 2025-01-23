@@ -9,7 +9,7 @@ const Department = require("../models/department");
 const LocalGov = require("../models/localgov");
 
 // In-memory storage for OTP
-let otpStore = {};
+const otpStore = {};
 
 adminloginRouter.post("/", async (request, response) => {
   try {
@@ -38,6 +38,7 @@ adminloginRouter.post("/", async (request, response) => {
       email: admin.email,
       id: admin._id,
       department: admin.department,
+      responsible: admin.responsible,
     });
   } catch (error) {
     console.error("Error during login:", error);

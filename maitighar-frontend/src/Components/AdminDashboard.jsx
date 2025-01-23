@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { AppBar, Toolbar, Typography, Button, Container, Box, Grid, Paper } from "@mui/material";
 import { useNavigate, Outlet } from "react-router-dom";
-import { useUserDispatch } from "../context/UserContext";
+import { useUserDispatch, useUserValue } from "../context/UserContext";
 import GlobalIssueMap from "./GlobalIssueMap";
 import IssuesSuggestionsLineChart from "./IssuesSuggestionsLineChart";
 import IssuesSuggestionsPieChart from "./IssuesSuggestionsPieChart";
@@ -10,6 +10,7 @@ import SentimentGauge from "./SentimentGaugeChart";
 function AdminDashboard() {
   const [activeTab, setActiveTab] = useState("dashboard");
   const userDispatch = useUserDispatch();
+  const user = useUserValue();
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -18,16 +19,35 @@ function AdminDashboard() {
   };
 
   const navItems = [
-    { label: "Active Users", path: "/admin-dashboard/active-users", tabKey: "activeUsers" },
-    { label: "Dashboard", path: "/admin-dashboard", tabKey: "dashboard" },
-    { label: "Issues", path: "/admin-dashboard/issues-list", tabKey: "issues" },
-    { label: "Suggestions", path: "/admin-dashboard/suggestion-list", tabKey: "suggestions" },
+    {
+      label: "Active Users",
+      path: "/admin-dashboard/active-users",
+      tabKey: "activeUsers",
+      notVisible: "department",
+    },
+    { label: "Dashboard", path: "/admin-dashboard", tabKey: "dashboard", notVisible: null },
+    { label: "Issues", path: "/admin-dashboard/issues-list", tabKey: "issues", notVisible: null },
+    {
+      label: "Suggestions",
+      path: "/admin-dashboard/suggestion-list",
+      tabKey: "suggestions",
+      notVisible: null,
+    },
     {
       label: "WardOfficer Request",
       path: "/admin-dashboard/wardofficer-request",
       tabKey: "promotionRequests",
+      notVisible: "department",
     },
   ];
+
+  const filteredNavItems = navItems.filter((item) => {
+    if (user?.responsible === "department" && item.notVisible === "department") {
+      return false;
+    }
+    return true;
+  });
+  console.log(filteredNavItems);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -40,7 +60,7 @@ function AdminDashboard() {
           >
             Admin Dashboard
           </Typography>
-          {navItems.map((item) => (
+          {filteredNavItems.map((item) => (
             <Button
               key={item.tabKey}
               color="inherit"
