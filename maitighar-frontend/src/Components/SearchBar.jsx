@@ -25,6 +25,7 @@ function SearchResults({ results, onIssueClick, handleClear }) {
         right: 0,
         mt: 0.5,
         maxHeight: "50vh",
+        width: "100%",
         overflow: "auto",
         border: "1px solid",
         borderColor: "divider",
@@ -33,7 +34,7 @@ function SearchResults({ results, onIssueClick, handleClear }) {
       }}
       elevation={3}
     >
-      <List sx={{ p: 1, width: "100%" }}>
+      <List sx={{ width: "100%" }}>
         {results.issues.map((issue) => (
           <ListItemButton
             key={issue.id}
