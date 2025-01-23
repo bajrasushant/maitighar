@@ -20,7 +20,7 @@ import {
   Grid,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { Person, Comment, ThumbUp } from "@mui/icons-material";
+import { Person, Comment, ThumbUp, ArrowBack } from "@mui/icons-material";
 import helpers from "../helpers/helpers";
 import { useNotification } from "../context/NotificationContext";
 
@@ -31,6 +31,10 @@ function UserProfile() {
   const [error, setError] = useState("");
   const [tabValue, setTabValue] = useState(0);
   const navigate = useNavigate();
+
+  const handleBackToHome = () => {
+    navigate("/");
+  };
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -72,7 +76,7 @@ function UserProfile() {
     try {
       const response = await axios.put(`/api/issues/${id}/reopen`, {}, helpers.getConfig());
       setNotification({ message: "Issue reopened successfully.", status: "success" });
-      //fetchUserProfile(); // Refresh the data
+      // fetchUserProfile(); // Refresh the data
     } catch (error) {
       console.error("Error reopening issue:", error);
       setNotification({ message: "Failed to reopen issue.", status: "error" });
@@ -111,6 +115,13 @@ function UserProfile() {
       maxWidth="lg"
       sx={{ mt: 4, mb: 4 }}
     >
+      <Button
+        startIcon={<ArrowBack />}
+        onClick={handleBackToHome}
+        sx={{ mb: 3 }}
+      >
+        Back to Home
+      </Button>
       <Paper
         elevation={3}
         sx={{ p: 3, mb: 4, borderRadius: 2 }}
@@ -154,6 +165,59 @@ function UserProfile() {
               variant="outlined"
               sx={{ mt: 1 }}
             />
+          </Grid>
+          <Grid
+            item
+            container
+            xs={12}
+            spacing={2}
+          >
+            <Grid
+              item
+              xs={6}
+              md={3}
+            >
+              <Paper
+                elevation={1}
+                sx={{ p: 2, textAlign: "center" }}
+              >
+                <Typography
+                  variant="body1"
+                  color="text.secondary"
+                >
+                  Total Upvotes
+                </Typography>
+                <Typography
+                  variant="h4"
+                  color="primary"
+                >
+                  {profileData.stats.totalUpvotes || 0}
+                </Typography>
+              </Paper>
+            </Grid>
+            <Grid
+              item
+              xs={6}
+              md={3}
+            >
+              <Paper
+                elevation={1}
+                sx={{ p: 2, textAlign: "center" }}
+              >
+                <Typography
+                  variant="body1"
+                  color="text.secondary"
+                >
+                  Total Comments
+                </Typography>
+                <Typography
+                  variant="h4"
+                  color="primary"
+                >
+                  {profileData.stats.totalComments || 0}
+                </Typography>
+              </Paper>
+            </Grid>
           </Grid>
         </Grid>
       </Paper>
@@ -221,7 +285,14 @@ function UserProfile() {
                       Reopen
                     </Button>
                   )}
-                  <Divider sx={{ position: "absolute", bottom: 0, left: 0, right: 0 }} />
+                  <Divider
+                    sx={{
+                      position: "absolute",
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                    }}
+                  />
                 </ListItemButton>
               ))}
             </List>
@@ -251,7 +322,14 @@ function UserProfile() {
                       </Box>
                     }
                   />
-                  <Divider sx={{ position: "absolute", bottom: 0, left: 0, right: 0 }} />
+                  <Divider
+                    sx={{
+                      position: "absolute",
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                    }}
+                  />
                 </ListItemButton>
               ))}
             </List>
@@ -280,7 +358,14 @@ function UserProfile() {
                       </Box>
                     }
                   />
-                  <Divider sx={{ position: "absolute", bottom: 0, left: 0, right: 0 }} />
+                  <Divider
+                    sx={{
+                      position: "absolute",
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                    }}
+                  />
                 </ListItemButton>
               ))}
             </List>
