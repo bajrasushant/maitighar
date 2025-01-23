@@ -31,7 +31,6 @@ import {
   AccountCircle,
   ArrowUpwardOutlined,
 } from "@mui/icons-material";
-import SearchIcon from "@mui/icons-material/Search";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import FoundationIcon from "@mui/icons-material/Foundation";
 import { useNavigate } from "react-router-dom";
@@ -41,7 +40,7 @@ import issueService from "../services/issues";
 import { useNotification } from "../context/NotificationContext";
 import RecentPosts from "./RecentPosts";
 import getDisplayUsername from "./Details/utils";
-import SearchIssues from "./FuzzySearch";
+import SearchBar from "./SearchBar";
 
 function HomePage() {
   const currentUser = useUserValue();
@@ -60,18 +59,12 @@ function HomePage() {
   const [anchorElFilter, setAnchorElFilter] = useState(null);
   const [sortType, setSortType] = useState("");
 
-  const [openSearchModal, setOpenSearchModal] = useState(false);
-
   // Function to open and close the filter menu
   const handleOpenFilterMenu = (event) => {
     setAnchorElFilter(event.currentTarget);
   };
-  const handleSearch = () => {
-    setOpenSearchModal(true);
-  };
 
   const handleSearchIssueClick = (issueId) => {
-    setOpenSearchModal(false);
     navigate(`/details/${issueId}`);
   };
 
@@ -182,14 +175,6 @@ function HomePage() {
     }
   };
 
-  // const handleOpenNotifications = (event) => {
-  //  setAnchorElNotifications(event.currentTarget);
-  // };
-
-  // const handleCloseNotifications = () => {
-  //  setAnchorElNotifications(null);
-  // };
-
   const handleOpenForm = () => {
     navigate("/create");
   };
@@ -202,19 +187,6 @@ function HomePage() {
   const handleCardClick = (id) => {
     navigate(`/details/${id}`);
   };
-
-  // const addIssue = async (issueObject) => {
-  //   try {
-  //     await issueService.createIssue(issueObject);
-  //     const updatedIssues = await issueService.getAll();
-  //     console.log("updatedIssues:", updatedIssues);
-  //     setIssues(updatedIssues);
-  //     setNotification({ message: "Issue successfully updated.", status: "success" });
-  //   } catch (err) {
-  //     console.error("Err:", err.message);
-  //     setNotification({ message: "Something went wrong.", status: "error" });
-  //   }
-  // };
 
   const getTimeAgo = (date) => {
     const seconds = Math.floor((new Date() - new Date(date)) / 1000);
@@ -238,61 +210,52 @@ function HomePage() {
           <Typography
             variant="h6"
             component="div"
-            sx={{ flexGrow: 1 }}
+            sx={{ display: "flex", alignItems: "center", minWidth: 200 }}
           >
             <Box
               display="flex"
               alignItems="center"
             >
               <FoundationIcon />
-              Grievance Redressal System
+              GRS
             </Box>
           </Typography>
-          <Button
-            color="inherit"
-            startIcon={<FilterListIcon />}
-            onClick={handleOpenFilterMenu}
-          >
-            Filter
-          </Button>
-          <Button
-            color="inherit"
-            startIcon={<Add />}
-            onClick={handleOpenPromotionForm}
-          >
-            Apply for ward officer
-          </Button>
-          <Button
-            color="inherit"
-            startIcon={<SearchIcon />}
-            onClick={handleSearch}
-          >
-            Search
-          </Button>
-          <Button
-            color="inherit"
-            startIcon={<Add />}
-            onClick={handleOpenForm}
-            id="create-button"
-          >
-            Create
-          </Button>
-          {/* <IconButton
-            size="large"
-            color="inherit"
-            onClick={handleOpenNotifications}
-          >
-            <Badge badgeContent={4} color="error">
-              <Notifications />
-            </Badge>
-          </IconButton> */}
-          <IconButton
-            size="large"
-            color="inherit"
-            onClick={handleOpenUserMenu}
-          >
-            <AccountCircle />
-          </IconButton>
+
+          <Box sx={{ flexGrow: 1, display: "flex", justifyContent: "center" }}>
+            <SearchBar onIssueClick={handleSearchIssueClick} />
+          </Box>
+
+          <Box sx={{ display: "flex", alignItems: "center", minWidth: 200 }}>
+            <Button
+              color="inherit"
+              startIcon={<FilterListIcon />}
+              onClick={handleOpenFilterMenu}
+            >
+              Filter
+            </Button>
+            <Button
+              color="inherit"
+              startIcon={<Add />}
+              onClick={handleOpenPromotionForm}
+            >
+              Apply for ward officer
+            </Button>
+            <Button
+              color="inherit"
+              startIcon={<Add />}
+              onClick={handleOpenForm}
+              id="create-button"
+            >
+              Create
+            </Button>
+            <IconButton
+              size="large"
+              color="inherit"
+              onClick={handleOpenUserMenu}
+            >
+              <AccountCircle />
+            </IconButton>
+          </Box>
         </Toolbar>
 
         {/* filter menu */}
@@ -529,18 +492,6 @@ function HomePage() {
         )}
       </Menu>
 
-      {/* Notifications Menu */}
-      {/* <Menu
-        anchorEl={anchorElNotifications}
-        open={Boolean(anchorElNotifications)}
-        onClose={handleCloseNotifications}
-      >
-        <MenuItem onClick={handleCloseNotifications}>Notification 1</MenuItem>
-        <MenuItem onClick={handleCloseNotifications}>Notification 2</MenuItem>
-        <MenuItem onClick={handleCloseNotifications}>Notification 3</MenuItem>
-        <MenuItem onClick={handleCloseNotifications}>Notification 4</MenuItem>
-      </Menu> */}
-
       <Dialog
         open={promotionForm}
         onClose={() => setPromotionForm(false)}
@@ -549,12 +500,6 @@ function HomePage() {
           <PromotionApplicationForm />
         </DialogContent>
       </Dialog>
-
-      <SearchIssues
-        open={openSearchModal}
-        onClose={() => setOpenSearchModal(false)}
-        onIssueClick={handleSearchIssueClick}
-      />
     </>
   );
 }
