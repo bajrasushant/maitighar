@@ -20,7 +20,7 @@ import {
   Grid,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { Person, Comment, ThumbUp } from "@mui/icons-material";
+import { Person, Comment, ThumbUp, ArrowBack } from "@mui/icons-material";
 import helpers from "../helpers/helpers";
 import { useNotification } from "../context/NotificationContext";
 
@@ -42,6 +42,10 @@ function UserProfile() {
       setError("Failed to load profile. Please try again.");
       setLoading(false);
     }
+  };
+
+  const handleBackToHome = () => {
+    navigate("/");
   };
 
   useEffect(() => {
@@ -111,6 +115,13 @@ function UserProfile() {
       maxWidth="lg"
       sx={{ mt: 4, mb: 4 }}
     >
+      <Button
+        startIcon={<ArrowBack />}
+        onClick={handleBackToHome}
+        sx={{ mb: 3 }}
+      >
+        Back to Home
+      </Button>
       <Paper
         elevation={3}
         sx={{ p: 3, mb: 4, borderRadius: 2 }}
@@ -154,6 +165,59 @@ function UserProfile() {
               variant="outlined"
               sx={{ mt: 1 }}
             />
+          </Grid>
+          <Grid
+            item
+            container
+            xs={12}
+            spacing={2}
+          >
+            <Grid
+              item
+              xs={6}
+              md={3}
+            >
+              <Paper
+                elevation={1}
+                sx={{ p: 2, textAlign: "center" }}
+              >
+                <Typography
+                  variant="body1"
+                  color="text.secondary"
+                >
+                  Total Upvotes
+                </Typography>
+                <Typography
+                  variant="h4"
+                  color="primary"
+                >
+                  {profileData.stats.totalUpvotes || 0}
+                </Typography>
+              </Paper>
+            </Grid>
+            <Grid
+              item
+              xs={6}
+              md={3}
+            >
+              <Paper
+                elevation={1}
+                sx={{ p: 2, textAlign: "center" }}
+              >
+                <Typography
+                  variant="body1"
+                  color="text.secondary"
+                >
+                  Total Comments
+                </Typography>
+                <Typography
+                  variant="h4"
+                  color="primary"
+                >
+                  {profileData.stats.totalComments || 0}
+                </Typography>
+              </Paper>
+            </Grid>
           </Grid>
         </Grid>
       </Paper>
