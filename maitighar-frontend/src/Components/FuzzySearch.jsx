@@ -4,6 +4,7 @@ import {
   List,
   ListItem,
   ListItemText,
+  ListItemButton,
   Typography,
   Box,
   Chip,
@@ -35,7 +36,7 @@ function SearchIssues({ onIssueClick }) {
       try {
         const config = helpers.getConfig();
         const response = await axios.get("/api/issues/search", {
-          params: { query, mode: [":all", ":issue", ":comment"][mode] },
+          params: { query, mode },
           ...config,
         });
         setResults(response.data);
@@ -44,14 +45,10 @@ function SearchIssues({ onIssueClick }) {
       }
     };
 
-    const debounce = setTimeout(() => {
-      if (query) {
-        fetchData();
-      }
-    }, 300);
-
-    return () => clearTimeout(debounce);
-  }, [query, mode]);
+    if (query) {
+      fetchData();
+    }
+  }, [query]);
 
   const handleSearchChange = (event) => {
     setQuery(event.target.value);
@@ -264,20 +261,28 @@ function SearchIssues({ onIssueClick }) {
                 </>
               )}
 
-              {query && results.issues.length === 0 && results.comments.length === 0 && (
-                <ListItem>
-                  <ListItemText
-                    primary={
-                      <Typography
-                        color="text.secondary"
-                        align="center"
-                      >
-                        No results found for "{query}"
-                      </Typography>
-                    }
-                  />
-                </ListItem>
-              )}
+              {mode === ":issue" &&
+                results.issues.map((issue) => (
+                  <ListItemButton
+                    key={issue.id}
+                    onClick={() => onIssueClick(issue.id)}
+                  >
+                    <ListItemText
+                      primary={issue.title}
+                      secondary={issue.description}
+                    />
+                  </ListItemButton>
+                ))}
+
+              {mode === ":comment" &&
+                results.comments.map((comment) => (
+                  <ListItemButton
+                    key={comment.id}
+                    onClick={() => onIssueClick(comment.issue)}
+                  >
+                    <ListItemText primary={comment.description} />
+                  </ListItemButton>
+                ))}
             </List>
           </Paper>
         )}

@@ -2,20 +2,36 @@ import { useState, useEffect } from "react";
 import {
   Paper,
   InputBase,
+  ToggleButtonGroup,
+  ToggleButton,
   IconButton,
   Box,
   List,
   ListItemButton,
   ListItemText,
   Typography,
-  Chip,
   ClickAwayListener,
 } from "@mui/material";
 import { Search as SearchIcon, Close as CloseIcon } from "@mui/icons-material";
 import axios from "axios";
 import helpers from "../helpers/helpers";
 
-function SearchResults({ results, onIssueClick, handleClear }) {
+const getTimeAgo = (date) => {
+  const seconds = Math.floor((new Date() - new Date(date)) / 1000);
+  let interval = seconds / 31536000;
+  if (interval > 1) return `${Math.floor(interval)} yr.`;
+  interval = seconds / 2592000;
+  if (interval > 1) return `${Math.floor(interval)} mon.`;
+  interval = seconds / 86400;
+  if (interval > 1) return `${Math.floor(interval)} day.`;
+  interval = seconds / 3600;
+  if (interval > 1) return `${Math.floor(interval)} hr.`;
+  interval = seconds / 60;
+  if (interval > 1) return `${Math.floor(interval)} min.`;
+  return `${Math.floor(seconds)}s`;
+};
+
+function SearchResults({ results, onIssueClick, handleClear, filterType, handleFilterChange }) {
   return (
     <Paper
       sx={{
@@ -34,6 +50,18 @@ function SearchResults({ results, onIssueClick, handleClear }) {
       }}
       elevation={3}
     >
+      <Box sx={{ p: 1, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <ToggleButtonGroup
+          value={filterType}
+          exclusive
+          onChange={(_, type) => handleFilterChange(type)}
+          size="small"
+        >
+          <ToggleButton value="all">All</ToggleButton>
+          <ToggleButton value="issues">Issues</ToggleButton>
+          <ToggleButton value="comments">Comments</ToggleButton>
+        </ToggleButtonGroup>
+      </Box>
       <List sx={{ width: "100%" }}>
         {results.issues.map((issue) => (
           <ListItemButton
@@ -45,22 +73,21 @@ function SearchResults({ results, onIssueClick, handleClear }) {
             sx={{ borderRadius: 1 }}
           >
             <ListItemText
-              primary={<Typography variant="subtitle1">{issue.title}</Typography>}
-              secondary={
-                <Box sx={{ mt: 0.5 }}>
-                  <Box sx={{ display: "flex", gap: 1, mb: 0.5 }}>
-                    <Chip
-                      label={issue.type}
-                      color={issue.type === "issue" ? "error" : "success"}
-                      size="small"
-                    />
+              primary={
+                <>
+                  <Box sx={{ display: "flex", gap: 1, mb: 0.3 }}>
                     <Typography
                       variant="caption"
                       color="text.secondary"
                     >
-                      {getTimeAgo(issue.createdAt)} ago
+                      Issue • {getTimeAgo(issue.createdAt)} ago
                     </Typography>
                   </Box>
+                  <Typography variant="subtitle1">{issue.title}</Typography>
+                </>
+              }
+              secondary={
+                <Box sx={{ mt: 0.3 }}>
                   <Typography
                     variant="body2"
                     color="text.secondary"
@@ -90,26 +117,26 @@ function SearchResults({ results, onIssueClick, handleClear }) {
           >
             <ListItemText
               primary={
-                <Typography
-                  variant="body2"
-                  sx={{
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                    display: "-webkit-box",
-                    WebkitLineClamp: 2,
-                    WebkitBoxOrient: "vertical",
-                  }}
-                >
-                  {comment.description}
-                </Typography>
-              }
-              secondary={
-                <Typography
-                  variant="caption"
-                  color="text.secondary"
-                >
-                  Comment • {getTimeAgo(comment.createdAt)} ago
-                </Typography>
+                <>
+                  <Typography
+                    variant="caption"
+                    color="text.secondary"
+                  >
+                    Comment • {getTimeAgo(comment.createdAt)} ago
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      display: "-webkit-box",
+                      WebkitLineClamp: 2,
+                      WebkitBoxOrient: "vertical",
+                    }}
+                  >
+                    {comment.description}
+                  </Typography>
+                </>
               }
             />
           </ListItemButton>
@@ -119,39 +146,43 @@ function SearchResults({ results, onIssueClick, handleClear }) {
   );
 }
 
-const getTimeAgo = (date) => {
-  const seconds = Math.floor((new Date() - new Date(date)) / 1000);
-  let interval = seconds / 31536000;
-  if (interval > 1) return `${Math.floor(interval)}y`;
-  interval = seconds / 2592000;
-  if (interval > 1) return `${Math.floor(interval)}mo`;
-  interval = seconds / 86400;
-  if (interval > 1) return `${Math.floor(interval)}d`;
-  interval = seconds / 3600;
-  if (interval > 1) return `${Math.floor(interval)}h`;
-  interval = seconds / 60;
-  if (interval > 1) return `${Math.floor(interval)}m`;
-  return `${Math.floor(seconds)}s`;
-};
-
 export default function SearchBar({ onIssueClick }) {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState({ issues: [], comments: [] });
   const [isOpen, setIsOpen] = useState(false);
+  const [filterType, setFilterType] = useState("all");
 
   const handleSearchChange = (event) => {
     setQuery(event.target.value);
     setIsOpen(true);
   };
 
+  const handleFilterChange = (type) => {
+    setFilterType(type);
+  };
+
   const handleClear = () => {
     setQuery("");
     setResults({ issues: [], comments: [] });
     setIsOpen(false);
+    setFilterType("all");
   };
 
   const handleClickAway = () => {
     setIsOpen(false);
+  };
+
+  const filterResults = () => {
+    switch (filterType) {
+      case "all":
+        return results;
+      case "issues":
+        return { issues: results.issues, comments: [] };
+      case "comments":
+        return { issues: [], comments: results.comments };
+      default:
+        return results;
+    }
   };
 
   useEffect(() => {
@@ -227,9 +258,11 @@ export default function SearchBar({ onIssueClick }) {
 
         {showResults && (
           <SearchResults
-            results={results}
+            results={filterResults()}
             onIssueClick={onIssueClick}
             handleClear={handleClear}
+            filterType={filterType}
+            handleFilterChange={handleFilterChange}
           />
         )}
       </Box>

@@ -58,8 +58,8 @@ function Details({ isAdmin = false }) {
         }
       } catch (err) {
         if (!isMounted) return;
-        setErrorMessage("Failed to fetch issue details");
-        setNotification({ message: "Error loading issue details", status: "error" });
+        setErrorMessage("Failed to fetch issue details. Issue might have been closed or deleted.");
+        setNotification({ message: "Error loading issue details. Issue might have been closed or deleted.", status: "error" });
       } finally {
         if (isMounted) {
           setLoading(false);
