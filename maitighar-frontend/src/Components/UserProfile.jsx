@@ -32,19 +32,19 @@ function UserProfile() {
   const [tabValue, setTabValue] = useState(0);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchUserProfile = async () => {
-      try {
-        const config = helpers.getConfig();
-        const response = await axios.get("/api/userProfile/me", config);
-        setProfileData(response.data);
-        setLoading(false);
-      } catch (err) {
-        setError("Failed to load profile. Please try again.");
-        setLoading(false);
-      }
-    };
+  const fetchUserProfile = async () => {
+    try {
+      const config = helpers.getConfig();
+      const response = await axios.get("/api/userProfile/me", config);
+      setProfileData(response.data);
+      setLoading(false);
+    } catch (err) {
+      setError("Failed to load profile. Please try again.");
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchUserProfile();
   }, []);
 
@@ -72,7 +72,7 @@ function UserProfile() {
     try {
       const response = await axios.put(`/api/issues/${id}/reopen`, {}, helpers.getConfig());
       setNotification({ message: "Issue reopened successfully.", status: "success" });
-      //fetchUserProfile(); // Refresh the data
+      fetchUserProfile(); // Refresh the data
     } catch (error) {
       console.error("Error reopening issue:", error);
       setNotification({ message: "Failed to reopen issue.", status: "error" });
@@ -221,7 +221,14 @@ function UserProfile() {
                       Reopen
                     </Button>
                   )}
-                  <Divider sx={{ position: "absolute", bottom: 0, left: 0, right: 0 }} />
+                  <Divider
+                    sx={{
+                      position: "absolute",
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                    }}
+                  />
                 </ListItemButton>
               ))}
             </List>
@@ -251,7 +258,14 @@ function UserProfile() {
                       </Box>
                     }
                   />
-                  <Divider sx={{ position: "absolute", bottom: 0, left: 0, right: 0 }} />
+                  <Divider
+                    sx={{
+                      position: "absolute",
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                    }}
+                  />
                 </ListItemButton>
               ))}
             </List>
@@ -280,7 +294,14 @@ function UserProfile() {
                       </Box>
                     }
                   />
-                  <Divider sx={{ position: "absolute", bottom: 0, left: 0, right: 0 }} />
+                  <Divider
+                    sx={{
+                      position: "absolute",
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                    }}
+                  />
                 </ListItemButton>
               ))}
             </List>
