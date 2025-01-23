@@ -9,7 +9,7 @@ const Department = require("../models/department");
 const LocalGov = require("../models/localgov");
 
 // In-memory storage for OTP
-const otpStore = {};
+let otpStore = {};
 
 adminloginRouter.post("/", async (request, response) => {
   try {
