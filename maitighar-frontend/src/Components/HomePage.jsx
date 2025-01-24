@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import NotificationsIcon from "@mui/icons-material/Notifications";
 import {
   Avatar,
   Container,
@@ -22,6 +23,7 @@ import {
   // Badge,
   Chip,
   Box,
+  Badge,
 } from "@mui/material";
 import {
   ArrowUpward,
@@ -37,6 +39,7 @@ import { useNavigate } from "react-router-dom";
 import PromotionApplicationForm from "./PromotionApplicationForm";
 import { useUserValue, useUserDispatch } from "../context/UserContext";
 import issueService from "../services/issues";
+import notificationService from "../services/notification";
 import { useNotification } from "../context/NotificationContext";
 import RecentPosts from "./RecentPosts";
 import getDisplayUsername from "./Details/utils";
@@ -59,7 +62,42 @@ function HomePage() {
   const [anchorElFilter, setAnchorElFilter] = useState(null);
   const [sortType, setSortType] = useState("");
 
-  // Function to open and close the filter menu
+  const [userNotifications, setUserNotifications] = useState([]);
+  const [unreadCount, setUnreadCount] = useState(0);
+  const [anchorElNotifications, setAnchorElNotifications] = useState(null);
+
+  const fetchNotifications = async () => {
+    try {
+      const response = await notificationService.getAll(currentUser?.id);
+      setUserNotifications(response);
+      setUnreadCount(response.filter((notification) => !notification.read).length);
+    } catch (errorHappens) {
+      console.error("Failed to fetch notifications", errorHappens);
+    }
+  };
+
+  const handleOpenNotification = async (event) => {
+    setAnchorElNotifications(event.currentTarget);
+    await fetchNotifications();
+  };
+
+  const handleCloseNotifications = () => {
+    setAnchorElNotifications(null);
+  };
+
+  const handleMarkNotificationAsRead = async (notificationId) => {
+    try {
+      await notificationService.markAsRead(currentUser.id, notificationId);
+      const updatedNotifications = userNotifications.map((notification) =>
+        notification._id === notificationId ? { ...notification, read: true } : notification,
+      );
+      setUserNotifications(updatedNotifications);
+      setUnreadCount(updatedNotifications.filter((n) => !n.read).length);
+    } catch (error) {
+      console.error("Failed to mark notification as read", error);
+    }
+  };
+
   const handleOpenFilterMenu = (event) => {
     setAnchorElFilter(event.currentTarget);
   };
@@ -87,6 +125,7 @@ function HomePage() {
     };
 
     fetchIssues();
+    fetchNotifications();
   }, []);
 
   const fetchNearbyIssues = async () => {
@@ -255,8 +294,39 @@ function HomePage() {
             >
               <AccountCircle />
             </IconButton>
+            <IconButton
+              size="large"
+              color="inherit"
+              onClick={handleOpenNotification}
+            >
+              <Badge
+                badgeContent={unreadCount}
+                color="error"
+              >
+                <NotificationsIcon />
+              </Badge>
+            </IconButton>
           </Box>
         </Toolbar>
+
+        <Menu
+          anchorEl={anchorElNotifications}
+          open={Boolean(anchorElNotifications)}
+          onClose={handleCloseNotifications}
+        >
+          {userNotifications.map((notification) => (
+            <MenuItem
+              key={notification._id}
+              onClick={() => handleMarkNotificationAsRead(notification._id)}
+              sx={{
+                backgroundColor: !notification.read ? "#f0f0f0" : "transparent",
+                fontWeight: !notification.read ? "bold" : "normal",
+              }}
+            >
+              {notification.message}
+            </MenuItem>
+          ))}
+        </Menu>
 
         {/* filter menu */}
         <Menu
