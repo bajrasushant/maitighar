@@ -158,11 +158,16 @@ function SuggestionsList() {
             {suggestionsList.map((issue) => (
               <TableRow
                 key={issue.id}
-                onClick={() => handleIssueClick(issue.id)}
+                onClick={(e) => {
+                  const target = e.target.closest("[data-clickable]");
+                  if (target) {
+                    handleIssueClick(issue.id);
+                  }
+                }}
               >
-                <TableCell>{issue.upvotes}</TableCell>
-                <TableCell>{issue.title}</TableCell>
-                <TableCell>{issue.description}</TableCell>
+                <TableCell data-clickable>{issue.upvotes}</TableCell>
+                <TableCell data-clickable>{issue.title}</TableCell>
+                <TableCell data-clickable>{issue.description}</TableCell>
                 <TableCell>
                   <FormControl component="fieldset">
                     <RadioGroup
