@@ -249,7 +249,7 @@ function HomePage() {
           <Typography
             variant="h6"
             component="div"
-            sx={{ display: "flex", alignItems: "center", minWidth: 200 }}
+            sx={{ display: "flex", alignItems: "center", minWidth: 100 }}
           >
             <Box
               display="flex"

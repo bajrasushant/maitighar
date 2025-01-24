@@ -40,6 +40,7 @@ function SearchResults({ results, onIssueClick, handleClear, filterType, handleF
         left: 0,
         right: 0,
         mt: 0.5,
+        p: "2px 4px",
         maxHeight: "50vh",
         width: "100%",
         overflow: "auto",
@@ -70,7 +71,7 @@ function SearchResults({ results, onIssueClick, handleClear, filterType, handleF
               onIssueClick(issue.id);
               handleClear();
             }}
-            sx={{ borderRadius: 1 }}
+            sx={{ borderRadius: 1, pb: 0 }}
           >
             <ListItemText
               primary={
@@ -217,7 +218,7 @@ export default function SearchBar({ onIssueClick }) {
 
   return (
     <ClickAwayListener onClickAway={handleClickAway}>
-      <Box sx={{ position: "relative", width: "100%", maxWidth: 600 }}>
+      <Box sx={{ position: "relative", width: "100%", maxWidth: 500 }}>
         <Paper
           component="form"
           sx={{
