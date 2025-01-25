@@ -594,7 +594,7 @@ issueRouter.put("/:id", async (req, res) => {
       "assigned_ward",
       "type",
       "isActive",
-      "resolvedAt"
+      "resolvedAt",
     ];
 
     updateFields.forEach((field) => {
@@ -736,7 +736,7 @@ issueRouter.put("/:id/upvote", async (req, res) => {
           const notificationMessage = `${upvoter.username} upvoted your issue: "${issue.title}".`;
 
           console.log("Notification message:", notificationMessage);
-          await addNotification(issue.createdBy._id, notificationMessage, {
+          await addNotification(issue.createdBy._id, issue._id, notificationMessage, {
             type: "upvote",
             issueId: issue._id,
           });

@@ -28,8 +28,7 @@ import {
 import {
   ArrowUpward,
   Comment,
-  Add,
-  // Notifications,
+  Add, // Notifications,
   AccountCircle,
   ArrowUpwardOutlined,
 } from "@mui/icons-material";
@@ -317,7 +316,12 @@ function HomePage() {
           {userNotifications.map((notification) => (
             <MenuItem
               key={notification._id}
-              onClick={() => handleMarkNotificationAsRead(notification._id)}
+              onClick={() => {
+                handleMarkNotificationAsRead(notification._id);
+                if (notification.issue) {
+                  handleCardClick(notification.issue);
+                }
+              }}
               sx={{
                 backgroundColor: !notification.read ? "#f0f0f0" : "transparent",
                 fontWeight: !notification.read ? "bold" : "normal",

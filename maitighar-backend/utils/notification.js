@@ -1,18 +1,19 @@
 const User = require("../models/user");
 
-const addNotification = async (userId, message, metadata = {}) => {
+const addNotification = async (userId, issueId, message, metadata = {}) => {
   try {
     const notification = {
       message,
       ...metadata,
       timestamp: new Date(),
       read: false,
+      issue: issueId,
     };
 
     const updatedUser = await User.findByIdAndUpdate(
       userId,
       { $push: { notifications: notification } },
-      { new: true } // Return the updated document
+      { new: true }, // Return the updated document
     );
 
     if (!updatedUser) {
