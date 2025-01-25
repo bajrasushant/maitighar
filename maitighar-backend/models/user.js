@@ -50,6 +50,11 @@ const userSchema = new Schema({
         type: Boolean,
         default: false,
       },
+      issue: {
+        type: Schema.Types.ObjectId,
+        ref: "Issue",
+        required: true,
+      },
     },
   ],
 });
