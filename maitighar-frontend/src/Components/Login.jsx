@@ -31,7 +31,7 @@ function Copyright(props) {
         color="inherit"
         href="https://mui.com/"
       >
-        Maitighar
+        Grievance Redressal System
       </Link>{" "}
       {new Date().getFullYear()}.
     </Typography>
@@ -143,12 +143,12 @@ export default function SignIn() {
               onChange={({ target }) => setPassword(target.value)}
             />
             <FormControlLabel
-              control={(
+              control={
                 <Checkbox
                   value="remember"
                   color="primary"
                 />
-              )}
+              }
               label="Remember me"
             />
             {error && (
@@ -160,6 +160,7 @@ export default function SignIn() {
               </Typography>
             )}
             <Button
+              id="login-button"
               type="submit"
               fullWidth
               variant="contained"

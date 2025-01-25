@@ -7,18 +7,18 @@ const userProfileRouter = require("express").Router();
 userProfileRouter.get("/me", async (req, res) => {
   try {
     const userId = req.user.id;
-
-    const user = await User.findById(userId)
-      .select("username email role")
-      .populate("upvotedIssues", "title description status createdAt");
-
+    const user = await User.findById(userId).select(
+      "username email role upvotedIssues upvotedSuggestions",
+    );
     if (!user) {
-      return res.status(404).json({ error: "User not found" });
+      return res.status(400).json({ error: "User not found" });
     }
 
-    const postedIssues = await Issue.find({ createdBy: userId })
-      .select("title description status createdAt")
-      .sort({ createdAt: -1 });
+    const upvotedIssues = await Issue.find({
+      upvotedBy: userId,
+    }).select("title description status createdAt");
+
+    const postedIssues = await Issue.find({ createdBy: userId }).sort({ createdAt: -1 });
 
     const postedComments = await Comment.find({ createdBy: userId })
       .select("description createdAt parentComment issue suggestion")
@@ -32,12 +32,14 @@ userProfileRouter.get("/me", async (req, res) => {
         email: user.email,
         role: user.role,
       },
-      upvotedIssues: user.upvotedIssues,
-      upvotedSuggestions: user.upvotedSuggestions,
+      upvotedIssues,
       postedIssues,
       postedComments,
+      stats: {
+        totalUpvotes: upvotedIssues.length,
+        totalComments: postedComments.length,
+      },
     };
-
     res.status(200).json(response);
   } catch (error) {
     console.error(error);

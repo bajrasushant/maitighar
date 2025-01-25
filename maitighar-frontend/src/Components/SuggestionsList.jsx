@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import {
+  Box,
+  Select,
+  Button,
+  MenuItem,
   Table,
   TableBody,
   TableCell,
@@ -22,6 +26,10 @@ function SuggestionsList() {
   const [suggestions, setSuggestions] = useState([]);
   const { setNotification } = useNotification();
   const navigate = useNavigate();
+  const [sortBy, setSortBy] = useState("");
+  const [sortOrder, setSortOrder] = useState("asc");
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [categories, setCategories] = useState([]);
   const adminData = JSON.parse(localStorage.getItem("loggedAdmin"));
   const { token } = adminData;
 
@@ -33,7 +41,9 @@ function SuggestionsList() {
     console.log("Updating status for issue ID:", id, "to:", newStatus);
     try {
       const updatedIssue = await issueService.updateStatus(id, newStatus);
-      setSuggestions((prevIssues) => prevIssues.map((issue) => (issue.id === id ? { ...issue, status: newStatus } : issue)));
+      setSuggestions((prevIssues) =>
+        prevIssues.map((issue) => (issue.id === id ? { ...issue, status: newStatus } : issue)),
+      );
       console.log("Updated issue status:", updatedIssue);
     } catch (error) {
       console.error("Error updating status:", error);
@@ -41,25 +51,40 @@ function SuggestionsList() {
   };
 
   useEffect(() => {
-    const fetchIssues = async () => {
-      try {
-        const config = {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        };
-        const response = await axios.get("/api/issues/admin", {
-          params: { adminId: adminData.id },
-          ...config, // Spread the config here
-        });
-        setSuggestions(response.data);
-      } catch (error) {
-        console.error("Error fetching issues:", error);
-        setNotification({ message: " Error Fetching issues.", status: "error" });
-      }
-    };
     fetchIssues();
   }, [token]);
+
+  const fetchIssues = async () => {
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+      params: {
+        adminId: adminData.id,
+        sortBy,
+        category: selectedCategory,
+        sortOrder,
+      },
+    };
+    try {
+      const response = await axios.get("/api/issues/admin", config); //TODO: Use issueService to get exact number of issues
+      console.log("Fetched issues:", response.data);
+      setSuggestions(response.data);
+    } catch (error) {
+      console.error("Error fetching issues:", error);
+      setNotification({ message: error.response.data.error, status: "error" });
+    }
+  };
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await axios.get("/api/categories");
+        setCategories(res.data);
+      } catch (err) {
+        console.error("Error fetching issues:", err);
+      }
+    };
+    fetchCategories();
+  }, []);
 
   const suggestionsList = suggestions.filter((issue) => issue.type === "suggestion");
 
@@ -71,6 +96,53 @@ function SuggestionsList() {
       >
         Suggestions
       </Typography>
+      <Box
+        display="flex"
+        gap={2}
+        mb={2}
+      >
+        <Box>
+          <Typography>Sort by:</Typography>
+          <Select
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value)}
+          >
+            <MenuItem value="createdAt">Date</MenuItem>
+            <MenuItem value="upvotes">Upvotes</MenuItem>
+            <MenuItem value="sentimentScore">Sentiment Score</MenuItem>
+          </Select>
+          <Select
+            value={sortOrder}
+            onChange={(e) => setSortOrder(e.target.value)}
+          >
+            <MenuItem value="asc">Ascending</MenuItem>
+            <MenuItem value="desc">Descending</MenuItem>
+          </Select>
+        </Box>
+
+        <Box>
+          <Typography>Filter by Category:</Typography>
+          <Select
+            value={selectedCategory}
+            onChange={(e) => setSelectedCategory(e.target.value)}
+          >
+            {categories.map((cat) => (
+              <MenuItem
+                key={cat.id}
+                value={cat.id}
+              >
+                {cat.name}
+              </MenuItem>
+            ))}
+          </Select>
+        </Box>
+        <Button
+          variant="contained"
+          onClick={fetchIssues}
+        >
+          Apply Filters
+        </Button>
+      </Box>
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
@@ -79,17 +151,23 @@ function SuggestionsList() {
               <TableCell>Title</TableCell>
               <TableCell>Description</TableCell>
               <TableCell>Status</TableCell>
+              <TableCell>Sentiment</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {suggestionsList.map((issue) => (
               <TableRow
                 key={issue.id}
-                onClick={() => handleIssueClick(issue.id)}
+                onClick={(e) => {
+                  const target = e.target.closest("[data-clickable]");
+                  if (target) {
+                    handleIssueClick(issue.id);
+                  }
+                }}
               >
-                <TableCell>{issue.upvotes}</TableCell>
-                <TableCell>{issue.title}</TableCell>
-                <TableCell>{issue.description}</TableCell>
+                <TableCell data-clickable>{issue.upvotes}</TableCell>
+                <TableCell data-clickable>{issue.title}</TableCell>
+                <TableCell data-clickable>{issue.description}</TableCell>
                 <TableCell>
                   <FormControl component="fieldset">
                     <RadioGroup
@@ -115,6 +193,7 @@ function SuggestionsList() {
                     </RadioGroup>
                   </FormControl>
                 </TableCell>
+                <TableCell>{issue.sentiment}</TableCell>
               </TableRow>
             ))}
           </TableBody>

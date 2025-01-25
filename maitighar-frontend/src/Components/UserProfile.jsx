@@ -12,32 +12,57 @@ import {
   Box,
   Tabs,
   Tab,
+  Button,
+  Avatar,
+  Chip,
+  Divider,
+  Paper,
+  Grid,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { Person, Comment, ThumbUp, ArrowBack } from "@mui/icons-material";
 import helpers from "../helpers/helpers";
+import { useNotification } from "../context/NotificationContext";
 
 function UserProfile() {
   const [profileData, setProfileData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const { setNotification } = useNotification();
   const [error, setError] = useState("");
   const [tabValue, setTabValue] = useState(0);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchUserProfile = async () => {
-      try {
-        const config = helpers.getConfig();
-        const response = await axios.get("/api/userProfile/me", config);
-        setProfileData(response.data);
-        setLoading(false);
-      } catch (err) {
-        setError("Failed to load profile. Please try again.");
-        setLoading(false);
-      }
-    };
+  const fetchUserProfile = async () => {
+    try {
+      const config = helpers.getConfig();
+      const response = await axios.get("/api/userProfile/me", config);
+      setProfileData(response.data);
+      setLoading(false);
+    } catch (err) {
+      setError("Failed to load profile. Please try again.");
+      setLoading(false);
+    }
+  };
 
+  const handleBackToHome = () => {
+    navigate("/");
+  };
+
+  useEffect(() => {
     fetchUserProfile();
   }, []);
+
+  const canReopen = (issue) => {
+    if (!issue || issue.status !== "resolved" || !issue.resolvedAt) {
+      return false;
+    }
+
+    const resolvedAt = new Date(issue.resolvedAt);
+    const oneWeekAgo = new Date();
+    oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+
+    return resolvedAt >= oneWeekAgo;
+  };
 
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue);
@@ -45,6 +70,17 @@ function UserProfile() {
 
   const handleCardClick = (id) => {
     navigate(`/details/${id}`);
+  };
+
+  const handleReopenIssue = async (id) => {
+    try {
+      const response = await axios.put(`/api/issues/${id}/reopen`, {}, helpers.getConfig());
+      setNotification({ message: "Issue reopened successfully.", status: "success" });
+      fetchUserProfile(); // Refresh the data
+    } catch (error) {
+      console.error("Error reopening issue:", error);
+      setNotification({ message: "Failed to reopen issue.", status: "error" });
+    }
   };
 
   if (loading) {
@@ -75,52 +111,145 @@ function UserProfile() {
   }
 
   return (
-    <Container maxWidth="lg">
-      <Typography
-        variant="h4"
-        gutterBottom
+    <Container
+      maxWidth="lg"
+      sx={{ mt: 4, mb: 4 }}
+    >
+      <Button
+        startIcon={<ArrowBack />}
+        onClick={handleBackToHome}
+        sx={{ mb: 3 }}
       >
-        User Profile
-      </Typography>
-
-      {/* User Info */}
-      <Card sx={{ marginBottom: 2 }}>
-        <CardContent>
-          <Typography variant="h6">Basic Information</Typography>
-          <Typography variant="body1">
-            <strong>Username:</strong> {profileData.user.username}
-          </Typography>
-          <Typography variant="body1">
-            <strong>Email:</strong> {profileData.user.email}
-          </Typography>
-          <Typography variant="body1">
-            <strong>Role:</strong> {profileData.user.role}
-          </Typography>
-        </CardContent>
-      </Card>
-
-      <Tabs
-        value={tabValue}
-        onChange={handleTabChange}
-        variant="fullWidth"
-        sx={{ marginBottom: 2 }}
-        textColor="primary"
-        indicatorColor="primary"
+        Back to Home
+      </Button>
+      <Paper
+        elevation={3}
+        sx={{ p: 3, mb: 4, borderRadius: 2 }}
       >
-        <Tab label="Posted Issues" />
-        <Tab label="Posted Comments" />
-        <Tab label="Upvoted Issues" />
-      </Tabs>
-
-      {tabValue === 0 && (
-        <Card>
-          <CardContent>
+        <Grid
+          container
+          spacing={3}
+          alignItems="center"
+        >
+          <Grid item>
+            <Avatar
+              sx={{
+                width: 100,
+                height: 100,
+                bgcolor: "primary.main",
+                fontSize: "3rem",
+              }}
+            >
+              {profileData.user.username.charAt(0).toUpperCase()}
+            </Avatar>
+          </Grid>
+          <Grid
+            item
+            xs
+          >
             <Typography
-              variant="h6"
+              variant="h4"
               gutterBottom
             >
-              Posted Issues
+              {profileData.user.username}
             </Typography>
+            <Typography
+              variant="body1"
+              color="text.secondary"
+            >
+              {profileData.user.email}
+            </Typography>
+            <Chip
+              label={profileData.user.role}
+              color="primary"
+              variant="outlined"
+              sx={{ mt: 1 }}
+            />
+          </Grid>
+          <Grid
+            item
+            container
+            xs={12}
+            spacing={2}
+          >
+            <Grid
+              item
+              xs={6}
+              md={3}
+            >
+              <Paper
+                elevation={1}
+                sx={{ p: 2, textAlign: "center" }}
+              >
+                <Typography
+                  variant="body1"
+                  color="text.secondary"
+                >
+                  Total Upvotes
+                </Typography>
+                <Typography
+                  variant="h4"
+                  color="primary"
+                >
+                  {profileData.stats.totalUpvotes || 0}
+                </Typography>
+              </Paper>
+            </Grid>
+            <Grid
+              item
+              xs={6}
+              md={3}
+            >
+              <Paper
+                elevation={1}
+                sx={{ p: 2, textAlign: "center" }}
+              >
+                <Typography
+                  variant="body1"
+                  color="text.secondary"
+                >
+                  Total Comments
+                </Typography>
+                <Typography
+                  variant="h4"
+                  color="primary"
+                >
+                  {profileData.stats.totalComments || 0}
+                </Typography>
+              </Paper>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Paper>
+
+      <Paper
+        elevation={3}
+        sx={{ borderRadius: 2 }}
+      >
+        <Tabs
+          value={tabValue}
+          onChange={handleTabChange}
+          variant="fullWidth"
+          textColor="primary"
+          indicatorColor="primary"
+          sx={{ borderBottom: 1, borderColor: "divider" }}
+        >
+          <Tab
+            icon={<Person />}
+            label="Posted Issues"
+          />
+          <Tab
+            icon={<Comment />}
+            label="Posted Comments"
+          />
+          <Tab
+            icon={<ThumbUp />}
+            label="Upvoted Issues"
+          />
+        </Tabs>
+
+        <Box sx={{ p: 3 }}>
+          {tabValue === 0 && (
             <List>
               {profileData.postedIssues.map((issue) => (
                 <ListItemButton
@@ -129,70 +258,120 @@ function UserProfile() {
                 >
                   <ListItemText
                     primary={issue.title}
-                    secondary={`Status: ${issue.status} | Created At: ${new Date(
-                      issue.createdAt,
-                    ).toLocaleDateString()}`}
+                    secondary={
+                      <Box>
+                        <Typography
+                          component="span"
+                          variant="body2"
+                          color="text.primary"
+                        >
+                          Status: {issue.status}
+                        </Typography>
+                        {" — "}
+                        {new Date(issue.createdAt).toLocaleDateString()}
+                      </Box>
+                    }
+                  />
+                  {canReopen(issue) && (
+                    <Button
+                      variant="outlined"
+                      color="primary"
+                      size="small"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleReopenIssue(issue.id);
+                      }}
+                    >
+                      Reopen
+                    </Button>
+                  )}
+                  <Divider
+                    sx={{
+                      position: "absolute",
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                    }}
                   />
                 </ListItemButton>
               ))}
             </List>
-          </CardContent>
-        </Card>
-      )}
+          )}
 
-      {tabValue === 1 && (
-        <Card>
-          <CardContent>
-            <Typography
-              variant="h6"
-              gutterBottom
-            >
-              Posted Comments
-            </Typography>
+          {tabValue === 1 && (
             <List>
               {profileData.postedComments.map((comment) => (
                 <ListItemButton
                   key={comment.id}
                   onClick={() => comment.issue && handleCardClick(comment.issue.id)}
-                  disabled={!comment.issue} // Disable click if the issue is null
+                  disabled={!comment.issue}
                 >
                   <ListItemText
                     primary={comment.description}
-                    secondary={`Commented on: ${
-                      comment.issue ? comment.issue.title : "Suggestion"
-                    } | Created At: ${new Date(comment.createdAt).toLocaleDateString()}`}
+                    secondary={
+                      <Box>
+                        <Typography
+                          component="span"
+                          variant="body2"
+                          color="text.primary"
+                        >
+                          {comment.issue ? comment.issue.title : "Suggestion"}
+                        </Typography>
+                        {" — "}
+                        {new Date(comment.createdAt).toLocaleDateString()}
+                      </Box>
+                    }
+                  />
+                  <Divider
+                    sx={{
+                      position: "absolute",
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                    }}
                   />
                 </ListItemButton>
               ))}
             </List>
-          </CardContent>
-        </Card>
-      )}
+          )}
 
-      {tabValue === 2 && (
-        <Card>
-          <CardContent>
-            <Typography
-              variant="h6"
-              gutterBottom
-            >
-              Upvoted Issues
-            </Typography>
+          {tabValue === 2 && (
             <List>
               {profileData.upvotedIssues.map((issue) => (
-                <ListItemButton key={issue.id}>
+                <ListItemButton
+                  key={issue.id}
+                  onClick={() => handleCardClick(issue.id)}
+                >
                   <ListItemText
                     primary={issue.title}
-                    secondary={`Status: ${issue.status} | Created At: ${new Date(
-                      issue.createdAt,
-                    ).toLocaleDateString()}`}
+                    secondary={
+                      <Box>
+                        <Typography
+                          component="span"
+                          variant="body2"
+                          color="text.primary"
+                        >
+                          Status: {issue.status}
+                        </Typography>
+                        {" — "}
+                        {new Date(issue.createdAt).toLocaleDateString()}
+                      </Box>
+                    }
+                  />
+                  <Divider
+                    sx={{
+                      position: "absolute",
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                    }}
                   />
                 </ListItemButton>
               ))}
             </List>
-          </CardContent>
-        </Card>
-      )}
+          )}
+        </Box>
+      </Paper>
     </Container>
   );
 }

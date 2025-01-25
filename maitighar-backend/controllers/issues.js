@@ -11,8 +11,19 @@ const District = require("../models/district");
 const LocalGov = require("../models/localgov");
 const Comment = require("../models/comment");
 const { addNotification } = require("../utils/notification");
-
 const nodemailer = require("nodemailer");
+
+const NepaliProfanityFilter = require("../utils/profanityfilter");
+const profanityFilter = new NepaliProfanityFilter();
+
+profanityFilter
+  .loadProfaneWords()
+  .then(() => {
+    console.log("Profanity filter ready for use.");
+  })
+  .catch((error) => {
+    console.error("Failed to initialize profanity filter:", error);
+  });
 
 const issueRouter = express.Router();
 const { analyzeSentiment } = require("../controllers/sentiment");
@@ -49,9 +60,6 @@ const upload = multer({
 // Create a new issue with image upload
 issueRouter.post("/", upload.array("images", 5), async (req, res) => {
   try {
-    if (!req.user || !req.user.id) {
-      return res.status(401).json({ error: "User not authenticated" });
-    }
     const {
       title,
       description,
@@ -66,6 +74,27 @@ issueRouter.post("/", upload.array("images", 5), async (req, res) => {
       type,
       category,
     } = req.body;
+
+    // Check profanity only if the filter is ready
+    if (!profanityFilter.isReady) {
+      return res.status(503).json({
+        error: "Profanity filter is not initialized. Please try again later.",
+      });
+    }
+
+    //     if (
+    //   profanityFilter.containsProfaneWord(sanitizedTitle) ||
+    //   profanityFilter.containsProfaneWord(sanitizedDescription)
+    // ) {
+    //   return res.status(400).json({
+    //     error: "Profane language is not allowed in title or description.",
+    //   });
+    // }
+
+    if (!req.user || !req.user.id) {
+      return res.status(401).json({ error: "User not authenticated" });
+    }
+
     const user = await User.findById(req.user.id);
 
     if (!user) {
@@ -104,10 +133,14 @@ issueRouter.post("/", upload.array("images", 5), async (req, res) => {
       }
     }
 
+    // Sanitize profane words in title and description
+    const sanitizedTitle = profanityFilter.censorText(title);
+    const sanitizedDescription = profanityFilter.censorText(description);
+
     const issue = new Issue({
-      title,
+      title: sanitizedTitle,
       type,
-      description,
+      description: sanitizedDescription,
       department,
       assigned_province,
       assigned_district,
@@ -128,8 +161,6 @@ issueRouter.post("/", upload.array("images", 5), async (req, res) => {
 
     await issue.save();
 
-        
-    // res.status(201).json(issue);
     // Then analyze sentiment & summarize text and update the issue
     const sentimentResult = await analyzeSentiment(issue._id);
     const summarizedText = await summarizeText(issue._id);
@@ -188,6 +219,29 @@ issueRouter.post("/", upload.array("images", 5), async (req, res) => {
     res.status(201).json(updatedIssue);
   } catch (error) {
     console.error("Error creating issue:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+//Get issue by date for users
+issueRouter.get("/user", async (req, res) => {
+  try {
+    const { limit = 5, sortBy = "createdAt", sortOrder = "desc" } = req.query;
+
+    const sortOptions = {};
+    sortOptions[sortBy] = sortOrder === "asc" ? 1 : -1;
+
+    const issues = await Issue.find({})
+      .sort(sortOptions)
+      .limit(Number(limit))
+      .populate("createdBy", { username: 1 });
+
+    if (!issues.length) {
+      return res.status(404).json({ error: "No recent issues found." });
+    }
+    res.json(issues);
+  } catch (error) {
+    console.error("Error fetching recent issues:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 });
@@ -314,29 +368,6 @@ issueRouter.get("/admin", async (req, res) => {
   } catch (error) {
     console.error("Error fetching issues by department:", error);
     // Handle errors and return 500
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
-
-//Get issue by date for users
-issueRouter.get("/user", async (req, res) => {
-  try {
-    const { limit = 5, sortBy = "createdAt", sortOrder = "desc" } = req.query;
-
-    const sortOptions = {};
-    sortOptions[sortBy] = sortOrder === "asc" ? 1 : -1;
-
-    const issues = await Issue.find({})
-      .sort(sortOptions)
-      .limit(Number(limit))
-      .populate("createdBy", { username: 1 });
-
-    if (!issues.length) {
-      return res.status(404).json({ error: "No recent issues found." });
-    }
-    res.json(issues);
-  } catch (error) {
-    console.error("Error fetching recent issues:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 });
@@ -487,18 +518,126 @@ issueRouter.get("/user/user-posts", async (req, res) => {
 // Update a issue
 issueRouter.put("/:id", async (req, res) => {
   try {
-    const { status } = req.body;
-    const issue = await Issue.findById(req.params.id);
+    const { id } = req.params;
+    const updates = req.body;
+
+    // Allowed fields for update
+    const allowedUpdates = [
+      "title",
+      "description",
+      "status",
+      "category",
+      "location",
+      "latitude",
+      "longitude",
+      "assigned_province",
+      "assigned_district",
+      "assigned_local_gov",
+      "assigned_ward",
+      "type",
+      "isActive",
+    ];
+
+    const isValidOperation = Object.keys(updates).every((update) =>
+      allowedUpdates.includes(update),
+    );
+
+    if (!isValidOperation) {
+      return res.status(400).json({
+        error: "Invalid updates!",
+        allowedFields: allowedUpdates,
+      });
+    }
+
+    const issue = await Issue.findById(id);
 
     if (!issue) {
       return res.status(404).json({ error: "Issue not found" });
     }
 
-    issue.status = status;
+    if (!issue.isActive) {
+      return res.status(403).json({ error: "Cannot update a deleted issue" });
+    }
+
+    if (updates.status) {
+      if (!["open", "received", "resolved"].includes(updates.status)) {
+        return res.status(400).json({ error: "Invalid status" });
+      }
+
+      if (updates.status === "resolved") {
+        updates.resolvedAt = new Date();
+      }
+    }
+
+    // Validate location if updating
+    if (updates.location) {
+      if (
+        updates.location.type !== "Point" ||
+        !Array.isArray(updates.location.coordinates) ||
+        updates.location.coordinates.length !== 2
+      ) {
+        return res.status(400).json({ error: "Invalid location format" });
+      }
+    }
+
+    const updateFields = [
+      "title",
+      "description",
+      "status",
+      "category",
+      "location",
+      "latitude",
+      "longitude",
+      "assigned_province",
+      "assigned_district",
+      "assigned_local_gov",
+      "assigned_ward",
+      "type",
+      "isActive",
+      "resolvedAt"
+    ];
+
+    updateFields.forEach((field) => {
+      if (updates[field] !== undefined) {
+        issue[field] = updates[field];
+      }
+    });
+
+    // Special handling for ward validation
+    if (updates.assigned_ward !== undefined) {
+      if (issue.assigned_local_gov) {
+        const localGov = await LocalGov.findById(issue.assigned_local_gov);
+        if (
+          !localGov ||
+          updates.assigned_ward <= 0 ||
+          updates.assigned_ward > localGov.number_of_wards
+        ) {
+          return res.status(400).json({
+            error: "Invalid ward number for the selected local government",
+          });
+        }
+      } else if (updates.assigned_ward) {
+        return res.status(400).json({
+          error: "Ward can only be set when a local government is assigned",
+        });
+      }
+    }
+
+    // Save the updated issue
     await issue.save();
-    res.json(issue);
+
+    const populated = await issue.populate("createdBy");
+    res.json(populated);
   } catch (error) {
-    console.error("Error updating issue status:", error);
+    console.error("Error updating issue:", error);
+
+    if (error.name === "ValidationError") {
+      return res.status(400).json({
+        error: "Validation Error",
+        details: error.errors,
+      });
+    }
+
     res.status(500).json({ error: "Internal server error" });
   }
 });
@@ -531,7 +670,7 @@ issueRouter.put("/:id", upload.single("image"), async (req, res) => {
 // Delete an issue
 issueRouter.delete("/:id", async (req, res) => {
   try {
-    const issue = await Issue.findByIdAndDelete(req.params.id);
+    const issue = await Issue.findById(req.params.id);
 
     if (!issue) {
       return res.status(404).json({ error: "issue not found" });
@@ -542,7 +681,9 @@ issueRouter.delete("/:id", async (req, res) => {
       return res.status(403).json({ error: "You do not have permission to delete this issue" });
     }
 
-    await issue.remove();
+    // await issue.remove();
+    issue.isActive = false;
+    await issue.save();
     res.json({ message: "Issue deleted" });
   } catch (error) {
     console.error("Error deleting issue:", error);
@@ -564,53 +705,79 @@ issueRouter.put("/:id/upvote", async (req, res) => {
     }
     const userId = req.user.id;
     const upvoter = await User.findById(userId);
-    const hasUpvoted = issue.upvotedBy.some(
-      (id) => id.toString() === userId.toString()
-    );
+    const hasUpvoted = issue.upvotedBy.some((id) => id.toString() === userId.toString());
 
     if (hasUpvoted) {
       issue.upvotes -= 1;
-      issue.upvotedBy = issue.upvotedBy.filter(
-        (id) => id.toString() !== userId.toString()
-      );
+      issue.upvotedBy = issue.upvotedBy.filter((id) => id.toString() !== userId.toString());
       // Remove the notification
       if (issue.createdBy && issue.createdBy._id.toString() !== userId) {
         const upvoter = await User.findById(userId); // Fetch upvoter details
-        if(upvoter){
-        const notificationMessage = `${upvoter.username} upvoted your issue: "${issue.title}".`;
+        if (upvoter) {
+          const notificationMessage = `${upvoter.username} upvoted your issue: "${issue.title}".`;
 
-        await User.findByIdAndUpdate(
-          issue.createdBy._id,
-          {
-            $pull: { notifications: { message: notificationMessage } },
-          },
-          { new: true } // To return the updated user document
-        );
+          await User.findByIdAndUpdate(
+            issue.createdBy._id,
+            {
+              $pull: { notifications: { message: notificationMessage } },
+            },
+            { new: true }, // To return the updated user document
+          );
         }
       }
     } else {
       issue.upvotes += 1;
       issue.upvotedBy.push(req.user.id);
 
-     // Notify the issue creator
-     if (issue.createdBy && issue.createdBy._id.toString() !== userId) {
-      const upvoter = await User.findById(userId); // Fetch upvoter details
-      if (upvoter) {
-        const notificationMessage = `${upvoter.username} upvoted your issue: "${issue.title}".`;
+      // Notify the issue creator
+      if (issue.createdBy && issue.createdBy._id.toString() !== userId) {
+        const upvoter = await User.findById(userId); // Fetch upvoter details
+        if (upvoter) {
+          const notificationMessage = `${upvoter.username} upvoted your issue: "${issue.title}".`;
 
-        console.log("Notification message:", notificationMessage);
-        await addNotification(issue.createdBy._id, notificationMessage, {
-          type: "upvote",
-          issueId: issue._id,
-       });
+          console.log("Notification message:", notificationMessage);
+          await addNotification(issue.createdBy._id, notificationMessage, {
+            type: "upvote",
+            issueId: issue._id,
+          });
+        }
       }
-     }
     }
     await issue.save();
     const populatedIssue = await issue.populate("createdBy");
     res.json(populatedIssue);
   } catch (error) {
     console.error("Upvote error:", error); // Log the error for more insight
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+issueRouter.put("/:id/reopen", async (req, res) => {
+  try {
+    const userId = req.user.id; // Assuming you have middleware to get logged-in user info
+    const issue = await Issue.findById(req.params.id);
+
+    if (!issue) {
+      return res.status(404).json({ error: "Issue not found" });
+    }
+
+    if (issue.createdBy.toString() !== userId) {
+      return res.status(403).json({ error: "You can only reopen your own issues." });
+    }
+
+    if (issue.status !== "resolved") {
+      return res.status(400).json({ error: "Only resolved issues can be reopened." });
+    }
+
+    issue.status = "open";
+    issue.reopened = true;
+    issue.resolvedAt = null;
+    issue.reopenedAt = new Date();
+    await issue.save();
+
+    res.json(issue);
+  } catch (error) {
+    console.error("Error reopening issue:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 });

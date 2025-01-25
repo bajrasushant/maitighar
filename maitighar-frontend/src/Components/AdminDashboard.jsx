@@ -1,49 +1,53 @@
-import { useState } from "react";
-import "leaflet/dist/leaflet.css";
-import {
-  AppBar,
-  Toolbar,
-  Typography,
-  Button,
-  Container,
-  Box,
-  Grid,
-  IconButton,
-} from "@mui/material";
-import AccountCircle from "@mui/icons-material/AccountCircle";
-import IssuesList from "./IssuesList";
-import SuggestionsList from "./SuggestionsList";
-import GlobalIssueMap from "./GlobalIssueMap";
+import React, { useState } from "react";
+import { AppBar, Toolbar, Typography, Button, Container, Box, Grid, Paper } from "@mui/material";
+import { useNavigate, Outlet } from "react-router-dom";
 import { useUserDispatch, useUserValue } from "../context/UserContext";
-import ActiveUsers from "./ActiveUsers";
-import AdminRequestViewer from "./AdminPromotionRequestViewer";
+import GlobalIssueMap from "./GlobalIssueMap";
+import IssuesSuggestionsLineChart from "./IssuesSuggestionsLineChart";
+import IssuesSuggestionsPieChart from "./IssuesSuggestionsPieChart";
+import SentimentGauge from "./SentimentGaugeChart";
 
 function AdminDashboard() {
   const [activeTab, setActiveTab] = useState("dashboard");
   const userDispatch = useUserDispatch();
-  const userData = useUserValue();
-
-  const renderContent = () => {
-    switch (activeTab) {
-      case "dashboard":
-        return <GlobalIssueMap />;
-      case "issues":
-        return <IssuesList />;
-      case "suggestions":
-        return <SuggestionsList />;
-      case "activeUsers":
-        return <ActiveUsers adminId={userData.adminId} />;
-      case "promotionRequests":
-        return <AdminRequestViewer />;
-      default:
-        return <GlobalIssueMap />;
-    }
-  };
+  const user = useUserValue();
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     userDispatch({ type: "ADMIN_LOGOUT" });
     window.location.href = "/admin-login";
   };
+
+  const navItems = [
+    {
+      label: "Active Users",
+      path: "/admin-dashboard/active-users",
+      tabKey: "activeUsers",
+      notVisible: "department",
+    },
+    { label: "Dashboard", path: "/admin-dashboard", tabKey: "dashboard", notVisible: null },
+    { label: "Issues", path: "/admin-dashboard/issues-list", tabKey: "issues", notVisible: null },
+    {
+      label: "Suggestions",
+      path: "/admin-dashboard/suggestion-list",
+      tabKey: "suggestions",
+      notVisible: null,
+    },
+    {
+      label: "WardOfficer Request",
+      path: "/admin-dashboard/wardofficer-request",
+      tabKey: "promotionRequests",
+      notVisible: "department",
+    },
+  ];
+
+  const filteredNavItems = navItems.filter((item) => {
+    if (user?.responsible === "department" && item.notVisible === "department") {
+      return false;
+    }
+    return true;
+  });
+  console.log(filteredNavItems);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -56,58 +60,22 @@ function AdminDashboard() {
           >
             Admin Dashboard
           </Typography>
-          <Button
-            color="inherit"
-            onClick={() => setActiveTab("activeUsers")}
-            sx={{
-              backgroundColor:
-                activeTab === "activeUsers" ? "rgba(255, 255, 255, 0.1)" : "transparent",
-            }}
-          >
-            Active Users
-          </Button>
-          <Button
-            color="inherit"
-            onClick={() => setActiveTab("dashboard")}
-            sx={{
-              backgroundColor:
-                activeTab === "dashboard" ? "rgba(255, 255, 255, 0.1)" : "transparent",
-            }}
-          >
-            Dashboard
-          </Button>
-          <Button
-            color="inherit"
-            onClick={() => setActiveTab("issues")}
-            sx={{
-              backgroundColor: activeTab === "issues" ? "rgba(255, 255, 255, 0.1)" : "transparent",
-            }}
-          >
-            Issues
-          </Button>
-          <Button
-            color="inherit"
-            onClick={() => setActiveTab("suggestions")}
-            sx={{
-              backgroundColor:
-                activeTab === "suggestions" ? "rgba(255, 255, 255, 0.1)" : "transparent",
-            }}
-          >
-            Suggestions
-          </Button>
-          <Button
-            color="inherit"
-            onClick={() => setActiveTab("promotionRequests")}
-            sx={{
-              backgroundColor:
-                activeTab === "promotionRequests" ? "rgba(255, 255, 255, 0.1)" : "transparent",
-            }}
-          >
-            WardOfficer Request
-          </Button>
-          {/* <IconButton size="large" color="inherit" onClick={handleLogout}>
-						<AccountCircle />
-					</IconButton> */}
+          {filteredNavItems.map((item) => (
+            <Button
+              key={item.tabKey}
+              color="inherit"
+              onClick={() => {
+                setActiveTab(item.tabKey);
+                navigate(item.path);
+              }}
+              sx={{
+                backgroundColor:
+                  activeTab === item.tabKey ? "rgba(255, 255, 255, 0.1)" : "transparent",
+              }}
+            >
+              {item.label}
+            </Button>
+          ))}
           <Button
             color="inherit"
             onClick={handleLogout}
@@ -116,20 +84,142 @@ function AdminDashboard() {
           </Button>
         </Toolbar>
       </AppBar>
-      <Container sx={{ mt: 4, height: "calc(100vh - 64px)" }}>
-        <Grid
-          container
-          spacing={2}
-          style={{ height: "100%" }}
-        >
+      <Container
+        maxWidth="xl"
+        sx={{ mt: 4, mb: 4 }}
+      >
+        {activeTab === "dashboard" && (
           <Grid
-            item
-            xs={12}
-            style={{ height: "100%" }}
+            container
+            spacing={3}
           >
-            {renderContent()}
+            <Grid
+              item
+              xs={12}
+            >
+              <Paper
+                elevation={2}
+                sx={{
+                  p: 2,
+                  height: 400,
+                  borderRadius: 2,
+                  // overflow: "hidden",
+                  justifyContent: "center",
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
+                <Typography
+                  variant="h6"
+                  gutterBottom
+                >
+                  Global Issue Map
+                </Typography>
+                <GlobalIssueMap />
+              </Paper>
+            </Grid>
+            <Grid
+              item
+              xs={12}
+              md={4}
+            >
+              <Paper
+                elevation={2}
+                sx={{
+                  p: 2,
+                  height: 400,
+                  borderRadius: 2,
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
+                <Typography
+                  variant="h6"
+                  gutterBottom
+                >
+                  Issues and Suggestions Over Time
+                </Typography>
+                <Box
+                  sx={{
+                    flexGrow: 1,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <IssuesSuggestionsLineChart />
+                </Box>
+              </Paper>
+            </Grid>
+            <Grid
+              item
+              xs={12}
+              md={4}
+            >
+              <Paper
+                elevation={2}
+                sx={{
+                  p: 2,
+                  height: 400,
+                  borderRadius: 2,
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
+                <Typography
+                  variant="h6"
+                  gutterBottom
+                >
+                  Issues and Suggestions Overview
+                </Typography>
+                <Box
+                  sx={{
+                    flexGrow: 1,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <IssuesSuggestionsPieChart />
+                </Box>
+              </Paper>
+            </Grid>
+            <Grid
+              item
+              xs={12}
+              md={4}
+            >
+              <Paper
+                elevation={2}
+                sx={{
+                  p: 2,
+                  height: 400,
+                  borderRadius: 2,
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
+                <Typography
+                  variant="h6"
+                  gutterBottom
+                >
+                  Sentiment Analysis Overview
+                </Typography>
+                <Box
+                  sx={{
+                    flexGrow: 1,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <SentimentGauge />
+                </Box>
+              </Paper>
+            </Grid>
           </Grid>
-        </Grid>
+        )}
+        <Outlet />
       </Container>
     </Box>
   );

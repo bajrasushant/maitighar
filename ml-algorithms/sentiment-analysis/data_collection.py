@@ -3,8 +3,8 @@ from bson.objectid import ObjectId
 import pandas as pd
 
 # MongoDB connection details
-MONGO_URI = "mongodb+srv://shrish:ymSuwkliPUCtoL89@maitighar.8hcenvt.mongodb.net/maitighar?retryWrites=true&w=majority&appName=maitighar"  # Replace with your MongoDB URI
-DB_NAME = "maitighar"  # Replace with your database name
+MONGO_URI = ""  # Replace with your MongoDB URI
+DB_NAME = ""  # Replace with your database name
 
 def connect_to_mongodb():
     client = MongoClient(MONGO_URI)
