@@ -336,7 +336,12 @@ function HomePage() {
               {userNotifications.map((notification) => (
                 <MenuItem
                   key={notification._id}
-                  onClick={() => handleMarkNotificationAsRead(notification._id)}
+                  onClick={() => {
+                    handleMarkNotificationAsRead(notification._id);
+                    if (notification.issue) {
+                      handleCardClick(notification.issue);
+                    }
+                  }}
                   sx={{
                     backgroundColor: !notification.read ? "action.hover" : "transparent",
                     borderLeft: !notification.read ? 4 : 0,
