@@ -594,7 +594,7 @@ issueRouter.put("/:id", async (req, res) => {
       "assigned_ward",
       "type",
       "isActive",
-      "resolvedAt"
+      "resolvedAt",
     ];
 
     updateFields.forEach((field) => {

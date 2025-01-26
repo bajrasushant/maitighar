@@ -32,6 +32,7 @@ import {
   Notifications,
   AccountCircle,
   ArrowUpwardOutlined,
+  ExpandMore,
 } from "@mui/icons-material";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import FoundationIcon from "@mui/icons-material/Foundation";
@@ -349,41 +350,43 @@ function HomePage() {
                     position: "relative", // Required for positioning the timestamp
                   }}
                 >
-                  <Avatar
-                    sx={{
-                      width: 32,
-                      height: 32,
-                      bgcolor: "primary.main",
-                      fontSize: "0.875rem",
-                    }}
-                  >
-                    {notification.username?.charAt(0).toUpperCase() || "U"}
-                    {/* {getDisplayUsername(issue.createdBy).charAt(0).toUpperCase()} */}
-                  </Avatar>
-                  <Box sx={{ flex: 1, pr: 8, overflowWrap: "break-word" }}>
-                    <Typography
-                      variant="body2"
+                  <Box sx={{ display: "flex", alignItems: "center" }}>
+                    <Avatar
                       sx={{
-                        fontWeight: !notification.read ? 600 : 400,
-                        wordBreak: "break-word", // Ensures long words break to avoid overflow
-                        whiteSpace: "normal", // Allows wrapping of text
+                        width: 32,
+                        height: 32,
+                        bgcolor: "primary.main",
+                        fontSize: "0.875rem",
+                        mr: 2,
                       }}
                     >
-                      {notification.message}
+                      {notification.message?.charAt(0).toUpperCase()}
+                    </Avatar>
+                    <Box sx={{ flex: 1, pr: 8, overflowWrap: "break-word" }}>
+                      <Typography
+                        variant="body2"
+                        sx={{
+                          fontWeight: !notification.read ? 600 : 400,
+                          wordBreak: "break-word", // Ensures long words break to avoid overflow
+                          whiteSpace: "normal", // Allows wrapping of text
+                        }}
+                      >
+                        {notification.message}
+                      </Typography>
+                    </Box>
+                    <Typography
+                      variant="caption"
+                      color="text.secondary"
+                      sx={{
+                        position: "absolute",
+                        right: 16,
+                        top: 16,
+                        whiteSpace: "nowrap", // Prevents the timestamp from wrapping
+                      }}
+                    >
+                      {getTimeAgo(notification.timestamp)}
                     </Typography>
                   </Box>
-                  <Typography
-                    variant="caption"
-                    color="text.secondary"
-                    sx={{
-                      position: "absolute",
-                      right: 16,
-                      top: 16,
-                      whiteSpace: "nowrap", // Prevents the timestamp from wrapping
-                    }}
-                  >
-                    {getTimeAgo(notification.timestamp)}
-                  </Typography>
                 </MenuItem>
               ))}
               <Divider />
@@ -413,11 +416,11 @@ function HomePage() {
       </AppBar>
 
       <Box sx={{ paddingTop: "5px", display: "flex" }}>
-        <Container sx={{ mt: 4 }}>
+        <Container sx={{ mt: 2 }}>
           <Grid
             container
             spacing={3}
-            sx={{ mt: 4, px: 2, flexGrow: 1 }}
+            sx={{ mt: 2, px: 2, flexGrow: 1 }}
           >
             <Grid
               item
@@ -433,6 +436,7 @@ function HomePage() {
                   <Button
                     color="inherit"
                     startIcon={<FilterListIcon />}
+                    endIcon={<ExpandMore />}
                     onClick={handleOpenFilterMenu}
                   >
                     Filter
@@ -449,13 +453,13 @@ function HomePage() {
                               flexDirection: "column",
                               alignItems: "flex-start",
                               borderBottom: "1px solid #e0e0e0",
-                              py: 2,
+                              py: 1,
                             }}
                           >
                             <ListItemText
                               primary={
                                 <>
-                                  <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+                                  <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
                                     <Avatar
                                       sx={{
                                         width: 32,
@@ -616,7 +620,7 @@ function HomePage() {
               md={4}
               sx={{
                 position: "sticky",
-                top: "78px",
+                top: "82px",
                 height: "calc(100vh - 80px)",
                 // overflowY: "auto",
               }}
