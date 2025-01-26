@@ -1,4 +1,5 @@
 const axios = require("axios");
+require("dotenv").config();
 
 const Issue = require("../models/issue");
 const Comment = require("../models/comment");
@@ -11,10 +12,14 @@ async function analyzeSentiment(postId) {
     console.log("Post:", post);
     console.log("Comments:", comments);
     // Call Flask API
-    const response = await axios.post("http://localhost:5000/analyze", {
-      post_description: post.description,
-      comments: comments.map((c) => c.description),
-    });
+    const response = await axios.post(
+      `${process.env.AI_API_URL}/analyze`,
+
+      {
+        post_description: post.description,
+        comments: comments.map((c) => c.description),
+      },
+    );
 
     // Update post with sentiment analysis results
     await Issue.findByIdAndUpdate(postId, {

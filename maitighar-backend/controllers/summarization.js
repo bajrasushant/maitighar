@@ -8,7 +8,7 @@ async function summarizeText(postId) {
     const post = await Issue.findById(postId);
     console.log("Post:", post);
     // Call Flask API
-    const response = await axios.post("http://localhost:5000/summarize", {
+    const response = await axios.post(`${process.env.AI_API_URL}/summarize`, {
       post_description: post.description,
     });
 

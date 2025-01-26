@@ -1,0 +1,38 @@
+version: '1.0'
+
+services:
+  frontend:
+    build: 
+      context: ./maitighar-frontend
+      dockerfile: Dockerfile
+    image: grs-frontend
+    ports:
+      - "8181:80"
+    networks:
+      - my-network
+
+  backend:
+    build: 
+      context: ./maitighar-backend
+      dockerfile: Dockerfile
+    image: grs-backend
+    ports:
+      - "3003:3003"
+    environment:
+      - PORT=3003
+    networks:
+      - my-network
+
+  flask-api:
+    image: ml-algos 
+    build: 
+      context: ./ml-algorithms
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    networks:
+      - my-network
+
+networks:
+  my-network:
+    driver: bridge
