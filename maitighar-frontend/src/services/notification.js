@@ -14,4 +14,13 @@ const markAsRead = async (userId, notificationId) => {
   await axios.patch(`/api/users/${userId}/notifications/${notificationId}`, config);
 };
 
+// const getPaginated = async (userId, page = 1, limit = 10) => {
+//   const config = helpers.getConfig();
+//   const response = await axios.get(
+//     `${baseUrl}/${userId}?page=${page}&limit=${limit}/notifications`,
+//     config,
+//   );
+//   return response.data;
+// };
+
 export default { getAll, markAsRead };

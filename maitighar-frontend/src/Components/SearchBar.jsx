@@ -242,7 +242,7 @@ export default function SearchBar({ onIssueClick }) {
           </IconButton>
           <InputBase
             sx={{ ml: 1, flex: 1 }}
-            placeholder="Search issues and comments"
+            placeholder="Search Grievances"
             value={query}
             onChange={handleSearchChange}
           />
