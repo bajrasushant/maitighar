@@ -449,11 +449,14 @@ issueRouter.get("/:id", async (req, res) => {
       return res.status(404).json({ error: "issue not found" });
     }
 
-    const issuesWithSentiment = await analyzeSentiment(issue.id);
-    console.log(issuesWithSentiment);
+    const admin = await Admin.findById(req.user.id);
+    if (admin) {
+      const issuesWithSentiment = await analyzeSentiment(issue.id);
+      console.log(issuesWithSentiment);
 
-    const summarizedText = await summarizeText(issue.id);
-    console.log(summarizedText);
+      const summarizedText = await summarizeText(issue.id);
+      console.log(summarizedText);
+    }
 
     res.status(201).json(issue);
   } catch (error) {
@@ -549,8 +552,8 @@ issueRouter.put("/:id", async (req, res) => {
       });
     }
 
-    const issue = await Issue.findById(id);
-
+    const issue = await Issue.findById(id).populate("createdBy").populate("assigned_district");
+    const userEmail = issue.createdBy.email;
     if (!issue) {
       return res.status(404).json({ error: "Issue not found" });
     }
@@ -564,8 +567,67 @@ issueRouter.put("/:id", async (req, res) => {
         return res.status(400).json({ error: "Invalid status" });
       }
 
+      if (updates.status === "received") {
+
+        console.log("User email:", userEmail);
+        console.log("district:", issue.assigned_district);
+        // Configure Nodemailer transporter
+        const transporter = nodemailer.createTransport({
+          host: "smtp.gmail.com",
+          port: 465,
+          secure: true,
+          auth: {
+            user: process.env.EMAIL,
+            pass: process.env.EMAIL_PASSWORD,
+          },
+        });
+
+        const mailOptions = {
+          from: '"Grievance Redressal System" <your-email@gmail.com>',
+          to: userEmail,
+          subject: `Your Issue Has Been Received`,
+          text: `Hello ${issue.createdBy.username},
+
+The status of your issue titled "${issue.title}" has been updated to "${updates.status}" by the admin of Ward ${issue.assigned_ward} of ${issue.assigned_district.name} district.
+
+Thank you,
+Grievance Redressal System`,
+        };
+
+        // Send the email
+        await transporter.sendMail(mailOptions);
+      }
+
       if (updates.status === "resolved") {
         updates.resolvedAt = new Date();
+        console.log("User email:", userEmail);
+        console.log("district:", issue.assigned_district);
+        // Configure Nodemailer transporter
+        const transporter = nodemailer.createTransport({
+          host: "smtp.gmail.com",
+          port: 465,
+          secure: true,
+          auth: {
+            user: process.env.EMAIL,
+            pass: process.env.EMAIL_PASSWORD,
+          },
+        });
+
+        const mailOptions = {
+          from: '"Grievance Redressal System" <your-email@gmail.com>',
+          to: userEmail,
+          subject: `Your Issue Has Been Marked Resolved`,
+          text: `Hello ${issue.createdBy.username},
+
+The status of your issue titled "${issue.title}" has been updated to "${updates.status}" by the admin of Ward ${issue.assigned_ward} of ${issue.assigned_district.name} district.
+If you think that the issue has not been resolved you can reopen your issue.
+
+Thank you,
+Grievance Redressal System`,
+        };
+
+        // Send the email
+        await transporter.sendMail(mailOptions);
       }
     }
 
@@ -752,10 +814,14 @@ issueRouter.put("/:id/upvote", async (req, res) => {
   }
 });
 
+//reopen issue
 issueRouter.put("/:id/reopen", async (req, res) => {
   try {
     const userId = req.user.id; // Assuming you have middleware to get logged-in user info
-    const issue = await Issue.findById(req.params.id);
+    const user = await User.findById(req.user.id).select("username");
+
+    const issue = await Issue.findById(req.params.id).populate("assigned_local_gov")
+      .populate("assigned_ward");
 
     if (!issue) {
       return res.status(404).json({ error: "Issue not found" });
@@ -773,7 +839,50 @@ issueRouter.put("/:id/reopen", async (req, res) => {
     issue.reopened = true;
     issue.resolvedAt = null;
     issue.reopenedAt = new Date();
+
+    let admin;
+    if (issue.assigned_local_gov) {
+      // If the issue is assigned to a local government, check the local government and ward
+      admin = await Admin.findOne({
+        assigned_local_gov: issue.assigned_local_gov,
+        assigned_ward: issue.assigned_ward,
+      });
+    }
+
+    if (!admin) {
+      return res.status(404).json({ error: "Admin not found for this issue." });
+    }
+
+
+    // Configure Nodemailer transporter
+    const transporter = nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true,
+      auth: {
+        user: process.env.EMAIL,
+        pass: process.env.EMAIL_PASSWORD,
+      },
+    });
+
+    const mailOptions = {
+      from: '"Grievance Redressal System" <your-email@gmail.com>',
+      to: admin.email,
+      subject: `A Issue has been Reopened`,
+      text: `Hello admin,
+
+    A issue titled "${issue.title}" has been reopened by the user ${user.username}.  
+    
+    Thank you,
+    Grievance Redressal System`,
+    };
+
+    // Send the email
+    await transporter.sendMail(mailOptions);
+
     await issue.save();
+
+
 
     res.json(issue);
   } catch (error) {

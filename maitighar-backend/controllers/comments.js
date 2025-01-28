@@ -60,9 +60,8 @@ commentRouter.post("/", async (req, res) => {
         { $push: { comments: comment.id } },
         { new: true, useFindAndModify: false },
       );
-
       // Notify the issue creator if the comment is from someone else
-      if (updatedIssue && updatedIssue.createdBy && updatedIssue.createdBy.id !== req.user.id) {
+      if (updatedIssue && updatedIssue.createdBy && updatedIssue.createdBy._id.toString() !== req.user.id) {
         const userId = updatedIssue.createdBy.toString();
         const commenter = await User.findById(req.user.id);
         const notificationMessage = `${commenter.username} commented on your issue: "${censoredDescription}".`;
