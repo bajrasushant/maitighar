@@ -33,6 +33,9 @@ import {
   AccountCircle,
   ArrowUpwardOutlined,
   ExpandMore,
+  Person,
+  Assignment,
+  Logout,
 } from "@mui/icons-material";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { useNavigate } from "react-router-dom";
@@ -81,27 +84,27 @@ function HomePage() {
     }
   };
 
-  const handleOpenNotification = async (event) => {
-    setAnchorElNotifications(event.currentTarget);
-    await fetchNotifications();
-  };
+  // const handleOpenNotification = async (event) => {
+  //   setAnchorElNotifications(event.currentTarget);
+  //   await fetchNotifications();
+  // };
 
-  const handleCloseNotifications = () => {
-    setAnchorElNotifications(null);
-  };
+  // const handleCloseNotifications = () => {
+  //   setAnchorElNotifications(null);
+  // };
 
-  const handleMarkNotificationAsRead = async (notificationId) => {
-    try {
-      await notificationService.markAsRead(currentUser.id, notificationId);
-      const updatedNotifications = userNotifications.map((notification) =>
-        notification._id === notificationId ? { ...notification, read: true } : notification,
-      );
-      setUserNotifications(updatedNotifications);
-      setUnreadCount(updatedNotifications.filter((n) => !n.read).length);
-    } catch (error) {
-      console.error("Failed to mark notification as read", error);
-    }
-  };
+  // const handleMarkNotificationAsRead = async (notificationId) => {
+  //   try {
+  //     await notificationService.markAsRead(currentUser.id, notificationId);
+  //     const updatedNotifications = userNotifications.map((notification) =>
+  //       notification._id === notificationId ? { ...notification, read: true } : notification,
+  //     );
+  //     setUserNotifications(updatedNotifications);
+  //     setUnreadCount(updatedNotifications.filter((n) => !n.read).length);
+  //   } catch (error) {
+  //     console.error("Failed to mark notification as read", error);
+  //   }
+  // };
 
   const handleOpenFilterMenu = (event) => {
     setAnchorElFilter(event.currentTarget);
@@ -191,24 +194,24 @@ function HomePage() {
     setAnchorElUser(null);
   };
 
-  const handleLogout = () => {
-    try {
-      userDispatch({ type: "LOGOUT" });
-      navigate("/login");
-    } catch (err) {
-      console.error("Error", err.message);
-      setNotification({ message: "Failed to logout.", status: "error" });
-    }
-  };
+  // const handleLogout = () => {
+  //   try {
+  //     userDispatch({ type: "LOGOUT" });
+  //     navigate("/login");
+  //   } catch (err) {
+  //     console.error("Error", err.message);
+  //     setNotification({ message: "Failed to logout.", status: "error" });
+  //   }
+  // };
 
-  const handleUserProfile = () => {
-    try {
-      navigate("/profile");
-    } catch (err) {
-      console.error("Error", err.message);
-      setNotification({ message: "Failed to get your details.", status: "error" });
-    }
-  };
+  // const handleUserProfile = () => {
+  //   try {
+  //     navigate("/profile");
+  //   } catch (err) {
+  //     console.error("Error", err.message);
+  //     setNotification({ message: "Failed to get your details.", status: "error" });
+  //   }
+  // };
 
   // const handleIssuesAroundWard = async () => {
   //   try {
@@ -639,27 +642,6 @@ function HomePage() {
           </Grid>
         </Container>
       </Box>
-
-      {/* User Menu */}
-      <Menu
-        anchorEl={anchorElUser}
-        open={Boolean(anchorElUser)}
-        onClose={handleCloseUserMenu}
-      >
-        <MenuItem onClick={handleUserProfile}>Profile</MenuItem>
-        <MenuItem
-          color="inherit"
-          startIcon={<Add />}
-          onClick={handleOpenPromotionForm}
-        >
-          Apply for ward officer
-        </MenuItem>
-        {/* <MenuItem onClick={handleCloseUserMenu}>My Reports</MenuItem> */}
-        <MenuItem onClick={handleLogout}>Logout</MenuItem>
-        {/* {currentUser.isWardOfficer && (
-          <MenuItem onClick={handleIssuesAroundWard}>Issues around you</MenuItem>
-        )} */}
-      </Menu>
 
       <Dialog
         open={promotionForm}

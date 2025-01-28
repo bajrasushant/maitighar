@@ -17,7 +17,10 @@ import {
   Add,
   Notifications as NotificationsIcon,
   AccountCircle,
+  Logout,
 } from "@mui/icons-material";
+import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
 import { useNavigate } from "react-router-dom";
 import { useUserValue, useUserDispatch } from "../context/UserContext";
 import notificationService from "../services/notification";
@@ -254,9 +257,26 @@ function Navbar({ onIssueClick }) {
         open={Boolean(anchorElUser)}
         onClose={handleCloseUserMenu}
       >
-        <MenuItem onClick={handleUserProfile}>Profile</MenuItem>
-        <MenuItem onClick={handleOpenPromotionForm}>Apply for Ward Officer</MenuItem>
-        <MenuItem onClick={handleLogout}>Logout</MenuItem>
+        <MenuItem onClick={handleUserProfile}>
+          <PersonOutlineOutlinedIcon sx={{ mr: 1 }} />
+          Profile
+        </MenuItem>
+        <MenuItem
+          color="inherit"
+          startIcon={<Add />}
+          onClick={handleOpenPromotionForm}
+        >
+          <AssignmentOutlinedIcon sx={{ mr: 1 }} />
+          Apply for ward officer
+        </MenuItem>
+        {/* <MenuItem onClick={handleCloseUserMenu}>My Reports</MenuItem> */}
+        <MenuItem onClick={handleLogout}>
+          <Logout sx={{ mr: 1 }} />
+          Logout
+        </MenuItem>
+        {/* {currentUser.isWardOfficer && (
+                <MenuItem onClick={handleIssuesAroundWard}>Issues around you</MenuItem>
+              )} */}
       </Menu>
     </AppBar>
   );
