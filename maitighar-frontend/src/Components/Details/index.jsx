@@ -9,6 +9,7 @@ import IssueCard from "./IssueCard";
 import CommentSection from "./CommentSection";
 import useCommentState from "./hooks/useCommentState";
 import useLocationName from "./hooks/useLocationName";
+import Navbar from "../Navbar";
 
 function Details({ isAdmin = false }) {
   const { id } = useParams();
@@ -59,7 +60,10 @@ function Details({ isAdmin = false }) {
       } catch (err) {
         if (!isMounted) return;
         setErrorMessage("Failed to fetch issue details. Issue might have been closed or deleted.");
-        setNotification({ message: "Error loading issue details. Issue might have been closed or deleted.", status: "error" });
+        setNotification({
+          message: "Error loading issue details. Issue might have been closed or deleted.",
+          status: "error",
+        });
       } finally {
         if (isMounted) {
           setLoading(false);
@@ -120,53 +124,56 @@ function Details({ isAdmin = false }) {
   }
 
   return (
-    <Container
-      maxWidth="md"
-      sx={{ mt: 4, mb: 4 }}
-    >
-      <Button
-        startIcon={<ArrowBack />}
-        onClick={handleBackToHome}
-        sx={{ mb: 3 }}
+    <>
+      <Navbar onIssueClick={(issueId) => navigate(`/details/${issueId}`)} />
+      <Container
+        maxWidth="md"
+        sx={{ mt: 10, mb: 4 }}
       >
-        Back to Home
-      </Button>
-
-      {!issue || !issue.isActive ? (
-        <Typography
-          variant="h6"
-          color="error"
+        <Button
+          startIcon={<ArrowBack />}
+          onClick={handleBackToHome}
+          sx={{ mb: 2 }}
         >
-          This issue has been deleted.
-        </Typography>
-      ) : (
-        <>
-          <IssueCard
-            issue={issue}
-            setIssue={setIssue}
-            locationName={locationName}
-            commentsCount={comments.length}
-            onDelete={handleDelete}
-          />
+          Back to Home
+        </Button>
 
-          <CommentSection
-            issueId={id}
-            comments={comments}
-            newComment={newComment}
-            setNewComment={setNewComment}
-            handleCommentSubmit={handleCommentSubmit}
-            replyContent={replyContent}
-            showReplyForm={showReplyForm}
-            setShowReplyForm={setShowReplyForm}
-            repliesState={repliesState}
-            handleReplyContentChange={handleReplyContentChange}
-            handleReplySubmit={handleReplySubmit}
-            toggleReplies={toggleReplies}
-            isAdmin={isAdmin}
-          />
-        </>
-      )}
-    </Container>
+        {!issue || !issue.isActive ? (
+          <Typography
+            variant="h6"
+            color="error"
+          >
+            This issue has been deleted.
+          </Typography>
+        ) : (
+          <>
+            <IssueCard
+              issue={issue}
+              setIssue={setIssue}
+              locationName={locationName}
+              commentsCount={comments.length}
+              onDelete={handleDelete}
+            />
+
+            <CommentSection
+              issueId={id}
+              comments={comments}
+              newComment={newComment}
+              setNewComment={setNewComment}
+              handleCommentSubmit={handleCommentSubmit}
+              replyContent={replyContent}
+              showReplyForm={showReplyForm}
+              setShowReplyForm={setShowReplyForm}
+              repliesState={repliesState}
+              handleReplyContentChange={handleReplyContentChange}
+              handleReplySubmit={handleReplySubmit}
+              toggleReplies={toggleReplies}
+              isAdmin={isAdmin}
+            />
+          </>
+        )}
+      </Container>
+    </>
   );
 }
 

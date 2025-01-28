@@ -23,6 +23,7 @@ import { useNavigate } from "react-router-dom";
 import { Person, Comment, ThumbUp, ArrowBack } from "@mui/icons-material";
 import helpers from "../helpers/helpers";
 import { useNotification } from "../context/NotificationContext";
+import Navbar from "./Navbar";
 
 function UserProfile() {
   const [profileData, setProfileData] = useState(null);
@@ -111,268 +112,258 @@ function UserProfile() {
   }
 
   return (
-    <Container
-      maxWidth="lg"
-      sx={{ mt: 4, mb: 4 }}
-    >
-      <Button
-        startIcon={<ArrowBack />}
-        onClick={handleBackToHome}
-        sx={{ mb: 3 }}
+    <>
+      <Navbar onIssueClick={(issueId) => navigate(`/details/${issueId}`)} />
+      <Container
+        maxWidth="lg"
+        sx={{ mt: 10, mb: 4 }}
       >
-        Back to Home
-      </Button>
-      <Paper
-        elevation={3}
-        sx={{ p: 3, mb: 4, borderRadius: 2 }}
-      >
-        <Grid
-          container
-          spacing={3}
-          alignItems="center"
+        <Button
+          startIcon={<ArrowBack />}
+          onClick={handleBackToHome}
+          sx={{ mb: 2 }}
         >
-          <Grid item>
-            <Avatar
-              sx={{
-                width: 100,
-                height: 100,
-                bgcolor: "primary.main",
-                fontSize: "3rem",
-              }}
-            >
-              {profileData.user.username.charAt(0).toUpperCase()}
-            </Avatar>
-          </Grid>
+          Back to Home
+        </Button>
+        <Paper
+          elevation={3}
+          sx={{ p: 3, mb: 4, borderRadius: 2 }}
+        >
           <Grid
-            item
-            xs
-          >
-            <Typography
-              variant="h4"
-              gutterBottom
-            >
-              {profileData.user.username}
-            </Typography>
-            <Typography
-              variant="body1"
-              color="text.secondary"
-            >
-              {profileData.user.email}
-            </Typography>
-            <Chip
-              label={profileData.user.role}
-              color="primary"
-              variant="outlined"
-              sx={{ mt: 1 }}
-            />
-          </Grid>
-          <Grid
-            item
             container
-            xs={12}
-            spacing={2}
+            spacing={3}
+            alignItems="center"
           >
             <Grid
               item
-              xs={6}
-              md={3}
+              xs={12}
+              md={8}
             >
-              <Paper
-                elevation={1}
-                sx={{ p: 2, textAlign: "center" }}
-              >
-                <Typography
-                  variant="body1"
-                  color="text.secondary"
+              <Box sx={{ display: "flex", alignItems: "center" }}>
+                <Avatar
+                  sx={{
+                    width: 100,
+                    height: 100,
+                    bgcolor: "primary.main",
+                    fontSize: "3rem",
+                    mr: 2,
+                  }}
                 >
-                  Total Upvotes
-                </Typography>
-                <Typography
-                  variant="h4"
-                  color="primary"
-                >
-                  {profileData.stats.totalUpvotes || 0}
-                </Typography>
-              </Paper>
+                  {profileData.user.username.charAt(0).toUpperCase()}
+                </Avatar>
+                <Box>
+                  <Typography
+                    variant="h4"
+                    gutterBottom
+                  >
+                    {profileData.user.username}
+                  </Typography>
+                  <Typography
+                    variant="body1"
+                    color="text.secondary"
+                  >
+                    {profileData.user.email}
+                  </Typography>
+                  <Chip
+                    label={profileData.user.role}
+                    color="primary"
+                    variant="outlined"
+                    sx={{ mt: 1 }}
+                  />
+                </Box>
+              </Box>
             </Grid>
             <Grid
               item
-              xs={6}
-              md={3}
+              xs={12}
+              md={4}
             >
-              <Paper
-                elevation={1}
-                sx={{ p: 2, textAlign: "center" }}
-              >
-                <Typography
-                  variant="body1"
-                  color="text.secondary"
-                >
-                  Total Comments
-                </Typography>
-                <Typography
-                  variant="h4"
-                  color="primary"
-                >
-                  {profileData.stats.totalComments || 0}
-                </Typography>
-              </Paper>
+              <Box sx={{ display: "flex", justifyContent: "space-around" }}>
+                <Box sx={{ textAlign: "center" }}>
+                  <Typography
+                    variant="h5"
+                    color="primary"
+                  >
+                    {profileData.stats.totalUpvotes || 0}
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                  >
+                    Total Upvotes
+                  </Typography>
+                </Box>
+                <Box sx={{ textAlign: "center" }}>
+                  <Typography
+                    variant="h5"
+                    color="primary"
+                  >
+                    {profileData.stats.totalComments || 0}
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                  >
+                    Total Comments
+                  </Typography>
+                </Box>
+              </Box>
             </Grid>
           </Grid>
-        </Grid>
-      </Paper>
+        </Paper>
 
-      <Paper
-        elevation={3}
-        sx={{ borderRadius: 2 }}
-      >
-        <Tabs
-          value={tabValue}
-          onChange={handleTabChange}
-          variant="fullWidth"
-          textColor="primary"
-          indicatorColor="primary"
-          sx={{ borderBottom: 1, borderColor: "divider" }}
+        <Paper
+          elevation={3}
+          sx={{ borderRadius: 2 }}
         >
-          <Tab
-            icon={<Person />}
-            label="Posted Issues"
-          />
-          <Tab
-            icon={<Comment />}
-            label="Posted Comments"
-          />
-          <Tab
-            icon={<ThumbUp />}
-            label="Upvoted Issues"
-          />
-        </Tabs>
+          <Tabs
+            value={tabValue}
+            onChange={handleTabChange}
+            variant="fullWidth"
+            textColor="primary"
+            indicatorColor="primary"
+            sx={{ borderBottom: 1, borderColor: "divider" }}
+          >
+            <Tab
+              icon={<Person />}
+              label="Posted Issues"
+            />
+            <Tab
+              icon={<Comment />}
+              label="Posted Comments"
+            />
+            <Tab
+              icon={<ThumbUp />}
+              label="Upvoted Issues"
+            />
+          </Tabs>
 
-        <Box sx={{ p: 3 }}>
-          {tabValue === 0 && (
-            <List>
-              {profileData.postedIssues.map((issue) => (
-                <ListItemButton
-                  key={issue.id}
-                  onClick={() => handleCardClick(issue.id)}
-                >
-                  <ListItemText
-                    primary={issue.title}
-                    secondary={
-                      <Box>
-                        <Typography
-                          component="span"
-                          variant="body2"
-                          color="text.primary"
-                        >
-                          Status: {issue.status}
-                        </Typography>
-                        {" — "}
-                        {new Date(issue.createdAt).toLocaleDateString()}
-                      </Box>
-                    }
-                  />
-                  {canReopen(issue) && (
-                    <Button
-                      variant="outlined"
-                      color="primary"
-                      size="small"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleReopenIssue(issue.id);
+          <Box sx={{ p: 3 }}>
+            {tabValue === 0 && (
+              <List>
+                {profileData.postedIssues.map((issue) => (
+                  <ListItemButton
+                    key={issue.id}
+                    onClick={() => handleCardClick(issue.id)}
+                  >
+                    <ListItemText
+                      primary={issue.title}
+                      secondary={
+                        <Box>
+                          <Typography
+                            component="span"
+                            variant="body2"
+                            color="text.primary"
+                          >
+                            Status: {issue.status}
+                          </Typography>
+                          {" — "}
+                          {new Date(issue.createdAt).toLocaleDateString()}
+                        </Box>
+                      }
+                    />
+                    {canReopen(issue) && (
+                      <Button
+                        variant="outlined"
+                        color="primary"
+                        size="small"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleReopenIssue(issue.id);
+                        }}
+                      >
+                        Reopen
+                      </Button>
+                    )}
+                    <Divider
+                      sx={{
+                        position: "absolute",
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
                       }}
-                    >
-                      Reopen
-                    </Button>
-                  )}
-                  <Divider
-                    sx={{
-                      position: "absolute",
-                      bottom: 0,
-                      left: 0,
-                      right: 0,
-                    }}
-                  />
-                </ListItemButton>
-              ))}
-            </List>
-          )}
+                    />
+                  </ListItemButton>
+                ))}
+              </List>
+            )}
 
-          {tabValue === 1 && (
-            <List>
-              {profileData.postedComments.map((comment) => (
-                <ListItemButton
-                  key={comment.id}
-                  onClick={() => comment.issue && handleCardClick(comment.issue.id)}
-                  disabled={!comment.issue}
-                >
-                  <ListItemText
-                    primary={comment.description}
-                    secondary={
-                      <Box>
-                        <Typography
-                          component="span"
-                          variant="body2"
-                          color="text.primary"
-                        >
-                          {comment.issue ? comment.issue.title : "Suggestion"}
-                        </Typography>
-                        {" — "}
-                        {new Date(comment.createdAt).toLocaleDateString()}
-                      </Box>
-                    }
-                  />
-                  <Divider
-                    sx={{
-                      position: "absolute",
-                      bottom: 0,
-                      left: 0,
-                      right: 0,
-                    }}
-                  />
-                </ListItemButton>
-              ))}
-            </List>
-          )}
+            {tabValue === 1 && (
+              <List>
+                {profileData.postedComments.map((comment) => (
+                  <ListItemButton
+                    key={comment.id}
+                    onClick={() => comment.issue && handleCardClick(comment.issue.id)}
+                    disabled={!comment.issue}
+                  >
+                    <ListItemText
+                      primary={comment.description}
+                      secondary={
+                        <Box>
+                          <Typography
+                            component="span"
+                            variant="body2"
+                            color="text.primary"
+                          >
+                            {comment.issue ? comment.issue.title : "Suggestion"}
+                          </Typography>
+                          {" — "}
+                          {new Date(comment.createdAt).toLocaleDateString()}
+                        </Box>
+                      }
+                    />
+                    <Divider
+                      sx={{
+                        position: "absolute",
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                      }}
+                    />
+                  </ListItemButton>
+                ))}
+              </List>
+            )}
 
-          {tabValue === 2 && (
-            <List>
-              {profileData.upvotedIssues.map((issue) => (
-                <ListItemButton
-                  key={issue.id}
-                  onClick={() => handleCardClick(issue.id)}
-                >
-                  <ListItemText
-                    primary={issue.title}
-                    secondary={
-                      <Box>
-                        <Typography
-                          component="span"
-                          variant="body2"
-                          color="text.primary"
-                        >
-                          Status: {issue.status}
-                        </Typography>
-                        {" — "}
-                        {new Date(issue.createdAt).toLocaleDateString()}
-                      </Box>
-                    }
-                  />
-                  <Divider
-                    sx={{
-                      position: "absolute",
-                      bottom: 0,
-                      left: 0,
-                      right: 0,
-                    }}
-                  />
-                </ListItemButton>
-              ))}
-            </List>
-          )}
-        </Box>
-      </Paper>
-    </Container>
+            {tabValue === 2 && (
+              <List>
+                {profileData.upvotedIssues.map((issue) => (
+                  <ListItemButton
+                    key={issue.id}
+                    onClick={() => handleCardClick(issue.id)}
+                  >
+                    <ListItemText
+                      primary={issue.title}
+                      secondary={
+                        <Box>
+                          <Typography
+                            component="span"
+                            variant="body2"
+                            color="text.primary"
+                          >
+                            Status: {issue.status}
+                          </Typography>
+                          {" — "}
+                          {new Date(issue.createdAt).toLocaleDateString()}
+                        </Box>
+                      }
+                    />
+                    <Divider
+                      sx={{
+                        position: "absolute",
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                      }}
+                    />
+                  </ListItemButton>
+                ))}
+              </List>
+            )}
+          </Box>
+        </Paper>
+      </Container>
+    </>
   );
 }
 

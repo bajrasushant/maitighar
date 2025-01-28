@@ -29,8 +29,6 @@ profanityFilter
     console.error("Failed to initialize profanity filter:", error);
   });
 
-
-
 // Create a new comment
 commentRouter.post("/", async (req, res) => {
   try {
@@ -62,15 +60,14 @@ commentRouter.post("/", async (req, res) => {
         { $push: { comments: comment.id } },
         { new: true, useFindAndModify: false },
       );
-
-       // Notify the issue creator if the comment is from someone else
-       if (updatedIssue && updatedIssue.createdBy && updatedIssue.createdBy.id !== req.user.id) {
+      // Notify the issue creator if the comment is from someone else
+      if (updatedIssue && updatedIssue.createdBy && updatedIssue.createdBy._id.toString() !== req.user.id) {
         const userId = updatedIssue.createdBy.toString();
         const commenter = await User.findById(req.user.id);
         const notificationMessage = `${commenter.username} commented on your issue: "${censoredDescription}".`;
 
         console.log("updatedIssue:", updatedIssue);
-        await addNotification(updatedIssue.createdBy, notificationMessage, {
+        await addNotification(updatedIssue.createdBy, updatedIssue._id, notificationMessage, {
           type: "comment",
           issueId: updatedIssue._id,
           commentId: comment._id,
@@ -79,29 +76,29 @@ commentRouter.post("/", async (req, res) => {
       }
     }
 
-  // If the comment is a reply, push it to the parent comment's replies
-  if (parentComment) {
-    await Comment.findByIdAndUpdate(
-      parentComment,
-      { $push: { replies: comment.id } },
-      { new: true, useFindAndModify: false },
-    );
+    // If the comment is a reply, push it to the parent comment's replies
+    if (parentComment) {
+      await Comment.findByIdAndUpdate(
+        parentComment,
+        { $push: { replies: comment.id } },
+        { new: true, useFindAndModify: false },
+      );
 
-    // Find the parent comment and notify its creator if the reply is from a different user
-    const parent = await Comment.findById(parentComment).populate("createdBy");
+      // Find the parent comment and notify its creator if the reply is from a different user
+      const parent = await Comment.findById(parentComment).populate("createdBy");
 
-    if (parent && parent.createdBy && parent.createdBy.id !== req.user.id) {
-      const replier = await User.findById(req.user.id);
-      const notificationMessage = `${replier.username} replied to your comment: "${censoredDescription}".`;
+      if (parent && parent.createdBy && parent.createdBy.id !== req.user.id) {
+        const replier = await User.findById(req.user.id);
+        const notificationMessage = `${replier.username} replied to your comment: "${censoredDescription}".`;
 
-      await addNotification(parent.createdBy.id, notificationMessage, {
-        type: "reply",
-        commentId: parentComment,
-        replyId: comment._id,
-        content: censoredDescription, // Include the reply content in metadata if needed
-      });
+        await addNotification(parent.createdBy.id, parent.issue, notificationMessage, {
+          type: "reply",
+          commentId: parentComment,
+          replyId: comment._id,
+          content: censoredDescription, // Include the reply content in metadata if needed
+        });
+      }
     }
-  }
     const populatedCommentUser = await Comment.findById(comment.id)
       .populate("createdBy", {
         username: 1,

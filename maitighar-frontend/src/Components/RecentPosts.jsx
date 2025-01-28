@@ -48,7 +48,18 @@ function RecentPosts() {
 
   return (
     <Card sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
-      <CardContent sx={{ flexGrow: 1, overflowY: "auto" }}>
+      <CardContent
+        sx={{
+          flexGrow: 1,
+          overflowY: "auto", // Enable vertical scrolling
+          overflowX: "hidden", // Disable horizontal scrolling
+          "&::-webkit-scrollbar": {
+            display: "none", // Hide scrollbar for Webkit browsers
+          },
+          "-ms-overflow-style": "none", // Hide scrollbar for IE and Edge
+          "scrollbar-width": "none", // Hide scrollbar for Firefox
+        }}
+      >
         <Typography
           variant="h6"
           gutterBottom
@@ -61,7 +72,11 @@ function RecentPosts() {
               key={issue.id}
               button
               onClick={() => handleIssueClick(issue.id)}
-              sx={{ flexDirection: "column", alignItems: "flex-start" }}
+              sx={{
+                flexDirection: "column",
+                alignItems: "flex-start",
+                borderBottom: "1px solid #e0e0e0",
+              }}
             >
               <ListItemText
                 primary={

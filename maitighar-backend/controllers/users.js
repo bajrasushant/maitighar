@@ -182,7 +182,8 @@ userRouter.get("/:id/notifications", async (req, res) => {
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
-    res.json(user.notifications);
+    const sortedNotifications = user.notifications.sort((a, b) => b.timestamp - a.timestamp);
+    res.json(sortedNotifications);
   } catch (error) {
     res.status(500).json({ error: "Failed to fetch notifications." });
   }
@@ -196,7 +197,7 @@ userRouter.patch("/:id/notifications/:notificationId", async (req, res) => {
     const user = await User.findOneAndUpdate(
       { _id: id, "notifications._id": notificationId },
       { $set: { "notifications.$.read": true } },
-      { new: true }
+      { new: true },
     );
 
     if (!user) {
@@ -210,7 +211,7 @@ userRouter.patch("/:id/notifications/:notificationId", async (req, res) => {
 });
 
 userRouter.post("/test-notification", async (req, res) => {
-  const { userId, message } = req.body;
+  const { userId, issueId, message } = req.body;
 
   try {
     if (!userId || !message) {
@@ -220,7 +221,7 @@ userRouter.post("/test-notification", async (req, res) => {
     console.log("Received test-notification request:", { userId, message });
 
     const metadata = { issueId: "exampleIssueId" }; // Optional
-    await addNotification(userId, message, metadata);
+    await addNotification(userId, issueId, message, metadata);
 
     res.status(200).json({ message: "Notification added successfully!" });
   } catch (error) {
@@ -228,8 +229,5 @@ userRouter.post("/test-notification", async (req, res) => {
     res.status(500).json({ error: "Failed to add notification", details: error.message });
   }
 });
-
-
-
 
 module.exports = userRouter;

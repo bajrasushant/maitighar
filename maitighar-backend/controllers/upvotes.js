@@ -1,6 +1,7 @@
 const upvoteRouter = require("express").Router();
 const Upvote = require("../models/upvote");
 const User = require("../models/user");
+const Issue = require("../models/issue");
 const { addNotification } = require("../utils/notification");
 
 // Create a new upvote
@@ -29,10 +30,10 @@ upvoteRouter.post("/", async (req, res) => {
       const issueDocument = await Issue.findById(issue).populate("user", "username");
       const upvoter = await User.findById(user);
 
-       // Send a notification to the issue's creator
-       if (issueDocument && upvoter) {
+      // Send a notification to the issue's creator
+      if (issueDocument && upvoter) {
         const notificationMessage = `${upvoter.username} upvoted your issue: "${issueDocument.title}".`;
-        await addNotification(issueDocument.user._id, notificationMessage, {
+        await addNotification(issueDocument.user._id, issue, notificationMessage, {
           type: "upvote",
           issueId: issue,
         });
