@@ -35,7 +35,6 @@ import {
   ExpandMore,
 } from "@mui/icons-material";
 import FilterListIcon from "@mui/icons-material/FilterList";
-import FoundationIcon from "@mui/icons-material/Foundation";
 import { useNavigate } from "react-router-dom";
 import PromotionApplicationForm from "./PromotionApplicationForm";
 import { useUserValue, useUserDispatch } from "../context/UserContext";
@@ -45,6 +44,7 @@ import { useNotification } from "../context/NotificationContext";
 import RecentPosts from "./RecentPosts";
 import getDisplayUsername from "./Details/utils";
 import SearchBar from "./SearchBar";
+import Navbar from "./Navbar";
 
 function HomePage() {
   const currentUser = useUserValue();
@@ -210,14 +210,14 @@ function HomePage() {
     }
   };
 
-  const handleIssuesAroundWard = async () => {
-    try {
-      const issuesWard = await issueService.getIssuesWardWise();
-      setIssues(issuesWard);
-    } catch (err) {
-      setNotification({ message: "Something went wrong.", status: "error" });
-    }
-  };
+  // const handleIssuesAroundWard = async () => {
+  //   try {
+  //     const issuesWard = await issueService.getIssuesWardWise();
+  //     setIssues(issuesWard);
+  //   } catch (err) {
+  //     setNotification({ message: "Something went wrong.", status: "error" });
+  //   }
+  // };
 
   const handleOpenForm = () => {
     navigate("/create");
@@ -255,7 +255,7 @@ function HomePage() {
 
   return (
     <>
-      <AppBar position="fixed">
+      {/* <AppBar position="fixed">
         <Toolbar>
           <Typography
             variant="h6"
@@ -276,13 +276,6 @@ function HomePage() {
           </Box>
 
           <Box sx={{ display: "flex", alignItems: "center", minWidth: 200 }}>
-            <Button
-              color="inherit"
-              startIcon={<Add />}
-              onClick={handleOpenPromotionForm}
-            >
-              Apply for ward officer
-            </Button>
             <Button
               color="inherit"
               startIcon={<Add />}
@@ -408,7 +401,6 @@ function HomePage() {
           )}
         </Menu>
 
-        {/* filter menu */}
         <Menu
           anchorEl={anchorElFilter}
           open={Boolean(anchorElFilter)}
@@ -418,7 +410,17 @@ function HomePage() {
           <MenuItem onClick={() => handleFilterSelection("upvotes")}>Sort by Upvotes</MenuItem>
           <MenuItem onClick={() => handleFilterSelection("comments")}>Sort by Comments</MenuItem>
         </Menu>
-      </AppBar>
+      </AppBar> */}
+      <Menu
+        anchorEl={anchorElFilter}
+        open={Boolean(anchorElFilter)}
+        onClose={handleCloseFilterMenu}
+      >
+        <MenuItem onClick={() => handleFilterSelection("nearby")}>Nearby Issues</MenuItem>
+        <MenuItem onClick={() => handleFilterSelection("upvotes")}>Sort by Upvotes</MenuItem>
+        <MenuItem onClick={() => handleFilterSelection("comments")}>Sort by Comments</MenuItem>
+      </Menu>
+      <Navbar onIssueClick={handleSearchIssueClick} />
 
       <Box sx={{ paddingTop: "5px", display: "flex" }}>
         <Container sx={{ mt: 2 }}>
@@ -645,11 +647,18 @@ function HomePage() {
         onClose={handleCloseUserMenu}
       >
         <MenuItem onClick={handleUserProfile}>Profile</MenuItem>
+        <MenuItem
+          color="inherit"
+          startIcon={<Add />}
+          onClick={handleOpenPromotionForm}
+        >
+          Apply for ward officer
+        </MenuItem>
         {/* <MenuItem onClick={handleCloseUserMenu}>My Reports</MenuItem> */}
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
-        {currentUser.isWardOfficer && (
+        {/* {currentUser.isWardOfficer && (
           <MenuItem onClick={handleIssuesAroundWard}>Issues around you</MenuItem>
-        )}
+        )} */}
       </Menu>
 
       <Dialog
