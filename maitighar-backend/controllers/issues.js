@@ -449,11 +449,14 @@ issueRouter.get("/:id", async (req, res) => {
       return res.status(404).json({ error: "issue not found" });
     }
 
-    const issuesWithSentiment = await analyzeSentiment(issue.id);
-    console.log(issuesWithSentiment);
+    const admin = await Admin.findById(req.user.id);
+    if (admin) {
+      const issuesWithSentiment = await analyzeSentiment(issue.id);
+      console.log(issuesWithSentiment);
 
-    const summarizedText = await summarizeText(issue.id);
-    console.log(summarizedText);
+      const summarizedText = await summarizeText(issue.id);
+      console.log(summarizedText);
+    }
 
     res.status(201).json(issue);
   } catch (error) {
