@@ -117,7 +117,14 @@ function Navbar({ onIssueClick }) {
             onClick={() => navigate("/")}
             sx={{ cursor: "pointer" }}
           >
-            <Foundation sx={{ mr: 1 }} />
+            {/* <Foundation sx={{ mr: 1 }} /> */}
+            <img
+              src="/grs logo white.png"
+              alt="logo"
+              width="32"
+              height="32"
+              style={{ marginRight: 10 }}
+            />
             GRS
           </Box>
         </Typography>
