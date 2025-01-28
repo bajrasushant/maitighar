@@ -798,7 +798,7 @@ issueRouter.put("/:id/upvote", async (req, res) => {
           const notificationMessage = `${upvoter.username} upvoted your issue: "${issue.title}".`;
 
           console.log("Notification message:", notificationMessage);
-          await addNotification(issue.createdBy._id, issue._id, notificationMessage, {
+          await addNotification(issue.createdBy._id, issue.id, notificationMessage, {
             type: "upvote",
             issueId: issue._id,
           });
