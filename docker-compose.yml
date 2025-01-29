@@ -22,6 +22,8 @@ services:
       - PORT=3003
     networks:
       - my-network
+    volumes:
+      - ./maitighar-backend/uploads:/app/uploads
 
   flask-api:
     image: ml-algos 

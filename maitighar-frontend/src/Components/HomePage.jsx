@@ -557,7 +557,7 @@ function HomePage() {
                                               }}
                                             >
                                               <source
-                                                src={`http://localhost:3003/${mediaPath}`}
+                                                src={`https://grs.sushantbajracharya007.com.np/${mediaPath}`}
                                                 type={
                                                   mediaPath.endsWith(".mp4")
                                                     ? "video/mp4"
@@ -573,7 +573,7 @@ function HomePage() {
                                         return (
                                           <img
                                             key={index}
-                                            src={`http://localhost:3003/${mediaPath}`}
+                                            src={`https://grs.sushantbajracharya007.com.np/${mediaPath}`}
                                             alt={`media ${index + 1}`}
                                             style={{
                                               maxWidth: "100%",

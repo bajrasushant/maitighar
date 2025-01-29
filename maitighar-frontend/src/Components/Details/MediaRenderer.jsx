@@ -1,7 +1,8 @@
 import React from "react";
 
 function MediaRenderer({ mediaPath }) {
-  const appUrl = "http://localhost:3003";
+  // const appUrl = "http://localhost:3003";
+  const appUrl = "https://grs.sushantbajracharya007.com.np";
   const isVideo = /\.(mp4|mkv|avi)$/.test(mediaPath);
   const videoTypes = {
     mp4: "video/mp4",

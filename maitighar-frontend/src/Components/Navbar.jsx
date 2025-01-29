@@ -119,7 +119,7 @@ function Navbar({ onIssueClick }) {
           >
             {/* <Foundation sx={{ mr: 1 }} /> */}
             <img
-              src="/grs logo white.png"
+              src="https://grs.sushantbajracharya007.com.np/assets/grs%20logo%20white-CfPqM9Ec.png"
               alt="logo"
               width="32"
               height="32"
