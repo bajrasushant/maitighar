@@ -281,7 +281,7 @@ adminRouter.post("/promotion-review", async (request, response) => {
     } else {
       await PromotionRequest.findByIdAndDelete(id);
     }
-    const notificationMessage = `You have been ${status === "Accepted" ? "promoted" : "demoted"}to wardofficer.`;
+    const notificationMessage = `Your request to become wardofficer has been ${status === "Accepted" ? "approved." : "declined."}`;
     await addNotification(promotionRequest.user, null, notificationMessage, {
       type: "promotion",
     });
