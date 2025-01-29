@@ -42,6 +42,7 @@ const Comment = React.memo(
         if (response.status === 200) {
           const updatedComment = response.data;
           console.log("Approval successful:", updatedComment);
+          window.location.reload();
         } else {
           console.error("Error approving comment:", response.data.error);
         }
