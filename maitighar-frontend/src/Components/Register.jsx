@@ -178,14 +178,14 @@ export default function SignUp() {
             >
               Sign Up
             </Button>
-            <Grid
+            <Typography
               container
               justifyContent="flex-end"
             >
-              <Grid item>
+              <Typography align="center">
                 <Link to="/login">Already have an account? Sign in</Link>
-              </Grid>
-            </Grid>
+              </Typography>
+            </Typography>
           </Box>
         </Box>
         <Copyright sx={{ mt: 5 }} />

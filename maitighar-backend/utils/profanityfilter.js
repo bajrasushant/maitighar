@@ -57,13 +57,7 @@ class NepaliProfanityFilter {
       // Create a regex to match:
       // - Allow extra characters before/after the profane word
       // - Allow spaces between characters
-      const regex = new RegExp(
-        word
-          .split("")
-          .map((char) => `(${char}\\s*)`) // Match each character followed by optional spaces
-          .join("") + ".*?", // Match the profane word followed by any characters
-        "gi",
-      );
+      const regex = new RegExp(`\\b${word}\\b`, "gi");
 
       censoredText = censoredText.replace(regex, (matched) => {
         // Replace the profane word with a censored version

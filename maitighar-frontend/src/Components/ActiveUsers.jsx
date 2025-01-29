@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import {
   Box,
   Typography,
-  Button,
   Table,
   TableBody,
   TableCell,
@@ -10,11 +9,12 @@ import {
   TableHead,
   TableRow,
   Paper,
-  Dialog,
-  DialogTitle,
-  DialogActions,
+  Chip,
+  CircularProgress,
+  Alert,
 } from "@mui/material";
 import { activeUsers, loggedInAdmin } from "../services/admin";
+import ScoreIcon from "@mui/icons-material/EmojiEvents";
 
 function ActiveUsers() {
   const [activeUsersInProvince, setActiveUsersInProvince] = useState([]);
@@ -42,68 +42,75 @@ function ActiveUsers() {
   }, []);
 
   return (
-    <Box>
+    <Box sx={{ p: 3 }}>
       <Typography
-        variant="h5"
-        sx={{ mb: 2 }}
+        variant="h4"
+        gutterBottom
+        sx={{
+          mb: 4,
+          fontWeight: "bold",
+          display: "flex",
+          alignItems: "center",
+          gap: 1,
+        }}
       >
         Most Active Users
       </Typography>
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
+
+      <TableContainer
+        component={Paper}
+        elevation={3}
+        sx={{ borderRadius: 2 }}
+      >
+        <Table sx={{ minWidth: 650 }}>
+          <TableHead sx={{ bgcolor: "background.paper" }}>
             <TableRow>
-              <TableCell>Username</TableCell>
-              <TableCell>Email</TableCell>
-              <TableCell>Activity Score</TableCell>
-              {/* <TableCell>Actions</TableCell> */}
+              <TableCell sx={{ fontWeight: "bold", fontSize: "1rem" }}>Username</TableCell>
+              <TableCell sx={{ fontWeight: "bold", fontSize: "1rem" }}>Email</TableCell>
+              <TableCell sx={{ fontWeight: "bold", fontSize: "1rem" }}>Activity Score</TableCell>
             </TableRow>
           </TableHead>
+
           <TableBody>
-            {activeUsersInProvince && activeUsersInProvince.length > 0 ? (
-              activeUsersInProvince?.map((user) => (
-                <TableRow key={user._id}>
-                  <TableCell>{user.username}</TableCell>
+            {activeUsersInProvince?.length > 0 ? (
+              activeUsersInProvince.map((user) => (
+                <TableRow
+                  key={user._id}
+                  hover
+                  sx={{ "&:last-child td": { border: 0 } }}
+                >
+                  <TableCell sx={{ fontWeight: 500 }}>{user.username}</TableCell>
                   <TableCell>{user.email}</TableCell>
-                  <TableCell>{user.activityScore}</TableCell>
-                  {/* <TableCell> */}
-                  {/*   <Button */}
-                  {/*     variant="contained" */}
-                  {/*     color="primary" */}
-                  {/*     onClick={() => { */}
-                  {/*       setSelectedUser(user); */}
-                  {/*       setOpen(true); */}
-                  {/*     }} */}
-                  {/*   > */}
-                  {/*     Promote to Ward Officer */}
-                  {/*   </Button> */}
-                  {/* </TableCell> */}
+                  <TableCell>
+                    <Chip
+                      icon={<ScoreIcon />}
+                      label={user.activityScore}
+                      color="primary"
+                      variant="outlined"
+                      sx={{ fontWeight: 600 }}
+                    />
+                  </TableCell>
                 </TableRow>
               ))
             ) : (
               <TableRow>
                 <TableCell
-                  colSpan={4}
+                  colSpan={3}
                   align="center"
+                  sx={{ py: 4 }}
                 >
-                  No active users found
+                  <Typography
+                    variant="body1"
+                    color="text.secondary"
+                  >
+                    No active users found
+                  </Typography>
                 </TableCell>
               </TableRow>
             )}
           </TableBody>
         </Table>
       </TableContainer>
-      <Dialog
-        open={open}
-        onClose={() => setOpen(false)}
-      >
-        <DialogTitle>
-          Promote {selectedUser ? selectedUser.username : ""} to Ward Officer?
-        </DialogTitle>
-        <DialogActions>
-          <Button onClick={() => setOpen(false)}>Cancel</Button>
-        </DialogActions>
-      </Dialog>
     </Box>
   );
 }
