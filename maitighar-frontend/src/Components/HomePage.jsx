@@ -40,6 +40,7 @@ import {
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { useNavigate } from "react-router-dom";
 import PromotionApplicationForm from "./PromotionApplicationForm";
+import FeaturedIssue from "./FeaturedIssue";
 import { useUserValue, useUserDispatch } from "../context/UserContext";
 import issueService from "../services/issues";
 import notificationService from "../services/notification";
@@ -58,6 +59,7 @@ function HomePage() {
   const [anchorElUser, setAnchorElUser] = useState(null);
 
   const [issues, setIssues] = useState([]);
+  const [recentIssues, setRecentIssue] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -123,6 +125,16 @@ function HomePage() {
       try {
         const fetchedIssues = await issueService.getAll();
         setIssues(fetchedIssues);
+        const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000);
+        const justNow = fetchedIssues
+          .filter(
+            (issue) => issue.createdBy === currentUser.id && new Date(issue.createdAt) > oneHourAgo,
+          )
+          .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))[0];
+        if (justNow) {
+          setRecentIssue(justNow);
+        }
+
         setNotification({ message: "Fetched issues.", status: "success" });
         setLoading(false);
       } catch (err) {
@@ -174,6 +186,10 @@ function HomePage() {
       setIssues([...issues].sort((a, b) => b.upvotes - a.upvotes));
     } else if (type === "comments") {
       setIssues([...issues].sort((a, b) => b.comments.length - a.comments.length));
+    } else if (type === "newest") {
+      setIssues([...issues].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
+    } else if (type === "oldest") {
+      setIssues([...issues].sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt)));
     }
   };
   const handleUpvote = async (id) => {
@@ -422,6 +438,8 @@ function HomePage() {
         <MenuItem onClick={() => handleFilterSelection("nearby")}>Nearby Issues</MenuItem>
         <MenuItem onClick={() => handleFilterSelection("upvotes")}>Sort by Upvotes</MenuItem>
         <MenuItem onClick={() => handleFilterSelection("comments")}>Sort by Comments</MenuItem>
+        <MenuItem onClick={() => handleFilterSelection("newest")}>Sort by Newest</MenuItem>
+        <MenuItem onClick={() => handleFilterSelection("oldest")}>Sort by Oldest</MenuItem>
       </Menu>
       <Navbar onIssueClick={handleSearchIssueClick} />
 
@@ -453,6 +471,15 @@ function HomePage() {
                   </Button>
                   <Card>
                     <CardContent sx={{ pt: 0, pb: 0 }}>
+                      {recentIssues != null && (
+                        <FeaturedIssue
+                          issue={recentIssues}
+                          currentUser={currentUser}
+                          handleUpvote={handleUpvote}
+                          getDisplayUsername={getDisplayUsername}
+                          getTimeAgo={getTimeAgo}
+                        />
+                      )}
                       <List sx={{ p: 0 }}>
                         {issues.map((issue) => (
                           <ListItem
