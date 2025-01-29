@@ -46,14 +46,13 @@ function SentimentGauge() {
   const [isLoading, setIsLoading] = useState(true);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-
   useEffect(() => {
     const fetchSentimentData = async () => {
       try {
         setIsLoading(true);
         const issues = await issueService.getAll();
         let totalScore = 0;
-        let sentimentCounts = { negative: 0, neutral: 0, positive: 0 };
+        const sentimentCounts = { negative: 0, neutral: 0, positive: 0 };
 
         issues.forEach((issue) => {
           totalScore += issue.sentimentScore;
@@ -79,9 +78,9 @@ function SentimentGauge() {
   }, []);
 
   const getSentimentCategory = (score) => {
-    if (score < 33) return { text: "Negative", color: "#ef5350" };
-    if (score < 66) return { text: "Neutral", color: "#ffb74d" };
-    return { text: "Positive", color: "#66bb6a" };
+    if (score < 33) return { emoji: "😠", text: "Negative", color: "#ef5350" };
+    if (score < 66) return { emoji: "😐", text: "Neutral", color: "#ffb74d" };
+    return { emoji: "😊", text: "Positive", color: "#66bb6a" };
   };
 
   const arcSegments = [
@@ -111,10 +110,10 @@ function SentimentGauge() {
       }}
     >
       <GaugeContainer
-        width={isMobile ? 250 : 300}
-        height={isMobile ? 150 : 200}
-        startAngle={-150}
-        endAngle={150}
+        width={isMobile ? 200 : 250}
+        height={isMobile ? 120 : 150}
+        startAngle={-90}
+        endAngle={90}
         value={sentimentData.averageScore}
       >
         {arcSegments.map((segment, index) => (
@@ -129,10 +128,18 @@ function SentimentGauge() {
         <GaugePointer />
       </GaugeContainer>
 
-      <Box sx={{ mt: 2, textAlign: "center" }}>
+      <Box sx={{ mt: 1, textAlign: "center" }}>
         <Typography
-          variant="h5"
+          variant="h3"
           color={sentiment.color}
+          sx={{ mb: 0.5 }}
+        >
+          {sentiment.emoji}
+        </Typography>
+        <Typography
+          variant="subtitle1"
+          color={sentiment.color}
+          sx={{ fontWeight: "bold" }}
         >
           {sentiment.text}
         </Typography>
@@ -140,21 +147,63 @@ function SentimentGauge() {
           variant="body2"
           color="text.secondary"
         >
-          Average Score: {sentimentData.averageScore.toFixed(1)}%
+          Average: {sentimentData.averageScore.toFixed(1)}%
         </Typography>
       </Box>
 
-      <Box sx={{ mt: 2, width: "100%" }}>
-        <Typography
-          variant="subtitle2"
-          gutterBottom
+      <Box sx={{ mt: 1, width: "100%", maxWidth: 300 }}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            gap: 1,
+            p: 1,
+            bgcolor: "background.default",
+            borderRadius: 2,
+          }}
         >
-          Distribution ({sentimentData.totalIssues} total issues):
-        </Typography>
-        <Box sx={{ display: "flex", justifyContent: "space-between", px: 2 }}>
-          <Typography color="#ef5350">Negative: {sentimentData.distribution.negative}</Typography>
-          <Typography color="#ffb74d">Neutral: {sentimentData.distribution.neutral}</Typography>
-          <Typography color="#66bb6a">Positive: {sentimentData.distribution.positive}</Typography>
+          <Box sx={{ textAlign: "center" }}>
+            <Typography
+              variant="h5"
+              color="#ef5350"
+            >
+              😡
+            </Typography>
+            <Typography
+              variant="body2"
+              color="#ef5350"
+            >
+              {sentimentData.distribution.negative}
+            </Typography>
+          </Box>
+          <Box sx={{ textAlign: "center" }}>
+            <Typography
+              variant="h5"
+              color="#ffb74d"
+            >
+              😐
+            </Typography>
+            <Typography
+              variant="body2"
+              color="#ffb74d"
+            >
+              {sentimentData.distribution.neutral}
+            </Typography>
+          </Box>
+          <Box sx={{ textAlign: "center" }}>
+            <Typography
+              variant="h5"
+              color="#66bb6a"
+            >
+              😊
+            </Typography>
+            <Typography
+              variant="body2"
+              color="#66bb6a"
+            >
+              {sentimentData.distribution.positive}
+            </Typography>
+          </Box>
         </Box>
       </Box>
     </Box>
