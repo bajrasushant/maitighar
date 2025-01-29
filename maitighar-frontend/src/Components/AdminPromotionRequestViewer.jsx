@@ -11,10 +11,20 @@ import {
   CircularProgress,
   Alert,
   TableSortLabel,
+  Chip,
+  Box,
 } from "@mui/material";
 import axios from "axios";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import ScoreIcon from "@mui/icons-material/EmojiEvents";
 import helpers from "../helpers/helpers";
 import PromotionRequestReviewForm from "./PromotionRequestReviewForm";
+
+const statusColors = {
+  pending: "warning",
+  approved: "success",
+  rejected: "error",
+};
 
 function AdminRequestViewer() {
   const [requests, setRequests] = useState([]);
@@ -60,80 +70,122 @@ function AdminRequestViewer() {
   });
 
   return (
-    <Paper
-      sx={{
-        maxWidth: 800,
-        mx: "auto",
-        my: 4,
-        p: 2,
-      }}
-    >
+    <Box sx={{ p: 3 }}>
       <Typography
-        variant="h5"
+        variant="h4"
         align="center"
         gutterBottom
+        sx={{
+          mb: 4,
+          fontWeight: "bold",
+          display: "flex",
+          gap: 1,
+        }}
       >
         Promotion Requests
       </Typography>
-      {loading && <CircularProgress />}
-      {error && <Alert severity="error">{error}</Alert>}
-      {!loading && requests.length === 0 && (
-        <Typography>No promotion requests available.</Typography>
+
+      {loading && (
+        <Box sx={{ display: "flex", justifyContent: "center", py: 4 }}>
+          <CircularProgress size={60} />
+        </Box>
       )}
-      {selectedRequest ? (
+
+      {error && (
+        <Alert
+          severity="error"
+          sx={{ mb: 2 }}
+        >
+          {error}
+        </Alert>
+      )}
+
+      {!loading && !selectedRequest && (
+        <TableContainer
+          component={Paper}
+          elevation={2}
+          sx={{ borderRadius: 2 }}
+        >
+          <Table>
+            <TableHead sx={{ bgcolor: "background.paper" }}>
+              <TableRow>
+                {["User", "Requested Role", "Reason", "Activity Score", "Status"].map((header) => (
+                  <TableCell
+                    key={header}
+                    sx={{ fontWeight: "bold", fontSize: "1rem" }}
+                  >
+                    {header === "Activity Score" || header === "User" ? (
+                      <TableSortLabel
+                        active={sortField === header.toLowerCase().replace(" ", "")}
+                        direction={sortOrder}
+                        onClick={() => handleSort(header.toLowerCase().replace(" ", ""))}
+                      >
+                        {header}
+                      </TableSortLabel>
+                    ) : (
+                      header
+                    )}
+                  </TableCell>
+                ))}
+              </TableRow>
+            </TableHead>
+
+            <TableBody>
+              {sortedRequests.map((req) => (
+                <TableRow
+                  key={req._id}
+                  hover
+                  onClick={() => handleRequestClick(req)}
+                  sx={{ cursor: "pointer", "&:last-child td": { border: 0 } }}
+                >
+                  <TableCell sx={{ fontWeight: 500 }}>{req.user.username}</TableCell>
+                  <TableCell>{req.requestedRole}</TableCell>
+                  <TableCell sx={{ maxWidth: 300 }}>{req.reason}</TableCell>
+                  <TableCell>
+                    {/* <Chip
+                      label={req.userStats.activityScore}
+                      color="primary"
+                      variant="outlined"
+                    /> */}
+                    <Chip
+                      icon={<ScoreIcon />}
+                      label={req.userStats.activityScore}
+                      color="primary"
+                      variant="outlined"
+                      sx={{ fontWeight: 600 }}
+                    />
+                  </TableCell>
+                  <TableCell>
+                    <Chip
+                      label={req.status}
+                      color={statusColors[req.status.toLowerCase()]}
+                      icon={req.status === "approved" ? <CheckCircleOutlineIcon /> : null}
+                    />
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      )}
+
+      {!loading && requests.length === 0 && (
+        <Typography
+          align="center"
+          sx={{ py: 4 }}
+          color="text.secondary"
+        >
+          No promotion requests available
+        </Typography>
+      )}
+
+      {selectedRequest && (
         <PromotionRequestReviewForm
           requestId={selectedRequest._id}
           onReviewed={() => setSelectedRequest(null)}
         />
-      ) : (
-        sortedRequests.length > 0 && (
-          <TableContainer>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>
-                    <TableSortLabel
-                      active={sortField === "username"}
-                      direction={sortOrder}
-                      onClick={() => handleSort("username")}
-                    >
-                      User
-                    </TableSortLabel>
-                  </TableCell>
-                  <TableCell>Requested Role</TableCell>
-                  <TableCell>Reason</TableCell>
-                  <TableCell>
-                    <TableSortLabel
-                      active={sortField === "activityScore"}
-                      direction={sortOrder}
-                      onClick={() => handleSort("activityScore")}
-                    >
-                      Activity Score
-                    </TableSortLabel>
-                  </TableCell>
-                  <TableCell>Status</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {sortedRequests.map((req) => (
-                  <TableRow
-                    key={req._id}
-                    onClick={() => handleRequestClick(req)}
-                    sx={{ cursor: "pointer" }}
-                  >
-                    <TableCell>{req.user.username}</TableCell>
-                    <TableCell>{req.requestedRole}</TableCell>
-                    <TableCell>{req.reason}</TableCell>
-                    <TableCell>{req.userStats.activityScore}</TableCell>
-                    <TableCell>{req.status}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        )
       )}
-    </Paper>
+    </Box>
   );
 }
 
