@@ -7,3 +7,5 @@ joblib
 virtualenv
 nltk
 rouge
+matplotlib
+seaborn

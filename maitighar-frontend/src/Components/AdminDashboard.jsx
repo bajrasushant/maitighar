@@ -19,12 +19,6 @@ function AdminDashboard() {
   };
 
   const navItems = [
-    {
-      label: "Active Users",
-      path: "/admin-dashboard/active-users",
-      tabKey: "activeUsers",
-      notVisible: "department",
-    },
     { label: "Dashboard", path: "/admin-dashboard", tabKey: "dashboard", notVisible: null },
     { label: "Issues", path: "/admin-dashboard/issues-list", tabKey: "issues", notVisible: null },
     {
@@ -32,6 +26,12 @@ function AdminDashboard() {
       path: "/admin-dashboard/suggestion-list",
       tabKey: "suggestions",
       notVisible: null,
+    },
+    {
+      label: "Active Users",
+      path: "/admin-dashboard/active-users",
+      tabKey: "activeUsers",
+      notVisible: "department",
     },
     {
       label: "WardOfficer Request",
@@ -50,9 +50,16 @@ function AdminDashboard() {
   console.log(filteredNavItems);
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+    <>
+      <AppBar position="fixed">
         <Toolbar>
+          <img
+            src="/grs logo white.png"
+            alt="logo"
+            width="32"
+            height="32"
+            style={{ marginRight: 10 }}
+          />
           <Typography
             variant="h6"
             component="div"
@@ -86,7 +93,7 @@ function AdminDashboard() {
       </AppBar>
       <Container
         maxWidth="xl"
-        sx={{ mt: 4, mb: 4 }}
+        sx={{ mt: 10, mb: 4 }}
       >
         {activeTab === "dashboard" && (
           <Grid
@@ -221,7 +228,7 @@ function AdminDashboard() {
         )}
         <Outlet />
       </Container>
-    </Box>
+    </>
   );
 }
 
