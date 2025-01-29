@@ -6,6 +6,7 @@ const WardOfficer = require("../models/wardOfficer");
 const User = require("../models/user");
 const Issue = require("../models/issue");
 const mongoose = require("mongoose");
+const { addNotification } = require("../utils/notification");
 
 //Get all admins
 adminRouter.get("/", async (request, response) => {
@@ -277,7 +278,13 @@ adminRouter.post("/promotion-review", async (request, response) => {
       await wardOfficer.save();
       await promotionRequest.save();
       await user.save();
+    } else {
+      await PromotionRequest.findByIdAndDelete(id);
     }
+    const notificationMessage = `Your request to become wardofficer has been ${status === "Accepted" ? "approved." : "declined."}`;
+    await addNotification(promotionRequest.user, null, notificationMessage, {
+      type: "promotion",
+    });
     response.status(200).json({ message: `Request ${status.toLowerCase()} successfully.` });
   } catch (error) {
     console.error("Error reviewing promotion request:", error);
