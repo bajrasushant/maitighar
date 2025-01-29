@@ -40,7 +40,7 @@ import {
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { useNavigate } from "react-router-dom";
 import PromotionApplicationForm from "./PromotionApplicationForm";
-import FeaturedIssue from "./FeaturedIssue";
+// import FeaturedIssue from "./FeaturedIssue";
 import { useUserValue, useUserDispatch } from "../context/UserContext";
 import issueService from "../services/issues";
 import notificationService from "../services/notification";
@@ -59,7 +59,7 @@ function HomePage() {
   const [anchorElUser, setAnchorElUser] = useState(null);
 
   const [issues, setIssues] = useState([]);
-  const [recentIssues, setRecentIssue] = useState(null);
+  // const [recentIssues, setRecentIssue] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -125,15 +125,17 @@ function HomePage() {
       try {
         const fetchedIssues = await issueService.getAll();
         setIssues(fetchedIssues);
-        const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000);
-        const justNow = fetchedIssues
-          .filter(
-            (issue) => issue.createdBy === currentUser.id && new Date(issue.createdAt) > oneHourAgo,
-          )
-          .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))[0];
-        if (justNow) {
-          setRecentIssue(justNow);
-        }
+        // const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000);
+        // const justNow = fetchedIssues
+        //   .filter(
+        //     (issue) =>
+        //       issue.createdBy.id === currentUser.id && new Date(issue.createdAt) > oneHourAgo,
+        //   )
+        //   .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))[0];
+        // if (justNow) {
+        //   console.log(justNow);
+        //   setRecentIssue(justNow);
+        // }
 
         setNotification({ message: "Fetched issues.", status: "success" });
         setLoading(false);
@@ -471,15 +473,15 @@ function HomePage() {
                   </Button>
                   <Card>
                     <CardContent sx={{ pt: 0, pb: 0 }}>
-                      {recentIssues != null && (
-                        <FeaturedIssue
-                          issue={recentIssues}
-                          currentUser={currentUser}
-                          handleUpvote={handleUpvote}
-                          getDisplayUsername={getDisplayUsername}
-                          getTimeAgo={getTimeAgo}
-                        />
-                      )}
+                      {/* {recentIssues != null && ( */}
+                      {/*   <FeaturedIssue */}
+                      {/*     issue={recentIssues} */}
+                      {/*     currentUser={currentUser} */}
+                      {/*     handleUpvote={handleUpvote} */}
+                      {/*     getDisplayUsername={getDisplayUsername} */}
+                      {/*     getTimeAgo={getTimeAgo} */}
+                      {/*   /> */}
+                      {/* )} */}
                       <List sx={{ p: 0 }}>
                         {issues.map((issue) => (
                           <ListItem
