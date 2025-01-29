@@ -411,19 +411,19 @@ export default function AdminRegister() {
             >
               Sign Up
             </Button>
-            <Grid
+            <Typography
               container
               justifyContent="flex-end"
             >
-              <Grid item>
+              <Typography align="center">
                 <Link
                   to="/admin-login"
                   variant="body2"
                 >
                   Already have an account? Sign in
                 </Link>
-              </Grid>
-            </Grid>
+              </Typography>
+            </Typography>
           </Box>
         </Box>
       </Container>
